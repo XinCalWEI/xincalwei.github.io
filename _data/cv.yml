@@ -2,96 +2,116 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
+      value: Xin Wei
+    - name: Email
+      value: xincwei@umich.edu
+    - name: Phone
+      value: +1 (217) 560-4967
+    - name: Address
+      value: 3520 Green Court, Ann Arbor, MI 48105
     - name: Languages
-      value: English, German
+      value: Mandarin (Native speaker), English (Fluent), French (Basic proficiency)
+
+- title: Summary
+  type: list
+  contents:
+    - Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship
+    - 8+ Years of Experience in Geohazard Susceptibility & Risk Assessment and in ML/AI Applications
+    - 500+ Google Scholar Citations
+    - National Scholarship (P.R. China)
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: Visiting Ph.D. Student in Structural Engineering
+      institution: University of Illinois Urbana-Champaign
+      year: 2021 - 2024
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+        - Advisor Prof. Paolo Gardoni
+    - title: Ph.D. in Geotechnical Engineering
+      institution: Shanghai Jiao Tong University
+      year: 2017 - 2024
       description:
-        - Description 1.
-        - Description 2.
-
-- title: Experience
-  type: time_table
-  contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+        - Advisor Prof. Lulu Zhang
+    - title: B.S. in Civil Engineering
+      institution: Southwest Petroleum University
+      year: 2013 - 2017
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
-      description:
-        - Description 1.
-        - Description 2.
+        - GPA ranking 1/186 (every semester)
 
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
-      description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items:
-        - Nobel Prize in Physics
-        - Matteucci Medal
-    - year: 2029
-      items:
-        - Max Planck Medal
-
-- title: Academic Interests
+- title: Academic Service
   type: nested_list
   contents:
-    - title: Topic 1.
+    - title: Conference Session Convener
       items:
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
+        - "AGU Fall Meeting 2025: Primary Convener, Session NH035 - <i>Toward Reliable and Scalable Geohazard Intelligence: From Multi-Scale Sensing to Open Data Foundations</i>"
+        - "3FOMLIG: Co-Convener, Session PS10 - <i>AI-based Risk and Resilience Analysis for Underground Engineering</i>"
+    - title: Journal Reviewer
       items:
-        - Description 1.
-        - Description 2.
+        - <i>Acta Geotechnica</i>
+        - <i>Bulletin of Engineering Geology and the Environment</i>
+        - <i>Reliability Engineering & System Safety</i>
+        - <i>Engineering Geology</i>
+        - <i>Rock Mechanics Bulletin</i>
+        - "<i>Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards</i>"
 
-- title: Other Interests
+- title: Postdoctoral Experience
+  type: time_table
+  contents:
+    - title: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
+      institution: University of Michigan
+      year: 2024 - present
+      description:
+        - "Science Mentors: Prof. Sabine Loos, Prof. F. Estéfan T. Garcia"
+        - "AI Mentor: Prof. Elizabeth Bondi-Kelly"
+
+- title: Awards
+  type: time_table
+  contents:
+    - year: 2024
+      items:
+        - CEE Community Engagement and Empowerment (CEE^2) Fellow, University of Michigan
+    - year: 2021
+      items:
+        - Huangjinzhi Civil Engineering Scholarship, Shanghai Jiao Tong University
+    - year: 2017
+      items:
+        - Outstanding Graduates of Sichuan Province, People's Government of Sichuan Province
+    - year: 2016
+      items:
+        - Chevron Scholarship, Chevron China
+    - year: 2015
+      items:
+        - National Scholarship (Highest Honor for Undergraduates in China), Ministry of Education
+
+- title: Professional Memberships
+  type: time_table
+  contents:
+    - year: 2024 - present
+      items:
+        - Early Career Member, Future of Machine Learning in Geotechnics Council
+    - year: 2024 - present
+      items:
+        - Member, American Geophysical Union (AGU)
+
+- title: Research Interests
   type: list
   contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+    - Susceptibility, Vulnerability, and Risk Assessment of Geohazards Leveraging Interdisciplinary Approaches
+    - Loss and Damage Analysis of Natural Hazards
+    - Innovation and Application of AI and Data Science in Geotechnical Engineering
+    - Resilient and Intelligent Infrastructure Systems
+
+- title: References
+  type: map
+  contents:
+    - name: Prof. Paolo Gardoni
+      value: "Alfredo H. Ang Family Professor<br>Department of Civil and Environmental Engineering<br>University of Illinois at Urbana-Champaign<br>Phone: 217-333-5103<br>Email: gardoni@illinois.edu<br><i>Visiting Scholar Advisor</i>"
+    - name: Prof. Lulu Zhang
+      value: "Distinguished Professor<br>State Key Laboratory of Ocean Engineering<br>Department of Civil Engineering<br>Shanghai Jiao Tong University<br>Phone: 86-21-34204833<br>Email: lulu_zhang@sjtu.edu.cn<br><i>Ph.D. Advisor</i>"
+    - name: Prof. Sabine Loos
+      value: "Department of Civil and Environmental Engineering<br>University of Michigan<br>Email: sloos@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"
+    - name: Prof. Elizabeth Bondi-Kelly
+      value: "Department of Electrical Engineering and Computer Science<br>University of Michigan<br>Phone: 734-764-3381<br>Email: ecbk@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"
+    - name: Prof. F. Estéfan T. Garcia
+      value: "Department of Civil and Environmental Engineering<br>University of Michigan<br>Phone: 734-764-0057<br>Email: fegarcia@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"

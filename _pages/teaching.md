@@ -1,12 +1,19 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+title: Teaching
+description: I have served as a guest lecturer, teaching assistant, and faculty member for the following courses.
 nav: true
 nav_order: 6
 ---
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+- **AI for Scientists and Engineers Summer Academy 2025**, University of Michigan
+  [Program Details](https://midas.umich.edu/events/ai-for-scientists-and-engineers-summer-academy-2025/)
 
-Organize your courses by years, topics, or universities, however you like!
+- **Statistical Methods for Data Analysis and Uncertainty Modeling**, University of Michigan
+
+- **Reliability Analysis**, University of Illinois Urbana-Champaign
+
+- **Decision and Risk Analysis**, University of Illinois Urbana-Champaign
+
+- **Soil Mechanics and Foundation Engineering**, Shanghai Jiao Tong University
