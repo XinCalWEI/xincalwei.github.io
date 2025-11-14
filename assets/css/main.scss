@@ -23,3 +23,38 @@ $max-content-width: {{ site.max_width }};
   "tabler-icons/tabler-icons-filled.scss",
   "tabler-icons/tabler-icons-outline.scss"
 ;
+
+// Custom styles for about page subtitle
+.post-header .desc {
+  font-size: 1.25rem;
+  color: rgb(0, 46, 94);
+  font-weight: 500;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+// Dark mode color for subtitle
+html[data-theme='dark'] .post-header .desc {
+  color: rgb(255, 207, 1);
+}
+
+// Align profile image with top of name
+.post .profile.float-right {
+  margin-top: -8rem;
+}
+
+.post .profile.float-left {
+  margin-top: -8rem;
+}
+
+@media (max-width: 576px) {
+  .post .profile.float-right,
+  .post .profile.float-left {
+    margin-top: 0;
+  }
+}
+
+// Presentation badge color (for conference/presentation entries)
+.presentation-badge {
+  background-color: rgb(49, 138, 11) !important;
+}

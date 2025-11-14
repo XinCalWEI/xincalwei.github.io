@@ -4,13 +4,18 @@
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
       {%- if entry.abbr -%}
+        {%- assign is_presentation = false -%}
+        {%- assign presentation_types = 'inproceedings,incollection' | split: ',' -%}
+        {%- if presentation_types contains entry.type -%}
+          {%- assign is_presentation = true -%}
+        {%- endif -%}
         {%- if site.data.venues[entry.abbr] -%}
           {% assign venue_style = null %}
           {% if site.data.venues[entry.abbr].color != blank %}
             {% assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' %}
           {%- endif -%}
           <abbr
-            class="badge rounded w-100"
+            class="badge rounded w-100{% if is_presentation %} presentation-badge{% endif %}"
             {% if venue_style %}
               {{ venue_style }}
             {% endif -%}
@@ -22,7 +27,7 @@
             {% endif %}
           </abbr>
         {% else %}
-          <abbr class="badge rounded w-100">{{ entry.abbr }}</abbr>
+          <abbr class="badge rounded w-100{% if is_presentation %} presentation-badge{% endif %}">{{ entry.abbr }}</abbr>
         {% endif %}
       {% endif %}
       {% if entry.preview %}

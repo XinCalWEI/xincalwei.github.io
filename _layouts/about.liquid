@@ -5,8 +5,8 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">
       {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
+        {{ site.first_name }} {{ site.middle_name }}
+        <span class="font-weight-bold">{{ site.last_name }}</span>
       {% else %}
         {{ site.title }}
       {% endif %}
@@ -43,7 +43,8 @@ layout: default
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+        <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
+        <img src="{{ '/assets/img/newspaper.png' | relative_url }}" alt="News" style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;">
       </h2>
       {% include news.liquid limit=true %}
     {% endif %}
@@ -51,7 +52,8 @@ layout: default
     <!-- Latest posts -->
     {% if page.latest_posts and page.latest_posts.enabled %}
       <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">Latest Posts</a>
+        <img src="{{ '/assets/img/megaphone.png' | relative_url }}" alt="Latest Posts" style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;">
       </h2>
       {% include latest_posts.liquid %}
     {% endif %}
@@ -59,7 +61,8 @@ layout: default
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications/Presentations</a>
+        <img src="{{ '/assets/img/team.png' | relative_url }}" alt="Selected Publications/Presentations" style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;">
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
