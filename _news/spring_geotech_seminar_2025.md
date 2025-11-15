@@ -27,3 +27,12 @@ Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at
         {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_2.jpeg" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_3.jpeg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
