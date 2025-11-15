@@ -38,6 +38,16 @@ html[data-theme='dark'] .post-header .desc {
   color: rgb(255, 207, 1);
 }
 
+// Custom styles for project sub-area headings
+.sub-area {
+  color: rgb(0, 46, 94);
+}
+
+// Dark mode color for sub-area headings
+html[data-theme='dark'] .sub-area {
+  color: rgb(255, 207, 1);
+}
+
 // Align profile image with top of name
 .post .profile.float-right {
   margin-top: -8rem;
