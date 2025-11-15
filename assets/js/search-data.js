@@ -455,6 +455,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
+            },},{id: "news-emi-pmc-2024",
+          title: 'EMI/PMC 2024',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/emipmc_2024/";
             },},{id: "news-agu-fall-meeting-2024",
           title: 'AGU Fall Meeting 2024',
           description: "",
@@ -534,14 +539,7 @@ ninja.data = [{
         title: 'LinkedIn',
         section: 'Socials',
         handler: () => {
-          window.open("https://www.linkedin.com/in/xin-wei-94b842127", "_blank");
-        },
-      },{
-        id: 'social-rss',
-        title: 'RSS Feed',
-        section: 'Socials',
-        handler: () => {
-          window.open("/feed.xml", "_blank");
+          window.open("https://www.linkedin.com/in/xin-wei-calvin", "_blank");
         },
       },{
         id: 'social-scholar',
