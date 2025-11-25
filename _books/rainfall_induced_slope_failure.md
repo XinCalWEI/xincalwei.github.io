@@ -7,7 +7,7 @@ categories: geotechnical engineering hydrology slope-stability probabilistic-ass
 tags: research
 buy_link: https://www.taylorfrancis.com/books/mono/10.1201/b20116/rainfall-induced-soil-slope-failure-lulu-zhang-jinhui-li-xu-li-jie-zhang-hong-zhu
 released: 2016
-status: Reference
+status: Recommended Textbooks
 ---
 
 Rainfall-induced landslides occur worldwide. With global climate change, their frequency is rising and their consequences are becoming increasingly severe. Existing studies often approach this issue from a single perspective—correlating landslides with rainfall patterns, geomorphology, or hydrology to establish threshold-based predictions; conducting slope stability analyses using geomechanical approaches; or assessing risks using field records.

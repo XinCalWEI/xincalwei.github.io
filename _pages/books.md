@@ -6,8 +6,6 @@ nav: false
 collection: books
 ---
 
-> What an astonishing thing a book is. It's a flat object made from a tree with flexible parts on which are imprinted lots of funny dark squiggles. But one glance at it and you're inside the mind of another person, maybe somebody dead for thousands of years. Across the millennia, an author is speaking clearly and silently inside your head, directly to you. Writing is perhaps the greatest of human inventions, binding together people who never knew each other, citizens of distant epochs. Books break the shackles of time. A book is proof that humans are capable of working magic.
+> It is impossible to enjoy idling thoroughly unless one has plenty of work to do. There is no fun in doing nothing when you have nothing to do. Wasting time is merely an occupation then, and a most exhausting one. Idleness, like kisses, to be sweet must be stolen.
 >
-> -- Carl Sagan, Cosmos, Part 11: The Persistence of Memory (1980)
-
-## Books that I am reading, have read, or will read
+> -- Jerome K. Jerome, Idle Thoughts of an Idle Fellow (Essay: "On Being Idle"), 1886
