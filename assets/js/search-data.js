@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-community-curated-open-access-landslide-platform",
+            },{id: "post-knowledge-guided-machine-learning-kgml",
+        
+          title: "Knowledge-Guided Machine Learning (KGML)",
+        
+        description: "An introduction to knowledge-guided machine learning approaches",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/knowledge-guided-machine-learning/";
+          
+        },
+      },{id: "post-community-curated-open-access-landslide-platform",
         
           title: "Community-Curated, Open-Access Landslide Platform",
         
@@ -88,6 +99,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2025/landslide-platform/";
+          
+        },
+      },{id: "post-git-from-beginner-to-advanced",
+        
+          title: "Git: From Beginner to Advanced",
+        
+        description: "Essential resources for learning Git from basics to advanced concepts",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/git-beginner-to-advanced/";
           
         },
       },{id: "post-key-elements-for-improving-pixel-based-landslide-susceptibility-mapping",
@@ -99,6 +121,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2024/key-elements-landslide-susceptibility/";
+          
+        },
+      },{id: "post-common-terminal-shortcuts",
+        
+          title: "Common Terminal Shortcuts",
+        
+        description: "A clean, card-style cheatsheet for frequently used command line interface shortcuts",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/terminal-shortcuts/";
           
         },
       },{id: "books-probability-concepts-in-engineering-emphasis-on-applications-to-civil-and-environmental-engineering-2nd-edition",
