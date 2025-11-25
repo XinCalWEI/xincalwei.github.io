@@ -59,7 +59,9 @@
       {% assign author_array_size = entry.author_array | size %}
 
       {% assign author_array_limit = author_array_size %}
-      {% if site.max_author_limit and author_array_size > site.max_author_limit %}
+      {% if entry.show_all_authors %}
+        {% assign author_array_limit = author_array_size %}
+      {% elsif site.max_author_limit and author_array_size > site.max_author_limit %}
         {% assign author_array_limit = site.max_author_limit %}
       {% endif %}
 
@@ -323,8 +325,8 @@
               role="button"
             >
               <img
-                src="https://img.shields.io/badge/scholar-{% google_scholar_citations site.data.socials.scholar_userid entry.google_scholar_id %}-4285F4?logo=googlescholar&labelColor=beige"
-                alt="{% google_scholar_citations site.data.socials.scholar_userid entry.google_scholar_id %} Google Scholar citations"
+                src="https://img.shields.io/badge/scholar-{{ entry.citations | default: 0 }}-4285F4?logo=googlescholar&labelColor=beige"
+                alt="{{ entry.citations | default: 0 }} Google Scholar citations"
               >
             </a>
           {% endif %}

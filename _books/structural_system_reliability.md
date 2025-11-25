@@ -7,7 +7,7 @@ categories: reliability structural-engineering system-reliability bayesian-metho
 tags: textbook
 buy_link: https://www.cambridge.org/highereducation/books/structural-and-system-reliability/7B7F299239AD41812A0C3E2E93B3CA57#contents
 released: 2022
-status: Reference
+status: Recommended Textbooks
 ---
 
 Based on material taught at UC Berkeley, this textbook provides a rigorous and comprehensive introduction to structural and system reliability analysis. It covers first- and second-order reliability methods, system reliability, simulation approaches, time- and space-variant reliability, and Bayesian parameter estimation and updating.

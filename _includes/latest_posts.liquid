@@ -37,6 +37,9 @@
               {% else %}
                 <a class="news-title" href="{{ item.redirect | relative_url }}">{{ item.title }}</a>
               {% endif %}
+              {% if item.title contains "Community-Curated, Open-Access Landslide Platform" %}
+                <img src="{{ '/assets/img/blog/new-logo-20251124v3.png' | relative_url }}" alt="Platform Logo" style="height: 1em; margin-left: 0.5em; vertical-align: middle;">
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
