@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-knowledge-guided-machine-learning-kgml",
+            },{id: "post-geospatial-foundation-models",
+        
+          title: "Geospatial Foundation Models",
+        
+        description: "Exploring foundation models for geospatial applications",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/geospatial-foundation-models/";
+          
+        },
+      },{id: "post-knowledge-guided-machine-learning-kgml",
         
           title: "Knowledge-Guided Machine Learning (KGML)",
         
