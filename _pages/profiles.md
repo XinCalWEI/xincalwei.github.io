@@ -36,6 +36,7 @@ profiles:
       <p>Undergraduate, Mathematics<br>
       University of Michigan</p>
   - name: Shivangi Bhatt
+    image: shivangi_bhatt.jpg
     content: shivangi_bhatt.md
     image_circular: false
     more_info: >
