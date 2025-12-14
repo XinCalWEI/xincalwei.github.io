@@ -1,1 +1,1 @@
-An undergraduate at the University of Michigan studying Industrial and Operations Engineering.
+Dwayne Sean 'SJ' Johnson is a first-year Engineering student at the University of Michigan–Ann Arbor. He joined Dr. Wei's research project, 'Building a U.S. Landslide Impact Database: Leveraging Generative AI to Quantify Direct and Indirect Losses,' due to his interest in improving natural disaster early warning systems after Hurricane Helene impacted his area, as well as his interest in large language models (LLMs) and agentic frameworks.

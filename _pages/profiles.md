@@ -30,6 +30,7 @@ profiles:
   - section_title: Undergraduate Research Opportunity Program (UROP)
     section_url: https://lsa.umich.edu/urop
   - name: Andrew Kagan
+    image: andrew_kagan.jpg
     content: andrew_kagan.md
     image_circular: false
     more_info: >
@@ -43,6 +44,7 @@ profiles:
       <p>Undergraduate, Computer Engineering<br>
       University of Michigan</p>
   - name: Dwayne Sean "SJ" Johnson
+    image: sj_johnson.jpg
     content: sj_johnson.md
     image_circular: false
     more_info: >

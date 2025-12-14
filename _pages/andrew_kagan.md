@@ -1,1 +1,3 @@
-An undergraduate at the University of Michigan studying Mathematics.
+Andrew Kagan is an undergraduate studying Mathematics at the University of Michigan and a UROP student in Dr. Wei's research group. He is interested in data-driven approaches to understanding risk and complex systems, drawing on experience in statistics, applied modeling, and Python-based data analysis. He has explored applied AI and quantitative problem-solving through internships at Aamani AI, where he worked on climate-risk–focused prompt engineering, and at the esports startup LeagiON. On campus, he is involved with the Michigan Collegiate Investment Group, where he develops his interest in quantitative finance and markets. He is broadly excited about using mathematical modeling and machine learning to support real-world decision making in science and engineering.
+
+**LinkedIn:** [https://www.linkedin.com/in/andrew-kagan25](https://www.linkedin.com/in/andrew-kagan25)

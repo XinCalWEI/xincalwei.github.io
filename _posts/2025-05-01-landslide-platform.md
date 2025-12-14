@@ -16,7 +16,9 @@ thumbnail: assets/img/blog/new-logo-20251124v3.png
     </div>
 </div>
 
-**[Community-Curated, Open-Access Landslide Platform](https://xincalwei.github.io/landslide-detection/)**
+**[Community-Curated, Open-Access Landslide Platform](https://www.terramosaic.org/)**
+
+[https://www.terramosaic.org/](https://www.terramosaic.org/)
 
 Recent advances in machine learning (ML) and deep learning (DL) have significantly improved landslide-related applications, including detection, early warning, and susceptibility mapping. Generative AI technologies further offer new opportunities to accelerate landslide research by enabling rapid prototyping and iteration of ML/DL workflows. However, most existing models are trained on datasets tied to specific regions or landslide types, leading to limited or untested generalization across diverse geographic and environmental settings.
 
