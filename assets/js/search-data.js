@@ -220,6 +220,11 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/agu25_announcement/";
+            },},{id: "news-2025-american-geophysical-union-agu-fall-meeting",
+          title: '2025 American Geophysical Union (AGU) Fall Meeting',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/agu25_meeting/";
             },},{id: "projects-integrated-ai-physics-solutions-for-regional-landslide-susceptibility-prosp",
           title: 'Integrated AI–Physics Solutions for Regional Landslide Susceptibility (Prosp.)',
           description: "",
