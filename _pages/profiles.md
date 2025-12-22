@@ -26,6 +26,13 @@ profiles:
       <p>Graduate Student, Structural Engineering<br>
       Stanford University<br>
       (Former U-M Civil Engineering + CS)</p>
+  - name: Yayu Zhang
+    image: yayu_zhang.jpg
+    content: yayu_zhang.md
+    image_circular: false
+    more_info: >
+      <p>Undergraduate, Data Science<br>
+      University of Michigan</p>
   # Undergraduate Research Opportunity Program (UROP)
   - section_title: Undergraduate Research Opportunity Program (UROP)
     section_url: https://lsa.umich.edu/urop
