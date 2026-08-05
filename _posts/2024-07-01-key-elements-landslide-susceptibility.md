@@ -45,4 +45,4 @@ Both the number of landslide records (labels) and the quality of the input featu
 
 **Read the full paper:** [Improving pixel-based regional landslide susceptibility mapping](https://www.sciencedirect.com/science/article/pii/S1674987124000069)
 
-*Wei, X., Gardoni, P., Zhang, L., Tan, L., Liu, D., Du, C., & Li, H. (2024). Improving pixel-based regional landslide susceptibility mapping. Geoscience Frontiers, 15(4), 101782.*
+_Wei, X., Gardoni, P., Zhang, L., Tan, L., Liu, D., Du, C., & Li, H. (2024). Improving pixel-based regional landslide susceptibility mapping. Geoscience Frontiers, 15(4), 101782._

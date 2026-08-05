@@ -12,7 +12,7 @@ status: Recommended Textbooks
 
 Rainfall-induced landslides occur worldwide. With global climate change, their frequency is rising and their consequences are becoming increasingly severe. Existing studies often approach this issue from a single perspective—correlating landslides with rainfall patterns, geomorphology, or hydrology to establish threshold-based predictions; conducting slope stability analyses using geomechanical approaches; or assessing risks using field records.
 
-*Rainfall Induced Soil Slope Failure: Stability Analysis and Probabilistic Assessment* integrates probabilistic methods with geotechnical modeling of rainfall-triggered slope failures in unsaturated soils. It covers theoretical rainfall infiltration models, stability analyses, reliability analysis through coupled hydro-mechanical simulations, slope failures involving cracks, gravels, and spatially heterogeneous soils, and probabilistic model calibration using measurements. It emphasizes uncertainty in rainfall-induced landslides and provides state-of-the-art tools to quantify probability and risk.
+_Rainfall Induced Soil Slope Failure: Stability Analysis and Probabilistic Assessment_ integrates probabilistic methods with geotechnical modeling of rainfall-triggered slope failures in unsaturated soils. It covers theoretical rainfall infiltration models, stability analyses, reliability analysis through coupled hydro-mechanical simulations, slope failures involving cracks, gravels, and spatially heterogeneous soils, and probabilistic model calibration using measurements. It emphasizes uncertainty in rainfall-induced landslides and provides state-of-the-art tools to quantify probability and risk.
 
 ## Topics include:
 

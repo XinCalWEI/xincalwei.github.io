@@ -6,7 +6,7 @@ related_posts: false
 title: AGU Fall Meeting 2024
 ---
 
-I presented my research, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," in the session *Landslide Life Cycle: From Hazard Analysis to Risk Assessment* at the AGU Fall Meeting 2024. My work demonstrated the potential of combining AI and physics-based approaches to advance regional landslide risk assessment, drawing attention and sparking valuable discussions among attendees.
+I presented my research, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," in the session _Landslide Life Cycle: From Hazard Analysis to Risk Assessment_ at the AGU Fall Meeting 2024. My work demonstrated the potential of combining AI and physics-based approaches to advance regional landslide risk assessment, drawing attention and sparking valuable discussions among attendees.
 
 Landslides are increasing in frequency, duration, and severity due to climate change, global population growth, and urbanization. Even more concerning is the rise of multiple-occurrence landslides triggered by single rainfall events. This underscores the urgent need for regional-scale landslide susceptibility and risk assessments to identify areas with high susceptibility and risk.
 
