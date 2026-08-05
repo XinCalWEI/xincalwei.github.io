@@ -39,6 +39,7 @@ related_posts: false
         Move cursor right by one word.
       </p>
     </div>
+
   </div>
 
   <!-- Deleting Text -->
@@ -76,6 +77,7 @@ related_posts: false
         Delete character under cursor; exits if nothing to delete.
       </p>
     </div>
+
   </div>
 
   <!-- Clearing / Stopping -->
@@ -103,6 +105,7 @@ related_posts: false
         Terminate / interrupt the current command.
       </p>
     </div>
+
   </div>
 
   <!-- Yank / Paste -->
@@ -115,6 +118,7 @@ related_posts: false
         Paste ("yank") the last deleted text. Works with <code>Ctrl + U</code> and <code>Ctrl + K</code>.
       </p>
     </div>
+
   </div>
 
 </div>

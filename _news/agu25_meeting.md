@@ -13,12 +13,10 @@ related_posts: false
 
 <!-- --- -->
 
-
 ## 🌍 **Leadership and Research Contributions at AGU 2025**
 
 The 2025 American Geophysical Union (AGU) Fall Meeting was held from 15–19 December 2025 in New Orleans, Louisiana.  
-Dr. Wei contributed to AGU 2025 through both scientific leadership and research dissemination. He presented his research in the oral session *"NH31B – Landslide Life Cycle: From Hazard Analysis to Risk Assessment"*, which brought together studies spanning landslide characterization, susceptibility and risk modeling, and hazard communication. He also served as the Primary Convener of the session *"NH33B – Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"*, leading discussions on reliable and interpretable AI methods, multiscale sensing, and open datasets for geohazard analysis, alongside presenting poster work aligned with these themes.
-
+Dr. Wei contributed to AGU 2025 through both scientific leadership and research dissemination. He presented his research in the oral session _"NH31B – Landslide Life Cycle: From Hazard Analysis to Risk Assessment"_, which brought together studies spanning landslide characterization, susceptibility and risk modeling, and hazard communication. He also served as the Primary Convener of the session _"NH33B – Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"_, leading discussions on reliable and interpretable AI methods, multiscale sensing, and open datasets for geohazard analysis, alongside presenting poster work aligned with these themes.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -83,7 +81,7 @@ Nathan J. Wood — Western Geographic Science Center, U.S. Geological Survey, Mo
 Alice Pennaz — Office of Risk and Resilience, U.S. Geological Survey, Reston, VA  
 Aleeza Wilkins — Office of Risk and Resilience, U.S. Geological Survey, Reston, VA  
 Elizabeth Bondi-Kelly — Electrical Engineering and Computer Science, University of Michigan, Ann Arbor, MI  
-Sabine Loos — Civil and Environmental Engineering, University of Michigan, Ann Arbor, MI  
+Sabine Loos — Civil and Environmental Engineering, University of Michigan, Ann Arbor, MI
 
 **Abstract**  
 While landslides are pervasive across the U.S., their specific social, economic, and ecological impacts remain underappreciated due to their localized and episodic nature, co-occurrence with other hazards, and variability across broad regions. Efforts to systematically quantify landslide impacts have often been limited to localized case studies, carried out by numerous agencies with differing standards, and constrained to limited time frames due to labor-intensive data collection. In this study, we leverage generative AI to develop an agentic framework, composed of a series of agents with increasingly focused tasks, capable of extracting and synthesizing diverse web sources to capture the full range of direct and indirect landslide impacts. This work builds on a national landslide damage and loss dataset that was compiled by the U.S. Geological Survey (USGS) through manual identification. While this manual approach significantly advanced national-scale understanding of landslide impacts and helped establish new guidelines for a database structure, it underscored the time-intensive nature of retroactive assessment and the limitations of adhering to readily searchable government reports and published literature. Therefore, the agentic framework we developed provides a scalable alternative workflow by automatically performing data preprocessing (e.g., text recognition, extraction, and cleaning), identifying landslide impact records, merging complementary records, detecting time-evolving records, and flagging conflicting records for expert review. This framework synthesizes sources from both traditional repositories (e.g., government reports) and more dispersed sources (e.g., news articles, non-governmental organization reports). Preliminary findings demonstrate how the framework captures direct losses, such as the number of fatalities, injuries, or damages, which are expected but have not been consistently quantified. Additionally, underappreciated indirect landslide consequences have been discovered, such as environmental degradation, public health concerns, and legal actions. Overall, this study presents a framework for leveraging generative AI to better capture the full range of consequences of landslides, and potentially other natural hazards.
@@ -105,7 +103,7 @@ Xin Wei — University of Michigan, Ann Arbor
 Reiko Chen — University of Michigan, Ann Arbor  
 Margaret Gereghty — University of Michigan, Ann Arbor  
 Elizabeth Bondi-Kelly — University of Michigan, Ann Arbor  
-Sabine Loos — University of Michigan, Ann Arbor  
+Sabine Loos — University of Michigan, Ann Arbor
 
 **Abstract**  
 Recent advances in machine learning (ML) and deep learning (DL) have significantly advanced landslide-related applications, including detection, early warning, and susceptibility mapping. Generative AI technologies further offer new opportunities to accelerate landslide research, particularly by supporting rapid prototyping and iteration of ML/DL workflows. However, most existing models are trained on datasets specific to certain regions or landslide types, resulting in poor or untested generalization across different geographic and environmental settings. While there have been growing efforts to publish open-access landslide datasets, these resources remain fragmented across individual publications, institutional repositories, and project-specific websites. As a result, researchers often spend substantial time locating, retrieving, and preparing data when building models for new regions. Progress remains constrained by the lack of high-quality, high-volume, standardized, and accessible datasets. To address this gap, we present a community-curated, open-access, evolving platform that aggregates global landslide inventories and related geospatial data, and provides detailed metadata for each dataset. Metadata fields include inventory type (e.g., point, polygon), record count, spatial resolution, geographic coverage, input features (e.g., optical imagery, elevation, land use), ML/DL models used, evaluation settings, and whether cross-regional generalization was tested. Users can search, filter, and download datasets through an interactive, map-based interface. The platform also encourages community contributions via an easy-to-use upload interface. It serves as a central hub for high-quality, globally sourced landslide and geospatial data, supporting the development and benchmarking of reliable, scalable, and generalizable AI models for both fundamental research and real-world applications.
@@ -123,6 +121,3 @@ Recent advances in machine learning (ML) and deep learning (DL) have significant
 </div>
 
 ---
-
-
-

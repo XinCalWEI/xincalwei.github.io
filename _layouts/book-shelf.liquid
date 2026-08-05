@@ -6,17 +6,16 @@ layout: page
 {% if page.collection and page.collection.size > 0 %}
   {% assign collection = site[page.collection] %}
   {% if collection and collection.size > 0 %}
-
     {% comment %} Define section order {% endcomment %}
-    {% assign section_order = "Citations,Read,Recommended Textbooks" | split: "," %}
-    {% assign section_titles = "Citations,Books I Love,Recommended Textbooks and Academic Monographs" | split: "," %}
+    {% assign section_order = 'Citations,Read,Recommended Textbooks' | split: ',' %}
+    {% assign section_titles = 'Citations,Books I Love,Recommended Textbooks and Academic Monographs' | split: ',' %}
 
     {% for section_index in (0..2) %}
       {% assign section_status = section_order[section_index] %}
       {% assign section_title = section_titles[section_index] %}
 
       {% comment %} Filter books for this section {% endcomment %}
-      {% assign section_books = collection | where: "status", section_status %}
+      {% assign section_books = collection | where: 'status', section_status %}
 
       {% if section_books.size > 0 %}
         <h2 id="{{ section_status | slugify }}">{{ section_title }}</h2>
@@ -27,9 +26,17 @@ layout: page
                 {% if item.cover %}
                   <img alt="{{ item.title }} cover" src="{{ item.cover | prepend: page.covers | relative_url }}" style="height:200px">
                 {% elsif item.olid %}
-                  <img alt="{{ item.title }} cover" src="http://covers.openlibrary.org/b/olid/{{ item.olid }}-L.jpg?default=false" style="height:200px">
+                  <img
+                    alt="{{ item.title }} cover"
+                    src="http://covers.openlibrary.org/b/olid/{{ item.olid }}-L.jpg?default=false"
+                    style="height:200px"
+                  >
                 {% elsif item.isbn %}
-                  <img alt="{{ item.title }} cover" src="http://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg?default=false" style="height:200px">
+                  <img
+                    alt="{{ item.title }} cover"
+                    src="http://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg?default=false"
+                    style="height:200px"
+                  >
                 {% endif %}
                 <figcaption class="{{ item.status | downcase | slugify }}">
                   {% if item.shelf_title %}{{ item.shelf_title }}{% else %}{{ item.title }}{% endif %}
@@ -40,6 +47,5 @@ layout: page
         </ul>
       {% endif %}
     {% endfor %}
-
   {% endif %}
 {% endif %}
