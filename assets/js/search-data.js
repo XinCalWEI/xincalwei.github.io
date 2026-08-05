@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-geospatial-foundation-models",
+            },{id: "post-call-for-abstracts-agu26-session-nh052",
+        
+          title: "Call for Abstracts: AGU26 Session NH052",
+        
+        description: "We invite contributions on reliable and scalable geohazard intelligence, from multiscale sensing and geospatial AI to open data foundations.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/agu26-nh052-call-for-abstracts/";
+          
+        },
+      },{id: "post-geospatial-foundation-models",
         
           title: "Geospatial Foundation Models",
         
@@ -225,6 +236,16 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/agu25_meeting/";
+            },},{id: "news-multimodal-ai-and-new-collaborations-at-aims26",
+          title: 'Multimodal AI and New Collaborations at AIMS26',
+          description: "Reflections from AIMS26 at UC San Diego, where researchers across disciplines explored multimodal AI through talks, tutorials, a hackathon, and shared conversations.",
+          section: "News",handler: () => {
+              window.location.href = "/news/aims26_multimodal_ai/";
+            },},{id: "news-pitching-terramosaic-at-the-interdisciplinary-science-summit-2026",
+          title: 'Pitching TerraMosaic at the Interdisciplinary Science Summit 2026',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/interdisciplinary_science_summit_2026/";
             },},{id: "projects-integrated-ai-physics-solutions-for-regional-landslide-susceptibility-prosp",
           title: 'Integrated AI–Physics Solutions for Regional Landslide Susceptibility (Prosp.)',
           description: "",
