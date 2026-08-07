@@ -11,7 +11,7 @@ ninja.data = [{
     },
   },{id: "nav-news",
           title: "News",
-          description: "",
+          description: "Conferences, workshops, invited talks, and program milestones — newest first.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/news/";
@@ -32,7 +32,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "Projects",
-          description: "A growing collection of cool projects.",
+          description: "Research projects across the geohazard risk chain — from susceptibility to early warning, and from prospective modeling to retrospective analysis.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -60,7 +60,7 @@ ninja.data = [{
           },
         },{id: "nav-people-mentees",
           title: "People / Mentees",
-          description: "",
+          description: "Students I mentor and have mentored through undergraduate research programs.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/people/";
@@ -236,6 +236,11 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/agu25_meeting/";
+            },},{id: "news-mentees-present-at-the-2026-urop-spring-research-symposium",
+          title: 'Mentees Present at the 2026 UROP Spring Research Symposium',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/urop_symposium_2026/";
             },},{id: "news-multimodal-ai-and-new-collaborations-at-aims26",
           title: 'Multimodal AI and New Collaborations at AIMS26',
           description: "Reflections from AIMS26 at UC San Diego, where researchers across disciplines explored multimodal AI through talks, tutorials, a hackathon, and shared conversations.",
@@ -276,9 +281,9 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_infrastructure_vulnerability/";
-            },},{id: "projects-unveiling-underappreciated-consequences-of-landslides-across-the-u-s-with-generative-ai",
-          title: 'Unveiling Underappreciated Consequences of Landslides Across the U.S. with Generative AI',
-          description: "",
+            },},{id: "projects-unveiling-the-underappreciated-consequences-of-landslides-across-the-united-states-with-generative-ai",
+          title: 'Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI...',
+          description: "An agentic generative-AI framework that extracts and synthesizes diverse web sources to capture the full range of direct and indirect landslide impacts.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/7_generative_ai_landslides/";
             },},{
