@@ -4,6 +4,8 @@ title: EMI/PMC 2024
 date: 2024-05-28 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/news/emipmc2024.jpeg
+category: Conference
 ---
 
 **May 28–31, 2024**

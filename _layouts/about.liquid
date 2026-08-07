@@ -1,96 +1,251 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        {{ site.first_name }}
-        {{ site.middle_name }}
-        <span class="font-weight-bold">{{ site.last_name }}</span>
-      {% else %}
-        {{ site.title }}
+<div class="post about">
+  <!-- ============================ Hero ============================ -->
+  <header class="hero">
+    <div class="hero__grid">
+      <div class="hero__text">
+        {% if page.eyebrow %}
+          <p class="eyebrow">
+            <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            {{ page.eyebrow }}
+          </p>
+        {% endif %}
+
+        <h1 class="hero__name">
+          {%- if site.title == 'blank' -%}
+            {{ site.first_name }}
+            {% if site.middle_name %}{{ site.middle_name }}{% endif %}
+            {{ site.last_name }}
+          {%- else -%}
+            {{ site.title }}
+          {%- endif -%}
+        </h1>
+
+        {% if page.tagline %}
+          <p class="hero__tagline">{{ page.tagline }}</p>
+        {% endif %}
+
+        {% if page.role %}
+          <p class="hero__role">{{ page.role }}</p>
+        {% endif %}
+        {% if page.affiliation %}
+          <p class="hero__org">{{ page.affiliation }}</p>
+        {% endif %}
+        {% if page.funder %}
+          <p class="hero__funder">{{ page.funder }}</p>
+        {% endif %}
+        {% if page.role2 %}
+          <p class="hero__founder">{{ page.role2 }}</p>
+        {% endif %}
+
+        <!-- Contact channels, uniform ghost design -->
+        <div class="hero__links">{% include social.liquid %}</div>
+
+        {% if page.profile.address %}
+          <p class="hero__addr">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            {{ page.profile.address }}
+          </p>
+        {% endif %}
+      </div>
+
+      {% if page.profile.image %}
+        <div class="hero__portrait">
+          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+          {% capture profile_sizes %}(min-width: 930px) 248px, (min-width: 768px) 216px, 240px{% endcapture %}
+          {%
+            include figure.liquid loading="eager" path=profile_image_path sizes=profile_sizes
+            alt="Portrait of Xin Wei" width="248" height="310" cache_bust=true
+          %}
+        </div>
       {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
+    </div>
   </header>
 
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+  <!-- ============================ Bio ============================ -->
+  <div class="bio">{{ content }}</div>
+
+  <!-- ============================ News ============================ -->
+  {% if page.announcements and page.announcements.enabled %}
+    <section class="section" aria-labelledby="sec-news">
+      <div class="section__head">
+        <h2 class="section__title" id="sec-news">
+          News
+          <img src="{{ '/assets/img/newspaper.png' | relative_url }}" alt="" aria-hidden="true">
+        </h2>
       </div>
-    {% endif %}
-
-    <div class="clearfix">{{ content }}</div>
-
-    <!-- News -->
-    {% if page.announcements and page.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
-        <img
-          src="{{ '/assets/img/newspaper.png' | relative_url }}"
-          alt="News"
-          style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;"
-        >
-      </h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
-
-    <!-- Latest posts -->
-    {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">Latest Posts</a>
-        <img
-          src="{{ '/assets/img/megaphone.png' | relative_url }}"
-          alt="Latest Posts"
-          style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;"
-        >
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
-
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications/Presentations</a>
-        <img
-          src="{{ '/assets/img/team.png' | relative_url }}"
-          alt="Selected Publications/Presentations"
-          style="width: 1.2em; height: 1.2em; margin-left: 0.3em; vertical-align: middle;"
-        >
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
-
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
-        <div class="contact-note">{{ site.contact_note }}</div>
+      {% assign news_items = site.news | sort: 'date' | reverse %}
+      <div class="cardlist">{% include about_feed.liquid items=news_items limit=page.announcements.limit kind='news' %}</div>
+      <div class="section__foot">
+        <a class="btn-ghost" href="{{ '/news/' | relative_url }}">All news <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </div>
-    {% endif %}
+    </section>
+  {% endif %}
 
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% include newsletter.liquid center=true %}
-    {% endif %}
-  </article>
+  <!-- ========================= Latest posts ========================= -->
+  {% if page.latest_posts and page.latest_posts.enabled %}
+    <section class="section" aria-labelledby="sec-posts">
+      <div class="section__head">
+        <h2 class="section__title" id="sec-posts">
+          Latest Posts
+          <img src="{{ '/assets/img/megaphone.png' | relative_url }}" alt="" aria-hidden="true">
+        </h2>
+      </div>
+      <div class="cardlist">{% include about_feed.liquid items=site.posts limit=page.latest_posts.limit kind='posts' %}</div>
+      <div class="section__foot">
+        <a class="btn-ghost" href="{{ '/blog/' | relative_url }}">All posts <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- ===================== Selected publications ===================== -->
+  {% if page.selected_papers %}
+    <section class="section" aria-labelledby="sec-work">
+      <div class="section__head">
+        <h2 class="section__title" id="sec-work">
+          Selected Publications/Presentations
+          <img src="{{ '/assets/img/team.png' | relative_url }}" alt="" aria-hidden="true">
+        </h2>
+      </div>
+      <div class="cardlist">{% include selected_papers.liquid %}</div>
+      <div class="section__foot">
+        <a class="btn-ghost" href="{{ '/publications/' | relative_url }}">
+          All publications <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- =========================== Gallery strip =========================== -->
+  <section class="section gallery-strip" aria-labelledby="sec-gallery">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--center">
+        <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        Gallery
+      </p>
+      <h2 class="section__title" id="sec-gallery">Beyond the research</h2>
+      <p class="section__sub">A few favorite moments, near and far.</p>
+    </div>
+
+    <div class="slider">
+      <div class="slider__track slider__track--photos">
+        {% for pass in (1..2) %}
+          {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_1.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_3.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4917.jpg" sizes="420px" alt="Paraglider above the Pacific Ocean in San Diego" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/group_outing.jpg" sizes="420px" alt="Group outing" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4909.jpg" sizes="420px" alt="Xin Wei with a fellow AIMS26 participant overlooking the Pacific Ocean" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_2.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_6.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_4.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4973.jpg" sizes="420px" alt="Sunbeams over the Pacific Ocean near San Diego" %}
+          </a>
+          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
+            {% include figure.liquid path="assets/img/gallery/autumn_5.jpg" sizes="420px" alt="Autumn in Michigan" %}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="section__foot">
+      <a class="btn-ghost" href="{{ '/gallery/' | relative_url }}">Full gallery <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+
+  <!-- ==================== Partners (TerraMosaic port) ==================== -->
+  <section class="section partners" aria-labelledby="sec-partners">
+    <div class="section__head">
+      <p class="eyebrow eyebrow--center">
+        <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        Partners
+      </p>
+      <h2 class="section__title" id="sec-partners">Collaborating across institutions</h2>
+      <p class="section__sub">
+        The labs, centers, and initiatives behind my research.
+        <span class="partners__hint"
+          ><br>
+          Hover over a row to pause.</span
+        >
+      </p>
+    </div>
+
+    <div class="partners__sliders">
+      <!-- Row 1 — slides left -->
+      <div class="slider">
+        <div class="slider__track">
+          {% for pass in (1..2) %}
+            {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
+            <a href="https://www.terramosaic.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/terramosaic.png' | relative_url }}" alt="TerraMosaic">
+            </a>
+            <a href="https://girlsencoded.eecs.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/girls_encoded.png' | relative_url }}" alt="Girls Encoded">
+            </a>
+            <a href="https://disasterdata.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/aidd-logo.png' | relative_url }}" alt="AIDD Lab">
+            </a>
+            <a href="https://sites.google.com/view/realize-lab/home" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/realize.png' | relative_url }}" alt="REALIZE Lab">
+            </a>
+            <a href="http://cse.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/cse.png' | relative_url }}" alt="CSE Michigan">
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Row 2 — slides right -->
+      <div class="slider">
+        <div class="slider__track slider__track--reverse">
+          {% for pass in (1..2) %}
+            {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
+            <a href="https://cee.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/cee.png' | relative_url }}" alt="CEE Michigan">
+            </a>
+            <a href="https://mae.cee.illinois.edu/index.html" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/mae_center.png' | relative_url }}" alt="MAE Center">
+            </a>
+            <a href="https://midas.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/midas.png' | relative_url }}" alt="MIDAS">
+            </a>
+            <a href="https://schmidtsciences.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/schmidt_sciences.png' | relative_url }}" alt="Schmidt Sciences">
+            </a>
+            <a href="https://cee.engin.umich.edu/people/garcia-f-estefan-t/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/garcia-group.png' | relative_url }}" alt="Garcia Research Group">
+            </a>
+            <a href="https://groundtruthalaska.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/ground_truth_alaska.png' | relative_url }}" alt="Ground Truth Alaska">
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
+    {% include newsletter.liquid center=true %}
+  {% endif %}
 </div>
+
+<script src="{{ '/assets/js/abstract-modal.js' | relative_url }}" defer></script>

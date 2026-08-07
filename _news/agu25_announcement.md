@@ -4,6 +4,8 @@ title: AGU25 – Toward Reliable and Scalable Geohazard Intelligence
 date: 2025-12-15 08:00:00-0600
 inline: false
 related_posts: false
+thumbnail: assets/img/agu25-photo.jpeg
+category: Conference
 ---
 
 **December 15–19, 2025**

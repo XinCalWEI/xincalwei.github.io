@@ -6,6 +6,7 @@ description: A centralized hub for globally sourced landslide inventories and ge
 tags: landslides open-data machine-learning datasets
 categories: research platforms
 thumbnail: assets/img/blog/new-logo-20251124v3.png
+thumbnail_fit: contain
 ---
 
 **May 1, 2025**

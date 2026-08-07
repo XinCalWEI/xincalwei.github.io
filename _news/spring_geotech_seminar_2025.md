@@ -4,6 +4,8 @@ title: 2025 Spring Geotechnical Seminar
 date: 2025-04-25 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/spring_geotech_seminar_2025.jpeg
+category: Invited Talk
 ---
 
 **April 25, 2025**

@@ -315,17 +315,27 @@
               style="margin-bottom: 3px;"
             ></span>
           {% endif %}
+          {% comment %}
+            Inline citation count, replacing the remote img.shields.io badge: no third-party
+            request, no referrer leak, and it inherits the theme in both light and dark.
+            Rendered only when there is a count to show, so 0-citation entries stay quiet.
+            NOTE: the markup deliberately contains no <span> — _sass/_base.scss:827 has
+            `.publications ol.bibliography li .badges span { color: #000 }` at (0,3,3),
+            which would paint the number pure black on the dark background.
+          {% endcomment %}
           {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-            <a
-              href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.data.socials.scholar_userid }}&citation_for_view={{ site.data.socials.scholar_userid }}:{{ entry.google_scholar_id }}"
-              aria-label="Google Scholar link"
-              role="button"
-            >
-              <img
-                src="https://img.shields.io/badge/scholar-{{ entry.citations | default: 0 }}-4285F4?logo=googlescholar&labelColor=beige"
-                alt="{{ entry.citations | default: 0 }} Google Scholar citations"
+            {% assign cite_count = entry.citations | plus: 0 %}
+            {% if cite_count > 0 %}
+              <a
+                class="cite-count"
+                href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.data.socials.scholar_userid }}&citation_for_view={{ site.data.socials.scholar_userid }}:{{ entry.google_scholar_id }}"
+                aria-label="{{ cite_count }} Google Scholar citations"
               >
-            </a>
+                <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+                <b>{{ cite_count }}</b>
+                citations
+              </a>
+            {% endif %}
           {% endif %}
           {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
             <a

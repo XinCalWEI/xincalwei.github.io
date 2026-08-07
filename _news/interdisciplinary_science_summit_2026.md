@@ -4,6 +4,8 @@ title: "Pitching TerraMosaic at the Interdisciplinary Science Summit 2026"
 date: 2026-07-01 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/news/interdisciplinary-science-summit-2026/terramosaic-pitch.jpg
+category: Summit
 ---
 
 **June 28–July 1, 2026 · Durham, North Carolina**

@@ -4,193 +4,111 @@ permalink: /blog/
 title: Blog
 nav: true
 nav_order: 1
-pagination:
-  enabled: true
-  collection: posts
-  permalink: /page/:num/
-  per_page: 5
-  sort_field: date
-  sort_reverse: true
-  trail:
-    before: 1 # The number of links before the current page
-    after: 3 # The number of links after the current page
 ---
 
-<div class="post">
+<!-- Magazine-style blog index with client-side filtering.
+     Filter chips are generated from the posts themselves (site.categories /
+     site.tags) so they can never drift from reality — do NOT hand-maintain a
+     list in _config.yml. Pagination is intentionally off: filtering must see
+     every post, not just the current page. See assets/js/blog-filter.js. -->
 
-{% assign blog_name_size = site.blog_name | size %}
-{% assign blog_description_size = site.blog_description | size %}
+<div class="post about tm-blog">
 
-{% if blog_name_size > 0 or blog_description_size > 0 %}
-
-  <div class="header-bar">
-    <h1>{{ site.blog_name }}</h1>
-    <h2>{{ site.blog_description }}</h2>
-  </div>
-  {% endif %}
-
-{% if site.display_tags and site.display_tags.size > 0 or site.display_categories and site.display_categories.size > 0 %}
-
-  <div class="tag-category-list">
-    <ul class="p-0 m-0">
-      {% for tag in site.display_tags %}
-        <li>
-          <i class="fa-solid fa-hashtag fa-sm"></i> <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}">{{ tag }}</a>
-        </li>
-        {% unless forloop.last %}
-          <p>&bull;</p>
-        {% endunless %}
-      {% endfor %}
-      {% if site.display_categories.size > 0 and site.display_tags.size > 0 %}
-        <p>&bull;</p>
-      {% endif %}
-      {% for category in site.display_categories %}
-        <li>
-          <i class="fa-solid fa-tag fa-sm"></i> <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}">{{ category }}</a>
-        </li>
-        {% unless forloop.last %}
-          <p>&bull;</p>
-        {% endunless %}
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-
-{% assign featured_posts = site.posts | where: "featured", "true" %}
-{% if featured_posts.size > 0 %}
-<br>
-
-<div class="container featured-posts">
-{% assign is_even = featured_posts.size | modulo: 2 %}
-<div class="row row-cols-{% if featured_posts.size <= 2 or is_even == 0 %}2{% else %}3{% endif %}">
-{% for post in featured_posts %}
-<div class="col mb-4">
-<a href="{{ post.url | relative_url }}">
-<div class="card hoverable">
-<div class="row g-0">
-<div class="col-md-12">
-<div class="card-body">
-<div class="float-right">
-<i class="fa-solid fa-thumbtack fa-xs"></i>
-</div>
-<h3 class="card-title text-lowercase">{{ post.title }}</h3>
-<p class="card-text">{{ post.description }}</p>
-
-                    {% if post.external_source == blank %}
-                      {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-                    {% else %}
-                      {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
-                    {% endif %}
-                    {% assign year = post.date | date: "%Y" %}
-
-                    <p class="post-meta">
-                      {{ read_time }} min read &nbsp; &middot; &nbsp;
-                      <a href="{{ year | prepend: '/blog/' | relative_url }}">
-                        <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-      {% endfor %}
-      </div>
-    </div>
-    <hr>
-
-{% endif %}
-
-  <ul class="post-list">
-
-    {% if page.pagination.enabled %}
-      {% assign postlist = paginator.posts %}
-    {% else %}
-      {% assign postlist = site.posts %}
+  <header class="blog-head">
+    <h1 class="post-title">Blog</h1>
+    {% if site.blog_description %}
+      <p class="post-description">{{ site.blog_description }}</p>
     {% endif %}
+  </header>
 
-    {% for post in postlist %}
+  <div class="blog-filters" role="group" aria-label="Filter posts">
+    <button class="chip chip--all is-active" type="button" data-filter="" data-kind="all">
+      All <span class="chip__n">{{ site.posts | size }}</span>
+    </button>
 
-    {% if post.external_source == blank %}
-      {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-    {% else %}
-      {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
-    {% endif %}
-    {% assign year = post.date | date: "%Y" %}
-    {% assign tags = post.tags | join: "" %}
-    {% assign categories = post.categories | join: "" %}
-
-    <li>
-
-{% if post.thumbnail %}
-
-<div class="row">
-          <div class="col-sm-9">
-{% endif %}
-        <h3>
-        {% if post.redirect == blank %}
-          <a class="post-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        {% elsif post.redirect contains '://' %}
-          <a class="post-title" href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
-          <svg width="2rem" height="2rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        {% else %}
-          <a class="post-title" href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
-        {% endif %}
-      </h3>
-      <p>{{ post.description }}</p>
-      <p class="post-meta">
-        {{ read_time }} min read &nbsp; &middot; &nbsp;
-        {{ post.date | date: '%B %d, %Y' }}
-        {% if post.external_source %}
-        &nbsp; &middot; &nbsp; {{ post.external_source }}
-        {% endif %}
-      </p>
-      <p class="post-tags">
-        <a href="{{ year | prepend: '/blog/' | relative_url }}">
-          <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
-
-          {% if tags != "" %}
-          &nbsp; &middot; &nbsp;
-            {% for tag in post.tags %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}">
-              <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
-              {% unless forloop.last %}
-                &nbsp;
-              {% endunless %}
-              {% endfor %}
-          {% endif %}
-
-          {% if categories != "" %}
-          &nbsp; &middot; &nbsp;
-            {% for category in post.categories %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}">
-              <i class="fa-solid fa-tag fa-sm"></i> {{ category }}</a>
-              {% unless forloop.last %}
-                &nbsp;
-              {% endunless %}
-              {% endfor %}
-          {% endif %}
-    </p>
-
-{% if post.thumbnail %}
-
-</div>
-
-  <div class="col-sm-3">
-    <img class="card-img" src="{{ post.thumbnail | relative_url }}" style="object-fit: cover; max-width: 100%; max-height: 200px; width: auto; height: auto;" alt="image">
-  </div>
-</div>
-{% endif %}
-    </li>
-
+    {% assign cats = site.categories | sort %}
+    {% for c in cats %}
+      {% assign slug = c[0] | slugify %}
+      <button class="chip chip--cat chip--{{ slug }}" type="button" data-filter="{{ slug }}" data-kind="cat">
+        {{ c[0] | replace: '-', ' ' }} <span class="chip__n">{{ c[1] | size }}</span>
+      </button>
     {% endfor %}
 
-  </ul>
+    {% assign tags = site.tags | sort %}
+    {% for t in tags %}
+      {% assign slug = t[0] | slugify %}
+      <button class="chip chip--tag" type="button" data-filter="{{ slug }}" data-kind="tag">
+        <i class="fa-solid fa-hashtag" aria-hidden="true"></i>{{ t[0] }} <span class="chip__n">{{ t[1] | size }}</span>
+      </button>
+    {% endfor %}
 
-{% if page.pagination.enabled %}
-{% include pagination.liquid %}
-{% endif %}
+  </div>
+
+  <p class="blog-filters__status" role="status" aria-live="polite"></p>
+
+  <div class="blog-grid">
+    {% for post in site.posts %}
+      {% if post.external_source == blank %}
+        {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
+      {% else %}
+        {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+      {% endif %}
+      {% assign cat = post.categories | first %}
+      {% assign href = post.url | relative_url %}
+      {% assign is_external = false %}
+      {% if post.redirect != blank %}
+        {% if post.redirect contains '://' %}
+          {% assign href = post.redirect %}
+          {% assign is_external = true %}
+        {% else %}
+          {% assign href = post.redirect | relative_url %}
+        {% endif %}
+      {% endif %}
+
+      <!-- NOTE: the separating space must NOT sit next to Liquid's whitespace-control
+           dashes, or it is stripped and the slugs run together ("researchevents"). -->
+      {% capture card_cats %}{% for c in post.categories %}{{ c | slugify }} {% endfor %}{% endcapture %}
+      {% capture card_tags %}{% for t in post.tags %}{{ t | slugify }} {% endfor %}{% endcapture %}
+
+      <a
+        class="blog-card{% if forloop.first %} blog-card--featured{% endif %}"
+        href="{{ href }}"
+        data-cats="{{ card_cats | strip }}"
+        data-tags="{{ card_tags | strip }}"
+        {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
+      >
+        <div class="blog-card__media{% if post.thumbnail_fit == 'contain' %} blog-card__media--contain{% endif %}">
+          {% if post.thumbnail %}
+            {% include figure.liquid path=post.thumbnail sizes="640px" alt="" %}
+          {% else %}
+            <span class="blog-card__ph" aria-hidden="true">
+              <span class="tiles"><span></span><span></span><span></span><span></span></span>
+            </span>
+          {% endif %}
+        </div>
+        <div class="blog-card__body">
+          {% if cat %}
+            <span class="feed__pill feed__pill--{{ cat | slugify }}">{{ cat | replace: '-', ' ' }}</span>
+          {% endif %}
+          <h2 class="blog-card__title">
+            {{- post.title -}}
+            {%- if is_external %}
+              <i class="fa-solid fa-arrow-up-right-from-square blog-card__ext" aria-hidden="true"></i>
+              <span class="sr-only">(opens in a new tab)</span>
+            {% endif -%}
+          </h2>
+          {% if post.description %}
+            <p class="blog-card__desc">{{ post.description }}</p>
+          {% endif %}
+          <p class="blog-card__meta">{{ post.date | date: '%b %-d, %Y' }} · {{ read_time }} min read</p>
+        </div>
+      </a>
+    {% endfor %}
+
+  </div>
+
+  <p class="blog-empty" hidden>No posts match that filter yet. <button class="blog-empty__reset" type="button">Show all posts</button></p>
 
 </div>
+
+<script src="{{ '/assets/js/blog-filter.js' | relative_url }}" defer></script>

@@ -4,6 +4,8 @@ title: AI in Science Fellowship Entrepreneurial Workshop
 date: 2025-09-28 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/news/banbury_group.jpg
+category: Workshop
 ---
 
 **September 28 – October 1, 2025**

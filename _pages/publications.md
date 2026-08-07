@@ -19,3 +19,5 @@ nav_order: 2
 {% bibliography %}
 
 </div>
+
+<script src="{{ '/assets/js/abstract-modal.js' | relative_url }}" defer></script>

@@ -3,7 +3,7 @@ layout: profiles
 permalink: /people/
 title: People / Mentees
 nav_title: People
-description:
+description: Students I mentor and have mentored through undergraduate research programs.
 nav: true
 nav_order: 7
 

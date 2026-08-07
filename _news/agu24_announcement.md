@@ -4,6 +4,8 @@ date: 2024-12-09 08:00:00-0500
 inline: false
 related_posts: false
 title: AGU Fall Meeting 2024
+thumbnail: assets/img/agu24.jpg
+category: Conference
 ---
 
 I presented my research, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," in the session _Landslide Life Cycle: From Hazard Analysis to Risk Assessment_ at the AGU Fall Meeting 2024. My work demonstrated the potential of combining AI and physics-based approaches to advance regional landslide risk assessment, drawing attention and sparking valuable discussions among attendees.
