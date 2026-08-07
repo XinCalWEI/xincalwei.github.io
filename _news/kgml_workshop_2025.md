@@ -4,6 +4,8 @@ title: U-M Knowledge-Guided Machine Learning (KGML) Workshop
 date: 2025-08-04 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/news/kgml_workshop.jpeg
+category: Workshop
 ---
 
 **August 4 – August 8, 2025**

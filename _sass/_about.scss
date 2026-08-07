@@ -1,0 +1,1464 @@
+/* =============================================================================
+ * About page (site homepage) + shared publication components.
+ *
+ * Design language ported from the owner's TerraMosaic site
+ * (~/Documents/Github/landslide-detection): warm paper ground, navy ink,
+ * Plus Jakarta Sans display type, white card lists with big date rails,
+ * tinted category pills, pill buttons, topographic-contour hero texture.
+ *
+ * MUST be the LAST @import in assets/css/main.scss: several rules below tie on
+ * specificity with _sass/_base.scss and win on source order alone.
+ *
+ * The blocks marked GLOBAL FIX are deliberately NOT scoped to .about; they
+ * repair contrast defects that also affect /publications/, /projects/ and
+ * /news/. _sass/_base.scss is intentionally never edited.
+ * ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+ * Brand type + category-pill tokens (site-wide).
+ * Fonts are loaded via third_party_libraries.google_fonts in _config.yml.
+ * ------------------------------------------------------------------------ */
+:root {
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* tinted pills: soft wash background + saturated readable text */
+  --pill-blue-bg: rgba(30, 64, 175, 0.1);
+  --pill-blue-fg: #1e40af;
+  --pill-teal-bg: rgba(13, 148, 136, 0.12);
+  --pill-teal-fg: #0f766e;
+  --pill-green-bg: rgba(4, 120, 87, 0.1);
+  --pill-green-fg: #047857;
+  --pill-amber-bg: rgba(180, 83, 9, 0.12);
+  --pill-amber-fg: #92400e;
+  --pill-coral-bg: rgba(220, 38, 38, 0.1);
+  --pill-coral-fg: #b91c1c;
+  --pill-violet-bg: rgba(109, 40, 217, 0.1);
+  --pill-violet-fg: #6d28d9;
+
+  /* topographic contour texture, ink strokes at ~4.5% — from the TerraMosaic hero */
+  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%2316243d' stroke-opacity='0.045' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
+  --tm-wash: radial-gradient(900px 460px at 86% -12%, rgba(37, 99, 235, 0.07), transparent 62%),
+    radial-gradient(720px 420px at 6% 112%, rgba(5, 150, 105, 0.055), transparent 60%);
+}
+
+html[data-theme="dark"] {
+  --pill-blue-bg: rgba(147, 180, 253, 0.14);
+  --pill-blue-fg: #a7c2fd;
+  --pill-teal-bg: rgba(94, 234, 212, 0.13);
+  --pill-teal-fg: #6fdbc8;
+  --pill-green-bg: rgba(110, 231, 183, 0.13);
+  --pill-green-fg: #7fe3b6;
+  --pill-amber-bg: rgba(251, 191, 36, 0.14);
+  --pill-amber-fg: #f2c46d;
+  --pill-coral-bg: rgba(252, 165, 165, 0.13);
+  --pill-coral-fg: #f8a8a8;
+  --pill-violet-bg: rgba(196, 181, 253, 0.14);
+  --pill-violet-fg: #cabffc;
+
+  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%23e9ecf3' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
+  --tm-wash: radial-gradient(900px 460px at 86% -12%, rgba(96, 145, 245, 0.13), transparent 62%),
+    radial-gradient(720px 420px at 6% 112%, rgba(16, 185, 129, 0.09), transparent 60%);
+}
+
+/* Site-wide type: Inter body, Jakarta display — matches the TerraMosaic brand.
+ * Element selectors tie with _base/_layout and win on later source order. */
+body {
+  font-family: var(--font-body);
+}
+
+/* Frosted, fully-opaque-to-content navbar. _base.scss:250 sets
+ * `.navbar { opacity: 0.95 }`, which lets the page's 800-weight headings
+ * ghost through the bar while scrolling. Same selector, later source order. */
+.navbar {
+  opacity: 1;
+  background-color: rgba(247, 246, 241, 0.88);
+  backdrop-filter: blur(10px) saturate(1.05);
+  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+}
+
+html[data-theme="dark"] .navbar {
+  background-color: rgba(16, 24, 42, 0.88);
+}
+
+/* Inter runs slightly wider than the system stack; without this the navbar's
+ * search / ⌘k item wraps to a second line inside the 930px container. */
+@media (min-width: 992px) {
+  #navbar .nav-item .nav-link {
+    padding-left: 0.45rem;
+    padding-right: 0.45rem;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+/* -----------------------------------------------------------------------------
+ * GLOBAL FIX A — table cell colour. INTENTIONALLY not scoped to .about.
+ * Bootstrap ships `.table{color:#212529}` and _base.scss's colour reset lists
+ * p/h1-h6/span… but NOT td/th, so a bare <th> keeps #212529 (1.1:1 on a dark
+ * background) until assets/js/theme.js adds `table-dark` at runtime. This makes
+ * the /news/ date column theme-correct in CSS, without JavaScript.
+ * `.table th` (0,1,1) beats `.table`/`.table-dark` (0,1,0), loses to
+ * `.thead-dark th` (0,2,1), so Bootstrap's dark table headers are untouched.
+ * -------------------------------------------------------------------------- */
+.table th,
+.table td,
+table th,
+table td {
+  color: var(--global-text-color);
+}
+
+/* -----------------------------------------------------------------------------
+ * GLOBAL FIX B — headings painted in the divider colour by _base.scss:703/:734
+ * (`.projects h2.category`, `.publications h2.bibliography`) — invisible today.
+ * Same specificity (0,2,1), later source order.
+ * -------------------------------------------------------------------------- */
+.publications h2.bibliography,
+.projects h2.category {
+  color: var(--global-text-color-light);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* GLOBAL FIX C — _base.scss:1336 pairs the accent as a background with
+ * --global-text-color as the foreground, which is under 3:1 in both themes. */
+::highlight(search) {
+  background-color: var(--global-accent-soft);
+  color: var(--global-text-color);
+}
+
+/* -----------------------------------------------------------------------------
+ * GLOBAL FIX D — active pagination pill (/blog/).
+ * _base.scss:648 hard-codes the pill's text to $white-color while its background
+ * is var(--global-theme-color); sub-AA in both themes. --global-hover-text-color
+ * is defined per theme for exactly this "text on an accent fill" case.
+ * -------------------------------------------------------------------------- */
+.pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link:hover {
+  color: var(--global-hover-text-color);
+}
+
+/* -----------------------------------------------------------------------------
+ * GLOBAL FIX E — BibTeX panel syntax colours on / and /publications/.
+ * The vendored pygments themes put teal #008080 (light) and blue #447fcf (dark)
+ * on the code surface; both land just under AA. Scoped to the bibliography's
+ * BibTeX panel so blog code blocks keep the stock highlighting.
+ * -------------------------------------------------------------------------- */
+.publications .bibtex .highlight .na,
+.publications .bibtex .highlight .nv {
+  color: #00695f;
+}
+
+html[data-theme="dark"] .publications .bibtex .highlight .na,
+html[data-theme="dark"] .publications .bibtex .highlight .nv {
+  color: #5fc9c9;
+}
+
+html[data-theme="dark"] .publications .bibtex .highlight .nc {
+  color: #8ab4f8;
+}
+
+/* =============================================================================
+ * PUBLICATION COMPONENTS — intentionally GLOBAL, so "/" and "/publications/"
+ * cannot disagree. Selectors are chosen to match or beat _base.scss.
+ * ========================================================================== */
+
+/* Venue pill — tinted chip in the TerraMosaic category-pill style.
+ * (0,4,3) beats _base.scss (0,3,3) `color: … !important`, MDB `.badge`,
+ * Bootstrap `.w-100` and `.rounded`. Journals are blue; presentations
+ * (@inproceedings/@incollection carry .presentation-badge) are teal. */
+.publications ol.bibliography li .abbr abbr.badge {
+  display: inline-block;
+  width: auto !important;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.28rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: normal;
+  color: var(--pill-blue-fg) !important;
+  background-color: var(--pill-blue-bg) !important;
+  border: 0;
+  border-radius: 999px !important;
+  box-shadow: none;
+}
+
+.publications ol.bibliography li .abbr abbr.badge.presentation-badge {
+  color: var(--pill-teal-fg) !important;
+  background-color: var(--pill-teal-bg) !important;
+}
+
+/* (0,4,4) — beats `.abbr abbr a { color: white }` (0,3,4) */
+.publications ol.bibliography li .abbr abbr.badge a,
+.publications ol.bibliography li .abbr abbr.badge div {
+  color: inherit;
+  text-decoration: none;
+}
+
+.publications ol.bibliography li .abbr abbr.badge a:hover {
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+/* Titles get the display face sitewide */
+.publications ol.bibliography li .title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* (0,3,3) — self-author marker: weight + full text colour, not an underline */
+.publications ol.bibliography li .author > em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--global-text-color);
+  border-bottom: 0;
+}
+
+/* (0,3,4) — coauthor links: hairline underline instead of dashed magenta */
+.publications ol.bibliography li .author a {
+  color: var(--global-text-color-light);
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--global-divider-color);
+  text-underline-offset: 2px;
+}
+
+.publications ol.bibliography li .author a:hover {
+  color: var(--global-theme-color);
+  border-bottom: 0;
+  text-decoration-color: currentColor;
+}
+
+/* Actions and the citation count share one line. Their PARENT stays a block
+ * container so the .award/.abstract/.bibtex collapsible panels keep their
+ * position; these two divs become inline-flex siblings. */
+.publications ol.bibliography li .links,
+.publications ol.bibliography li .badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  vertical-align: middle;
+  padding-bottom: 0;
+  margin-top: 0.55rem;
+}
+
+/* (0,4,3) — the exact selector _base.scss uses, so source order decides. */
+.publications ol.bibliography li .links a.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 1.9rem;
+  margin: 0;
+  padding: 0 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  color: var(--global-text-color-light);
+  background-color: transparent;
+  border: 1px solid var(--global-control-border-color);
+  border-radius: 999px;
+  box-shadow: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.publications ol.bibliography li .links a.btn:hover {
+  color: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+  background-color: var(--pill-blue-bg);
+  text-decoration: none;
+}
+
+/* Citation count — inline chip; markup deliberately contains no <span>
+ * (_base.scss:827 paints `.badges span` pure black). */
+.publications ol.bibliography li .badges a.cite-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 1.9rem;
+  padding: 0 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--global-text-color-light);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.publications ol.bibliography li .badges a.cite-count b {
+  font-weight: 700;
+  color: var(--global-text-color);
+}
+
+.publications ol.bibliography li .badges a.cite-count i {
+  font-size: 0.65rem;
+  color: var(--global-text-color-light);
+}
+
+.publications ol.bibliography li .badges a.cite-count:hover {
+  color: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.publications ol.bibliography li .badges a.cite-count:hover b,
+.publications ol.bibliography li .badges a.cite-count:hover i {
+  color: var(--global-theme-color);
+}
+
+/* =============================================================================
+ * THE ABOUT PAGE — everything below is scoped to .about
+ * ========================================================================== */
+
+.about {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color: var(--global-text-color);
+  overflow-wrap: break-word;
+}
+
+/* Neutralise _base.scss's bare-element colour reset (0,0,1). */
+.about p,
+.about div,
+.about li,
+.about span,
+.about em,
+.about strong,
+.about h1,
+.about h2,
+.about h3 {
+  color: inherit;
+}
+
+.about a {
+  color: var(--global-theme-color);
+}
+
+.about a:hover {
+  color: var(--global-hover-color);
+}
+
+.about a:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
+}
+
+/* ---------- Eyebrow: mosaic tile cluster + spaced caps ---------- */
+
+.about .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+
+.about .eyebrow--center {
+  justify-content: center;
+}
+
+.about .tiles {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 7px);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.about .tiles span {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+}
+
+.about .tiles span:nth-child(1) {
+  background: #2563eb;
+}
+
+.about .tiles span:nth-child(2) {
+  background: #059669;
+}
+
+.about .tiles span:nth-child(3) {
+  background: #d97706;
+}
+
+.about .tiles span:nth-child(4) {
+  background: #dc2626;
+}
+
+/* ---------- Hero ---------- */
+
+.about .hero {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(2.25rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+/* Washes + topo live on a pseudo-element whose edges fade out, so the texture
+ * never draws a visible rectangle against the paper around the container. */
+.about .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--tm-wash), var(--tm-topo);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  pointer-events: none;
+}
+
+.about .hero > * {
+  position: relative;
+}
+
+.about .hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.about .hero__name {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--global-text-color);
+  text-wrap: balance;
+}
+
+.about .hero__tagline {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+  text-wrap: balance;
+  max-width: 24em;
+}
+
+/* Gradient keyword with thick underline — the TerraMosaic hero-keyword recipe */
+.about .kw {
+  background: linear-gradient(92deg, #2563eb 0%, #0d9488 55%, #059669 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.13em;
+  text-decoration-color: rgba(13, 148, 136, 0.55);
+}
+
+html[data-theme="dark"] .about .kw {
+  background: linear-gradient(92deg, #8db2f8 0%, #5eead4 55%, #6ee7b7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-decoration-color: rgba(94, 234, 212, 0.55);
+}
+
+.about .hero__role {
+  margin: 0 0 0.2rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--global-text-color);
+}
+
+.about .hero__org {
+  margin: 0 0 1.4rem;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--global-text-color-light);
+}
+
+/* funder credit — quieter than the affiliation it follows */
+.about .hero__funder {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--global-text-color-light);
+}
+
+.about .hero__funder a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--global-divider-color);
+  text-underline-offset: 3px;
+}
+
+.about .hero__funder a:hover {
+  color: var(--global-theme-color);
+  text-decoration-color: currentColor;
+}
+
+/* third identity line ("Founder of TerraMosaic") */
+.about .hero__text:has(.hero__founder) .hero__org,
+.about .hero__text:has(.hero__funder) .hero__org {
+  margin-bottom: 0.3rem;
+}
+
+.about .hero__founder {
+  margin: 0.15rem 0 1.4rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--global-text-color);
+}
+
+.about .hero__founder a {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.about .hero__founder a:hover {
+  color: var(--global-hover-color);
+}
+
+/* ---------- Hero contact channels: uniform circular ghost buttons ---------- */
+
+.about .hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.about .hero__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--global-text-color);
+  background: transparent;
+  border: 1.5px solid var(--global-control-border-color);
+  border-radius: 999px;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.about .hero__links a i,
+.about .hero__links a i::before {
+  color: inherit;
+  font-size: inherit;
+}
+
+.about .hero__links a:hover {
+  color: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+  background: rgba(37, 99, 235, 0.06);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* ---------- Ghost pill button ("view all" links) ---------- */
+
+.about .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--global-text-color);
+  border: 1.5px solid var(--global-control-border-color);
+  background: transparent;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.about .btn-ghost:hover {
+  color: var(--global-text-color);
+  border-color: var(--global-text-color);
+  background: rgba(22, 36, 61, 0.04);
+}
+
+html[data-theme="dark"] .about .btn-ghost:hover {
+  background: rgba(233, 236, 243, 0.06);
+}
+
+.about .btn-ghost i {
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.about .btn-ghost:hover i {
+  transform: translateX(3px);
+}
+
+.about .hero__addr {
+  margin: 0.9rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+.about .hero__addr i {
+  margin-right: 0.35rem;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  .about .partners__hint {
+    display: none;
+  }
+}
+
+/* ---------- Portrait: rounded print over an offset brand-wash plate ----------
+ * No white mat. The photo is a rounded print with a hairline ring and a deep
+ * soft shadow; a gradient plate (the hero-keyword blue→teal→green, at wash
+ * opacity) peeks out to the bottom-right for depth. */
+
+.about .hero__portrait {
+  position: relative;
+  justify-self: center;
+  margin: 0;
+  width: min(12.5rem, 60vw);
+}
+
+.about .hero__portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem -0.55rem -0.55rem 0.55rem;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.11) 0%, rgba(13, 148, 136, 0.09) 55%, rgba(5, 150, 105, 0.08) 100%);
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .about .hero__portrait::before {
+  background: linear-gradient(135deg, rgba(141, 178, 248, 0.14) 0%, rgba(94, 234, 212, 0.1) 55%, rgba(110, 231, 183, 0.08) 100%);
+}
+
+.about .hero__portrait figure {
+  position: relative;
+  margin: 0;
+}
+
+.about .hero__portrait picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--global-divider-color);
+  background-color: var(--global-surface-color);
+  box-shadow: 0 10px 26px rgba(22, 36, 61, 0.12);
+}
+
+html[data-theme="dark"] .about .hero__portrait picture {
+  border-color: rgba(233, 236, 243, 0.14);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.38);
+}
+
+.about .hero__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---------- Bio ---------- */
+
+/* Full container width, matching every section below it. The research diagram
+ * floats top-left and the prose wraps around it; measure stays readable
+ * because the float eats ~half the line for the first paragraphs. */
+.about .bio {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+}
+
+/* clear the float so the next section never collides with a tall diagram */
+.about .bio::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.about .bio p {
+  margin: 0 0 1.1rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--global-text-color);
+}
+
+.about .bio p:last-child {
+  margin-bottom: 0;
+}
+
+.about .bio a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Research overview: large enough for the diagram's labels, but visually
+ * subordinate to the hero and bio. The full-resolution image remains
+ * available through the site's click-to-zoom behavior. */
+/* Below 768px the diagram is full width and the prose simply follows it. */
+.about .bio-visual {
+  width: 100%;
+  margin: 0 0 clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+/* From 768px up it floats top-left and the paragraphs wrap around it. */
+@media (min-width: 768px) {
+  .about .bio-visual {
+    float: left;
+    width: min(52%, 30rem);
+    margin: 0.35rem 1.75rem 1.25rem 0;
+    shape-margin: 1.75rem;
+  }
+}
+
+.about .bio-visual figure {
+  margin: 0;
+}
+
+.about .bio-visual picture {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  background: var(--global-surface-color);
+  box-shadow: 0 8px 22px rgba(22, 36, 61, 0.1);
+}
+
+.about .bio-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html[data-theme="dark"] .about .bio-visual picture {
+  border-color: rgba(233, 236, 243, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+}
+
+/* Marker-style highlight for key phrases — the TerraMosaic .hl-solution recipe:
+ * a tinted band under the bottom third of the line. */
+.about .bio .hl {
+  font-weight: 600;
+  color: var(--global-text-color);
+  padding: 0 0.1em;
+  border-radius: 3px;
+  background: linear-gradient(transparent 64%, rgba(5, 150, 105, 0.22) 0);
+}
+
+html[data-theme="dark"] .about .bio .hl {
+  background: linear-gradient(transparent 64%, rgba(110, 231, 183, 0.26) 0);
+}
+
+/* ---------- Section shell: centered eyebrow + display title ---------- */
+
+.about .section {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+.about .section__head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about .section__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+}
+
+/* decorative icon after the section title (newspaper / megaphone / team) */
+.about .section__title img {
+  height: 1.05em;
+  width: auto;
+  margin-left: 0.35em;
+  vertical-align: -0.12em;
+  display: inline-block;
+}
+
+.about .section__sub {
+  margin: 0.6rem auto 0;
+  max-width: 40em;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--global-text-color-light);
+}
+
+/* "View all" ghost pill centred under each card */
+.about .section__foot {
+  text-align: center;
+  margin-top: 1.4rem;
+}
+
+/* ---------- White card list container ---------- */
+
+.about .cardlist {
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 1px 2px rgba(22, 36, 61, 0.04);
+}
+
+html[data-theme="dark"] .about .cardlist {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Feed rows (News + Writing): big date rail + title ---------- */
+
+.about .feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about .feed > li + li .feed__row {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.about .feed__row {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.35rem 0;
+  color: var(--global-text-color);
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    margin 0.25s ease,
+    padding 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.about a.feed__row:hover {
+  background: var(--global-surface-color);
+  margin-inline: -1.25rem;
+  padding-inline: 1.25rem;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+/* keep the hairline aligned while the row expands on hover */
+.about .feed > li + li a.feed__row:hover {
+  border-top-color: transparent;
+}
+
+.about .feed__date {
+  flex-shrink: 0;
+  width: 5.5rem;
+  padding-top: 0.15rem;
+}
+
+.about .feed__day {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--global-text-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.about .feed__my {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+  white-space: nowrap;
+}
+
+.about .feed__body {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.15rem;
+}
+
+.about .feed__pill {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+.about .feed__pill--research {
+  background: var(--pill-blue-bg);
+  color: var(--pill-blue-fg);
+}
+
+.about .feed__pill--tutorial {
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+}
+
+.about .feed__pill--machine-learning {
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+.about .feed__pill--platforms {
+  background: var(--pill-teal-bg);
+  color: var(--pill-teal-fg);
+}
+
+.about .feed__pill--events {
+  background: var(--pill-coral-bg);
+  color: var(--pill-coral-fg);
+}
+
+/* news event types (archive page) */
+.about .feed__pill--conference {
+  background: var(--pill-blue-bg);
+  color: var(--pill-blue-fg);
+}
+
+.about .feed__pill--workshop {
+  background: var(--pill-teal-bg);
+  color: var(--pill-teal-fg);
+}
+
+.about .feed__pill--summit {
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+.about .feed__pill--invited-talk {
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+}
+
+.about .feed__pill--symposium {
+  background: var(--pill-green-bg);
+  color: var(--pill-green-fg);
+}
+
+/* right-side thumbnail on rich rows (news archive) */
+.about .feed__thumb {
+  flex-shrink: 0;
+  align-self: center;
+  width: 10rem;
+}
+
+.about .feed__thumb figure {
+  margin: 0;
+}
+
+.about .feed__thumb picture {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--global-divider-color);
+}
+
+.about .feed__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.about a.feed__row:hover .feed__thumb img {
+  transform: scale(1.05);
+}
+
+.about .feed__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+  transition: color 0.25s ease;
+}
+
+.about a.feed__row:hover .feed__title {
+  color: var(--global-theme-color);
+}
+
+.about .feed__desc {
+  display: -webkit-box;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.about .feed__arrow {
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  opacity: 0;
+  font-size: 1.1rem;
+  color: var(--global-theme-color);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.about a.feed__row:hover .feed__arrow {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.about .feed__ext {
+  margin-left: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--global-text-color-light);
+}
+
+.about .feed__empty {
+  margin: 0;
+  padding: 1.2rem 0;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+}
+
+/* ---------- Selected publications inside the white card ---------- */
+
+.about .publications {
+  margin-top: 0;
+}
+
+.about .publications ol.bibliography > li {
+  margin-bottom: 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.about .publications ol.bibliography > li:first-child {
+  border-top: 0;
+}
+
+.about .publications ol.bibliography > li > .row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.55rem 0;
+  margin: 0;
+}
+
+.about .publications ol.bibliography > li > .row > [class*="col"] {
+  flex: none;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+}
+
+.about .publications ol.bibliography li .abbr {
+  margin-bottom: 0;
+}
+
+.about .publications ol.bibliography li .title {
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: var(--global-text-color);
+}
+
+.about .publications ol.bibliography li .author,
+.about .publications ol.bibliography li .periodical {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+/* _base.scss sets `pre { color: var(--global-theme-color) }` — fix inside the
+ * expanded BibTeX panel. */
+.about .publications ol.bibliography li .hidden pre {
+  color: var(--global-text-color);
+  background-color: var(--global-code-bg-color);
+}
+
+/* Collapsed panels are max-height:0 + overflow:hidden but their scrollable
+ * <pre> and copy button stay keyboard-focusable — 10 invisible tab stops.
+ * visibility removes them from the tab order; GLOBAL scope (also /publications/). */
+.publications ol.bibliography li .hidden {
+  visibility: hidden;
+}
+
+.publications ol.bibliography li .hidden.open {
+  visibility: visible;
+}
+
+/* ---------- Partners marquee — ported from TerraMosaic's
+ * "Built together, across institutions" section ---------- */
+
+.about .partners__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.about .slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+  /* the mask creates a stacking context, so the imgs' multiply blend cannot
+   * reach the page behind it — paint the paper onto the slider itself to give
+   * the blend an opaque backdrop (white logo boxes melt into it). */
+  background: var(--global-bg-color);
+  /* fade logos in/out at the edges instead of hard clipping */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.about .slider:hover .slider__track {
+  animation-play-state: paused;
+}
+
+.about .slider__track {
+  display: flex;
+  gap: 56px;
+  align-items: center;
+  animation: aboutSlideLeft 45s linear infinite;
+  /* the animated transform creates a stacking context on the track, so the
+   * imgs' multiply blend can only reach backdrops INSIDE the track — paint
+   * the paper here (not on .slider) for white logo boxes to melt into. */
+  background: var(--global-bg-color);
+}
+
+.about .slider__track--reverse {
+  animation: aboutSlideRight 45s linear infinite;
+}
+
+.about .slider__track a {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.about .slider__track a:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.about .slider__track img {
+  /* one shared height; widths breathe naturally */
+  height: 72px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* multiply-blend melts white logo boxes into the paper ground */
+  mix-blend-mode: multiply;
+}
+
+.about .slider__track img[alt="Garcia Research Group"] {
+  transform: scale(1.12);
+}
+
+.about .slider__track img[alt="Schmidt Sciences"] {
+  transform: scale(1.2);
+}
+
+/* Dark mode: multiply would sink white logo boxes into the ink — give each
+ * logo a small paper chip instead. */
+html[data-theme="dark"] .about .slider__track img {
+  mix-blend-mode: normal;
+  background: #f5f4ef;
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-sizing: content-box;
+}
+
+@keyframes aboutSlideLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes aboutSlideRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Gallery photo strip — same marquee mechanics, photo treatment ---------- */
+
+.about .slider__track--photos {
+  gap: 18px;
+  animation-duration: 80s;
+  /* photos need no blend backdrop */
+  background: transparent;
+}
+
+.about .slider__track--photos a {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.about .slider__track--photos figure {
+  margin: 0;
+}
+
+.about .slider__track--photos img {
+  height: 11rem;
+  width: auto;
+  max-width: none;
+  mix-blend-mode: normal;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--global-divider-color);
+  transition: transform 0.3s ease;
+}
+
+.about .slider__track--photos a:hover img {
+  transform: scale(1.03);
+}
+
+/* photos never get the dark-mode paper chip that logos need */
+html[data-theme="dark"] .about .slider__track--photos img {
+  background: none;
+  padding: 0;
+  border-color: rgba(233, 236, 243, 0.14);
+}
+
+@media (max-width: 575.98px) {
+  .about .slider__track--photos img {
+    height: 8rem;
+  }
+}
+
+/* generous air before the footer */
+.about > .section:last-of-type {
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* ---------- Hero entrance (one-time, reference recipe) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .about .hero .eyebrow,
+  .about .hero__name,
+  .about .hero__tagline,
+  .about .hero__role,
+  .about .hero__org,
+  .about .hero__founder,
+  .about .hero__links,
+  .about .hero__portrait {
+    animation: aboutRise 0.65s var(--ease) both;
+  }
+
+  .about .hero__name {
+    animation-delay: 0.06s;
+  }
+
+  .about .hero__tagline {
+    animation-delay: 0.12s;
+  }
+
+  .about .hero__role,
+  .about .hero__org,
+  .about .hero__founder {
+    animation-delay: 0.18s;
+  }
+
+  .about .hero__links {
+    animation-delay: 0.24s;
+  }
+
+  .about .hero__portrait {
+    animation-delay: 0.12s;
+  }
+
+  @keyframes aboutRise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 768px) {
+  .about .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 11.5rem;
+    align-items: center;
+  }
+
+  .about .hero__portrait {
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+@media (min-width: 930px) {
+  .about .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 12.5rem;
+  }
+}
+
+/* Wider canvas for the About page on large screens; harmless no-op where
+ * :has() is unsupported (the container stays at site.max_width). */
+@media (min-width: 1200px) {
+  .container:has(> .post.about) {
+    max-width: 1080px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .about .cardlist {
+    padding: 0.25rem 1.15rem;
+  }
+
+  .about .feed__row {
+    gap: 1rem;
+  }
+
+  .about .feed__date {
+    width: 4.25rem;
+  }
+
+  .about .feed__day {
+    font-size: 1.55rem;
+  }
+
+  .about .feed__my {
+    white-space: normal;
+  }
+
+  /* card padding is 1.15rem here — cap the hover expansion below it */
+  .about a.feed__row:hover {
+    margin-inline: -0.9rem;
+    padding-inline: 0.9rem;
+  }
+
+  .about .feed__thumb {
+    width: 5.5rem;
+  }
+
+  .about .feed__thumb picture {
+    aspect-ratio: 1 / 1;
+  }
+
+  .about .feed__title {
+    font-size: 1.02rem;
+  }
+}
+
+/* ---------- Motion kill-switch ----------
+ * Same specificity trick as _base.scss:919's `html.transition *` — this
+ * partial is imported last, so source order wins. */
+@media (prefers-reduced-motion: reduce) {
+  html .about *,
+  html .about *::before,
+  html .about *::after,
+  html.transition .about *,
+  html.transition .about *::before,
+  html.transition .about *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .about .hero__links a:hover {
+    transform: none;
+  }
+
+  .about .feed__arrow {
+    transition: none;
+  }
+
+  .about .feed__thumb img,
+  .about a.feed__row:hover .feed__thumb img {
+    transition: none;
+    transform: none;
+  }
+
+  /* the frozen marquee would clip half its logos behind the edge mask —
+   * turn each row into a plain scrollable strip instead */
+  .about .slider {
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

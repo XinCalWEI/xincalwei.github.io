@@ -6,6 +6,7 @@
 % Selected Publications by Dr. Xin Wei
 
 @article{wei2024improving,
+  abstract={Regional landslide susceptibility mapping (LSM) is essential for risk mitigation. While deep learning algorithms are increasingly used in LSM, their extensive parameters and scarce labels (limited landslide records) pose training challenges. In contrast, classical statistical algorithms, with typically fewer parameters, are less likely to overfit, easier to train, and offer greater interpretability. Additionally, integrating physics-based and data-driven approaches can potentially improve LSM. This paper makes several contributions to enhance the practicality, interpretability, and cross-regional generalization ability of regional LSM models: (1) Two new hybrid models, composed of data-driven and physics-based modules, are proposed and compared. Hybrid Model I combines the infinite slope stability analysis (ISSA) with logistic regression, a classical statistical algorithm. Hybrid Model II integrates ISSA with a convolutional neural network, a representative of deep learning techniques. The physics-based module constructs a new explanatory factor with higher nonlinearity and reduces prediction uncertainty caused by incomplete landslide inventory by pre-selecting non-landslide samples. The data-driven module captures the relation between explanatory factors and landslide inventory. (2) A step-wise deletion process is proposed to assess the importance of explanatory factors and identify the minimum necessary factors required to maintain satisfactory model performance. (3) Single-pixel and local-area samples are compared to understand the effect of pixel spatial neighborhood. (4) The impact of nonlinearity in data-driven algorithms on hybrid model performance is explored. Typical landslide-prone regions in the Three Gorges Reservoir, China, are used as the study area. The results show that, in the testing region, by using local-area samples to account for pixel spatial neighborhoods, Hybrid Model I achieves roughly a 4.2\% increase in the AUC. Furthermore, models with 30 m resolution land-cover data surpass those using 1000 m resolution data, showing a 5.5\% improvement in AUC. The optimal set of explanatory factors includes elevation, land-cover type, and safety factor. These findings reveal the key elements to enhance regional LSM, offering valuable insights for LSM practices.},
   abbr={Geosci. Front.},
   bibtex_show={true},
   title={Improving pixel-based regional landslide susceptibility mapping},
@@ -20,11 +21,12 @@
   html={https://www.sciencedirect.com/science/article/pii/S1674987124000069},
   selected={true},
   google_scholar_id={3fE2CSJIrl8C},
-  citations={38},
+  citations={52},
   additional_info={. Previously listed as an ESI Highly Cited Paper}
 }
 
 @article{wei2023comparison,
+  abstract={Landslide susceptibility mapping (LSM) is essential for the spatial prediction of landslides and risk prevention. Physically based LSM models are confined by oversimplifications of physical processes and limited information about soil properties. Data-driven LSM models may give reliable results only when the training and the testing data have high similarity, and application in regions with different geological conditions is often inapplicable. This paper proposes four hybrid data-driven and physical models and compares these models in terms of cross-regional generalization ability and prediction uncertainty. The effects of physical module performance on the hybrid model are analyzed. For the physical modules of the four hybrid models, two-dimensional (2D) physically based models, TRIGRS and the infinite-slope stability models (ISSMs), and the three-dimensional (3D) physically based model, Scoops3D, are adopted. The data-driven modules all adopt the convolutional neural network (CNN) model. Two towns in the Three-Gorge Reservoir area of China are used as the training and testing areas. The results show that all hybrid models have better generalization ability than using the data-driven module exclusively. The prediction uncertainty is significantly reduced by pre-selecting training samples using the physical module. The optimal hybrid model is the one that integrates CNN and ISSM (under the saturated condition). It is then applied to a new region (Wushan County) to further validate the generalization ability. It can make accurate predictions without calibrating the trained model using new data from the validation area. Finally, the effectiveness of model averaging for improving the prediction performance is verified. Using model averaging, the AUC value in the validation area yields 0.834, which is even higher than the original realizations, with AUC values ranging from 0.683 to 0.817. Therefore, the optimal hybrid model can be directly used for LSM in the Three-Gorge Reservoir, and the findings can provide valuable guidance for generalization ability improvement and prediction uncertainty reduction of LSM models in other countries and regions.},
   abbr={Acta Geotech.},
   bibtex_show={true},
   title={Comparison of hybrid data-driven and physical models for landslide susceptibility mapping at regional scales},
@@ -39,10 +41,11 @@
   html={https://link.springer.com/article/10.1007/s11440-023-01841-4},
   selected={true},
   google_scholar_id={8k81kl-MbHgC},
-  citations={52}
+  citations={80}
 }
 
 @article{wei2021machine,
+  abstract={Knowledge of pore-water pressure (PWP) variation is fundamental for slope stability. A precise prediction of PWP is difficult due to complex physical mechanisms and in situ natural variability. To explore the applicability and advantages of recurrent neural networks (RNNs) on PWP prediction, three variants of RNNs, i.e., standard RNN, long short-term memory (LSTM) and gated recurrent unit (GRU) are adopted and compared with a traditional static artificial neural network (ANN), i.e., multi-layer perceptron (MLP). Measurements of rainfall and PWP of representative piezometers from a fully instrumented natural slope in Hong Kong are used to establish the prediction models. The coefficient of determination (R2) and root mean square error (RMSE) are used for model evaluations. The influence of input time series length on the model performance is investigated. The results reveal that MLP can provide acceptable performance but is not robust. The uncertainty bounds of RMSE of the MLP model range from 0.24 kPa to 1.12 kPa for the selected two piezometers. The standard RNN can perform better but the robustness is slightly affected when there are significant time lags between PWP changes and rainfall. The GRU and LSTM models can provide more precise and robust predictions than the standard RNN. The effects of the hidden layer structure and the dropout technique are investigated. The single-layer GRU is accurate enough for PWP prediction, whereas a double-layer GRU brings extra time cost with little accuracy improvement. The dropout technique is essential to overfitting prevention and improvement of accuracy.},
   abbr={Geosci. Front.},
   bibtex_show={true},
   title={Machine learning for pore-water pressure time-series prediction: Application of recurrent neural networks},
@@ -57,11 +60,12 @@
   html={https://www.sciencedirect.com/science/article/pii/S1674987120301134},
   selected={true},
   google_scholar_id={u5HHmVD_uO8C},
-  citations={232},
-  additional_info={. ESI Highly Cited Paper🏆}
+  citations={266},
+  additional_info={. ESI Highly Cited Paper}
 }
 
 @article{wei2021novel,
+  abstract={Landslide susceptibility mapping (LSM) is critical for risk assessment and mitigation. Generalization ability and prediction uncertainty are the current challenges for LSM but have been rarely investigated. The generalization ability refers to the ability of trained models to assess the landslide susceptibility of new areas and make accurate predictions. The prediction uncertainty mainly comes from the possibility of wrongly selecting the unstable landslide samples as stable ones from incomplete landslide inventory. This paper proposes a hybrid model by integrating the convolutional neural network (CNN) with physical model transient rainfall infiltration and grid-based regional slope-stability analysis (TRIGRS) to address the challenges above by combining the advantages of the two approaches. CNN is the main structure of the hybrid model and serves as a binary classifier to capture the spatial and inter-channel correlation among landslide conditioning factors and landslide inventory. TRIGRS characterizes the differences among grids caused by lithology by converting originally spatially discrete and banded lithology information into spatially continuous safety factors (Fs) within a fixed range and pre-selects training samples to ensure the correctness of the selected non-landslide grids. Two towns (Zhuyuan and Qinglian) in Fengjie, Chongqing, China, are used as the study area. A landslide inventory and landslide conditioning factor maps with 30 m resolution consist of the database. The performance of CNN and the proposed hybrid model is compared using the receiver operating characteristic curve and relative landslide density index (R-index). The superiority of the hybrid model and the effect of pre-selection of training samples are investigated. The results reveal that the generalization ability is enhanced and the prediction uncertainty is reduced by the proposed hybrid model.},
   abbr={Nat. Hazards},
   bibtex_show={true},
   title={A hybrid framework integrating physical model and convolutional neural network for regional landslide susceptibility mapping},
@@ -75,7 +79,7 @@
   html={https://link.springer.com/article/10.1007/s11069-021-04844-0},
   selected={true},
   google_scholar_id={u-x6o8ySG0sC},
-  citations={69}
+  citations={89}
 }
 
 @inproceedings{wei2025agu,
@@ -146,6 +150,7 @@
 }
 
 @article{chen2022debris,
+  abstract={This paper proposes a distributed model for assessing the damage to a submarine pipeline network induced by regional debris flows. The model consists of three components: a spatial discretization module, a regional submarine debris flow dynamics module, and an impact force and damage evaluation module for the pipeline network. The model is applied to the Shenhu area in the northern South China Sea to investigate the responses of a pipeline network subjected to regional submarine debris flows. The proposed model can capture the impact forces and damage level of the pipeline network during the debris flow process. The influence of the properties and initial location of a potential debris flow on the pipeline network damage and the effect of multiple debris flows on the pipeline network are investigated. The risk mitigation measures for a complex submarine pipeline network in extreme disaster scenarios on a regional scale are compared. The proposed model represents a feasible solution for assessing the responses of a pipeline network subjected to regional submarine debris flows and can facilitate risk-informed decision-making for the planning and optimization of pipeline routes.},
   abbr={Eng. Geol.},
   bibtex_show={true},
   title={Debris-flow-induced damage assessment for a submarine pipeline network in regional-scale natural terrain},
@@ -157,10 +162,11 @@
   publisher={Elsevier},
   html={https://www.sciencedirect.com/science/article/abs/pii/S0013795222004021},
   google_scholar_id={zYLM7Y9cAGgC},
-  citations={9}
+  citations={15}
 }
 
 @article{chen2023simulation,
+  abstract={Evaluation of regional submarine debris flows is critical for quantitative assessment of vulnerable areas and reasonable design of geohazard mitigation measures. In this article, an efficient numerical model for kinematics of regional submarine debris flows is developed. The proposed model can simulate the runout process and morphological evolution of submarine debris flows over natural 3D terrain by solving 1D depth-averaged governing equations in a geographic information system (GIS). A strength softening equation is introduced to capture the degradation of sliding material strength during the runout process. The model is validated by a flume test, two slump tests, and a real case history of submarine debris flow (St Niklausen slide). Applications to Shenhu area, South China Sea, are presented to demonstrate the ability of the proposed model over complex natural terrain and the importance of considering material softening. Results show that the proposed model is capable of simulating the whole debris flow process and tracking the propagation of the sliding material. Simulation of submarine debris flow without material softening will underestimate the disaster consequences. In addition, the influences of the ambient fluid and the yield strength of the sliding material on its runout behavior are also discussed.},
   abbr={Mar. Georesour. Geotechnol.},
   bibtex_show={true},
   title={Simulation of runout behavior of submarine debris flows over regional natural terrain considering material softening},
@@ -192,6 +198,7 @@
 }
 
 @article{luo2022probabilistic,
+  abstract={Physically-based landslide susceptibility models have been widely used to predict rainfall-triggered landslides. Calibration of these models is mainly conducted by tuning various inputs, but spatially varying soil properties are not considered. In this study, an efficient probabilistic model calibration method is proposed, which integrates discrete cosine transform (DCT) representation of spatial variability with Bayesian parameter estimation to characterise the spatial variation of soil properties in a physically-based landslide susceptibility model. The efficacy of DCT inversion in representing fields with binary information about landslide occurrence and non-occurrence is investigated. To illustrate the capability and feasibility of the proposed method, a hypothetical example and a case study of a 2014 regional rainfall-triggered landslide event in Qinglian Town, Chongqing, China are presented. The results demonstrate that the location, size and shape of landslide have little influence on the DCT inversion. Considering spatial variation in model calibration can significantly improve model prediction performance for regional rainfall-induced landslides. The topography of the landslide initiation area may affect the influence of the model calibration if the field observations do not agree with the fundamental physics underlying the stability equation used in the model.},
   abbr={Georisk},
   bibtex_show={true},
   title={Probabilistic model calibration of spatial variability for a physically-based landslide susceptibility model},
@@ -208,6 +215,7 @@
 }
 
 @article{cui2022quantitative,
+  abstract={Most previous studies on the quantitative risk assessment (QRA) of landslides focused on the probability of slope failure at the pre-failure stage and adopted empirical models for consequence analysis. The conventional approaches simplify the relationship between the pre-failure state and the post-failure behavior and cannot reasonably account for the effects of uncertainty on the entire landslide process. In this paper, an efficient QRA method that involves the direct simulation of the entire landslide process is proposed. A QRA formula that considers the probability of only those landslides that can impact the element at risk is used. The coupled Eulerian–Lagrangian method is used to simulate the entire landslide process and to identify slopes that can impact the element at risk and determine the failure consequences. The subset simulation method is adopted to efficiently estimate the probability of landslide impact, and parameter uncertainty is considered. Two case histories of landslides are investigated. First, the 2011 Baqiao loess landslide in Xi'an, China, is investigated, and the results of the proposed method are compared with those of the conventional approaches. Second, the proposed method is applied to assess the risk of the 2015 Ganjingzi landslide in the Three Gorges Reservoir. The effects of the risk mitigation works are also discussed.},
   abbr={Acta Geotech.},
   bibtex_show={true},
   title={Quantitative risk assessment of landslides with direct simulation of pre-failure to post-failure behaviors},
@@ -219,10 +227,11 @@
   publisher={Springer},
   html={https://link.springer.com/article/10.1007/s11440-022-01485-w},
   google_scholar_id={2osOgNQ5qMEC},
-  citations={34}
+  citations={39}
 }
 
 @article{deng2022probabilistic,
+  abstract={Land subsidence is a global problem in urban areas. The main cause of land subsidence is the pumping of subsurface water. It is of great significance to study the subsurface settlement and water flow of the lands due to pumping. In this study, the probabilistic analysis of land subsidence due to pumping is performed by Biot’s poroelasticity and random field theory based on a case study. The results show that the change of deformation of the aquifer is far less significant than the hydraulic head over the years. When considering the spatial variability of soil strength, the land subsidence suffers from great uncertainty when the correlation length is large. Nevertheless, the spatial variability of soil strength on the uncertainty of hydraulic head can be ignored. When considering the spatial variability of soil hydraulic conductivity, the uncertainty of the hydraulic head is mainly located near the bedrock and increases markedly along with the rise of the correlation length. Time is another important factor to increase the uncertainty of the hydraulic head. However, its contribution to the uncertainty of displacement is insignificant.},
   abbr={J. Eng. Appl. Sci.},
   bibtex_show={true},
   title={Probabilistic analysis of land subsidence due to pumping by Biot poroelasticity and random field theory},
@@ -234,10 +243,11 @@
   publisher={SpringerOpen},
   html={https://jeas.springeropen.com/articles/10.1186/s44147-021-00066-0},
   google_scholar_id={9yKSN-GCB0IC},
-  citations={10}
+  citations={13}
 }
 
 @article{zhang2023polynomial,
+  abstract={As rainfall infiltrates into soil slopes, the hydraulic and mechanical behaviors of soils are interacted. In this study, an efficient probabilistic parameter estimation method for coupled hydro-mechanical behavior in soil slope is proposed. This method integrates the Polynomial Chaos Expansion (PCE) method, the coupled hydro-mechanical modeling, and the Bayesian learning method. A coupled hydro-mechanical numerical model is established for the simulation of behaviors of unsaturated soil slope under rainfall infiltration, following by training a cheap-to-run PCE surrogate to replace it. Probabilistic estimation of soil parameters is conducted based on the Bayesian learning technique with the Markov Chain Monte Carlo (MCMC) simulation. A numerical example of an unsaturated slope under rainfall infiltration is presented to illustrate the proposed method. The effects of measurement durations and response types on parameter estimation are addressed. The result shows that with the increase of measurement duration, the uncertainties of soil parameters are significantly reduced. The uncertainties of hydraulic properties are reduced significantly using the pore water pressure data, while the uncertainties of soil strength parameters are reduced greatly using the measured displacement data.},
   abbr={Rock Mech. Bull.},
   bibtex_show={true},
   title={Polynomial chaos surrogate and bayesian learning for coupled hydro-mechanical behavior of soil slope},
@@ -250,10 +260,11 @@
   publisher={Elsevier},
   html={https://www.sciencedirect.com/science/article/pii/S2773230422000233},
   google_scholar_id={W7OEmFMy1HYC},
-  citations={15}
+  citations={20}
 }
 
 @article{wu2018probabilistic,
+  abstract={The seepage and stress-deformation in an unsaturated slope under rainfall infiltration are interacted with high nonlinearity. Numerical models are commonly adopted to solve the coupled governing equations. Tremendous computational cost of numerical modeling is the main obstacle for probabilistic back analysis with field monitoring data. A probabilistic back analysis method based on polynomial chaos expansion (PCE) is proposed in this study. PCE approximation is used to construct the explicit functions between unsaturated soil parameters and model responses to replace the original numerical model. The PCE surrogate model is adopted in parameter posterior inference with Markov chain Monte Carlo (MCMC) simulation based on the Bayesian theory. An example of unsaturated soil slope under rainfall infiltration is presented to illustrate the efficiency of the proposed method. The statistics of posterior distribution and 95\% uncertainty bounds obtained using the PCE-based method are close to the results of the traditional back analysis based on the original numerical model. In addition, the proposed new method can significantly improve the efficiency of model calibration.},
   abbr={Chin. J. Geotech. Eng.},
   bibtex_show={true},
   title={Probabilistic back analysis method for unsaturated soil slopes with fluid-solid coupling process based on polynomial chaos expansion},
@@ -264,10 +275,11 @@
   year={2018},
   html={https://cge.nhri.cn/cn/article/pdf/preview/10.11779/CJGE201812008.pdf},
   google_scholar_id={UeHWp8X0CEIC},
-  citations={3}
+  citations={4}
 }
 
 @article{tan2024study,
+  abstract={Current regional landslide susceptibility assessment (LSA) methods based on the raster / grid / pixel unit suffer from such problems as insufficient consideration of spatial correlation of raster units and poor cross-generalization ability, and to address these problems, a LSA method based on the U-Net semantic segmentation network is proposed. With the Zhuyuan Town and the Qinglian Town in Fengjie County taken as the study areas, ten landslide conditioning factors, including elevation, lithology and normalized difference vegetation index, are selected. By forming a dataset with these conditioning factors and landslide inventory, the U-Net model is established for LSA. The model averaging method is applied to several prediction matrices, and the accuracy and uncertainty are quantified by the receiver operating characteristic (ROC) curves and the area under the curve (AUC). To further enhance the cross-generalization ability affected by different lithologies across regions, a lithology scoring method is proposed, and the model is applied to Qinglian Town to assess its cross-generalization ability. The results show that: (1) The U-Net model presents reliable performance and effectively captures the spatial correlation of raster units, and the optimized network architecture enables more accurate susceptibility assessment. The landslide susceptibility map in Zhuyuan Town agrees well with the landslide inventory, whose assessment is better than that of Qinglian Town. (2) The model averaging method can effectively reduce the uncertainty of predictions. Stable and reliable assessment results can be obtained by averaging a small number of predictions, without the necessity of seeking the optimal result from a single random realization. As the number of predictions involving in model averaging increases, the AUC presents a convergent trend. (3) The lithology scoring method standardizes the data distribution of the training and test areas, and in combination with the model averaging method, it can be used to ensure the cross-generalization ability of the model.},
   abbr={China Civ. Eng. J.},
   bibtex_show={true},
   title={Study on regional landslide susceptibility assessment and generalization ability based on U-Net semantic segmentation network},
@@ -277,10 +289,11 @@
   year={2024},
   html={http://manu36.magtech.com.cn/Jwk_tmgcxb/CN/abstract/abstract1988.shtml},
   google_scholar_id={KlAtU1dfN6UC},
-  citations={0}
+  citations={3}
 }
 
 @article{jiang2024current,
+  abstract={The development and utilization of deep-sea oil and gas is a crucial solution to our energy challenges. The submarine geological hazards are likely generated by natural factors(earthquake, et al.) and human being activities(exploitation, et al.), threatening the safety of major engineering and existing facilities. This work reviews the existing research status of the generation mechanism and multi-scale evolution pattern of marine geological hazards. Moreover, it also summarizes the vulnerability of marine geological hazards, engineering facility, and the current status of risk assessment. According to the literature, the research on geological hazards faces several challenges. Firstly, there is a scarcity of monitoring data and a lack of targeted multi-field/multi-phase coupling analysis methods and multi-scale numerical analysis methods; Secondly, the existing basic data, evaluation models, and accuracy of studying geological hazard susceptibility and vulnerability are insufficient to meet the existing demand; Thirdly, the evaluation index system used in risk assessment is not objective and scientific, and lacks systematic theoretical methods and software suitable for engineering practice, as well as relevant norms and standards for risk control standards and response measures of seabed geological hazards. This paper proposes several solutions to address the challenges faced in the research of geological hazards in the Qiongdongnan Basin. These solutions encompass exploration technology of reservoir, macro and micro constitutive models of sediment, multi-scale numerical simulation, and the dynamic theory of landslide impact force. Furthermore, it suggests that risk identification, risk assessment, and mitigation measures should be integrated to achieve controllable risk development. At the same time, with the help of new methods such as artificial intelligence, this paper proposes a multi-scale and multi-spatial-temporal coupling digital triplet framework, which provides the reference for geological hazard research of large hydrate reservoir(Qiongdongnan Basin, et al.)exploitation in the next step.},
   abbr={J. Eng. Geol.},
   bibtex_show={true},
   title={Current situation and prospects of research on mechanism analyses and risk assessments of geological hazards induced by hydrate exploitation and marine environmental effects},
@@ -292,5 +305,5 @@
   year={2024},
   html={http://en.dzkx.org/article/doi/10.13544/j.cnki.jeg.2023-0203},
   google_scholar_id={Zph67rFs4hoC},
-  citations={4}
+  citations={5}
 }

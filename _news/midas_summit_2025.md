@@ -4,6 +4,8 @@ title: U-M Annual Data Science & AI Summit 2025
 date: 2025-11-17 08:00:00-0500
 inline: false
 related_posts: false
+thumbnail: assets/img/U-M Annual Data Science & AI Summit 2025v3.png
+category: Summit
 ---
 
 **November 13–14, 2025**

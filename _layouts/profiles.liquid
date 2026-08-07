@@ -1,49 +1,61 @@
 ---
 layout: page
 ---
-<div class="post">
-  <article>
-    {% if page.profiles %}
-      {% for profile in page.profiles %}
-        {% if profile.section_title %}
-          <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem;">
-            {% if profile.section_url %}
-              <a href="{{ profile.section_url }}" target="_blank">{{ profile.section_title }}</a>
-            {% else %}
-              {{ profile.section_title }}
-            {% endif %}
-          </h2>
+<!--
+  People rows in the site's card language: grouped by program, each person
+  a photo + name + meta + bio row. Sections come from page.profiles entries
+  with section_title; people entries follow their section.
+-->
+<div class="post about tm-people">
+  {% assign open = false %}
+  {% for profile in page.profiles %}
+    {% if profile.section_title %}
+      {% if open %}
+        </ul>
+        </div>
+      {% endif %}
+      <h2 class="people-sec">
+        {% if profile.section_url %}
+          <a href="{{ profile.section_url }}" target="_blank" rel="noopener noreferrer">
+            {{ profile.section_title }}
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
         {% else %}
-          <div style="margin-bottom: 2.5rem;">
-            <h3 style="margin-bottom: 1rem;">{{ profile.name }}</h3>
-            <div style="display: flex; gap: 2rem; align-items: flex-start;">
-              {% if profile.image %}
-                <div style="flex-shrink: 0;">
-                  {% assign profile_image_path = profile.image | prepend: 'assets/img/' %}
-                  {% if profile.image_circular %}
-                    {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-                  {% else %}
-                    {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
-                  {% endif %}
-                  {% capture sizes %}300px{% endcapture %}
-                  <div style="width: 250px;">
-                    {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=profile.image %}
-                  </div>
-                </div>
-              {% endif %}
-              <div style="flex-grow: 1;">
-                {% if profile.more_info %}
-                  <div style="margin-bottom: 1rem;">{{ profile.more_info }}</div>
-                {% endif %}
-                {% if profile.content %}
-                  {% capture profile_content %}{% include_relative {{ profile.content }} %}{% endcapture %}
-                  {{ profile_content | markdownify }}
-                {% endif %}
-              </div>
-            </div>
+          {{ profile.section_title }}
+        {% endif %}
+      </h2>
+      <div class="cardlist">
+        <ul class="people">
+          {% assign open = true %}
+    {% else %}
+      {% unless open %}
+        <div class="cardlist">
+          <ul class="people">
+            {% assign open = true %}
+      {% endunless %}
+      <li class="person">
+        {% if profile.image %}
+          <div class="person__photo">
+            {% assign profile_image_path = profile.image | prepend: 'assets/img/' %}
+            {% include figure.liquid loading="eager" path=profile_image_path sizes="220px" alt=profile.name %}
           </div>
         {% endif %}
-      {% endfor %}
+        <div class="person__body">
+          <h3 class="person__name">{{ profile.name }}</h3>
+          {% if profile.more_info %}
+            <div class="person__meta">{{ profile.more_info }}</div>
+          {% endif %}
+          {% if profile.content %}
+            {% capture profile_content %}{% include_relative {{ profile.content }} %}{% endcapture %}
+            <div class="person__bio">{{ profile_content | markdownify }}</div>
+          {% endif %}
+        </div>
+      </li>
     {% endif %}
-  </article>
+  {% endfor %}
+  {% if open %}
+    </ul>
+    </div>
+  {% endif %}
 </div>

@@ -8,6 +8,11 @@ nav: true
 nav_order: 5
 ---
 
+<div class="prose">
+
+<article class="story" markdown="1">
+<p class="story__kicker">Mentorship</p>
+
 ## [Journey Through CEE: from undergrad to future success](https://cee.engin.umich.edu/2024/12/16/building-bridges-advancing-community-at-u-m-civil-environmental-engineering/)
 
 While there are many formal opportunities for undergraduates to engage with the department and professors, there are fewer informal channels for them to connect with PhD students, postdocs, or faculty members—to ask questions, seek guidance, and build relationships.
@@ -25,16 +30,21 @@ The primary goal of the study group is to increase communication channels betwee
     Journey Through CEE: Connecting undergraduates with mentors for academic and career success.
 </div>
 
----
+</article>
+
+<article class="story" markdown="1">
+<p class="story__kicker">Academic Service</p>
 
 ## Judge for the Poster Session at the [U-M Annual Data Science & AI Summit 2025](https://midas.umich.edu/events/midas-summit-2025-posters/)
 
----
+</article>
+
+<article class="story" markdown="1">
+<p class="story__kicker">Invited Talk</p>
 
 ## [2025 Spring Geotechnical Seminar](https://sections.asce.org/connecticut/042525-spring-geotechnical-seminar-earn-7-nys-pdhs)
 
-**April 25, 2025**
-**TPC River Highlands, Cromwell, Connecticut**
+**April 25, 2025 · TPC River Highlands, Cromwell, Connecticut**
 
 Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
 
@@ -43,8 +53,14 @@ Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at
         {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
+<div class="caption">
+    At the 2025 Spring Geotechnical Seminar, Cromwell, Connecticut.
+</div>
 
----
+</article>
+
+<article class="story" markdown="1">
+<p class="story__kicker">K-12 Science Outreach</p>
 
 ## ["Urban Hazards and Risk Management" Event](https://www.sohu.com/a/324524017_363254)
 
@@ -91,4 +107,8 @@ I contributed to designing activities such as VR-based fire escape training and 
 </div>
 <div class="caption">
     Video demonstrations of the hands-on activities at the event.
+</div>
+
+</article>
+
 </div>

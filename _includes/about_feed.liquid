@@ -1,0 +1,88 @@
+{% comment %}
+  Dated row list for the About page, in the TerraMosaic post-item style:
+  big day number + month/year rail, optional category pill (posts), bold
+  title, hover arrow. Each row is one block-level <a>.
+
+  news.liquid / latest_posts.liquid are left untouched so /news/ keeps working.
+
+  Params:
+    items — a collection (already ordered newest-first)
+    limit — integer
+    kind  — 'news' | 'posts'
+{% endcomment %}
+
+{% assign feed_limit = include.limit | default: 5 %}
+{% assign feed_count = include.items | size %}
+
+{% if feed_count > 0 %}
+  <ol class="feed">
+    {% for item in include.items limit: feed_limit %}
+      {% assign is_external = false %}
+      {% assign href = item.url | relative_url %}
+      {% if item.redirect != blank %}
+        {% if item.redirect contains '://' %}
+          {% assign href = item.redirect %}
+          {% assign is_external = true %}
+        {% else %}
+          {% assign href = item.redirect | relative_url %}
+        {% endif %}
+      {% endif %}
+      <li>
+        {% if include.kind == 'news' and item.inline %}
+          <div class="feed__row">
+            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">
+              <span class="feed__day">{{ item.date | date: '%-d' }}</span>
+              <span class="feed__my">{{ item.date | date: '%b %Y' }}</span>
+            </time>
+            <span class="feed__body">
+              <span class="feed__title">{{ item.content | remove: '<p>' | remove: '</p>' | emojify }}</span>
+            </span>
+          </div>
+        {% else %}
+          <a
+            class="feed__row"
+            href="{{ href }}"
+            {% if is_external %}
+              target="_blank"
+              rel="noopener noreferrer"
+            {% endif %}
+          >
+            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">
+              <span class="feed__day">{{ item.date | date: '%-d' }}</span>
+              <span class="feed__my">{{ item.date | date: '%b %Y' }}</span>
+            </time>
+            <span class="feed__body">
+              {% if include.kind == 'posts' %}
+                {% assign cat = item.categories | first %}
+                {% if cat %}
+                  <span class="feed__pill feed__pill--{{ cat | slugify }}">{{ cat | replace: '-', ' ' }}</span>
+                {% endif %}
+              {% elsif include.excerpt and item.category %}
+                <span class="feed__pill feed__pill--{{ item.category | slugify }}">{{ item.category }}</span>
+              {% endif %}
+              <span class="feed__title">
+                {{- item.title -}}
+                {%- if is_external %}
+                  <i class="fa-solid fa-arrow-up-right-from-square feed__ext" aria-hidden="true"></i>
+                  <span class="sr-only">(opens in a new tab)</span>
+                {% endif -%}
+              </span>
+              {% if include.kind == 'posts' and item.description != blank %}
+                <span class="feed__desc">{{ item.description | strip_html | strip }}</span>
+              {% elsif include.excerpt and item.content != blank %}
+                {% comment %} the '</'→' </' replace keeps words from running together across block boundaries after strip_html {% endcomment %}
+                <span class="feed__desc">{{ item.content | replace: '</', ' </' | strip_html | strip_newlines | truncate: 180 }}</span>
+              {% endif %}
+            </span>
+            {% if include.excerpt and item.thumbnail %}
+              <span class="feed__thumb">{% include figure.liquid path=item.thumbnail sizes="220px" alt="" %}</span>
+            {% endif %}
+            <i class="fa-solid fa-arrow-right feed__arrow" aria-hidden="true"></i>
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p class="feed__empty">Nothing here yet.</p>
+{% endif %}

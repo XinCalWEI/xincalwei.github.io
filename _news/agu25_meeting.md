@@ -4,6 +4,8 @@ title: 2025 American Geophysical Union (AGU) Fall Meeting
 date: 2025-12-21 08:00:00-0600
 inline: false
 related_posts: false
+thumbnail: assets/img/news/agu25/Xin_Shriya.jpg
+category: Conference
 ---
 
 **December 15–19, 2025**

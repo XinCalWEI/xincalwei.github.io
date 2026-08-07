@@ -4,6 +4,8 @@ title: 2024 MIDAS Postdoctoral Fellowship Programs Orientation & AI Bootcamp
 date: 2024-10-15 08:00:00-0400
 inline: false
 related_posts: false
+thumbnail: assets/img/midas_2024_bootcamp.jpg
+category: Workshop
 ---
 
 **October 2024**

@@ -1,0 +1,1349 @@
+/* =============================================================================
+ * Inner pages in the TerraMosaic language: /projects/ (primary), /news/,
+ * /blog/, /publications/, /cv/.
+ *
+ * Imported AFTER "about" (which defines the brand tokens and the shared
+ * publication components) and last overall — several rules here override
+ * _base.scss or _about.scss on source order at equal specificity.
+ * ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+ * Projects — white hover-lift cards, display category titles, sub-area pills
+ * ------------------------------------------------------------------------ */
+
+/* Category titles ("Prospective Modelling"). Overrides GLOBAL FIX B's
+ * small-caps treatment, which remains for /publications/ year headings. */
+.tm-projects h2.category {
+  margin: 2.75rem 0 0.4rem;
+  padding-top: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-align: left; // _base.scss:708 right-aligns these
+  color: var(--global-text-color);
+  border-bottom: 1px solid var(--global-divider-color);
+  padding-bottom: 0.6rem;
+}
+
+.tm-projects > a {
+  text-decoration: none;
+}
+
+.tm-projects > a:first-of-type h2.category {
+  margin-top: 0.5rem;
+}
+
+/* Sub-area headings become tinted pills (Susceptibility / Hazard / …) */
+.tm-projects h3.sub-area {
+  display: inline-block;
+  margin: 1.6rem 0 0.9rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+.tm-projects h3.sub-area--susceptibility {
+  background: var(--pill-blue-bg);
+  color: var(--pill-blue-fg);
+}
+
+.tm-projects h3.sub-area--hazard {
+  background: var(--pill-teal-bg);
+  color: var(--pill-teal-fg);
+}
+
+.tm-projects h3.sub-area--vulnerability {
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+}
+
+.tm-projects h3.sub-area--risk {
+  background: var(--pill-coral-bg);
+  color: var(--pill-coral-fg);
+}
+
+.tm-projects h3.sub-area--early-warning {
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+/* Cards — the TerraMosaic news-card recipe: hairline border, tiny resting
+ * shadow, lift + deepen on hover. Beats _base.scss's .card on source order. */
+.tm-projects .card {
+  background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(22, 36, 61, 0.04);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.tm-projects a:hover .card {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(22, 36, 61, 0.1);
+  border-color: var(--global-control-border-color);
+}
+
+html[data-theme="dark"] .tm-projects a:hover .card {
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+}
+
+.tm-projects .col {
+  margin-bottom: 1.4rem;
+}
+
+.tm-projects .card img,
+.tm-projects .card figure {
+  margin: 0;
+}
+
+.tm-projects .card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.tm-projects .card .card-body {
+  padding: 1.05rem 1.2rem;
+}
+
+.tm-projects .card .card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+  transition: color 0.25s ease;
+}
+
+.tm-projects a:hover .card .card-title {
+  color: var(--global-theme-color);
+}
+
+.tm-projects .card .card-text {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+.tm-projects .card .card-text:empty {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-projects .card,
+  .tm-projects a:hover .card {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Navbar — keep the "⌘ k 🔍" search label on one line (Inter is wider than
+ * the system stack it replaced, so the label wraps inside its nav item)
+ * ------------------------------------------------------------------------ */
+
+#navbar #search-toggle .nav-link {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+ * Editorial prose — the measured article column used by content pages
+ * (Outreach, Teaching) and every blog post / news item. The single biggest
+ * "top-tier" move: cap the measure at ~68 characters instead of letting text
+ * run the full 930px container.
+ * ------------------------------------------------------------------------ */
+
+.prose {
+  max-width: 42.5em;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--global-text-color);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose p {
+  margin: 0 0 1.35em;
+}
+
+.prose h2 {
+  margin: 2.1em 0 0.65em;
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+}
+
+.prose h3 {
+  margin: 1.7em 0 0.55em;
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--global-text-color);
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 1.35em;
+  padding-left: 1.35em;
+}
+
+.prose li {
+  margin-bottom: 0.45em;
+}
+
+.prose li::marker {
+  color: var(--global-text-color-light);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--global-divider-color);
+  margin: 2.6rem 0;
+}
+
+.prose a:not(h1 a):not(h2 a):not(h3 a) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose blockquote {
+  margin: 1.6em 0;
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid var(--global-theme-color);
+  color: var(--global-text-color-light);
+}
+
+.prose figure {
+  margin: 0;
+}
+
+.prose img,
+.prose video {
+  border-radius: 12px;
+  border: 1px solid var(--global-divider-color);
+  box-shadow: 0 4px 14px rgba(22, 36, 61, 0.07);
+}
+
+html[data-theme="dark"] .prose img,
+html[data-theme="dark"] .prose video {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.prose .caption {
+  margin: 0.65rem auto 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+  text-align: center;
+}
+
+/* media rows get breathing room from the text around them */
+.prose .row {
+  margin-top: 1.6rem;
+}
+
+/* uniform photo grid: every image in the row renders at the same 3:4 shape */
+.prose .row--photo-grid [class*="col"] img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+/* nudge the crop window toward the subject on landscape shots */
+.prose .focus-left {
+  object-position: 28% center;
+}
+
+/* marker highlight, shared with the About bio */
+.prose .hl {
+  font-weight: 600;
+  color: var(--global-text-color);
+  padding: 0 0.1em;
+  border-radius: 3px;
+  background: linear-gradient(transparent 64%, rgba(5, 150, 105, 0.22) 0);
+}
+
+html[data-theme="dark"] .prose .hl {
+  background: linear-gradient(transparent 64%, rgba(110, 231, 183, 0.26) 0);
+}
+
+.prose .hl a {
+  color: inherit;
+}
+
+/* structured poster list — name line + title line, hairline rows in a card */
+.prose .poster-list {
+  margin: 1.5rem 0;
+  padding: 0.35rem 1.5rem;
+  list-style: none;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(22, 36, 61, 0.04);
+}
+
+.prose .poster-list > li {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 1.05rem 0;
+}
+
+.prose .poster-list > li + li {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.prose .poster-list__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.prose .poster-list__name {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+}
+
+.prose .poster-list__title {
+  display: block;
+  font-size: 0.93rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+.prose .poster-list__ribbon {
+  flex-shrink: 0;
+  width: 3.2rem;
+}
+
+.prose .poster-list__ribbon figure {
+  margin: 0;
+}
+
+.prose .poster-list__ribbon img {
+  width: 100%;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* the ribbon's navy tails vanish on the dark ground — give it a paper chip,
+ * the same treatment the marquee logos and blog thumbnails use */
+html[data-theme="dark"] .prose .poster-list__ribbon img {
+  background: #f5f4ef;
+  padding: 0.3rem;
+  border-radius: 8px;
+}
+
+/* award pill — amber tint with a medal glyph */
+.prose .award-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.18rem 0.65rem;
+  margin-left: 0.15rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: 0.1em;
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+  white-space: nowrap;
+}
+
+.prose .award-pill i {
+  font-size: 0.8em;
+}
+
+.prose .row + .caption {
+  margin-bottom: 1.8rem;
+}
+
+/* ---------------------------------------------------------------------------
+ * Story cards — the Outreach page's editorial structure: kicker label,
+ * headline, body, media with captions; hairline rules between stories
+ * ------------------------------------------------------------------------ */
+
+.story {
+  padding: 2.4rem 0 1rem;
+}
+
+.story:first-of-type {
+  padding-top: 0.8rem;
+}
+
+.story + .story {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.story__kicker {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--global-theme-color);
+}
+
+.prose .story h2 {
+  margin-top: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Article headers (page.liquid + post.liquid) — editorial title, dek, meta
+ * ------------------------------------------------------------------------ */
+
+.post .post-header {
+  margin-bottom: 2rem;
+}
+
+.post .post-header .post-title {
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--global-text-color);
+}
+
+.post .post-description {
+  margin: 0.55rem 0 0;
+  max-width: 44em;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+}
+
+.post .post-meta {
+  margin: 0.55rem 0 0;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light);
+}
+
+.post .post-tags {
+  font-size: 0.85rem;
+}
+
+.post .post-tags,
+.post .post-tags a {
+  color: var(--global-text-color-light);
+}
+
+.post .post-tags a:hover {
+  color: var(--global-theme-color);
+}
+
+/* ---------------------------------------------------------------------------
+ * Heading links — content pages (Outreach, news items, …) set entire section
+ * headings in the saturated link blue, which reads loud in display type.
+ * Headings stay ink; the accent only appears on hover.
+ * ------------------------------------------------------------------------ */
+
+.post h1 > a,
+.post h2 > a,
+.post h3 > a,
+.post h4 > a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.post h1 > a:hover,
+.post h2 > a:hover,
+.post h3 > a:hover,
+.post h4 > a:hover {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+ * News page — year-grouped archive built on the shared feed rows
+ * ------------------------------------------------------------------------ */
+
+.news-page {
+  margin-top: 0.5rem;
+}
+
+.news-page .news-year {
+  margin-top: 2.25rem;
+}
+
+.news-page .news-year:first-of-type {
+  margin-top: 0;
+}
+
+.news-page .news-year__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.news-page .news-year__head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+}
+
+.news-page .news-year__count {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+}
+
+/* the archive rows carry a 2-line excerpt (the homepage section stays bare) */
+.news-page .feed__desc {
+  -webkit-line-clamp: 2;
+}
+
+/* rich rows carry thumbnails — the hover arrow would collide with them */
+.news-page .feed__arrow {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Blog index — ink masthead, pill tag strip, Jakarta titles, pill pagination
+ * ------------------------------------------------------------------------ */
+
+/* masthead: was a giant site-name in raw link blue — bring it into the ink */
+.header-bar h1 {
+  color: var(--global-text-color);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+.header-bar h2 {
+  color: var(--global-text-color-light);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.post-list li .post-title a,
+.post-list li a h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.post-list li a:hover h3 {
+  color: var(--global-theme-color);
+}
+
+.post-list li p {
+  color: var(--global-text-color-light);
+}
+
+/* ink-on-transparent thumbnails vanish on the navy ground — paper chip,
+ * same treatment as the homepage marquee logos */
+html[data-theme="dark"] .post-list li img {
+  background: #f5f4ef;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+}
+
+/* pagination: square Bootstrap boxes -> brand pills */
+.pagination .page-item .page-link {
+  margin: 0 0.15rem;
+  border: 0;
+  border-radius: 999px;
+  min-width: 2.4rem;
+  text-align: center;
+  background: transparent;
+  font-family: var(--font-body);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--global-theme-color);
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Blog index — magazine card grid: featured lead + two-column cards,
+ * with client-side filter chips (assets/js/blog-filter.js)
+ * ------------------------------------------------------------------------ */
+
+.tm-blog .blog-head {
+  margin-bottom: 1.1rem;
+}
+
+/* --- filter chips: categories read as primary, tags as secondary --- */
+
+.tm-blog .blog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.tm-blog .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 34px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--global-control-border-color);
+  color: var(--global-text-color);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.tm-blog .chip:hover {
+  border-color: var(--global-text-color);
+}
+
+.tm-blog .chip:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
+}
+
+/* count badge */
+.tm-blog .chip__n {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.62;
+}
+
+/* categories wear their card colour so the chip and the card pill agree */
+.tm-blog .chip--cat {
+  border-color: transparent;
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+  text-transform: capitalize;
+}
+
+.tm-blog .chip--research {
+  background: var(--pill-blue-bg);
+  color: var(--pill-blue-fg);
+}
+
+.tm-blog .chip--tutorial {
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+}
+
+.tm-blog .chip--machine-learning {
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
+.tm-blog .chip--platforms {
+  background: var(--pill-teal-bg);
+  color: var(--pill-teal-fg);
+}
+
+.tm-blog .chip--events {
+  background: var(--pill-coral-bg);
+  color: var(--pill-coral-fg);
+}
+
+/* tags stay quiet: outline only, smaller, hash-prefixed */
+.tm-blog .chip--tag {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--global-text-color-light);
+  border-color: var(--global-divider-color);
+}
+
+.tm-blog .chip--tag i {
+  font-size: 0.68em;
+  opacity: 0.7;
+}
+
+.tm-blog .chip--tag:hover {
+  color: var(--global-text-color);
+  border-color: var(--global-control-border-color);
+}
+
+/* one unmistakable active state for every chip kind */
+.tm-blog .chip.is-active {
+  background: var(--global-text-color);
+  border-color: var(--global-text-color);
+  color: var(--global-bg-color);
+}
+
+.tm-blog .chip.is-active .chip__n {
+  opacity: 0.75;
+}
+
+.tm-blog .blog-filters__status {
+  margin: 0.85rem 0 0;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+}
+
+.tm-blog .blog-filters__status:empty {
+  display: none;
+}
+
+.tm-blog .blog-card[hidden] {
+  display: none;
+}
+
+.tm-blog .blog-empty {
+  margin: 2.5rem 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--global-text-color-light);
+}
+
+.tm-blog .blog-empty__reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.tm-blog .blog-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  margin: 1.6rem 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .tm-blog .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tm-blog .blog-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(22, 36, 61, 0.04);
+  color: var(--global-text-color);
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.tm-blog .blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(22, 36, 61, 0.1);
+  border-color: var(--global-control-border-color);
+  text-decoration: none;
+}
+
+html[data-theme="dark"] .tm-blog .blog-card:hover {
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* constant paper backdrop so ink-on-transparent thumbnails stay legible in dark */
+.tm-blog .blog-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f5f4ef;
+  flex-shrink: 0;
+}
+
+.tm-blog .blog-card__media figure {
+  margin: 0;
+  height: 100%;
+}
+
+.tm-blog .blog-card__media picture {
+  display: block;
+  height: 100%;
+}
+
+.tm-blog .blog-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tm-blog .blog-card:hover .blog-card__media img {
+  transform: scale(1.04);
+}
+
+/* wordmark/logo thumbnails opt out of cover-cropping via thumbnail_fit: contain */
+.tm-blog .blog-card__media--contain img {
+  object-fit: contain;
+  padding: 1.6rem;
+}
+
+/* branded placeholder for posts without a thumbnail */
+.tm-blog .blog-card__ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: var(--tm-wash), var(--tm-topo);
+}
+
+.tm-blog .blog-card__ph .tiles {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 16px);
+  gap: 5px;
+  opacity: 0.85;
+}
+
+.tm-blog .blog-card__ph .tiles span {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.tm-blog .blog-card__ph .tiles span:nth-child(1) {
+  background: #2563eb;
+}
+
+.tm-blog .blog-card__ph .tiles span:nth-child(2) {
+  background: #059669;
+}
+
+.tm-blog .blog-card__ph .tiles span:nth-child(3) {
+  background: #d97706;
+}
+
+.tm-blog .blog-card__ph .tiles span:nth-child(4) {
+  background: #dc2626;
+}
+
+.tm-blog .blog-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  flex: 1;
+}
+
+.tm-blog .blog-card__body .feed__pill {
+  align-self: flex-start;
+  margin-bottom: 0;
+}
+
+.tm-blog .blog-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  color: var(--global-text-color);
+  transition: color 0.25s ease;
+}
+
+.tm-blog .blog-card:hover .blog-card__title {
+  color: var(--global-theme-color);
+}
+
+.tm-blog .blog-card__ext {
+  margin-left: 0.4rem;
+  font-size: 0.7em;
+  color: var(--global-text-color-light);
+}
+
+.tm-blog .blog-card__desc {
+  display: -webkit-box;
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tm-blog .blog-card__meta {
+  margin: auto 0 0;
+  padding-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+}
+
+/* archive pages reuse the grid but have no featured lead */
+.tm-archive .blog-head {
+  margin-bottom: 1.6rem;
+}
+
+.tm-archive .archive-back {
+  margin: 1rem 0 0;
+}
+
+/* featured lead: full-width, text left / media right */
+@media (min-width: 768px) {
+  .tm-blog .blog-card--featured {
+    grid-column: 1 / -1;
+    flex-direction: row-reverse;
+  }
+
+  .tm-blog .blog-card--featured .blog-card__media {
+    flex: 0 0 46%;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+
+  .tm-blog .blog-card--featured .blog-card__media img {
+    object-position: top;
+  }
+
+  .tm-blog .blog-card--featured .blog-card__body {
+    padding: 1.6rem 1.8rem;
+  }
+
+  .tm-blog .blog-card--featured .blog-card__title {
+    font-size: 1.55rem;
+    letter-spacing: -0.02em;
+  }
+
+  .tm-blog .blog-card--featured .blog-card__desc {
+    font-size: 1rem;
+    -webkit-line-clamp: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-blog .blog-card,
+  .tm-blog .blog-card:hover,
+  .tm-blog .blog-card__media img,
+  .tm-blog .blog-card:hover .blog-card__media img {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Abstract modal (assets/js/abstract-modal.js) — native <dialog>
+ * ------------------------------------------------------------------------ */
+
+.abs-modal {
+  width: min(46rem, calc(100vw - 2.5rem));
+  max-height: min(80vh, 44rem);
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 18px;
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  box-shadow: 0 24px 60px rgba(22, 36, 61, 0.28);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+html[data-theme="dark"] .abs-modal {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.abs-modal::backdrop {
+  background: rgba(22, 36, 61, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+html[data-theme="dark"] .abs-modal::backdrop {
+  background: rgba(4, 8, 16, 0.65);
+}
+
+.abs-modal__close-form {
+  float: right;
+  margin: -0.4rem -0.4rem 0 0.8rem;
+}
+
+.abs-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--global-text-color-light);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.abs-modal__close:hover {
+  color: var(--global-text-color);
+  border-color: var(--global-control-border-color);
+}
+
+.abs-modal__close:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
+}
+
+.abs-modal__eyebrow {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--global-theme-color);
+}
+
+.abs-modal__title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+}
+
+.abs-modal__meta {
+  margin: 0 0 1.2rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--global-divider-color);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+.abs-modal__meta:empty {
+  display: none;
+}
+
+.abs-modal__body p {
+  margin: 0 0 1em;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--global-text-color);
+  text-align: left;
+}
+
+.abs-modal__body p:last-child {
+  margin-bottom: 0;
+}
+
+.abs-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.4rem;
+}
+
+.abs-modal__actions:empty {
+  display: none;
+}
+
+/* the cloned buttons keep .btn, so the global publication button skin applies */
+
+/* ---------------------------------------------------------------------------
+ * Publications page — pill-shaped filter input (the TerraMosaic search bar)
+ * ------------------------------------------------------------------------ */
+
+input#bibsearch.bibsearch-form-input {
+  max-width: 600px;
+  padding: 0.8rem 1.4rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--global-text-color);
+  background: var(--global-card-bg-color);
+  border: 1.5px solid var(--global-control-border-color);
+  border-radius: 999px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input#bibsearch.bibsearch-form-input:focus {
+  outline: none;
+  border-color: var(--global-theme-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input#bibsearch.bibsearch-form-input::placeholder {
+  color: var(--global-text-color-light);
+}
+
+/* ---------------------------------------------------------------------------
+ * People — program sections + person rows (photo, name, meta, bio)
+ * ------------------------------------------------------------------------ */
+
+.tm-people {
+  margin-top: 0.25rem;
+}
+
+.tm-people .people-sec {
+  margin: 2.6rem 0 1rem;
+  padding-bottom: 0.55rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.tm-people .people-sec:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.tm-people .people-sec i {
+  margin-left: 0.3rem;
+  font-size: 0.55em;
+  color: var(--global-text-color-light);
+}
+
+.tm-people .people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-people .person {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.tm-people .person + .person {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.tm-people .person__photo {
+  flex: 0 0 8.5rem;
+}
+
+.tm-people .person__photo figure {
+  margin: 0;
+}
+
+.tm-people .person__photo picture {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--global-divider-color);
+}
+
+.tm-people .person__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tm-people .person__name {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+}
+
+.tm-people .person__meta {
+  margin-bottom: 0.55rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+.tm-people .person__meta p {
+  margin: 0;
+  color: inherit;
+}
+
+.tm-people .person__bio {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--global-text-color);
+}
+
+.tm-people .person__bio p {
+  margin: 0 0 0.6em;
+}
+
+.tm-people .person__bio p:last-child {
+  margin-bottom: 0;
+}
+
+.tm-people .person__bio a {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 575.98px) {
+  .tm-people .person {
+    gap: 1rem;
+  }
+
+  .tm-people .person__photo {
+    flex-basis: 6rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Teaching — course rows: institution pill (tinted toward each school's
+ * color), display-face title, optional external link
+ * ------------------------------------------------------------------------ */
+
+.tm-teach {
+  margin-top: 0.5rem;
+}
+
+.tm-teach .teach {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-teach .teach > li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1.4rem 0;
+}
+
+.tm-teach .teach > li + li {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+.tm-teach .teach__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+}
+
+.tm-teach .teach__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.tm-teach .teach__link i {
+  font-size: 0.72em;
+}
+
+.tm-teach .teach__link:hover {
+  color: var(--global-hover-color);
+}
+
+/* institution tints, echoing each school's color */
+.tm-teach .teach__pill--um {
+  background: var(--pill-blue-bg);
+  color: var(--pill-blue-fg);
+}
+
+.tm-teach .teach__pill--uiuc {
+  background: var(--pill-amber-bg);
+  color: var(--pill-amber-fg);
+}
+
+.tm-teach .teach__pill--sjtu {
+  background: var(--pill-coral-bg);
+  color: var(--pill-coral-fg);
+}
+
+/* ---------------------------------------------------------------------------
+ * CV — sections as brand cards; date badges as tinted pills instead of the
+ * loud solid-accent fill
+ * ------------------------------------------------------------------------ */
+
+.cv .card {
+  background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(22, 36, 61, 0.04);
+}
+
+.cv .card .card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+}
+
+/* (0,4,0) — ties _cv.scss's `.cv .card .list-group-item .badge { … !important }`
+ * and wins on source order (this partial is imported last). */
+.cv .card .badge,
+.cv .card .list-group-item .badge {
+  background-color: var(--pill-blue-bg) !important;
+  color: var(--pill-blue-fg) !important;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.32rem 0.6rem;
+}

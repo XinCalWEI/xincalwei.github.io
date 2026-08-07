@@ -5,6 +5,8 @@ date: 2026-06-25 08:00:00-0700
 description: Reflections from AIMS26 at UC San Diego, where researchers across disciplines explored multimodal AI through talks, tutorials, a hackathon, and shared conversations.
 inline: false
 related_posts: false
+thumbnail: assets/img/news/aims26/aims26-group-photo.jpg
+category: Workshop
 ---
 
 **June 23–25, 2026 · UC San Diego, La Jolla, California**
