@@ -1202,7 +1202,8 @@ html[data-theme="dark"] .about .cardlist {
   display: inline-flex;
 }
 
-.about .slider__track a:focus-visible {
+.about .slider__track a:focus-visible,
+.about .slider__track--photos img:focus-visible {
   outline: 2px solid var(--global-theme-color);
   outline-offset: 4px;
   border-radius: 8px;
@@ -1266,12 +1267,9 @@ html[data-theme="dark"] .about .slider__track img {
   background: transparent;
 }
 
-.about .slider__track--photos a {
+.about .slider__track--photos figure {
   display: inline-flex;
   flex-shrink: 0;
-}
-
-.about .slider__track--photos figure {
   margin: 0;
 }
 
@@ -1286,7 +1284,11 @@ html[data-theme="dark"] .about .slider__track img {
   transition: transform 0.3s ease;
 }
 
-.about .slider__track--photos a:hover img {
+.about .slider__track--photos img {
+  cursor: zoom-in;
+}
+
+.about .slider__track--photos figure:hover img {
   transform: scale(1.03);
 }
 
