@@ -131,38 +131,24 @@ layout: default
 
     <div class="slider">
       <div class="slider__track slider__track--photos">
+        {% comment %}
+          pass 2 is the seamless-loop duplicate: it is hidden from assistive tech
+          and excluded from medium-zoom (see assets/js/zoom.js) so a photo is not
+          registered twice.
+        {% endcomment %}
         {% for pass in (1..2) %}
-          {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_1.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_3.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4917.jpg" sizes="420px" alt="Paraglider above the Pacific Ocean in San Diego" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/group_outing.jpg" sizes="420px" alt="Group outing" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4909.jpg" sizes="420px" alt="Xin Wei with a fellow AIMS26 participant overlooking the Pacific Ocean" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_2.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_6.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_4.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/san-diego-2026-4973.jpg" sizes="420px" alt="Sunbeams over the Pacific Ocean near San Diego" %}
-          </a>
-          <a href="{{ '/gallery/' | relative_url }}" {{ dup }}>
-            {% include figure.liquid path="assets/img/gallery/autumn_5.jpg" sizes="420px" alt="Autumn in Michigan" %}
-          </a>
+          {% assign dup_class = '' %}
+          {% if pass == 2 %}{% assign dup_class = 'slider__dup' %}{% endif %}
+          {% include figure.liquid path="assets/img/gallery/autumn_1.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/autumn_3.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4917.jpg" sizes="420px" alt="Paraglider above the Pacific Ocean in San Diego" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/group_outing.jpg" sizes="420px" alt="Group outing" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4909.jpg" sizes="420px" alt="Xin Wei with a fellow AIMS26 participant overlooking the Pacific Ocean" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/autumn_2.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/autumn_6.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/autumn_4.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4973.jpg" sizes="420px" alt="Sunbeams over the Pacific Ocean near San Diego" class=dup_class zoomable=true %}
+          {% include figure.liquid path="assets/img/gallery/autumn_5.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
         {% endfor %}
       </div>
     </div>
@@ -236,6 +222,9 @@ layout: default
             </a>
             <a href="https://groundtruthalaska.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
               <img src="{{ '/assets/img/partners/ground_truth_alaska.png' | relative_url }}" alt="Ground Truth Alaska">
+            </a>
+            <a href="https://www.usgs.gov/" target="_blank" rel="noopener noreferrer" {{ dup }}>
+              <img src="{{ '/assets/img/partners/usgs.png' | relative_url }}" alt="U.S. Geological Survey">
             </a>
           {% endfor %}
         </div>
