@@ -32,7 +32,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "Projects",
-          description: "Research projects across the geohazard risk chain — from susceptibility to early warning, and from prospective modeling to retrospective analysis.",
+          description: "Research on geohazard susceptibility, runout, monitoring, infrastructure response, and risk, complemented by retrospective analysis of observed impacts.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
@@ -127,7 +127,7 @@ ninja.data = [{
         
           title: "Git: From Beginner to Advanced",
         
-        description: "Essential resources for learning Git from basics to advanced concepts",
+        description: "A practical Git workflow, common commands, and learning resources from beginner to advanced",
         section: "Posts",
         handler: () => {
           
@@ -251,34 +251,34 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/interdisciplinary_science_summit_2026/";
-            },},{id: "projects-integrated-ai-physics-solutions-for-regional-landslide-susceptibility-prosp",
-          title: 'Integrated AI–Physics Solutions for Regional Landslide Susceptibility (Prosp.)',
-          description: "",
+            },},{id: "projects-physics-guided-ai-for-regional-landslide-susceptibility",
+          title: 'Physics-Guided AI for Regional Landslide Susceptibility',
+          description: "A three-paper first-author research program develops, tests, and interprets physics-guided models for cross-region landslide-susceptibility mapping, with explicit analysis of training-sample variability.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_ai_physics_susceptibility/";
-            },},{id: "projects-risk-assessment-via-direct-simulation-of-pre-to-post-failure-behaviors-prosp",
-          title: 'Risk Assessment via Direct Simulation of Pre- to Post-Failure Behaviors (Prosp.)',
-          description: "",
+            },},{id: "projects-landslide-risk-assessment-from-failure-to-consequence",
+          title: 'Landslide Risk Assessment from Failure to Consequence',
+          description: "A subset-simulation and large-deformation framework propagates uncertain soil-strength parameters through slope failure and post-failure response, then links case-specific consequence measures to vulnerability, temporal exposure, and risk.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/2_risk_assessment_simulation/";
-            },},{id: "projects-submarine-debris-flow-hazard-characterization-and-risk-assessment-prosp",
-          title: 'Submarine Debris Flow Hazard Characterization and Risk Assessment (Prosp.)',
-          description: "",
+            },},{id: "projects-submarine-debris-flow-runout-and-pipeline-risk",
+          title: 'Submarine Debris-Flow Runout and Pipeline Risk',
+          description: "Regional runout simulations capture material softening over complex seabed terrain, then estimate pipeline impact, network damage, and the benefits of rerouting.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_submarine_debris_flow/";
-            },},{id: "projects-deep-learning-for-time-series-prediction-and-dynamic-early-warning",
-          title: 'Deep Learning for Time-Series Prediction and Dynamic Early Warning',
-          description: "",
+            },},{id: "projects-pore-water-pressure-forecasting-with-recurrent-neural-networks",
+          title: 'Pore-Water Pressure Forecasting with Recurrent Neural Networks',
+          description: "A field study compares MLP, RNN, LSTM, and GRU models for one-hour-ahead pore-water-pressure forecasting from monitored rainfall and PWP histories.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/4_deep_learning_timeseries/";
             },},{id: "projects-hazard-characterization-of-fast-moving-landslide-runout-with-geospatial-deep-learning",
           title: 'Hazard Characterization of Fast-Moving Landslide Runout with Geospatial Deep Learning',
-          description: "",
+          description: "Project materials are currently being prepared.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/5_geospatial_deep_learning/";
-            },},{id: "projects-assessment-of-infrastructure-vulnerability-to-slow-moving-landslides",
-          title: 'Assessment of Infrastructure Vulnerability to Slow-Moving Landslides',
-          description: "",
+            },},{id: "projects-horizontal-capacity-of-offshore-mat-foundations-under-cyclic-waves",
+          title: 'Horizontal Capacity of Offshore Mat Foundations under Cyclic Waves',
+          description: "Coupled soil–water simulations show how cyclic loading, clay structure, and over-consolidation govern interface pore pressure and horizontal-capacity evolution in offshore mat foundations.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/6_infrastructure_vulnerability/";
             },},{id: "projects-unveiling-the-underappreciated-consequences-of-landslides-across-the-united-states-with-generative-ai",
