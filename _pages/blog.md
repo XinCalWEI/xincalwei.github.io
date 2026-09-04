@@ -6,109 +6,99 @@ nav: true
 nav_order: 1
 ---
 
-<!-- Magazine-style blog index with client-side filtering.
-     Filter chips are generated from the posts themselves (site.categories /
-     site.tags) so they can never drift from reality — do NOT hand-maintain a
-     list in _config.yml. Pagination is intentionally off: filtering must see
-     every post, not just the current page. See assets/js/blog-filter.js. -->
+<!-- The index derives every filter from post front matter so the interface
+     cannot drift from the content. Pagination remains off because combined
+     search and filtering need access to the complete collection. -->
 
-<div class="post about tm-blog">
+{% assign latest_post = site.posts | first %}
 
+<div class="post about tm-blog" data-blog-index>
   <header class="blog-head">
-    <h1 class="post-title">Blog</h1>
-    {% if site.blog_description %}
-      <p class="post-description">{{ site.blog_description }}</p>
-    {% endif %}
+    <p class="blog-eyebrow"><span aria-hidden="true"></span>Blog</p>
+    <h1 class="post-title">Ideas, methods, and field notes.</h1>
+    <div class="blog-head__footer">
+      {% if site.blog_description %}
+        <p class="post-description">{{ site.blog_description }}, along with the tools and conversations shaping my work.</p>
+      {% endif %}
+      <p class="blog-head__meta">
+        <span>{{ site.posts | size }} posts</span>
+        {% if latest_post %}
+          <span aria-hidden="true"></span>
+          <span>Updated <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%b %Y' }}</time></span>
+        {% endif %}
+      </p>
+    </div>
   </header>
 
-  <div class="blog-filters" role="group" aria-label="Filter posts">
-    <button class="chip chip--all is-active" type="button" data-filter="" data-kind="all">
-      All <span class="chip__n">{{ site.posts | size }}</span>
-    </button>
+  <section class="blog-discovery" aria-label="Find and filter posts">
+    <div class="blog-tools">
+      <div class="blog-search" role="search" aria-label="Search blog posts">
+        <label class="sr-only" for="blog-search">Search posts</label>
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input id="blog-search" type="search" placeholder="Search posts" autocomplete="off" spellcheck="false" aria-controls="blog-posts">
+        <button class="blog-search__clear" type="button" aria-label="Clear search" hidden>
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <kbd aria-hidden="true">/</kbd>
+      </div>
 
-    {% assign cats = site.categories | sort %}
-    {% for c in cats %}
-      {% assign slug = c[0] | slugify %}
-      <button class="chip chip--cat chip--{{ slug }}" type="button" data-filter="{{ slug }}" data-kind="cat">
-        {{ c[0] | replace: '-', ' ' }} <span class="chip__n">{{ c[1] | size }}</span>
-      </button>
-    {% endfor %}
+      <label class="blog-select" for="blog-type">
+        <span class="sr-only">Filter by content type</span>
+        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+        <select id="blog-type" aria-controls="blog-posts">
+          <option value="">All types</option>
+          {% assign categories = site.categories | sort %}
+          {% for category in categories %}
+            <option value="{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' | capitalize }}</option>
+          {% endfor %}
+        </select>
+        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+      </label>
+    </div>
 
-    {% assign tags = site.tags | sort %}
-    {% for t in tags %}
-      {% assign slug = t[0] | slugify %}
-      <button class="chip chip--tag" type="button" data-filter="{{ slug }}" data-kind="tag">
-        <i class="fa-solid fa-hashtag" aria-hidden="true"></i>{{ t[0] }} <span class="chip__n">{{ t[1] | size }}</span>
-      </button>
-    {% endfor %}
+    <div class="blog-topics">
+      <span class="blog-topics__label" id="blog-topics-label">Topics</span>
+      <div class="blog-filters" role="group" aria-labelledby="blog-topics-label">
+        <button class="chip is-active" type="button" data-filter="" data-kind="tag" data-label="All topics" aria-pressed="true" aria-controls="blog-posts">
+          All topics <span class="chip__n">{{ site.posts | size }}</span>
+        </button>
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+          {% assign tag_slug = tag[0] | slugify %}
+          <button class="chip" type="button" data-filter="{{ tag_slug }}" data-kind="tag" data-label="{{ tag[0] | escape }}" aria-pressed="false" aria-controls="blog-posts">
+            {{ tag[0] }} <span class="chip__n">{{ tag[1] | size }}</span>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
 
+  </section>
+
+  <div class="blog-results">
+    <p class="blog-filters__status" role="status" aria-live="polite" aria-atomic="true" data-total="{{ site.posts | size }}">
+      Showing all {{ site.posts | size }} posts
+    </p>
+    <button class="blog-reset" type="button" hidden>Clear filters <i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
   </div>
 
-  <p class="blog-filters__status" role="status" aria-live="polite"></p>
-
-  <div class="blog-grid">
+  <div class="blog-grid" id="blog-posts">
+    {% assign supporting_count = site.posts | size | minus: 1 %}
+    {% assign tail_remainder = supporting_count | modulo: 2 %}
     {% for post in site.posts %}
-      {% if post.external_source == blank %}
-        {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-      {% else %}
-        {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
+      {% assign is_tail = false %}
+      {% if forloop.last and tail_remainder == 1 %}
+        {% assign is_tail = true %}
       {% endif %}
-      {% assign cat = post.categories | first %}
-      {% assign href = post.url | relative_url %}
-      {% assign is_external = false %}
-      {% if post.redirect != blank %}
-        {% if post.redirect contains '://' %}
-          {% assign href = post.redirect %}
-          {% assign is_external = true %}
-        {% else %}
-          {% assign href = post.redirect | relative_url %}
-        {% endif %}
-      {% endif %}
-
-      <!-- NOTE: the separating space must NOT sit next to Liquid's whitespace-control
-           dashes, or it is stripped and the slugs run together ("researchevents"). -->
-      {% capture card_cats %}{% for c in post.categories %}{{ c | slugify }} {% endfor %}{% endcapture %}
-      {% capture card_tags %}{% for t in post.tags %}{{ t | slugify }} {% endfor %}{% endcapture %}
-
-      <a
-        class="blog-card{% if forloop.first %} blog-card--featured{% endif %}"
-        href="{{ href }}"
-        data-cats="{{ card_cats | strip }}"
-        data-tags="{{ card_tags | strip }}"
-        {% if is_external %}target="_blank" rel="noopener noreferrer"{% endif %}
-      >
-        <div class="blog-card__media{% if post.thumbnail_fit == 'contain' %} blog-card__media--contain{% endif %}">
-          {% if post.thumbnail %}
-            {% include figure.liquid path=post.thumbnail sizes="640px" alt="" %}
-          {% else %}
-            <span class="blog-card__ph" aria-hidden="true">
-              <span class="tiles"><span></span><span></span><span></span><span></span></span>
-            </span>
-          {% endif %}
-        </div>
-        <div class="blog-card__body">
-          {% if cat %}
-            <span class="feed__pill feed__pill--{{ cat | slugify }}">{{ cat | replace: '-', ' ' }}</span>
-          {% endif %}
-          <h2 class="blog-card__title">
-            {{- post.title -}}
-            {%- if is_external %}
-              <i class="fa-solid fa-arrow-up-right-from-square blog-card__ext" aria-hidden="true"></i>
-              <span class="sr-only">(opens in a new tab)</span>
-            {% endif -%}
-          </h2>
-          {% if post.description %}
-            <p class="blog-card__desc">{{ post.description }}</p>
-          {% endif %}
-          <p class="blog-card__meta">{{ post.date | date: '%b %-d, %Y' }} · {{ read_time }} min read</p>
-        </div>
-      </a>
+      {% include blog_card.liquid post=post featured=forloop.first latest=forloop.first tail=is_tail %}
     {% endfor %}
-
   </div>
 
-  <p class="blog-empty" hidden>No posts match that filter yet. <button class="blog-empty__reset" type="button">Show all posts</button></p>
-
+  <div class="blog-empty" hidden>
+    <span class="blog-empty__icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+    <h2>No matching posts</h2>
+    <p>Try another keyword or clear the current filters.</p>
+    <button class="blog-empty__reset" type="button">Show all posts</button>
+  </div>
 </div>
 
 <script src="{{ '/assets/js/blog-filter.js' | relative_url }}" defer></script>

@@ -3,7 +3,8 @@ layout: post
 title: Common Terminal Shortcuts
 date: 2024-01-01
 description: A clean, card-style cheatsheet for frequently used command line interface shortcuts
-tags: code
+tags:
+  - "Developer Tools"
 categories: tutorial
 related_posts: false
 ---

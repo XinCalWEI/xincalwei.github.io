@@ -22,9 +22,10 @@ $max-content-width: {{ site.max_width }};
   "tabler-icons/tabler-icons.scss",
   "tabler-icons/tabler-icons-filled.scss",
   "tabler-icons/tabler-icons-outline.scss",
-  // order is load-bearing: "about" (brand tokens + shared components) then
-  // "pages" (inner-page skins) must stay LAST — several rules tie on
-  // specificity with "base" and win on source order alone.
+  // order is load-bearing: brand tokens, inner-page skins, then the dedicated
+  // Blog refinement. These partials win several equal-specificity rules in
+  // the stock theme through source order.
   "about",
-  "pages"
+  "pages",
+  "blog"
 ;
