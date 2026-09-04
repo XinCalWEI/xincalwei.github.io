@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-call-for-abstracts-agu26-session-nh052",
+            },{id: "post-when-intelligence-becomes-infrastructure-notes-from-ming-zeng",
+        
+          title: "When Intelligence Becomes Infrastructure: Notes from Ming Zeng",
+        
+        description: "My reflections on Ming Zeng&#39;s discussion of strategic uncertainty, AI industry evolution, AI-native organizations, and the changing value of human work.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-intelligence-becomes-infrastructure/";
+          
+        },
+      },{id: "post-call-for-abstracts-agu26-session-nh052",
         
           title: "Call for Abstracts: AGU26 Session NH052",
         
