@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AGU 2026 session NH052 call for abstracts</title>
+  <desc id="desc">A navy editorial cover highlighting the session on reliable and scalable geohazard intelligence.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061b35"/>
+      <stop offset="0.58" stop-color="#0a2d55"/>
+      <stop offset="1" stop-color="#123f68"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(1320 180) rotate(132) scale(620 520)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39c6b3" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#39c6b3" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#b9d8ee" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+
+  <g fill="none" stroke="#8dd8d0" stroke-opacity="0.18" stroke-width="2">
+    <path d="M1040 100c132-46 252-32 348 50s116 190 66 286-170 135-286 102-172-127-130-220 144-115 224-68 91 127 42 184-128 48-164 0"/>
+    <path d="M1115 715c128-70 267-65 407 14"/>
+    <path d="M1084 762c154-77 313-69 472 21"/>
+  </g>
+
+  <g transform="translate(92 78)">
+    <rect width="330" height="54" rx="27" fill="#55d6c2" fill-opacity="0.14" stroke="#6de0ce" stroke-opacity="0.5"/>
+    <text x="165" y="35" fill="#a9f1e5" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3" text-anchor="middle">CALL FOR ABSTRACTS</text>
+  </g>
+
+  <text x="92" y="205" fill="#a9c7df" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="650" letter-spacing="3.5">AGU ANNUAL MEETING 2026 · SAN FRANCISCO</text>
+  <text x="92" y="354" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="128" font-weight="780" letter-spacing="-5">NH052</text>
+
+  <g fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="49" font-weight="680" letter-spacing="-1.4">
+    <text x="92" y="455">Toward Reliable and Scalable</text>
+    <text x="92" y="520">Geohazard Intelligence</text>
+  </g>
+  <text x="94" y="572" fill="#9dbbd2" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="500">From multiscale sensing to open data foundations</text>
+
+  <g transform="translate(94 640)" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="1.4">
+    <g>
+      <rect width="185" height="44" rx="22" fill="#ffffff" fill-opacity="0.09" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="92.5" y="28" fill="#d9e8f3" text-anchor="middle">GEOSPATIAL AI</text>
+    </g>
+    <g transform="translate(200)">
+      <rect width="238" height="44" rx="22" fill="#ffffff" fill-opacity="0.09" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="119" y="28" fill="#d9e8f3" text-anchor="middle">MULTISCALE SENSING</text>
+    </g>
+    <g transform="translate(453)">
+      <rect width="150" height="44" rx="22" fill="#ffffff" fill-opacity="0.09" stroke="#ffffff" stroke-opacity="0.16"/>
+      <text x="75" y="28" fill="#d9e8f3" text-anchor="middle">OPEN DATA</text>
+    </g>
+  </g>
+
+  <g transform="translate(94 764)">
+    <rect width="610" height="72" rx="14" fill="#f7c843"/>
+    <text x="26" y="29" fill="#071e38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="750" letter-spacing="2.2">ABSTRACT DEADLINE</text>
+    <text x="26" y="56" fill="#071e38" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="750">August 5, 2026 · 23:59 EDT</text>
+  </g>
+
+  <g transform="translate(1248 585)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="92" cy="92" r="92" stroke="#9ce7dc" stroke-opacity="0.45" stroke-width="2"/>
+    <circle cx="92" cy="92" r="58" stroke="#9ce7dc" stroke-opacity="0.24" stroke-width="2"/>
+    <path d="M34 104l38-32 38 20 40-48" stroke="#6de0ce" stroke-width="7"/>
+    <circle cx="34" cy="104" r="8" fill="#f7c843" stroke="none"/>
+    <circle cx="72" cy="72" r="8" fill="#6de0ce" stroke="none"/>
+    <circle cx="110" cy="92" r="8" fill="#ffffff" stroke="none"/>
+    <circle cx="150" cy="44" r="8" fill="#6da8ff" stroke="none"/>
+  </g>
+</svg>

@@ -3,9 +3,11 @@ layout: post
 title: Key Elements for Improving Pixel-Based Landslide Susceptibility Mapping
 date: 2024-07-01 10:00:00
 description: Exploring key strategies to enhance landslide susceptibility mapping through physics-based models, spatial neighborhoods, and data quality improvements.
-tags: susceptibility-assessment landslides machine-learning
+tags:
+  - "Landslides"
+  - "Geospatial AI"
 categories: research
-thumbnail: assets/img/blog/key_elements_susceptibility.jpg
+thumbnail: assets/img/projects/covers/physics-guided-susceptibility.png
 ---
 
 These key elements for improving pixel-based landslide susceptibility mapping include:

@@ -3,8 +3,10 @@ layout: post
 title: "Git: From Beginner to Advanced"
 date: 2025-03-01
 description: A practical Git workflow, common commands, and learning resources from beginner to advanced
-tags: tutorial
+tags:
+  - "Developer Tools"
 categories: tutorial
+thumbnail: assets/img/blog/learninggit.png
 related_posts: false
 toc:
   sidebar: right

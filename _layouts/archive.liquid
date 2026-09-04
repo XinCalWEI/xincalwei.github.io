@@ -1,9 +1,15 @@
 ---
 layout: default
 ---
+{% assign first_document = page.documents | first %}
+{% assign is_book_archive = false %}
+{% if first_document.layout == 'book-review' %}
+  {% assign is_book_archive = true %}
+{% endif %}
 <!--
   Tag / category / year archives, rendered with the same card language as
-  the blog index (see _pages/blog.md). Linked from post footers.
+  the blog index (see _pages/blog.md). Book collection archives retain their
+  own cover and publication metadata.
 -->
 <div class="post about tm-blog tm-archive">
   <header class="blog-head">
@@ -16,66 +22,67 @@ layout: default
     </h1>
     <p class="post-description">
       {% assign n = page.documents | size -%}
-      {{- n }} post{% if n != 1 %}s{% endif %}
+      {{- n }}
+      {% if is_book_archive %}book{% else %}post{% endif -%}
+      {%- if n != 1 %}s{% endif %}
       {% if page.type == 'categories' %}in this category{% elsif page.type == 'tags' %}with this tag{% else %}from this year{% endif %}
     </p>
     <p class="archive-back">
-      <a class="btn-ghost" href="{{ '/blog/' | relative_url }}"> <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All posts </a>
+      <a class="btn-ghost" href="{% if is_book_archive %}{{ '/books/' | relative_url }}{% else %}{{ '/blog/' | relative_url }}{% endif %}">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        {% if is_book_archive %}All books{% else %}All posts{% endif %}
+      </a>
     </p>
   </header>
 
-  <div class="blog-grid">
-    {% for post in page.documents %}
-      {% if post.external_source == blank %}
-        {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
-      {% else %}
-        {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
-      {% endif %}
-      {% assign cat = post.categories | first %}
-      {% assign href = post.url | relative_url %}
-      {% assign is_external = false %}
-      {% if post.redirect != blank %}
-        {% if post.redirect contains '://' %}
-          {% assign href = post.redirect %}
-          {% assign is_external = true %}
-        {% else %}
-          {% assign href = post.redirect | relative_url %}
-        {% endif %}
-      {% endif %}
-
-      <a
-        class="blog-card"
-        href="{{ href }}"
-        {% if is_external %}
-          target="_blank" rel="noopener noreferrer"
-        {% endif %}
-      >
-        <div class="blog-card__media{% if post.thumbnail_fit == 'contain' %} blog-card__media--contain{% endif %}">
-          {% if post.thumbnail %}
-            {% include figure.liquid path=post.thumbnail sizes="640px" alt="" %}
-          {% else %}
-            <span class="blog-card__ph" aria-hidden="true">
-              <span class="tiles"><span></span><span></span><span></span><span></span></span>
+  {% if is_book_archive %}
+    <div class="book-archive-grid">
+      {% for book in page.documents %}
+        <a class="book-archive-card" href="{{ book.url | relative_url }}">
+          <span class="book-archive-card__cover">
+            {% if book.cover %}
+              {% capture cover_alt %}Cover of {{ book.title }}{% endcapture %}
+              {% if forloop.first %}
+                {% include figure.liquid loading="eager" fetchpriority="high" path=book.cover sizes="(min-width: 992px) 220px, 42vw" alt=cover_alt %}
+              {% else %}
+                {% include figure.liquid loading="lazy" path=book.cover sizes="(min-width: 992px) 220px, 42vw" alt=cover_alt %}
+              {% endif %}
+            {% else %}
+              <span class="book-archive-card__placeholder" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
+            {% endif %}
+          </span>
+          <span class="book-archive-card__body">
+            {% if book.status -%}
+              <span class="book-archive-card__status">{{ book.status }}</span>
+            {%- endif %}
+            <span class="book-archive-card__title">
+              {%- if book.shelf_title %}{{ book.shelf_title }}{% else %}{{ book.title }}{% endif -%}
             </span>
+            {% if book.author -%}
+              <span class="book-archive-card__author">{{ book.author }}</span>
+            {%- endif %}
+            {% if book.released -%}
+              <span class="book-archive-card__year">{{ book.released }}</span>
+            {%- endif %}
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    {% assign archive_count = page.documents | size %}
+    {% assign archive_remainder = archive_count | modulo: 2 %}
+    <div class="blog-grid">
+      {% for post in page.documents %}
+        {% if archive_count == 1 %}
+          {% include blog_card.liquid post=post solo=true priority=forloop.first %}
+        {% else %}
+          {% assign is_archive_tail = false %}
+          {% if forloop.last and archive_remainder == 1 %}
+            {% assign is_archive_tail = true %}
           {% endif %}
-        </div>
-        <div class="blog-card__body">
-          {% if cat %}
-            <span class="feed__pill feed__pill--{{ cat | slugify }}">{{ cat | replace: '-', ' ' }}</span>
-          {% endif %}
-          <h2 class="blog-card__title">
-            {{- post.title -}}
-            {%- if is_external %}
-              <i class="fa-solid fa-arrow-up-right-from-square blog-card__ext" aria-hidden="true"></i>
-              <span class="sr-only">(opens in a new tab)</span>
-            {% endif -%}
-          </h2>
-          {% if post.description %}
-            <p class="blog-card__desc">{{ post.description }}</p>
-          {% endif %}
-          <p class="blog-card__meta">{{ post.date | date: '%b %-d, %Y' }} · {{ read_time }} min read</p>
-        </div>
-      </a>
-    {% endfor %}
-  </div>
+          {% include blog_card.liquid post=post tail=is_archive_tail priority=forloop.first %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
 </div>

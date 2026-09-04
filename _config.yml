@@ -256,7 +256,7 @@ jekyll-archives:
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
   books:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    enabled: [tags, categories] # books have release years, not post dates; avoid generating misleading dated archives.
 
 display_tags: ["geohazards", "landslides", "machine-learning", "AI4Science"] # these tags will be displayed on the front page of your blog
 display_categories: ["research", "tutorial", "machine-learning", "platforms", "events"] # these categories will be displayed on the front page of your blog
