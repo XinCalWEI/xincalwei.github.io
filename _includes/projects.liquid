@@ -1,35 +1,77 @@
-<div class="col">
-  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
-    <div class="card h-100 hoverable">
-      {% if project.img %}
-        {%
-          include figure.liquid
-          loading="eager"
-          path=project.img
-          sizes = "250px"
-          alt="project thumbnail"
-          class="card-img-top"
-        %}
-      {% endif %}
-      <div class="card-body">
-        <h2 class="card-title" data-toc-skip>{{ project.title }}</h2>
-        <p class="card-text">{{ project.description }}</p>
-        <div class="row ml-1 mr-1 p-0">
-          {% if project.github %}
-            <div class="github-icon">
-              <div class="icon" data-toggle="tooltip" title="Code Repository">
-                <a href="{{ project.github }}"><i class="fa-brands fa-github gh-icon"></i></a>
-              </div>
-              {% if project.github_stars %}
-                <span class="stars" data-toggle="tooltip" title="GitHub Stars">
-                  <i class="fa-solid fa-star"></i>
-                  <span id="{{ project.github_stars }}-stars"></span>
-                </span>
-              {% endif %}
-            </div>
-          {% endif %}
-        </div>
-      </div>
+{% assign project_href = project.url | relative_url %}
+{% if project.redirect %}
+  {% assign project_href = project.redirect %}
+{% endif %}
+{% assign project_area = project.sub_area | default: project.category %}
+{% assign project_fit = project.cover_fit | default: 'cover' %}
+{% assign project_position = project.cover_position | default: '50% 50%' %}
+{% assign image_sizes = '(min-width: 1200px) 540px, (min-width: 992px) 46vw, 100vw' %}
+{% if project.category == 'Retrospective Analysis' %}
+  {% assign image_sizes = '(min-width: 1200px) 650px, (min-width: 992px) 55vw, 100vw' %}
+{% endif %}
+{% assign image_loading = 'lazy' %}
+{% if project.importance == 1 and project.category == 'Prospective Modelling' %}
+  {% assign image_loading = 'eager' %}
+{% endif %}
+{% assign project_img_avoid_scaling = false %}
+{% if project.img %}
+  {% assign project_img_parts = project.img | split: '.' %}
+  {% assign project_img_ext = project_img_parts | last | downcase %}
+  {% if project_img_ext == 'svg' %}
+    {% assign project_img_avoid_scaling = true %}
+  {% endif %}
+{% endif %}
+
+<article class="project-card project-card--{{ project_area | slugify }}">
+  {% if project.img %}
+    <div
+      class="project-card__media project-card__media--{{ project_fit }}"
+      style="--project-cover-position: {{ project_position }};"
+    >
+      {%
+        include figure.liquid
+        loading=image_loading
+        path=project.img
+        sizes=image_sizes
+        alt=project.cover_alt
+        class="project-card__image"
+        avoid_scaling=project_img_avoid_scaling
+      %}
     </div>
-  </a>
-</div>
+  {% endif %}
+
+  <div class="project-card__body">
+    <div class="project-card__meta">
+      <p class="project-card__area">{{ project_area }}</p>
+      {% if project.status %}
+        <span class="project-card__status">{{ project.status }}</span>
+      {% endif %}
+    </div>
+    <h3 class="project-card__title" data-toc-skip>
+      <a class="project-card__link stretched-link" href="{{ project_href }}">{{ project.title }}</a>
+    </h3>
+    {% if project.description %}
+      <p class="project-card__description">{{ project.description }}</p>
+    {% endif %}
+    {% if project.status %}
+      <span class="project-card__cta" aria-hidden="true">View project status <span>→</span></span>
+    {% else %}
+      <span class="project-card__cta" aria-hidden="true">Explore project <span>→</span></span>
+    {% endif %}
+
+    {% if project.github %}
+      <div class="project-card__controls">
+        <a href="{{ project.github }}" aria-label="Open code repository for {{ project.title }}">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span>Code</span>
+        </a>
+        {% if project.github_stars %}
+          <span class="project-card__stars" title="GitHub stars">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <span id="{{ project.github_stars }}-stars"></span>
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</article>

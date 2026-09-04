@@ -2,52 +2,58 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Research projects across the geohazard risk chain — from susceptibility to early warning, and from prospective modeling to retrospective analysis.
+description: Research on geohazard susceptibility, runout, monitoring, infrastructure response, and risk, complemented by retrospective analysis of observed impacts.
 nav: true
 nav_order: 3
 display_categories: [Prospective Modelling, Retrospective Analysis]
 horizontal: false
-toc:
-  sidebar: left
 ---
 
-<!-- pages/projects.md — TerraMosaic-styled project index.
-     sub_area is this repo's custom grouping dimension; the split list below
-     defines the display order and must match the sub_area values used in
-     _projects/*.md front matter. -->
+<p class="projects-visual-note">
+Cover images are conceptual illustrations; the project pages present the underlying methods, data, and evidence.
+</p>
+
+<nav class="projects-jump" aria-label="Project groups">
+  <span>Explore</span>
+  <a href="#prospective-modelling">Prospective Modelling</a>
+  <a href="#retrospective-analysis">Retrospective Analysis</a>
+</nav>
 
 <div class="projects tm-projects">
 {% if site.enable_project_categories and page.display_categories %}
   {% for category in page.display_categories %}
-    <a id="{{ category }}" href=".#{{ category }}">
-      <h2 class="category">{{ category }}</h2>
-    </a>
+    {% assign category_id = category | slugify %}
     {% assign categorized_projects = site.projects | where: "category", category %}
     {% assign sorted_projects = categorized_projects | sort: "importance" %}
-    {% if category == "Prospective Modelling" %}
-      {% assign sub_areas = "Susceptibility,Hazard,Vulnerability,Risk,Early Warning" | split: "," %}
-      {% for sub_area in sub_areas %}
-        {% assign sub_area_projects = sorted_projects | where: "sub_area", sub_area %}
-        {% if sub_area_projects.size > 0 %}
-          <h3 class="sub-area sub-area--{{ sub_area | slugify }}">{{ sub_area }}</h3>
-          <div class="row row-cols-1 row-cols-md-2">
+    <section class="project-group project-group--{{ category_id }}" aria-labelledby="{{ category_id }}">
+      <header class="project-group__header">
+        <h2 id="{{ category_id }}" class="category">{{ category }}</h2>
+        {% if category == "Prospective Modelling" %}
+          <p>Forward-looking models that connect terrain, monitoring, motion, infrastructure response, and consequence.</p>
+        {% else %}
+          <p>Evidence synthesis that reconstructs observed landslide consequences across places, events, and sources.</p>
+        {% endif %}
+      </header>
+      <div class="project-grid project-grid--{{ category_id }}">
+        {% if category == "Prospective Modelling" %}
+          {% assign sub_areas = "Susceptibility,Hazard,Infrastructure Response,Risk,Monitoring" | split: "," %}
+          {% for sub_area in sub_areas %}
+            {% assign sub_area_projects = sorted_projects | where: "sub_area", sub_area %}
             {% for project in sub_area_projects %}
               {% include projects.liquid %}
             {% endfor %}
-          </div>
+          {% endfor %}
+        {% else %}
+          {% for project in sorted_projects %}
+            {% include projects.liquid %}
+          {% endfor %}
         {% endif %}
-      {% endfor %}
-    {% else %}
-      <div class="row row-cols-1 row-cols-md-2">
-        {% for project in sorted_projects %}
-          {% include projects.liquid %}
-        {% endfor %}
       </div>
-    {% endif %}
+    </section>
   {% endfor %}
 {% else %}
   {% assign sorted_projects = site.projects | sort: "importance" %}
-  <div class="row row-cols-1 row-cols-md-2">
+  <div class="project-grid">
     {% for project in sorted_projects %}
       {% include projects.liquid %}
     {% endfor %}
