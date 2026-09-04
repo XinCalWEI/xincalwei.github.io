@@ -26,11 +26,21 @@
         {% if page.toc.sidebar == 'right' %}
           <div class="row">
             <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
+            {% if page.toc.breakpoint == 'lg' %}
+              <div class="col-12 col-lg-9">{{ content }}</div>
+            {% else %}
+              <div class="col-sm-9">{{ content }}</div>
+            {% endif %}
             <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
+            {% if page.toc.breakpoint == 'lg' %}
+              <div class="d-none d-lg-block col-lg-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
+            {% else %}
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top"></nav>
+              </div>
+            {% endif %}
           </div>
         {% else %}
           <div class="row">
