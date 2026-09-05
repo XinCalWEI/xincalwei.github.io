@@ -6,6 +6,7 @@ description: Exploring key strategies to enhance landslide susceptibility mappin
 tags:
   - "Landslides"
   - "Geospatial AI"
+  - "AI4Science"
 categories: research
 thumbnail: assets/img/projects/covers/physics-guided-susceptibility.png
 ---

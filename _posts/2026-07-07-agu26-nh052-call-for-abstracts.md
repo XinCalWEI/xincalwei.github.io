@@ -4,11 +4,10 @@ title: "Call for Abstracts: AGU26 Session NH052"
 date: 2026-07-07 09:00:00-0400
 description: We invite contributions on reliable and scalable geohazard intelligence, from multiscale sensing and geospatial AI to open data foundations.
 tags:
-  - "Landslides"
   - "Geospatial AI"
   - "AI4Science"
   - "Open Science"
-categories: research events
+categories: events
 thumbnail: assets/img/blog/agu26-nh052-card.svg
 related_posts: false
 ---

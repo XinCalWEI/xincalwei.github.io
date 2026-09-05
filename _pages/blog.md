@@ -47,9 +47,19 @@ nav_order: 1
         <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
         <select id="blog-type" aria-controls="blog-posts">
           <option value="">All types</option>
+          {% assign registered_category_keys = site.data.blog_taxonomy.categories | map: 'key' %}
+          {% for taxonomy_category in site.data.blog_taxonomy.categories %}
+            {% assign category_key = taxonomy_category.key %}
+            {% assign category_posts = site.categories[category_key] %}
+            {% if category_posts %}
+              <option value="{{ category_key | slugify }}">{{ taxonomy_category.label }}</option>
+            {% endif %}
+          {% endfor %}
           {% assign categories = site.categories | sort %}
           {% for category in categories %}
-            <option value="{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' | capitalize }}</option>
+            {% unless registered_category_keys contains category[0] %}
+              <option value="{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' | capitalize }}</option>
+            {% endunless %}
           {% endfor %}
         </select>
         <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
@@ -57,17 +67,30 @@ nav_order: 1
     </div>
 
     <div class="blog-topics">
-      <span class="blog-topics__label" id="blog-topics-label">Topics</span>
+      <span class="blog-topics__label" id="blog-topics-label">Topics &amp; series</span>
       <div class="blog-filters" role="group" aria-labelledby="blog-topics-label">
-        <button class="chip is-active" type="button" data-filter="" data-kind="tag" data-label="All topics" aria-pressed="true" aria-controls="blog-posts">
-          All topics <span class="chip__n">{{ site.posts | size }}</span>
+        <button class="chip is-active" type="button" data-filter="" data-kind="tag" data-label="All" aria-pressed="true" aria-controls="blog-posts">
+          All <span class="chip__n">{{ site.posts | size }}</span>
         </button>
+        {% assign registered_tag_keys = site.data.blog_taxonomy.tags | map: 'key' %}
+        {% for taxonomy_tag in site.data.blog_taxonomy.tags %}
+          {% assign tag_key = taxonomy_tag.key %}
+          {% assign tag_posts = site.tags[tag_key] %}
+          {% if tag_posts %}
+            {% assign tag_slug = tag_key | slugify %}
+            <button class="chip" type="button" data-filter="{{ tag_slug }}" data-kind="tag" data-label="{{ taxonomy_tag.label | escape }}" aria-pressed="false" aria-controls="blog-posts">
+              {{ taxonomy_tag.label }} <span class="chip__n">{{ tag_posts | size }}</span>
+            </button>
+          {% endif %}
+        {% endfor %}
         {% assign tags = site.tags | sort %}
         {% for tag in tags %}
-          {% assign tag_slug = tag[0] | slugify %}
-          <button class="chip" type="button" data-filter="{{ tag_slug }}" data-kind="tag" data-label="{{ tag[0] | escape }}" aria-pressed="false" aria-controls="blog-posts">
-            {{ tag[0] }} <span class="chip__n">{{ tag[1] | size }}</span>
-          </button>
+          {% unless registered_tag_keys contains tag[0] %}
+            {% assign tag_slug = tag[0] | slugify %}
+            <button class="chip" type="button" data-filter="{{ tag_slug }}" data-kind="tag" data-label="{{ tag[0] | escape }}" aria-pressed="false" aria-controls="blog-posts">
+              {{ tag[0] }} <span class="chip__n">{{ tag[1] | size }}</span>
+            </button>
+          {% endunless %}
         {% endfor %}
       </div>
     </div>

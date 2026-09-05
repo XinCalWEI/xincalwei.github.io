@@ -6,6 +6,22 @@ layout: default
 {% if first_document.layout == 'book-review' %}
   {% assign is_book_archive = true %}
 {% endif %}
+{% assign archive_display_title = page.title %}
+{% unless is_book_archive %}
+  {% if page.type == 'categories' %}
+    {% for taxonomy_category in site.data.blog_taxonomy.categories %}
+      {% if taxonomy_category.key == page.title %}
+        {% assign archive_display_title = taxonomy_category.label %}
+      {% endif %}
+    {% endfor %}
+  {% elsif page.type == 'tags' %}
+    {% for taxonomy_tag in site.data.blog_taxonomy.tags %}
+      {% if taxonomy_tag.key == page.title %}
+        {% assign archive_display_title = taxonomy_tag.label %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endunless %}
 <!--
   Tag / category / year archives, rendered with the same card language as
   the blog index (see _pages/blog.md). Book collection archives retain their
@@ -18,7 +34,7 @@ layout: default
       {% if page.type == 'categories' %}Category{% elsif page.type == 'tags' %}Tag{% else %}Archive{% endif %}
     </p>
     <h1 class="post-title">
-      {% if page.type == 'year' %}{{ page.date | date: '%Y' }}{% else %}{{ page.title }}{% endif %}
+      {% if page.type == 'year' %}{{ page.date | date: '%Y' }}{% else %}{{ archive_display_title }}{% endif %}
     </h1>
     <p class="post-description">
       {% assign n = page.documents | size -%}

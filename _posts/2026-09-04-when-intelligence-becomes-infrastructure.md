@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "When Intelligence Becomes Infrastructure: Notes from Ming Zeng"
-date: 2026-09-04 09:00:00-0400
+date: 2026-09-02 09:00:00-0400
 description: My reflections on Ming Zeng's discussion of strategic uncertainty, AI industry evolution, AI-native organizations, and the changing value of human work.
 tags:
   - "Notes from AI Podcasts & Talks"
-categories: machine-learning
-thumbnail: assets/img/blog/ming-zeng-ai-strategy-notes.png
+categories: perspectives
+thumbnail: assets/img/blog/ming-zeng-ai-era-card.png
 thumbnail_fit: wide
 related_posts: false
 toc:
@@ -16,11 +16,11 @@ toc:
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/blog/ming-zeng-ai-strategy-notes.png" class="img-fluid rounded z-depth-1" zoomable=true alt="A visual synthesis of Ming Zeng's discussion of AI infrastructure, agents, platforms, native applications, organizational change, and human value" %}
+    {% include figure.liquid loading="eager" path="assets/img/blog/ming-zeng-ai-era-card.png" class="img-fluid rounded z-depth-1" zoomable=true alt="A visual synthesis of Ming Zeng's three-stage view of AI infrastructure, agent applications, AI-native systems, strategy, organizational change, and human value" %}
   </div>
 </div>
 <div class="caption">
-  My synthesis of the conversation: from model infrastructure and agent ecosystems to organizational design and human value.
+  My synthesis of the conversation: from AI infrastructure and application exploration to native systems, organizational change, and human value.
 </div>
 
 The question I kept returning to after listening to this conversation was not which AI company or product will win. It was a more fundamental one: **what changes when intelligence is no longer a scarce capability held mainly by people, but becomes an increasingly accessible input that organizations can call, combine, and improve?**
