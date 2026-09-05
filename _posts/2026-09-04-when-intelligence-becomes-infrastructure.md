@@ -23,163 +23,312 @@ toc:
   My synthesis of the conversation: from AI infrastructure and application exploration to native systems, organizational change, and human value.
 </div>
 
-The question I kept returning to after listening to this conversation was not which AI company or product will win. It was a more fundamental one: **what changes when intelligence is no longer a scarce capability held mainly by people, but becomes an increasingly accessible input that organizations can call, combine, and improve?**
+The question I kept returning to after this conversation was not which AI company or product will win. It was a more fundamental one: **what changes when intelligence stops being a scarce capability held mainly by people and becomes an increasingly standardized, affordable, and callable input?**
 
-That question took the discussion far beyond models. It connected technological infrastructure with industry structure, strategy, organizational design, entrepreneurship, education, and the kind of human contribution that may remain distinctive as existing knowledge becomes easier to access.
+Ming Zeng's answer reaches far beyond models. It connects the industrialization of intelligence with strategy under uncertainty, the emergence of agents, the economics of infrastructure, the design of organizations, the changing value of experience, and the human purpose of work.
 
 The interviewee, [Ming Zeng](https://kingcenter.stanford.edu/people/ming-zeng), is a business strategist and former Chief Strategy Officer of Alibaba Group. The original conversation is available in Chinese on [Bilibili](https://www.bilibili.com/video/BV1XNtJ6UEmm/).
 
-> **A note on this post:** These are my edited notes, not a transcript or a claim that these outcomes are inevitable. I have reorganized the Chinese conversation around the ideas that stayed with me; the brief translations and interpretations are my own.
+> **A note on sources and quotations:** This post is my edited synthesis, not a transcript or a claim that the outcomes below are inevitable. The supplied transcript was automatically generated and contains obvious errors in some names, numbers, and English terms. All English quotations below are translated from Chinese and, where necessary, lightly condensed for readability. Where the wording was uncertain, I paraphrased rather than quoted.
 
-## Strategy begins where certainty ends
+## I. Strategy under uncertainty
 
-One of the most memorable lines in the conversation can be rendered roughly as: _we did not know; because we believed, we began to see._ I do not read this as an argument for blind conviction. It describes a genuine problem in strategy: by the time a decision is supported by overwhelming evidence, it may no longer be a strategic choice. It may simply be the consensus.
+### Belief comes before proof
 
-A well-executed consensus strategy can still build an excellent company. But an era-defining company often begins with a view that most people do not yet share. That does not make contrarian thinking inherently correct. Many non-consensus ideas fail, and the success stories we remember are filtered by survivorship bias. The useful distinction is between being different for its own sake and holding a reasoned view of how an industry could evolve.
+The first part of the interview changes the meaning of strategic expertise. When the host asks how Alibaba knew that several fiercely contested decisions would prove correct, Zeng does not claim that the answer was visible in the data.
 
-I came away with a less tidy but more realistic picture of strategy: form a view of a possible future, make a focused bet before it becomes obvious, and keep learning through the negative feedback that follows. The path may need repeated revision; the underlying thesis should survive only as long as reality continues to support it.
+> “We didn't know. We saw it because we believed.”
 
-Strategy, in this sense, is not the ability to name the future winner. It is the ability to recognize a structural shift early enough to participate in it—and to keep updating one's beliefs while the shift unfolds.
+This is not a celebration of intuition detached from evidence. Zeng immediately adds the missing caution: contrarian thinking is not inherently correct. Many non-consensus ideas fail, and the success stories available for study are filtered by survivorship bias.
 
-## The middle stage is where the future gets discovered
+The distinction is between consensus excellence and era-defining strategy. A company can execute a broadly accepted direction exceptionally well and become excellent. A company that helps define an era usually begins with a picture of the future that most people do not yet share. It must act before that picture can be proved, endure negative feedback, and keep revising its path as reality supplies new evidence.
 
-I summarize the progression discussed by Zeng in three broad stages:
+What I found useful is that belief here is neither certainty nor stubbornness. It is a provisional commitment strong enough to support action but still answerable to the world. The difficult skill is to preserve the underlying question while changing the route whenever the evidence demands it.
 
-| Stage                         | What becomes possible                                                                               | What remains unresolved                                                            |
-| ----------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Models and infrastructure** | Intelligence becomes broadly accessible through general-purpose models and computing services.      | The dominant applications, interfaces, and business structures are still unclear.  |
-| **Application exploration**   | Many teams test agents, workflows, products, and business models.                                   | Most experiments will not become durable companies, and standards are still fluid. |
-| **AI-native applications**    | Products—and potentially organizations—are designed around machine intelligence from the beginning. | The defining forms of this stage cannot be specified fully in advance.             |
+### Strategy is a cascade, not one dramatic decision
 
-The point I found most useful was Zeng's refusal to treat the second stage as a waiting room. It is easy to dismiss a crowded field of imperfect applications as wrappers, duplication, or noise. But the exploration phase is not merely an awkward interval between the model and the “real” product. It is how the next product form is discovered.
+Zeng's Alibaba examples also show why a bold headline is not yet a strategy. A decision such as building a cloud business immediately branches into further choices: whether to design for one internal use case or many external ones, which scenario to serve first, whether components should be open or closed, and which layers of databases, computing, and storage the company must build itself.
 
-The mobile internet offers a useful analogy. Recommendation systems, smartphones, bandwidth, computing capacity, and video products developed along partly separate paths. None alone determined the eventual product experience. Their combination made short-form, recommendation-driven video possible. A native product appeared through the interaction of several maturing components and years of application-level experimentation.
+Each choice changes the feasible choices beneath it. Strategy therefore travels from a broad thesis through a sequence of increasingly concrete technical, product, and organizational commitments. A correct high-level direction can still fail through poor second- and third-order decisions. Conversely, detailed execution can reveal that the original picture needs revision.
 
-The same may be true for AI. Models can improve rapidly without telling us which workflows people will trust, which tasks should be delegated, what feedback a useful agent needs, or how value should be captured. Those answers emerge through use. Failed products are therefore not always wasted effort. At the company level they may be failures; at the industry level they can still be experiments that reveal what the technology is missing.
+This made Zeng's approach to signals and noise clearer to me. He is not trying to forecast a specific winner. He is trying to identify the structure of an industry's evolution. That requires sensing widely enough to notice changes outside one's current model, then thinking deeply enough not to chase only the trend that has already become visible to everyone else.
 
-## A browser before a Yahoo for agents
+### The middle horizon carries the creative burden
 
-Another analogy in the conversation reaches back to the early web. In Zeng's analogy, the browser, open web standards, and increasingly accessible publishing tools lowered the barriers to accessing and publishing online content. Once that expansion was underway, discovery and classification became urgent problems, creating space for services such as Yahoo.
+Zeng's familiar formulation—look ten years ahead, think three years ahead, act one year ahead—is often repeated as a planning cadence. In the interview, he makes it much less mechanical.
 
-Applied to agents, the sequence might look something like this:
+> “The numbers are only illustrative. What matters is the tension and trade-offs across the short, medium, and long term. Strategy is fundamentally about trade-offs.”
 
-**model infrastructure → agent and skill experiments → common creation and access conventions → rapid growth in available agents → discovery, evaluation, and trust layers → platforms and AI-native systems**
+The intervals can be five years, two years, and six months, or something else suited to the industry. The indispensable part is the middle horizon. A distant vision cannot tell a team what to do tomorrow. A one-year forecast built from current monthly growth merely extends the present and can create a “growth illusion.”
 
-This is a possible trajectory, not a timetable. Still, the analogy is useful because it shifts attention away from individual demonstrations. Before an agent ecosystem can become broadly useful, developers and users may need common ways to create, publish, invoke, combine, and evaluate agents. If supply then grows quickly, finding the right capability—and knowing whether it is trustworthy—becomes a platform-level problem.
+The middle horizon forces a team to imagine several connected steps. If the long-term destination is meaningful, what must become true before it is reachable? What is the third milestone, the second, and the first? Which present action creates the option to reach the next one?
 
-That is why the next important interface may not look like a larger menu of AI tools. It may be an entry point that translates intent into coordinated capabilities while hiding much of the underlying complexity.
+This connects to three strategic states that should not be managed in the same way:
 
-## Essential infrastructure does not necessarily capture all the value
+| Strategic state | Primary problem                                        | Appropriate operating emphasis                                                             |
+| --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| **Exploration** | The direction and viable solution are still uncertain. | Founder-led search, many informative trials, low-cost failure, and fast learning.          |
+| **Formation**   | A repeatable feedback loop is beginning to appear.     | Narrowing the thesis, strengthening the loop, and testing whether it can repeat and scale. |
+| **Maturity**    | The direction is sufficiently understood to scale.     | Efficiency, standardization, reliability, and disciplined execution.                       |
 
-The extraordinary growth of leading model companies can feel unprecedented, but Zeng places it within a longer pattern of general-purpose technology transitions. Early infrastructure providers can become enormously important without necessarily controlling the later application world. Leadership in one stage does not guarantee leadership in the next.
+This table is my operational interpretation of Zeng's discussion. Its value is simple: asking for mature-stage efficiency during exploration can destroy the variation from which a strategy must emerge. Treating a mature system as endless exploration prevents it from compounding.
 
-If models become sufficiently substitutable, buyers would gain more options. Competition among suppliers with similar capabilities would push prices downward and make it harder for any one provider to retain unusually high margins. Models may become foundational in the same way that cloud computing is foundational: indispensable to the system, yet increasingly purchased as an input.
+## II. From metered intelligence to an agent economy
 
-This does not imply that model companies are all interchangeable or that research advantage disappears. What I heard in this argument was an **intelligence flywheel** in practice. A leading organization can use its own models to improve coding, experimentation, evaluation, data work, and research operations. Better internal tools accelerate the creation of better models, which then improve the tools again. The durable advantage is therefore not compute alone. It can be the combination of models, researchers, engineering systems, feedback loops, data, and an organization able to compound them.
+### Why Zeng sees an infrastructure layer maturing
 
-The broader lesson is that technical importance and value capture are not the same thing. To understand where durable advantage may form, we need to examine substitutability, feedback loops, customer power, distribution, and the way a capability is embedded in real work.
+Zeng describes general-purpose technological revolutions as moving through three broad stages. Before that framework makes sense, however, intelligence has to become usable as an input.
 
-## Why early participation matters, even when many products fail
+He treats the normalization of token-based usage and pricing as one sign—not proof—that this is happening. Electricity became easy to consume when users no longer needed to understand the power plant and could buy a standardized unit. Data transmission became easier to buy when usage could be measured consistently. In a similar way, tokens make access to model capability meterable, callable through software, and legible as a cost. Tokens meter usage, not intelligence itself; the analogy is economic rather than a claim of technical equivalence.
 
-My first instinct might be to wait until models stabilize and the winning product pattern becomes easier to see. Zeng's answer is that waiting also has a cost: teams lose the chance to accumulate what I think of as **cognitive capital**—firsthand knowledge of customers, contexts, agent behavior, data, failure modes, and closed-loop workflows.
+The model continues to improve and prices continue to change, but the user no longer has to build the underlying intelligence from scratch. That is the shift from a research breakthrough toward infrastructure.
 
-This reframes the apparent excess of an early technology cycle. When the key questions are genuinely unknown, no central planner can select the right experiments in advance. Capital, ambitious valuations, and intense competition draw people into trying many possibilities. Most attempts fail, but the distributed search produces information for the whole ecosystem.
+My reconstruction of Zeng's three-stage framework is:
 
-That is the constructive role of a bubble in Zeng's account. It is not a defense of careless spending or growth without evidence. The practical objective should be to **reduce the cost of each experiment while increasing the number of informative experiments**. Exploration is productive when a failed attempt changes what the team knows and what it tries next.
+| Stage                       | What changes                                                                            | Central uncertainty                                                           |
+| --------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Infrastructure**          | Models become stronger, cheaper to call, and easier to integrate as a standard input.   | Which providers and technical architectures will sustain reliable supply?     |
+| **Application exploration** | Teams build agents, workflows, products, and new business models on top of that input.  | Which tasks create enough value and feedback to support a durable product?    |
+| **Native applications**     | Products and organizations are designed around machine intelligence from the beginning. | Which forms will emerge from the accumulated experiments of the second stage? |
 
-## Robotics keeps the uncertainty visible
+Zeng offers 2026 as his judgment about a possible boundary: the first stage is becoming mature enough for the second to begin in earnest. I read this as a strategic thesis, not a settled industry fact or a precise date on a universal clock.
 
-Robotics is a useful reminder that there may be several routes to an AI-native world. Some teams begin with general intelligence and work toward physical embodiment; others begin with a defined environment or task and expand outward from there. The conversation compares these to climbing the same mountain from different sides. At this stage, we do not know which route—or combination of routes—will prove more effective.
+### The second stage cannot be skipped
 
-There is also a large gap between an impressive prototype and reliable production. Early automobile history offers the analogy: building a vehicle was one problem; creating a repeatable manufacturing and delivery system was another. For robotics, stable production, deployment, maintenance, and learning in real environments may matter as much as a single benchmark demonstration.
+The strongest correction to a common AI narrative is Zeng's refusal to treat application exploration as a waiting room.
 
-The eventual market may also resemble appliances more than smartphones. Rather than one universal humanoid form, there could be many categories optimized for homes, manufacturing, logistics, maintenance, and other industrial settings. In that view, robots are diverse interfaces through which AI acts in the physical world.
+> “The second stage is exciting and valuable in its own right. You cannot skip over it; without passing through it, there is no third-stage opportunity.”
 
-## From jobs to tasks—and from hierarchy to networks
+Many early applications will disappear. That does not make the stage disposable. Their experiments reveal what users delegate, where models fail, which interaction patterns work, what context must be retained, which data is valuable, and where a business can form a closed loop.
 
-The most far-reaching part of the conversation concerns the organization itself. Zeng frames the modern company not as a permanent organizational form, but as an institutional technology shaped by industrial production: fixed roles, repeatable processes, managerial layers, and standardized coordination.
+The mobile-internet example is instructive. Recommendation systems, mobile hardware, bandwidth, video production, and user behavior did not mature as one coordinated invention. Early products explored different pieces. A recommendation model developed in one product could later combine with short-form video and improving infrastructure to create a genuinely native experience.
 
-Much of organizational life is built around the concept of a **job**. A job defines a description, reporting line, department, salary band, promotion path, performance indicators, and career ladder. But if AI can decompose work, route information, and coordinate specialized capabilities at low cost, the task may become a more useful unit.
+The third stage is therefore less likely to be designed in isolation by one person than to emerge from the interaction of thousands of second-stage attempts. Industry-level learning can be real even when company-level outcomes are failures.
 
-A task-centered system could work differently:
+The same experimental logic operates at three levels:
 
-1. A need appears.
-2. The system decomposes it into connected tasks.
-3. People and agents assemble dynamically around those tasks.
-4. Work is routed to—or claimed by—the most relevant capability.
-5. Results, contributions, and feedback update the network.
+- At the **industry level**, diverse application failures search the possibility space.
+- At the **company level**, participation creates knowledge of customers, context, data, and failure modes.
+- At the **organizational level**, lowering the cost of an informative failure allows the search to continue.
 
-Authority would then become more contextual. Instead of flowing only from a position in a hierarchy, it could shift toward the person or agent with the strongest expertise for the problem at hand. Teams could become smaller, more fluid, and more partner-like, with AI taking a larger share of routine, homogeneous work.
+### From an information age to an age of capabilities
 
-The idea is not that organizations will suddenly become one-person companies. My reading is almost the opposite: valuable work may depend on combinations of highly complementary people, each contributing something difficult to replace, while agents provide leverage around them. The better analogy may be a sports team. A striker, defender, and goalkeeper are all excellent for different reasons; the team works because those differences fit together.
+The browser analogy becomes much more powerful once agents are defined not as chat interfaces but as packaged capabilities.
 
-## An organization should generate strategy, not just execute it
+> “The innovation of AI is that it takes us from an age of information into an age of capabilities.”
 
-Traditional management often assumes that senior leaders set the strategy and the organization executes it. That works only when the leadership team already knows the right direction. In a period of deep uncertainty, the CEO does not possess that certainty either.
+Websites allowed people to digitize and share information. Agents aim to package an ability so that someone else can invoke it: analyze a dataset, negotiate a workflow, write and test software, manage a process, or coordinate other tools.
 
-Zeng's alternative is to think of the organization more like a neural system. Different parts of the organization sense changes, run local experiments, interact with customers, and acquire context that no central leader can hold alone. Strategy emerges when those signals can travel, collide, and combine.
+In the early web, the browser and open standards lowered barriers on both sides. Publishing became accessible to more creators, while clicking and navigating made consumption accessible to more users. Supply and demand expanded together. Only after websites multiplied did a Yahoo-like discovery layer become urgent.
 
-Borrowing the familiar “context, not control” principle, the discussion places particular weight on shared context. People and agents need access to the reason behind a goal, the current state of the system, the experiments underway elsewhere, and the constraints that matter. With rich context, a distributed network can make coherent local decisions. Without it, decentralization simply produces fragmentation.
+Zeng thinks the first large agent opportunity may similarly be browser-like: a common way to create, publish, invoke, and combine capabilities. Once that layer lowers the barrier for both developers and users, the number of agents can expand. Discovery comes next.
 
-AI may eventually help create an organizational “brain” that maintains shared context, connects related work, detects drift, and brings relevant information to each decision. But technology alone would not be sufficient; incentives, organizational culture, and the quality of shared context would still matter.
+But choosing an agent is a higher-stakes problem than choosing a website. A disappointing page wastes a few minutes. An agent may receive money, personal data, business permissions, or responsibility for a consequential task. Users need evidence about competence, identity, cost, reliability, and accountability. A future discovery layer may therefore combine a directory, evaluation system, trust mechanism, and marketplace between capability providers and users.
 
-This is the point where the discussion of AI becomes a discussion of strategy generation. The organization is no longer only a machine for scaling a chosen answer. It is a system for discovering the answer.
+An agent operating system belongs further out. In Zeng's speculative third-stage picture, a user expresses an intent and the system quietly orchestrates the necessary agents; individual tools may disappear behind the outcome. The sequence I take from the conversation is:
 
-## Connecting vision to action
+**model infrastructure → agent and skill experiments → browser-like creation and access standards → abundant agents → discovery and trust → platforms → intent-driven orchestration**
 
-A long-term vision is necessary, but it does not tell a team what to do next week. At the other extreme, projecting the last quarter's growth into the next year can create a comforting but fragile illusion of strategy.
+That sequence is my synthesis, not a timetable or a prediction that the web will repeat itself exactly.
 
-The framework discussed in the interview can be summarized as: **look far enough ahead to see the structural change, reason through an intermediate horizon, and act concretely in the near term**. The exact intervals can vary. Ten years, three years, and one year may fit one organization; five years, two years, and six months may fit another. What matters is having all three horizons and making their tensions explicit.
+### Models can be essential without capturing every layer of value
 
-The middle horizon does the hardest work. It translates an ambitious future into a sequence of milestones without pretending the path is linear. It also helps a team decide what must be true before scaling.
+Zeng uses business history to resist a tempting inference: a company that becomes extraordinarily valuable during the first stage must also dominate the native stage. General-purpose technology transitions have repeatedly produced early infrastructure or access leaders that looked definitive at the time. Some remained important; others did not own the applications that followed.
 
-This connects to three different strategic states:
+His more direct analogies are refineries and utilities. A refinery is indispensable to a chemical economy, but it does not automatically invent or own every chemical product. Electricity is required by an appliance, but the power provider does not thereby become the appliance company.
 
-- **Exploration:** The direction is uncertain. Leadership remains closely involved, experiments are numerous, and the organization optimizes for inexpensive failure and fast learning.
-- **Formation:** A workable feedback loop begins to appear. The team narrows its focus, strengthens the product, and tests whether the pattern can repeat.
-- **Maturity:** The model is sufficiently understood that efficiency, standardization, and scale become more important.
+The economic question is substitutability. Model providers may remain meaningfully differentiated while becoming similar enough that customers can switch among them. As substitution becomes credible, buyer power rises. Pricing moves away from capturing a large share of every customer's value and closer to competition around the cost of supplying intelligence.
 
-My practical implication from this framework is that managing an exploratory organization as if it were mature can eliminate the variation from which the strategy must emerge. Managing a mature organization as permanent exploration can waste resources and prevent compounding. The management system has to match the strategic state.
+Zeng therefore imagines a possible infrastructure equilibrium with a small number of providers and strong public oversight, because society would depend on stable, affordable supply. This is a thesis about a potential industrial structure, not a statement that current model companies are identical or that model research has ceased to matter.
 
-## Incumbents cannot simply bolt on an AI-native organization
+In fact, he also identifies a powerful counterforce: a model organization can use AI to improve AI research itself. Models assist coding, experimentation, evaluation, data work, and engineering; those improvements accelerate the next model, which further improves the internal tools. The advantage is not compute alone but an **organizational intelligence flywheel** joining researchers, models, infrastructure, data, and feedback.
 
-Declaring that an organization is “all in on AI” does not make it AI-native. A large incumbent adopting AI inside existing reporting structures, incentives, talent systems, and product architecture faces a different problem from a small team built around AI from its first day. The old organization may become more efficient while leaving its underlying logic unchanged.
+The capabilities required in the next stage are different. Infrastructure competition rewards reliability and deep technical invention. Application competition also requires product judgment, empathy with ordinary users, context management, interaction design, and an understanding of a specific task. A first-stage organization does not automatically possess those capabilities merely because it has the strongest model.
 
-This is why the central question for an incumbent is not simply how many AI tools it deploys. It is whether the existing institution can create a new organizational form without suppressing it. A productivity technology can destabilize more than individual workflows; it can challenge the assumptions on which departments, authority, and scale were designed.
+### The application moat is another intelligence flywheel
 
-Technical teams also need a wider view of value. When alternative technologies become sufficiently similar, technical superiority by itself does not guarantee durable returns. Product, technology, business structure, customer context, and resource allocation become harder to separate. Many strong teams may therefore pair deep technical judgment with equally deep product or domain judgment, treating the relationship as a real partnership rather than a handoff between functions.
+The application layer has its own version of the flywheel. An agent performs real work, receives feedback from the world, improves its context or algorithms, becomes capable of a harder adjacent task, and earns more opportunities to act. More useful work produces more informative feedback.
 
-## Conviction without ego
+This is deeper than a conventional data loop. The product is not only collecting clicks; it is learning how to perform a capability. The defensible unit may combine task-specific data, context, evaluation, interaction design, and algorithms that make the agent better within that environment.
 
-For founders, the conversation resists a neat scorecard. Great founders are usually recognized after the outcome, not before it. Conventional signs of excellence are often accompanied by positive feedback. The rarer test is whether someone can continue learning through repeated negative feedback while holding onto a non-consensus belief for good reasons.
+Simple tasks with little room for learning are vulnerable to absorption by the base model. If an application does one shallow transformation that the next model can perform directly, its boundary may disappear. A stronger starting point is a complex and valuable task with enough structure for the application to accumulate unique understanding and expand.
 
-This requires humility as much as confidence. One phrase from the interview can be rendered as _the work is larger than the person_. Zeng connects this humility with a smaller ego, greater empathy, and less dependence on short-term validation.
+That technical depth does not necessarily require training another foundation model. Application companies can innovate in memory, context, planning, tool use, evaluation, feedback, interfaces, and the way a workflow closes around real outcomes.
 
-The question “What do you want to have built ten years from now?” is revealing for the same reason. A valuation target depends on external recognition. A mission is closer to wanting something valuable to exist even before the market rewards it. Opportunity may lead to strategy, strategy to vision, and vision to mission; at each step, action becomes less dependent on immediate approval.
+This explains Zeng's insistence that waiting is not a neutral strategy:
 
-## As knowledge gets cheaper, what remains scarce?
+> “You cannot simply wait it out. If you are not in the arena, you cannot accumulate the relevant experience; when the real wave arrives, it will knock you over.”
 
-Zeng's point about experience is subtler than a simple generational claim. Experience may lose some of its advantage when the reusable knowledge it contains can be digitized, queried, and recombined by models. Younger people can use AI to compress the time required to become conversant in a field.
+I think of the missing asset as **cognitive capital**. A team that starts early may lose money or abandon a product, but it learns what customers mean, which contexts matter, how agents fail, what should be measured, and where the loop can close. A team that waits for certainty saves the cost of early errors but may arrive without the knowledge required to recognize the real opportunity.
 
-That shift makes other human abilities more valuable:
+Zeng's deliberately provocative defense of early bubbles follows the same logic. When no central referee knows which direction is right, high expected rewards attract talent and finance parallel experiments. Most fail; collectively, they produce information. This is not a defense of unlimited spending. The useful operating principle is to lower the cost of each trial and increase the number of trials that genuinely change what is known.
 
-- judgment when evidence is incomplete;
-- taste in choosing among many plausible outputs;
-- empathy and the ability to build trust;
-- agency—the willingness to identify and pursue a problem;
-- creativity in defining needs that do not yet have names;
-- the ability to coordinate people and AI around a shared purpose.
+### Robotics makes the uncertainty visible
 
-Creativity here is broader than writing a poem or making an image. Models can already produce familiar creative forms. The more difficult act is to define a new problem, relationship, organization, experience, or source of meaning—to create, in the interview's phrase, _something from nothing_.
+Robotics sits earlier in its industrial cycle and offers a live test of this framework. Zeng sees at least two plausible routes. One begins with a general “brain” and works toward broader physical embodiment. Another begins with a specific body and environment, closes the loop among action, data, and feedback, and expands from that foothold.
 
-Education built mainly around transferring established knowledge and preparing students for a stable sequence of jobs may need to adapt. Learning to ask good questions, direct one's own work, collaborate with AI, test uncertain ideas, and recover from failure may become more central. This transition will be uneven. People who grow up with AI from an earlier age may become more genuinely AI-native, while others may need to navigate the old and emerging systems at once.
+His mountain analogy is apt: one group may climb from the north slope and another from the south. The challenge is not to declare the correct route in advance but to turn one working capability into a broad and useful range of abilities.
 
-## Beyond efficiency
+The automotive analogy separates a prototype from an industry. Many teams could build an early vehicle; the larger transformation came when manufacturing made a useful product repeatable and affordable at scale. Zeng uses the ability to sell ten thousand robots as a deliberately concrete milestone. The number should not be mistaken for a universal threshold. His point is that stable production and delivery may matter more than another isolated demonstration.
 
-The narrow version of AI transformation asks how one person can complete far more tasks than before. The deeper version asks which tasks should exist at all—and what people might create if less of their attention were consumed by routine execution.
+He then suggests that appliances may be a better analogy than a single universal car or humanoid. If AI is like electricity, robots are interfaces through which it enters the physical world. Homes and industries may need many forms—companionship, household work, manufacturing, logistics, or maintenance—rather than one body that wins every category.
 
-That distinction also changes how I think about organizational efficiency. An early-stage AI organization should not eliminate every anomaly, failed experiment, or apparently redundant path. Those are often where learning begins. Effective exploration is not the absence of discipline; it is the deliberate creation of many affordable opportunities to discover that the current model is wrong.
+## III. The organization as the next product
 
-For me, this suggests that an AI-native organization should be judged by more than output per employee. It should also matter whether people have greater autonomy, more room to explore, and more satisfaction in their work.
+### The corporation is an industrial-era design
 
-My main takeaway is that the deepest AI transition may not happen at the interface of a single product. It may happen in the institutions built around intelligence: how strategies are discovered, how work is divided, how organizations learn, and what people choose to create once existing knowledge becomes much cheaper. That is what made this conversation valuable to me—not a list of trends to memorize, but a way to connect technological change with the harder questions of how we organize, how we choose under uncertainty, and what kind of work is worth doing.
+The organizational part of the interview is not an aside. It follows directly from the economics of intelligence.
+
+Zeng treats the modern managerial corporation as an institutional technology of the industrial era. Large-scale production required standardized jobs, repeatable processes, managerial layers, and coordination across many people. The corporation bundled those requirements into a durable form.
+
+If AI changes the cost of expertise, execution, communication, and coordination, simply adding a model to that inherited structure may leave the most important assumptions untouched. Zeng therefore deliberately prefers the word **organization** to **company**.
+
+He sees today's research-led “new labs” as early prototypes of another form. They are not a finished answer, and their practices may not transfer directly to every kind of work. Their importance is that researchers dissatisfied with both conventional companies and universities are already experimenting with smaller, mission-centered ways of organizing difficult creative work. The label “lab” marks an opening rather than a settled institutional design.
+
+His prediction is strong, but more precise than “companies will disappear”:
+
+> “The hierarchical corporate form will decline. Human specialization and collaboration will continue; organization itself will never disappear.”
+
+People will still need one another because no individual has unlimited time, judgment, relationships, or creative range. The open question is which structures will coordinate those differences.
+
+### Adding AI to a workflow is not yet AI-native
+
+Embedding AI into an existing workflow is useful, but Zeng calls it transitional because the workflow was designed around human limitations and organizational boundaries. An AI-native organization starts one level earlier: it defines the work, decomposes it into tasks, then decides which combination of people and agents should perform them.
+
+The contrast can be summarized this way:
+
+| Industrial organizing logic                            | Possible AI-native organizing logic                                  |
+| ------------------------------------------------------ | -------------------------------------------------------------------- |
+| Define a job and write a job description.              | Define an outcome and decompose the work into tasks.                 |
+| Hire a person into a persistent role.                  | Assemble people and agents around the current task.                  |
+| Route decisions through reporting lines.               | Route decisions toward relevant capability and context.              |
+| Evaluate the occupant of a position periodically.      | Record contribution and feedback through delivered results.          |
+| Optimize a human-designed workflow with AI assistance. | Redesign the workflow around what humans and AI can each contribute. |
+
+This is my reconstruction of the direction discussed in the interview, not a complete operating model.
+
+The job is more than a label. It anchors recruitment, departments, levels, salary bands, promotion, performance review, and career ladders. If the task becomes the smaller unit, all of those surrounding systems have to be reconsidered.
+
+Authority also becomes more situational. In a hierarchy, rank often determines who decides across many unrelated questions. In a task network, the stronger voice may belong to the person—or eventually the agent—with the most relevant capability and evidence for that particular problem.
+
+### The one-person company is evidence, not the destination
+
+AI can collapse many functions that once required a company into the hands of one person. That makes the one-person company an important transitional demonstration. It proves that the coordination cost of producing something can fall dramatically.
+
+Zeng does not see isolation as the endpoint. One person remains bounded. As AI absorbs more homogeneous work, the remaining reason to invite another person is increasingly that the person contributes something complementary and difficult to replace.
+
+This produces a partner-like organization rather than a crowd of interchangeable employees. Zeng's sports-team analogy is more useful than the phrase “flat organization”: a striker, defender, and goalkeeper are not equal because they do the same work. They are peers because their different abilities are essential to the shared outcome.
+
+Smaller teams may therefore combine greater AI leverage with higher value per person, clearer contribution, and stronger partnership. Openness, shared context, personal agency, and co-creation become operating requirements rather than cultural decoration.
+
+### The organization must generate strategy
+
+The deepest organizational claim answers a question posed directly by the host: why place organization before strategy?
+
+The conventional sequence is straightforward: leaders decide the strategy; the organization executes it. That sequence assumes the leaders already know the answer. During a technological transition, they do not.
+
+Zeng describes the organization instead as a neural network. Different nodes observe customers, technologies, competitors, and operational failures. They run local experiments, develop partial interpretations, and share context. Connections among those signals allow an insight to appear that no central planner possessed beforehand.
+
+> “The real work of organizational design is to create an environment in which strategic insight can emerge.”
+
+He continues by asking whether previously unimagined insights can be put to use and whether the group's collective intelligence is evolving. This is a different definition of organizational performance. The organization is not only a machine for scaling a chosen answer; it is a system for discovering the answer.
+
+The mechanism matters:
+
+**distributed sensing → local experiments → feedback → shared context → connection and collision → unexpected insight → strategic commitment**
+
+Zeng invokes Netflix's “context, not control” principle. Context here is not surveillance or a larger dashboard for the CEO. It is the reason behind the goal, the current state of the environment, the assumptions being tested, and the relevant work happening elsewhere. With enough shared context, nodes can make coherent local decisions. Without it, decentralization becomes fragmentation.
+
+An AI-supported “organizational brain” could help maintain this context, connect related work, and detect when teams drift from a shared objective. This is also why Zeng thinks the original logic of OKRs may receive stronger technical support. Many organizations turned OKRs into another KPI system because genuine alignment demanded more shared understanding than the organization could sustain.
+
+### Why incumbents face more than a tooling problem
+
+“All in AI” is not an organizational design. A large incumbent can purchase models, deploy copilots, and automate workflows while preserving the decision structure, incentives, architecture, and assumptions of the previous era.
+
+Zeng contrasts the difficulty of converting a hundred-thousand-person organization into an AI-native one with growing a ten-person AI-native team into a thousand-person organization. The figures are illustrative, but the asymmetry is real: the first path must unwind established structures and assumptions; the second builds its coordination model as it grows.
+
+His comparison between the internet and AI makes the discontinuity clearer. He characterizes the internet primarily as a revolution in relations of production—how people and information connect—while AI reaches more directly into productive capacity—how work itself is performed. The mobile internet retained enough of the earlier internet architecture that some incumbents could migrate. If AI changes the production function beneath the organization, continuity may be weaker.
+
+The critical question is therefore not whether an incumbent can launch an AI product. It is whether the old organization can create and protect a genuinely new organizational form long enough for it to develop its own strategy.
+
+### Founders need conviction without ego
+
+Zeng's distinction between an excellent founder and a great one returns to feedback.
+
+> “Greatness is defined after the fact. It is the result of overcoming negative feedback again and again.”
+>
+> “The endeavor is bigger than the individual.”
+
+Conventional signs of excellence often arrive with positive feedback: credentials, growth, approval, and visible competence. A non-consensus undertaking may produce the opposite for years. The difficulty is not merely tolerating criticism. It is continuing to learn without letting either external rejection or personal ego determine the next decision.
+
+Negative feedback is not evidence that the direction is correct. Zeng also stresses that many unconventional ideas fail; being both right and able to turn the idea into reality is exceptionally rare. Endurance matters only when it remains joined to judgment, execution, and learning.
+
+Zeng connects a smaller ego with greater empathy and less dependence on short-term validation. A founder trying constantly to prove personal brilliance is drawn toward decisions that generate quick confirmation. A founder trying to make the undertaking succeed can listen more widely, change course, and give other people genuine ownership.
+
+This is why he asks founders what they want to have built ten years from now. A valuation target is an external score. “I want this to exist” reveals a different source of motivation. I heard a progression from opportunity, to strategy, to vision, to mission—each step less dependent on immediate external reward.
+
+The same integration appears in the founder's work. Product, technology, business structure, customer value, and resource allocation become harder to separate. Zeng suggests that the standalone product-manager role may therefore become less central. Application-era founders need enough technical understanding to reason about capability, but they need not all be researchers. A technical or model cofounder and a product, domain, or business cofounder may form a genuinely complementary partnership.
+
+Technical superiority alone is not a business model. Once alternatives become sufficiently substitutable, competition limits excess returns. Technical founders must learn to ask not only whether the system is better, but what customers can substitute, where feedback compounds, and why value will remain attached to their organization.
+
+## IV. What remains human
+
+### Experience changes value; people do not become obsolete
+
+Zeng's argument about experience is easy to flatten into a generational claim. It is subtler.
+
+Experience historically carried value partly because it stored information unavailable elsewhere. When reusable parts of that experience are digitized into models, access to the information becomes less scarce. A younger person can use AI to become conversant in a field much faster than before.
+
+This does not erase tacit knowledge, relationships, embodied judgment, or the ability to act responsibly in context. It changes what differentiates a person. Memory of established practice becomes less defensible on its own; judgment under uncertainty, taste, empathy, trust, problem formulation, initiative, and the ability to orchestrate AI become more important.
+
+My own takeaway is that the human advantage shifts away from possessing answers and toward deciding which question deserves attention, recognizing when an answer does not fit reality, and coordinating people around a purpose that cannot be reduced to the next output.
+
+### Education is caught between two systems
+
+The educational model Zeng critiques is built around knowledge transfer and a relatively linear path: school, credential, job, and advancement within a role. If knowledge becomes cheap and jobs become less stable as organizational units, that path loses some of its predictive power.
+
+The replacement has not yet been institutionalized. Students can sense that the old promise is weakening without being able to see a reliable new route. Zeng suggests that society may need a generation to absorb the transition because those who grow up with AI from an early age will treat it as part of their environment rather than as a tool added later.
+
+The abilities worth cultivating become less linear: asking strong questions, exploring without a guaranteed answer, directing one's own learning, collaborating with AI, testing uncertain ideas, understanding trade-offs, and recovering from failure.
+
+### Creativity means moving toward what does not yet exist
+
+If models can reproduce more established knowledge and familiar creative forms, defining creativity as “writing a song” or “making an image” is no longer sufficient.
+
+> “This is the ability to create something from nothing.”
+
+The sentence follows Zeng's argument that creativity needs a broader definition than producing a familiar artistic form. “Something from nothing” does not mean creation without material or history. It means defining a problem that has not been named, imagining a need that has not been served, designing a new relationship or organization, or giving people an experience and source of meaning that did not previously exist.
+
+As the cost of retrieving and recombining the known falls, human effort can move further toward the unknown.
+
+### Beyond efficiency
+
+The narrow version of AI transformation asks how one person can complete far more tasks than before. The deeper version asks which tasks should exist at all—and what people might create if less attention were consumed by repetitive work.
+
+Zeng notes that much knowledge work has been simple, repetitive, burdensome, and emotionally empty. If AI absorbs part of it, technological progress should not mean replacing ten assigned tasks with one hundred. It should increase autonomy and release creative capacity.
+
+That changes how an organization should be judged. Output per employee still matters, but so may the freedom to explore, the quality of collaboration, and whether people can find meaning and satisfaction in the work. Zeng points to early Google practices—time for self-directed exploration, respect for differentiated contribution, and an environment designed to attract creative people—as an imperfect preview of that cultural direction.
+
+> “Perhaps happiness will become a requirement.”
+
+I read that line less as a promise that technology will make everyone happy than as a design constraint. An organization that gains enormous leverage from AI but leaves no autonomy, curiosity, or purpose has changed its throughput without changing the human experience of work.
+
+At the exploratory edge, efficiency itself needs a better definition. Eliminating every anomaly and failed attempt may remove the information required to discover a new path. The goal is not waste. It is **effective exploration**: lower the cost of being wrong, preserve the ability to learn from an unexpected result, and increase the number of experiments that can change the model.
+
+## My synthesis: five connected transitions
+
+The value of this conversation is not that it supplies a list of predictions to memorize. Zeng explicitly says that he is looking for structural patterns rather than making short-term forecasts. I read the argument as five connected transitions:
+
+1. **Technology:** intelligence becomes increasingly standardized, affordable, and callable.
+2. **Industry:** agents package capabilities; experiments create standards, feedback loops, trust layers, and eventually native applications.
+3. **Strategy:** organizations must act before proof, connect long vision to near-term choices, and match their operating system to the current stage of uncertainty.
+4. **Organization:** jobs may give way to tasks, rank to situational capability, and execution-only hierarchies to networks that help generate strategy.
+5. **Human value:** as established knowledge becomes cheaper, judgment, agency, empathy, mission, and the ability to create what does not yet exist become more scarce.
+
+None of these outcomes is guaranteed, and the arrows will not move at the same speed. The framework is useful because it connects them causally. If intelligence becomes an infrastructure input, applications can experiment at larger scale. If agents perform capabilities rather than merely return information, platforms need new standards and trust. If AI changes the production function, organizations built around fixed jobs and stable expertise come under pressure. If those structures loosen, people must decide what they want the new freedom to serve.
+
+I remain least certain about the farthest extrapolations: the eventual agent operating system and the institutional form that might follow the managerial corporation. They are valuable here as questions that reveal present constraints, not as destinations I assume will arrive exactly as described.
+
+My central takeaway is not simply that AI will create different products. Intelligence as infrastructure can loosen institutions built around scarce knowledge, fixed roles, linear planning, and scale efficiency. The most consequential competition may be over who discovers not only a stronger model, but a valuable capability, a self-improving feedback loop, a strategy-generating organization, and a more meaningful use of human attention.
+
+The technology expands what can be done. The unresolved question—one no model or organizational chart can answer for us—is what deserves to be done.

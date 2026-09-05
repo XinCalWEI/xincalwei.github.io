@@ -20,171 +20,270 @@ toc:
   </div>
 </div>
 <div class="caption">
-  My synthesis of the conversation: from experience-driven robot learning and embodied intelligence to productivity, agency, and human choice. The English wording in this illustration is a paraphrase, not a verbatim quotation.
+  From experience-driven robot learning and embodied intelligence to productivity, agency, and human choice.
 </div>
 
 Most robot demonstrations invite a simple question: **Can the machine complete the task?** This conversation made me replace it with a harder one: **Can the machine become better after doing it—and can that improvement survive outside the carefully arranged scene in which we first saw it?**
 
-[Liyiming Ke](https://kayke.xyz/) works at [Physical Intelligence (PI)](https://www.pi.website/) on machine learning for robot manipulation. During her PhD at the University of Washington, she built a robot that manipulates objects with chopsticks, using deliberately constrained hardware to study data-driven fine motor skills. Her path—from economics to machine learning, real-world robotics, reinforcement learning, and science-fiction writing—gave the conversation an unusual range. It moved easily between action representations and hardware reliability, then out toward productivity, social dependence, and the question of what people may choose to do when machines can do much more.
+[Liyiming Ke](https://kayke.xyz/) works at [Physical Intelligence (PI)](https://www.pi.website/) on machine learning for robot manipulation. During her PhD at the University of Washington, she built a robot that uses chopsticks for precise manipulation. Her route into robotics was unconventional: economics led her toward machine learning, theory led to real systems, imitation learning led to reinforcement learning, and an interest in fiction kept the human consequences of technical progress in view.
+
+The same tension runs throughout the conversation: optimization can make a system more capable, but it cannot determine what is worth optimizing.
 
 The original long-form Chinese interview is available on [Bilibili](https://www.bilibili.com/video/BV12bNB6vEtt/).
 
-> **A note on this post:** These are my English-language notes and synthesis, not a transcript. I have reorganized the conversation around the ideas that stayed with me; translations, emphasis, and interpretation are my own. I cross-checked technical details against public materials from Ke and Physical Intelligence where possible. Speculative ideas in the later sections should not be read as PI's product roadmap.
+> **A note on this post:** These are my English-language notes and synthesis, not a transcript. I reorganized the conversation around its central arguments and cross-checked technical details against public materials from Ke and Physical Intelligence. The quoted passages are translated renderings from the Chinese conversation; a few have been condensed or lightly paraphrased for clarity. Speculative ideas in the later sections should not be read as PI's product roadmap.
 
-## A research question deeper than any algorithm
+## Part I — From imitation to experience
 
-Ke's long-running research question is more durable than the name of any method: **How can an agent improve through experience?**
+### The question behind the career
 
-Imitation learning offers a compelling starting point. A person demonstrates a behavior, and the robot learns to reproduce it. But the approach also raises an obvious limit: if the robot only imitates what it has been shown, where does improvement beyond the demonstration come from? How does it learn to correct the states that the demonstrator never entered, discover a better strategy, or turn a fragile motion into a reliable skill?
+Ke does not define her research by loyalty to a particular algorithm. Reinforcement learning is one current approach; the more durable question is how experience changes an agent.
 
-That question drew Ke from imitation learning toward reinforcement learning. What interested her was not simply reward maximization as a mathematical label. It was the combination of practice, exploration, credit assignment, and objective design:
+> “The deeper question is how an agent becomes better through experience.”
 
-- **Practice:** some motor skills become reliable only through repeated execution;
-- **exploration:** the system must try variations if it is to discover a better strategy;
-- **credit assignment:** a failure near the end may have been caused by a poor grasp much earlier;
-- **the objective:** a system can optimize a specified objective effectively while still missing what we actually meant.
+She entered university interested in questions about people and society, studied economics, and encountered optimization and game theory before moving more deeply into machine learning. A mathematical objective could be translated into an algorithm, code, and an observable result. Yet purely theoretical work eventually felt incomplete. She wanted to know what happened when an algorithm had to act through a real mechanism, under friction, delay, imperfect sensing, and hardware it could not simply assume away.
 
-The chopsticks robot makes this research philosophy concrete. Chopsticks provide few contact points and little mechanical help, so they form a demanding test of control and precision. Ke found that a person using teleoperation could still make the hardware perform difficult manipulations. That served as an existence proof: the hardware configuration did not make the task physically impossible. It did **not** prove that an algorithm would learn the behavior or generalize it, but it changed the research question. The challenge became whether a learned policy could acquire a sufficiently effective strategy—and then refine it through practice.
+At the University of Washington, she learned robotics from the full stack rather than treating the robot as a clean output device for a model: mechanics, calibration, sensing, teleoperation, control, and the software connecting them. Claims made in simulation met a blunt standard—does the system actually work on a physical robot, and how well? That training sharpened her commitment to learning-based methods while making her less satisfied with algorithms that worked only in an abstract setting.
 
-## Two philosophies of robotics
+Her fiction writing adds a second lens. Robotics and fiction both begin with an imagined possibility, but the distance between an idea and a finished object is where most of the work lives.
 
-The conversation describes a productive tension between traditional robotics and learning-based robotics.
+### Two traditions, one standard of usefulness
 
-The traditional pipeline often separates perception, planning, and control. Experts model the system, reason about geometry and dynamics, design intermediate representations, and build in guarantees where possible. Learning-based robotics asks whether more of that structure can be absorbed through data and optimization: define the goal, provide examples and experience, and let the system discover parts of the solution.
+A traditional pipeline often separates perception, planning, and control. Experts build models of the robot and its environment, reason about geometry and dynamics, select intermediate representations, and design components whose behavior can be analyzed. When the operating conditions are controlled and the task is fixed, this approach can produce exceptional speed, precision, and reliability. Industrial automation is the clearest example: a conventional system that performs one operation almost perfectly may be far more useful than a general model that performs many operations inconsistently.
 
-I would not frame this history as an old school being replaced by a new one. Traditional roboticists raised a criticism that remains completely valid: a robot that can do many things unreliably may be less useful than a conventional system that performs one task quickly and almost without failure. A highly structured factory can reward engineered precision more than broad but shallow generality.
+Learning-based robotics places knowledge differently. Instead of specifying every intermediate rule, researchers provide tasks, demonstrations, observations, actions, and feedback, then ask the system to learn more of the mapping from perception to behavior. This does not make expertise disappear. Expertise is still present in the hardware, data collection, model architecture, objective, safety constraints, and evaluation. The goal is to avoid requiring a robotics expert to redesign the entire pipeline each time an ordinary user asks for a new behavior.
 
-The more interesting promise of machine learning is therefore not simply a longer list of demonstrations. It is a different **cost curve**. If every new task requires another large group of specialists to model, tune, and integrate the system, capability scales roughly with human engineering effort. A more general learning system would make it possible to add tasks, objects, environments, or robot platforms without a proportional increase in expert labor.
+The two approaches therefore imply different scaling curves. Traditional methods often have a clear relationship between engineering input and task performance, but much of that investment must be repeated for the next task. A general learning system may demand much more data and infrastructure at the beginning, yet its promise is lower marginal effort: a new object, environment, robot, or task should not always require starting from zero.
 
-This also clarifies what it means to “remove the expert.” Expertise does not disappear from research. It is embedded in the data, hardware, objectives, model, evaluation, and system design. The goal is to remove the requirement that every eventual user become a robotics expert before asking a robot to do something useful.
+> “If the endpoint of machine learning is a robot that can do everything but does nothing well, that is clearly not enough.”
 
-## Capability is only the first rung
+Breadth is not a substitute for performance. The long-term goal is to combine broad prior knowledge with the ability to become genuinely good at the task in front of it.
 
-I found it useful to organize the model sequence emphasized in the interview around three questions. This is my summary rather than an official PI taxonomy.
+### Why chopsticks?
 
-| Stage              | Central question                                                             | Why it matters                                                                                 |
-| ------------------ | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| **Capability**     | Can the robot perform a task that was previously out of reach?               | It reveals whether a new class of behavior has become technically possible.                    |
-| **Generalization** | Can the policy work with unfamiliar objects, environments, and embodiments?  | It determines whether every deployment must begin with another large data-collection campaign. |
-| **Performance**    | Can the robot work quickly, reliably, repeatedly, and recover from mistakes? | It separates an impressive demonstration from a practically useful system.                     |
+The chopsticks robot turns this methodological debate into a physical experiment.
 
-[π₀](https://www.pi.website/blog/pi0) addressed capability at the level of a generalist vision-language-action policy trained across many tasks and robot platforms. [π₀.₅](https://www.pi.website/blog/pi05) shifted attention toward open-world generalization, including long-horizon household tasks in homes absent from the training set. The key question was no longer only whether the model had seen a skill, but whether it could combine physical behavior with enough visual and semantic understanding to use that skill appropriately in a new place.
+Chopsticks are mechanically simple, but they are unforgiving. Their small, curved, slippery tips offer little passive support, and a tiny positioning error can determine whether a small object is held or dropped. That makes them a valuable research platform: they shift much of the burden from specialized hardware to the control policy. If a learned policy can achieve precise manipulation through such a constrained tool, it becomes easier to see what the intelligence contributes.
 
-Generalization is where vague claims about scaling need to become precise. “More data helps” is not yet a scaling law. A meaningful robotics question asks what kind of diversity is being added and how much it improves performance under a specified shift: another home, another object distribution, another embodiment, or another task family. Reported improvements with greater environmental diversity are encouraging, but they do not prove that all relevant variation has been captured or that data can simply be scaled without limit.
+Before claiming that learning would generalize from task A to tasks B, C, and D, Ke wanted to make task A work with real precision. She pushed a single difficult task far enough that performance itself became the research problem.
 
-[π\*₀.₆](https://www.pi.website/blog/pistar06) then foregrounded performance through RECAP, combining demonstrations, expert corrections, autonomous rollouts, reward feedback, and reinforcement learning. It is important to distinguish the underlying `π₀.₆` VLA from the experience-trained `π*₀.₆` variant. The published results evaluate whether on-robot experience can improve success rate and throughput—successful task completions per hour—on specific real-world tasks.
+She assembled an inexpensive six-degree-of-freedom arm from available components and equipped it with chopsticks. The hardware was far from ideal: calibration and joint inaccuracies could accumulate at the end effector, at a scale comparable to the small objects it needed to grasp. But teleoperation supplied an important existence proof. If a person could remotely guide the imperfect mechanism to complete the task, then the hardware did not make success physically impossible. That did not prove a policy could learn the skill. It isolated the next question: could data and learning recover an effective strategy despite the hardware's imperfections?
 
-This is not a complete chronology of PI's models. The conversation and these notes emphasize π₀, π₀.₅, and π\*₀.₆; PI's broader public research also includes [π₀.₇](https://www.pi.website/blog/pi07). I find the earlier sequence valuable because it exposes three different research bottlenecks rather than treating each model release as a single number that went up.
+The first stage relied on human demonstrations and model-free imitation learning. In [Grasping with Chopsticks](https://personalrobotics.cs.washington.edu/publications/ke2021grasping.pdf), Ke and her collaborators addressed covariate shift—the tendency of small prediction errors to push a learned policy into states absent from its demonstrations. They increased data support around the object and created synthetic corrective labels for nearby deviations. On the physical system, these methods raised average grasp success from 37.3% to 80%, close to the reported human teleoperator result of 82.6%.
 
-Capability makes a compelling video. Generalization and performance determine whether the capability can leave the video.
+The result was strong, but it exposed the ceiling of imitation. Producing especially clean demonstrations required substantial human attention, and the policy was still learning to reproduce the behavior it had been given. A demonstrator can show a successful trajectory, but does not naturally demonstrate every state that the robot's own errors will create. Nor does copying explain how the policy should move beyond the demonstrator's speed or reactivity.
 
-## Failure belongs in the learning loop
+> “As I went deeper into imitation learning, I became dissatisfied. If all you ever do is copy someone else, you cannot truly break through. Reinforcement learning puts more emphasis on exploration—on moving beyond prior performance and raising the ceiling.”
 
-Human demonstrations usually show the robot what correct behavior looks like. They rarely cover the peculiar states created by the robot's own mistakes: a gripper approaches at the wrong angle, an object slips into an unusual pose, or an early error compounds until a later action fails.
+This led to [CherryBot](https://goodcherrybot.github.io/), which used simulation pretraining followed by real-world reinforcement learning for dynamic fine manipulation. The robot learned from its own interaction, practiced reactive retries, and adapted to disturbances that were difficult to encode in a precise physical model. The project reported continual improvement from 30 minutes of real-world interaction and demonstrated grasping small swinging objects as well as generalization to different objects and disturbances.
 
-Once robots learn from their own behavior, failure changes status. It is no longer only an error to remove from the dataset. It becomes a state that the system must learn to recognize and exit. But failed trajectories are not automatically useful. They need a learning signal—such as a reward, a correction, an intervention, or information about which action improved or worsened the eventual outcome.
+The sequence matters more than any single result. Teleoperation established physical feasibility. Imitation learning transferred a human strategy and revealed covariate shift. Real-world reinforcement learning let the robot practice in the states created by its own behavior. What began as “Can this machine use chopsticks?” became a much deeper question: **What complete learning process allows a physical agent to exceed the ceiling of its demonstrations?**
 
-The resulting loop is simple to write and hard to make work:
+## Part II — The anatomy of improvement
 
-**policy → execution → success, failure, or recovery → labeled experience → updated policy → new execution**
+### Reinforcement learning is more than repetition
 
-This loop addresses a structural mismatch in imitation learning. The training data comes from a person's behavior, but deployment produces states from the policy's behavior. Collecting experience under the current policy brings the training distribution closer to the situations the system actually creates.
+“Trial and error” compresses several different learning problems.
 
-The most useful definition of robustness here is not “never makes a mistake.” A robust system notices that the world has departed from its expected path, recovers, and continues. Recovery is part of the intelligence, not a cosmetic feature added after the main policy works.
+**Practice.** Some physical skills improve only through repeated execution. A policy must adapt a strategy to the body it actually controls—the delays, compliance, sensing, and inaccuracies of that particular system. In this sense, repeated robot interaction plays a role similar to athletic practice: it turns an approximate movement into a behavior that is faster, more precise, and more repeatable.
 
-It also changes the role of deployment. Deployment is usually drawn as the last box in a product roadmap. For an experience-driven robot, it can become part of the training system: real use can produce new states, corrections, outcomes, and failure modes that feed the next learning cycle. The product endpoint becomes a potential data source.
+**Exploration.** Repetition alone can rehearse the same limitation. Improvement requires trying something not already contained in the current behavior. Exploration may be microscopic—a slight change in an arm trajectory—or much larger, such as testing another controller, representation, or research direction. The hard question is not whether to vary the behavior, but how to choose variations that are likely to teach the system something useful. Exploration that is too timid cannot escape the current policy; exploration that is too unconstrained wastes interaction and may be unsafe.
 
-## Robotics has an evaluation problem
+**Credit assignment.** A reward arrives after a sequence of actions, but the decisive cause may have occurred much earlier. A box may collapse at the final fold because the first flap was misaligned. A cup may spill during placement because the grasp was unstable from the beginning. Learning requires identifying which earlier decision made the later outcome more or less likely. Without that attribution, additional experience can record failure without revealing what should change.
 
-The difficulty of evaluation was one of the most important parts of the interview.
+**Communicating the objective.** A reward function is not the same thing as the intention behind it. An agent may optimize a measurable proxy while exploiting a loophole that no person intended. This is the familiar problem of reward hacking, but Ke frames it as a broader communication problem. Some outcomes—whether code passes a test, for example—are relatively easy to verify. Many physical tasks are not. “Clean the table,” “handle this carefully,” or “make this look right” can depend on context, common sense, and preferences that are difficult to reduce to one scalar.
 
-For a language model, many systems can be evaluated against the same dataset. Physical tasks resist that standardization. Consider the instruction “pick up the cup.” Performance may change with the cup's material, weight, orientation, contents, location, surrounding clutter, table height, lighting, camera placement, robot platform, and initial joint configuration. A reported success rate means little without the distribution over which it was measured.
+> “To me, this is not fundamentally a problem of writing a reward function. It is a problem of communicating to the agent what we want it to do; the reward function is only one way of expressing that.”
 
-Even “success” is underspecified. Did the robot eventually finish? How long did it take? Did it spill anything? Was the motion stable? Could it repeat the task for hours? Throughput is useful because it couples speed with successful completion, but it still does not capture every dimension of quality or safety.
+A black-box policy is not unconstrained merely because its internal process is hard to interpret. It remains bounded by its training data, action space, feedback, and objective. The difficulty is that these boundaries may encode only an incomplete version of what people meant. Useful experience must expose variation, connect outcomes to the actions that produced them, and carry a signal that says what improvement means.
 
-This helps explain why robotics does not yet have one universally meaningful leaderboard. Teams use different embodiments, environments, perturbations, tasks, and success criteria. Evaluation is not administrative work that begins after the research; it is part of the research.
+### What counts as good experience?
 
-A home is a revealing stress test, though not necessarily the first or only commercial destination. It combines unfamiliar layouts, rigid and deformable objects, ambiguous natural-language instructions, people moving nearby, long-term hardware reliability, cost, safety, and tasks that can last much longer than a laboratory clip. Controlled factories and warehouses may support useful deployment earlier precisely because the environment can be structured around current capabilities.
+More data is not automatically better data. Ke describes quality along several distinct dimensions.
 
-This is why I now ask more questions when I see a polished robot demo:
+| Dimension                  | The question it asks                                                                  |
+| -------------------------- | ------------------------------------------------------------------------------------- |
+| **Task value**             | Does the experience concern a behavior that is meaningful or transferable?            |
+| **Action quality**         | Is the trajectory direct, efficient, precise, and worth imitating?                    |
+| **Coverage and diversity** | Which objects, environments, initial states, perturbations, and failures are present? |
+| **Information and labels** | Can the learner recover the task, outcome, objects, corrections, and relevant state?  |
 
-- Was the test scene represented in the training data?
-- What changes when the object, lighting, or starting state moves?
-- How often can the behavior be repeated?
-- How quickly does it finish?
+Two datasets with the same number of trajectories can therefore have very different value. A hesitant grasp and a skilled grasp may both end in success, while ten nearly identical demonstrations may add less than one trajectory that reveals a new failure mode.
+
+Different data sources also play different roles:
+
+- **Human demonstrations** provide intentional, often high-quality examples of how to begin the task.
+- **Expert corrections and interventions** identify serious errors and show how behavior should change.
+- **Autonomous rollouts** reveal the states produced by the current policy rather than by a human expert.
+- **Recovery trajectories** teach the system what to do after the nominal plan has already gone wrong.
+- **Rewards or outcome labels** connect behavior to success, quality, or progress.
+
+> “Bad data can be good data—especially when it shows what happens after a mistake and how the robot corrects it.”
+
+A failed trajectory without an outcome, correction, or useful contrast may teach very little. Its value comes from locating the failure, showing a better alternative, or demonstrating how the robot can return to a productive state. Human demonstrations tend to stay near successful trajectories; autonomous experience reaches the off-distribution states that the deployed policy actually creates. In this learning recipe, they are complementary because they answer different questions.
+
+The learning loop can therefore be written as:
+
+**policy → physical execution → outcome, correction, or recovery → labeled experience → policy update → new execution**
+
+Once a robot can operate with limited supervision, real use can generate situations, outcomes, and corrections for the next training cycle.
+
+**Real versus simulated experience.**
+
+Ke's position on simulation is pragmatic rather than ideological: use the source that helps solve the problem. Simulation can provide inexpensive variation, allow aggressive exploration, and teach structures that transfer to the physical world. CherryBot itself used simulation pretraining before real-world fine-tuning.
+
+But simulation is only useful to the extent that it contains the interaction governing the task. Contact-rich manipulation depends on friction, deformation, folds, compliance, perception error, and small geometric variations. A simulated shirt that does not deform like fabric, or a simulated grasp that omits the relevant friction, can generate a large dataset while leaving out the reason the real task succeeds or fails. In that case, increasing the number of simulated trajectories does not necessarily increase useful information.
+
+Real-world interaction has the opposite trade-off. It captures the actual physics and hardware, but requires machines, operators, resets, maintenance, space, and time. Autonomous data collection reduces part of this cost by removing continuous teleoperation, yet it does not eliminate the need to define tasks, monitor safety, label outcomes, and maintain the platform.
+
+The choice between real and simulated data depends on a concrete question: **Which source captures the variation and feedback required by this task, and how can the two sources be combined without hiding a consequential gap?**
+
+### Capability, generalization, and performance
+
+> “The keyword for π₀ was capability. For π₀.₅, it was generalization. For π\*₀.₆, it was performance.”
+
+I read this as Ke's retrospective framing rather than an official PI taxonomy.
+
+| Stage              | Central question                                                          | What must be demonstrated                                                                         |
+| ------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Capability**     | Can the robot perform a task that was previously out of reach?            | A new class of sufficiently complex physical behavior is technically possible.                    |
+| **Generalization** | Can it work with unfamiliar objects, environments, tasks, or embodiments? | The skill survives a meaningful shift rather than depending on one recreated training scene.      |
+| **Performance**    | Can it work quickly, reliably, repeatedly, and recover from mistakes?     | The behavior is useful as a sustained process, not merely successful in a selected demonstration. |
+
+[π₀](https://www.pi.website/blog/pi0) addressed capability through a generalist vision-language-action model trained on diverse tasks and robot platforms. It combines a pretrained vision-language model with an action expert and directly produces low-level motor commands. Its demonstrations included laundry folding, table bussing, grocery packing, cable routing, box assembly, and other dexterous behaviors across single-arm, dual-arm, and mobile manipulators. The contribution was not that every task was solved completely. It was evidence that broad cross-embodiment pretraining could provide a shared foundation and then be specialized to demanding downstream tasks.
+
+[π₀.₅](https://www.pi.website/blog/pi05) moved the bottleneck from whether a task could be performed to whether it could be performed somewhere new. Household work is a useful test because two homes do not place the same objects in the same arrangement. Generalization must operate at several levels: grasping an unfamiliar plate by an appropriate part, deciding that shoes belong in a closet rather than on a bed, and sequencing multiple skills to clean a room. In its location-scaling study, the team trained variants with mobile-manipulation data from up to 104 locations; separately, π₀.₅ was evaluated on long-horizon tasks in homes excluded from training.
+
+The scaling question must then be specific. How does performance in a held-out home change as the training set includes more locations? Does improvement come from another hour in the same kitchen, another object type, another robot, or another physical layout? The reported trend with increased location diversity was encouraging, but the model was explicitly described as far from perfect. A curve over a defined environmental shift is meaningful; “more data will solve it” is not yet an explanation.
+
+[π\*₀.₆](https://www.pi.website/blog/pistar06) foregrounded performance through RECAP—RL with Experience and Corrections via Advantage-conditioned Policies. The notation matters. The base `π₀.₆` is a VLA trained with supervised learning; `π*₀.₆` is the RL-adapted variant. RECAP first uses offline RL and advantage conditioning during pretraining. For a downstream task, the model is fine-tuned on demonstrations and then improved through iterations of autonomous robot episodes, sparse task-outcome rewards, optional expert interventions, value estimation, and policy updates.
+
+The evaluation considered both success rate and throughput: successful task completions per hour. On some of the hardest tasks, experience training more than doubled throughput and reduced failure rates by a factor of two or more. The project also reported uninterrupted demonstrations well beyond the scale of a short clip: making espresso drinks for 13 hours, folding 50 previously unseen laundry items in a new home, and assembling and labeling 59 boxes used for packaging in a factory. These results remain task-specific evaluations, not proof of universal robustness, but they show what becomes measurable when performance—not only capability—is the research target.
+
+Capability makes a compelling video. Generalization determines whether the capability survives a new situation. Performance determines whether anyone can depend on it.
+
+**Generality and specialization also reinforce one another.**
+
+A strong general model gives each new application a better starting point. It brings visual and semantic knowledge, prior physical skills, and experience from other robots and tasks. The specialized system therefore needs less task-specific data than a policy trained from scratch.
+
+The influence also runs in reverse. Pushing one task from “usually works” to sustained high performance exposes weaknesses that a broad benchmark can hide: an action representation may be too coarse, recovery data may be missing, the gripper may be poorly matched to the task, or the evaluation may reward completion while ignoring time. Improvements prompted by that concrete task can strengthen the underlying model and benefit related tasks.
+
+This produces a flywheel:
+
+**general pretraining → stronger task-specific starting point → demanding deployment and evaluation → better data, representation, and recovery → stronger general model**
+
+A general foundation makes specialization cheaper, while serious specialization prevents the general model from becoming broad but shallow.
+
+### Evaluation defines the frontier
+
+The part I kept returning to was evaluation.
+
+> “Robot evaluation is even harder: you have to run the model on the physical machine before you know what it did, and only then can you score it.”
+
+Consider the instruction “pick up the cup.” Performance may change with the cup's material, weight, orientation, contents, location, surrounding clutter, table height, lighting, camera placement, robot platform, and initial joint configuration. A success rate says little without the distribution over which it was measured.
+
+Even success itself is underspecified. Did the robot eventually finish? How long did it take? Was the motion stable? Did it recover after a slip? Could it repeat the task for hours without intervention? Throughput is useful because it couples time with successful completion, but reliability, perturbation robustness, safety, and hardware uptime remain separate dimensions.
+
+Robotics has no single universally meaningful leaderboard. Teams choose different tasks, bodies, environments, perturbations, and success criteria. The frontier is multidimensional, and part of the research is deciding which dimension should be made measurable. A new evaluation can reveal a bottleneck that a new model score would otherwise conceal.
+
+A home is a revealing composite stress test, though not necessarily the first or only commercial destination. It combines unfamiliar layouts, rigid and deformable objects, ambiguous instructions, people moving nearby, long task horizons, hardware reliability, cost, and safety. Controlled factories and warehouses may support useful deployment earlier precisely because the environment can be structured around current capabilities.
+
+When I now watch a polished robot video, I ask four questions:
+
+- What meaningful variation was excluded from the training data?
+- How often and how quickly can the behavior be repeated?
 - What happens after the first mistake?
-- Can the hardware sustain the behavior outside a short recording?
+- Can the complete system sustain the task outside a short recording?
 
-The demo answers whether something happened once. Evaluation asks what capability actually produced it.
+The demonstration answers whether something happened once. Evaluation asks what capability actually produced it.
 
-## Progress is not just a larger model
+## Part III — A model is not yet a robot
 
-Once evaluation is treated as part of the research, a second lesson follows: progress cannot be reduced to building a larger model.
+### Beyond scale: representation and hierarchy
 
-Data quality depends on more than the number of trajectories. It includes the value and diversity of the task, the quality of the action, coverage of meaningful states, and how much learnable information is represented. A slow, hesitant grasp and a direct, skilled grasp may both receive the label “success,” yet they teach very different behavior. Foundation models do not make annotation, representation, or curation disappear.
+Progress cannot be reduced to parameter count. The bottleneck may sit in how actions are represented or how an abstract instruction is connected to physical execution.
 
-The same pragmatism applies to simulation. Simulation is valuable when it captures the interaction that matters or helps a policy learn how to explore efficiently. But contact-rich manipulation can depend on friction, deformation, folds, compliance, and other properties that are difficult to reproduce faithfully. Generating more simulated data does not help automatically if the simulator omits the physics that determines the task. Real-world data remains especially important where those gaps dominate.
+[FAST](https://www.pi.website/research/fast)—Frequency-space Action Sequence Tokenization—addresses the representation problem. A dexterous robot operates at a high control frequency, so even a short behavior can become a long sequence of strongly correlated continuous actions. Naively discretizing every dimension and timestep produces long, highly redundant token sequences and performs poorly on dexterous skills.
 
-[FAST](https://www.pi.website/research/fast)—Frequency-space Action Sequence Tokenization—illustrates another lever: how actions are represented. It applies a discrete cosine transform and then byte-pair encoding to turn continuous action sequences into tokens that are more suitable for autoregressive models. The point is broader than one tokenizer. Progress can come from the representation connecting a large model to physical action, not only from increasing parameter count.
+FAST normalizes an action chunk, applies a discrete cosine transform, quantizes the coefficients, flattens them with lower-frequency components first, and then uses byte-pair encoding. PI reports that this compresses typical action chunks to 30–60 tokens—roughly ten times shorter than prior action tokenizations—and can train up to five times faster while retaining performance comparable to diffusion or flow-matching approaches. Its autoregressive inference, however, remains slower than π₀'s flow-matching decoder.
 
-[Hi Robot](https://www.pi.website/research/hirobot) addresses a different gap. A long, abstract instruction cannot always be mapped reliably into minutes of joint commands in one step. A hierarchical system can use a high-level component to interpret and decompose the request, while a lower-level vision-language-action policy executes the subtasks. Reasoning and action remain connected, but they operate at different temporal and semantic scales.
+[Hi Robot](https://www.pi.website/research/hirobot) addresses hierarchy. A request such as “make me a vegetarian sandwich” cannot be mapped reliably into minutes of joint commands as if it were one atomic action. Hi Robot uses a high-level vision-language policy to interpret the scene, reason about the request, incorporate feedback, and produce short language instructions. A separate lower-level π₀ VLA policy then converts each instruction, together with images and robot state, into motor actions. The two policies share a VLM backbone but play different roles.
 
-FAST and Hi Robot stayed with me because they show why “just scale the model” is too thin an account of progress. The bottleneck may sit in the data, the action representation, the hierarchy between language and motion, the reward, the hardware, or the evaluation itself. Generalization and specialization can also reinforce each other: a stronger general model improves the starting point for a specific task, while pushing one task toward reliability exposes weaknesses in the underlying representation.
+The two levels operate at different temporal and semantic scales. The high-level component decides what should happen next; the lower-level policy handles how that step is physically performed. This separation also lets the system respond to contextual corrections—such as being told that an object is not trash—without discarding the low-level skills it already knows.
 
-## One intelligence, many bodies
+A larger model does not automatically solve a poor action language or a missing reasoning hierarchy. The interface between a model and the physical world can itself be the research problem.
 
-The humanoid argument is easy to understand: homes, tools, stairs, shelves, and workplaces were designed around the human body. A robot with a similar form may be able to enter that environment without requiring it to be rebuilt.
+### One intelligence, many bodies
+
+The humanoid argument is easy to understand: homes, tools, stairs, shelves, and workplaces were designed around human bodies. A robot with a similar form may enter that environment without requiring everything around it to be rebuilt.
 
 Ke is more interested in the intelligence than in defending one body plan. The reverse historical analogy is equally useful: cars are not shaped like people, so people built roads and cities around them. If a non-humanoid robot becomes useful enough, environments may adapt to the machine rather than the machine copying the human form exactly.
 
-This leads to a deeper definition of generality. A general robot “brain” need not mean a brain for one humanoid body. Humans use the same nervous system to walk, drive, handle chopsticks, and control tools that extend the body. Similarly, cross-embodiment learning asks whether one intelligence can transfer across arms, mobile manipulators, grippers, and other physical configurations.
+> “A human can drive a car, operate an excavator, move a leg, or use a hand with the same brain. To me, that is the most fundamental meaning of a general robot brain—not simply a brain built for one humanoid body.”
 
-A simple body performing a complex task can sometimes make the contribution of intelligence especially clear. The chopsticks robot makes the same point from the opposite direction: when deliberately constrained hardware completes precise manipulation, it becomes easier to see what the learned policy contributes.
+Cross-embodiment learning asks whether knowledge can transfer among arms, mobile manipulators, dual-arm systems, grippers, and other physical configurations. The bodies have different action spaces and physical limits, so transfer is not automatic. But the tasks still share structure: objects persist, containers open, fabric folds, collisions matter, and actions alter future observations. A foundation model may learn parts of this structure across platforms and then adapt them to the body currently available.
 
-Ke's speculation goes further: reconfigurable bodies, interchangeable tools and limbs, and perhaps machines that can assemble other machines. I read this as a thought experiment rather than a product forecast. Its value is that it breaks the biological assumption that an intelligent system must inhabit one permanent body.
+Ke pushes this thought further in a deliberately speculative direction. She imagines bodies that are reconfigurable, machines that replace damaged parts, and eventually robots that can assemble or repair other robots. Once every component has been replaced, the machine begins to resemble the Ship of Theseus: is it still the same robot because its identity, memory, or role persists, even though none of its original body remains?
 
-Embodiment also reminds us that language is not the world. The word “cup” does not contain its weight, temperature, friction, fragility, liquid content, or graspable surfaces. Physical intelligence must be grounded through sensory observations, action, and environmental feedback—for example, vision, proprioception, and potentially touch. It is inherently multimodal because the world is.
+This is a thought experiment, not a PI roadmap. It breaks the biological assumption that one intelligence must inhabit one permanent body.
 
-## Hardware and deployment are part of the intelligence
+### The robot is a stack, not a model
 
-Talk of a general robot brain can make hardware sound solved. It is not.
+Talk of a general robot brain can make the rest of the machine sound solved. It is not. A working robot is a coupled stack:
 
-A five-minute demonstration and a machine that works for hours every day are different engineering objects. Motors wear, calibration drifts, objects collide, grippers fail, floors get scratched, and safety matters more when a large machine shares space with people. Size itself creates a trade-off: a larger robot may reach and lift more, while a smaller one may be safer, cheaper, and less intimidating.
+1. **Mechanics and actuators** determine how the body can move and how much force, speed, reach, and precision it can provide.
+2. **Low-level control** translates desired positions or forces into commands the motors can execute while keeping the mechanism stable.
+3. **Policies and planning** interpret the task and decide which physical actions should happen next.
+4. **Sensing and feedback** reveal how the world changed, allowing every higher layer to update its decision.
 
-The useful framing is not that hardware should be optimized for software, or vice versa. Both should be optimized for task performance. End effectors, sensing, mechanics, data collection, policy design, and recovery behavior form one system.
+A weakness at one layer changes what the others can achieve. Backlash or poor calibration makes a precise policy look inaccurate. A weak gripper forces the policy to compensate. Latency between observation and action limits reactivity. A capable model paired with an unreliable mechanism remains an unreliable robot.
 
-External partnerships are therefore more than a route to market. Different companies bring different hardware and deployment environments; applying a shared model across them provides evidence about how well cross-embodiment and cross-scenario generalization holds. The industry structure is still open. Some companies may provide a reusable intelligence layer while others build hardware and vertical products. Others may remain vertically integrated. No arrangement has yet proved to be the single stable answer.
+Hardware and software should both be optimized for the task and the performance people need. Replaceable end effectors, sensing, compliance, control frequency, policy design, and recovery behavior are choices within the same system.
 
-The tension between research and commercialization is equally real. Customer deployments expose the states that matter and can produce valuable experience. But extensive one-off integration can also consume the people who would otherwise work on the general learning problem. The balance is not “research or product.” It is whether deployment strengthens the learning loop or turns every new customer into a separate engineering project.
+Time changes the engineering standard as well. A five-minute demonstration and a robot that works every day are different objects. Motors wear, calibration drifts, cables fatigue, grippers fail, batteries deplete, and unexpected collisions occur. Size introduces another trade-off: a larger robot may reach farther and carry more, while a smaller one may be safer, cheaper, and less intimidating around people. None of these questions can be answered by a benchmark score alone.
 
-## The frontier needs a different kind of organization
+### Deployment as part of the research system
 
-A learning system this broad has an organizational consequence: no single discipline owns it. Modern robot learning brings together traditional robotics, machine learning, vision, language, control, data systems, hardware, manufacturing, evaluation, and deployment. Ke's doctoral training in a traditional robotics environment helped her avoid treating success in simulation or on a benchmark as a substitute for making the whole physical system work.
+Deployment is valuable when it closes the learning loop. A partner may provide a different robot body, task distribution, operating environment, or performance requirement. Running a shared policy there tests cross-embodiment and cross-scenario generalization while exposing failures a laboratory would not know to construct.
 
-Large generalist models also change the organizational scale of the research. A project may depend on persistent hardware fleets, long-lived software infrastructure, heterogeneous datasets, compute, and groups of people whose work must remain compatible over years. Academic laboratories remain essential sources of ideas and talent, but students arrive and graduate. As Ke explains, sustaining one integrated system through those cycles can introduce continuity costs that are less significant for smaller, self-contained projects.
+Some groups may concentrate on a reusable intelligence layer; others may focus on hardware or a vertical application; still others may integrate the entire stack. The choice determines who collects the data, who can modify the robot, and whether improvements transfer beyond one customer.
 
-That helps explain the appeal of a research-focused startup: a cross-disciplinary team can keep improving a shared system without rebuilding its infrastructure around every paper. Ke describes research directions forming through conversations among people who recognize that a problem matters, rather than only through a centralized task list. Reading groups also become a mechanism for rapidly spreading new methods—including how colleagues use coding agents in their own workflows.
+Early deployment can make evaluation more realistic and generate valuable experience. But extensive one-off integration can consume the people and infrastructure needed to solve the general learning problem. Deployment helps research when it strengthens a reusable learning system rather than turning every installation into a separate engineering project.
 
-AI agents expand execution capacity, but Ke is careful about the distinction between executing more work and doing better research. Running many agents is easy. Choosing where to aim them remains difficult. As execution becomes cheaper, problem selection, judgment, interpretation, and the ability to change direction become more—not less—important.
+### Why the frontier needs a long-lived organization
 
-## When greater capability changes human dependence
+The technical stack has an organizational consequence. General robot learning depends on persistent hardware fleets, datasets accumulated over time, shared software, substantial compute, and people from robotics, machine learning, vision, language, control, data systems, hardware, and operations. A single result may depend on months of work that never appears in the architecture diagram.
 
-The interview eventually leaves robotics, but not its central question.
+Ke chose a research-focused startup after initially expecting to pursue a faculty career. Academic laboratories remain essential sources of ideas and talent, but students arrive, learn a system, and eventually graduate. That cycle becomes harder when one integrated physical platform must remain operational and improve over many years.
 
-Ke reflects on how coding agents can reduce everyday functional dependence between colleagues. A question that once required finding the person responsible for a module may now be answered first by an agent. This can increase individual autonomy and team capacity, even while frontier robot research itself demands deeper cross-disciplinary collaboration.
+A stable team can preserve the system while allowing research directions to remain fluid. Ke describes projects forming through conversations among people who recognize that a problem matters, as well as reading groups that spread new methods quickly across the organization. The advantage is not centralization for its own sake. It is shortening the distance from an idea to an experiment, from an experiment to robot experience, and from that experience to the next model.
 
-The point is not that social connection disappears. It is that some relationships may become less compulsory. People may gain more choice over when, why, and with whom they collaborate. The same logic could extend beyond software if general AI and robots make a wider range of practical skills accessible to an individual.
+Coding agents can increase how much implementation one researcher can execute, but more code or more experiments do not guarantee better research. As execution becomes cheaper, choosing the question and interpreting the result matter more. Automation moves the bottleneck; it does not remove judgment.
 
-That expanded capability could change more than workplace efficiency. A person might create a game, film, research tool, or physical environment that currently requires a large organization. Tasks that are economically impossible because they demand many kinds of specialized labor could become feasible. The meaningful outcome would not simply be higher output. It would be a larger space of lives and projects that ordinary people can choose.
+## Part IV — Capability does not choose the purpose
 
-There is a tension here that I found particularly honest. Ke's research is driven by optimization: make the robot faster, more reliable, and more capable. Her interest in fiction and social theory keeps asking why faster is necessarily better, which preferences are really our own, and what should remain outside the logic of productivity.
+### Trust, autonomy, and new forms of dependence
 
-Her analogy from algorithms captures the tension neatly: a greedy choice that looks optimal at every step need not produce the global optimum. A nonlinear path—from economics to AI, from imitation to reinforcement learning, or from an expected academic career toward a research startup—may look inefficient locally while becoming coherent in retrospect.
+Ke distinguishes capability from permission and responsibility. An AI system may be able to propose a consequential action without being authorized to take it, or receive permission while remaining unable to bear responsibility for the outcome. Higher intelligence alone does not settle whether an agent should delete files, change production code, or inform a medical decision. The person who delegates the action still needs ways to inspect, constrain, or reverse it. Trust grows through demonstrated capability, bounded authority, and a clear account of who remains responsible.
 
-## The objective function is still ours
+At the same time, AI agents are already changing smaller forms of dependence. A developer who once had to locate the colleague responsible for a module may first ask an agent to trace the code. One person may coordinate several agents and complete work that previously required multiple handoffs. This can increase autonomy and reduce the friction of collaboration.
 
-Robot learning once asked how experts should tell a machine what to do. The emerging question is how to build a machine that improves through experience and carries that ability into a new body or environment. Solving more of this problem would expand what a person or organization can accomplish, but it would not tell us which possibilities deserve pursuit.
+It does not follow that people become less social or that teams become unnecessary. Frontier robotics demonstrates the opposite: when the system becomes more ambitious, the number of disciplines that must cooperate increases. What may decline is **compulsory dependence** for routine access to knowledge or execution. People gain more choice over when collaboration is necessary and what kind of relationship it should be.
 
-That is why Ke's combination of robotics and science fiction makes sense to me. Robotics expands the possibility space; fiction asks how people might live inside it. If AI and robotics continue expanding what one person is able to do, the harder constraint may no longer be capability. It may be our ability to decide what is worth doing.
+There is also a new dependence hiding inside that autonomy. If a personal agent becomes the main interface through which someone receives information, writes software, organizes work, or interprets other people, then the person may depend less on individual colleagues but more on the filter itself. An intermediary can expand access while shaping what is seen. Greater independence at one layer can create infrastructural dependence at another.
+
+### Productivity is not the objective function of a life
+
+If general AI and robotics make many specialized skills easier to access, one individual or a small team may be able to attempt projects that currently require a large organization. A person could build a research tool, repair a complex environment, create a game, or produce a story by directing a collection of software and physical agents. The most interesting outcome would not simply be more output per hour. It would be a larger space of projects and lives that become possible.
+
+> “I do want our work to increase productivity, so that one person can do things that once required many people. But I believe in human creativity. I do not think we live merely to increase productivity; we live to explore the enduring questions of love and death.”
+
+Ke's technical work is organized around optimization: improve success, throughput, robustness, precision, and dexterity. Her interest in fiction and social theory asks why those improvements matter and whether the values surrounding them are as universal as they appear. A culture that prizes efficiency can make productivity feel like a natural objective, even though it is also a social preference formed in a particular place and time.
+
+Her analogy from algorithms captures the limit. A greedy algorithm chooses what looks best at the current step, but a sequence of locally optimal decisions need not reach the global optimum. A detour that seems inefficient may create knowledge, relationships, or possibilities that were invisible to the local objective. Her own nonlinear path—from economics to machine learning, from theory to hardware, from imitation to reinforcement learning, and from an expected academic career to a research startup—became coherent only in retrospect.
+
+This does not require rejecting optimization. It requires distinguishing a useful metric from a complete account of value. Success rate can improve a robot; throughput can expose whether a behavior is practical; productivity can give people more time and capability. None of these measurements can decide how that time should be lived, which relationships should matter, or what kind of world greater capability ought to build.
+
+Robotics expands the possibility space; fiction asks how people might live inside it.
 
 **The machine can optimize an objective. Capability alone cannot tell us which objectives are worth choosing.**
