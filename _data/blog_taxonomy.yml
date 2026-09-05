@@ -1,0 +1,25 @@
+# Canonical Blog taxonomy. Front matter remains the source of membership;
+# this registry controls labels, order, and the distinction between types and topics.
+categories:
+  - key: "research"
+    label: "Research"
+  - key: "perspectives"
+    label: "Perspectives"
+  - key: "tutorial"
+    label: "Tutorial"
+  - key: "events"
+    label: "Events"
+
+tags:
+  - key: "Landslides"
+    label: "Landslides"
+  - key: "Geospatial AI"
+    label: "Geospatial AI"
+  - key: "AI4Science"
+    label: "AI4Science"
+  - key: "Open Science"
+    label: "Open Science"
+  - key: "Notes from AI Podcasts & Talks"
+    label: "Notes from AI Podcasts & Talks"
+  - key: "Developer Tools"
+    label: "Developer Tools"

@@ -4,10 +4,10 @@ title: Community-Curated, Open-Access Landslide Platform
 date: 2025-05-01 09:00:00-0600
 description: A centralized hub for globally sourced landslide inventories and geospatial data, supporting AI model development and benchmarking.
 tags:
+  - "Open Science"
   - "Landslides"
   - "Geospatial AI"
-  - "Open Science"
-categories: research platforms
+categories: research
 thumbnail: assets/img/blog/new-logo-20251124v3.png
 thumbnail_fit: contain
 ---

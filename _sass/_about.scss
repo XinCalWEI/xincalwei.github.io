@@ -960,6 +960,11 @@ html[data-theme="dark"] .about .cardlist {
   color: var(--pill-violet-fg);
 }
 
+.about .feed__pill--perspectives {
+  background: var(--pill-violet-bg);
+  color: var(--pill-violet-fg);
+}
+
 .about .feed__pill--platforms {
   background: var(--pill-teal-bg);
   color: var(--pill-teal-fg);
