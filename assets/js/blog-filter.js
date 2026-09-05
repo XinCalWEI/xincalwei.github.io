@@ -25,6 +25,10 @@
   const state = { cat: "", tag: "", q: "" };
   const validCategories = new Set(Array.from(typeSelect.options, (option) => option.value));
   const validTags = new Set(chips.map((chip) => chip.dataset.filter || ""));
+  const categoryAliases = new Map([
+    ["machine-learning", ""],
+    ["platforms", "research"],
+  ]);
 
   const normalize = (value) =>
     String(value || "")
@@ -158,13 +162,16 @@
 
   function restoreFromUrl() {
     const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-    const cat = params.get("cat") || "";
-    const tag = params.get("tag") || "";
+    const requestedCategory = params.get("cat") || "";
+    const requestedTag = params.get("tag") || "";
+    const resolvedCategory = validCategories.has(requestedCategory) ? requestedCategory : categoryAliases.get(requestedCategory) || "";
+    const resolvedTag = validTags.has(requestedTag) ? requestedTag : "";
+    const needsCanonicalUrl = requestedCategory !== resolvedCategory || requestedTag !== resolvedTag;
 
-    state.cat = validCategories.has(cat) ? cat : "";
-    state.tag = validTags.has(tag) ? tag : "";
+    state.cat = validCategories.has(resolvedCategory) ? resolvedCategory : "";
+    state.tag = resolvedTag;
     state.q = params.get("q") || "";
-    render();
+    render({ historyMode: needsCanonicalUrl ? "replace" : null });
     window.requestAnimationFrame(revealActiveTopic);
   }
 

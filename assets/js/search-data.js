@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-when-intelligence-becomes-infrastructure-notes-from-ming-zeng",
+            },{id: "post-how-robots-learn-to-get-better-notes-from-liyiming-ke",
+        
+          title: "How Robots Learn to Get Better: Notes from Liyiming Ke",
+        
+        description: "My reflections on Liyiming Ke&#39;s discussion of experience-driven robot learning, generalization, evaluation, embodiment, and the human questions raised by increasingly capable AI.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/how-robots-learn-to-get-better/";
+          
+        },
+      },{id: "post-when-intelligence-becomes-infrastructure-notes-from-ming-zeng",
         
           title: "When Intelligence Becomes Infrastructure: Notes from Ming Zeng",
         
