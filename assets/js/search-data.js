@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-how-robots-learn-to-get-better-notes-from-liyiming-ke",
+            },{id: "post-building-the-systems-behind-ai-notes-from-heng-liao",
+        
+          title: "Building the Systems Behind AI: Notes from Heng Liao",
+        
+        description: "Notes on Heng Liao&#39;s discussion of Ascend, the eighteen-level pagoda, chip architecture, memory and interconnects, open source, and the discipline of building useful systems.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/building-the-systems-behind-ai/";
+          
+        },
+      },{id: "post-how-robots-learn-to-get-better-notes-from-liyiming-ke",
         
           title: "How Robots Learn to Get Better: Notes from Liyiming Ke",
         
