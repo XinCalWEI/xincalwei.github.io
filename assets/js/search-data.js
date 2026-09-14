@@ -79,7 +79,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/gallery/";
               },
-            },{id: "post-building-the-systems-behind-ai-notes-from-heng-liao",
+            },{id: "post-when-models-and-agents-evolve-together-notes-from-fuli-luo",
+        
+          title: "When Models and Agents Evolve Together: Notes from Fuli Luo",
+        
+        description: "Notes on Fuli Luo&#39;s interview about OpenClaw, agent training, long-context model design, and how research teams learn as their tools change.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/when-models-and-agents-evolve-together/";
+          
+        },
+      },{id: "post-building-the-systems-behind-ai-notes-from-heng-liao",
         
           title: "Building the Systems Behind AI: Notes from Heng Liao",
         
