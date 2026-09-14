@@ -1126,9 +1126,14 @@ nav[data-toggle="toc"] {
   display: none !important;
 }
 
-.medium-zoom-overlay,
+// Keep image previews above Bootstrap's fixed navigation, sticky elements,
+// and tooltips (up to z-index 1070), with the image above its opaque overlay.
+.medium-zoom-overlay {
+  z-index: 1100;
+}
+
 .medium-zoom-image--opened {
-  z-index: 999;
+  z-index: 1101;
 }
 
 #toc-sidebar {

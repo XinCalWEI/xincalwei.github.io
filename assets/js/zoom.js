@@ -51,7 +51,8 @@ $(document).ready(function () {
   const margin = () => Math.round(Math.min(window.innerWidth, window.innerHeight) * 0.1);
 
   medium_zoom = mediumZoom("[data-zoomable]", {
-    background: getComputedStyle(document.documentElement).getPropertyValue("--global-bg-color") + "ee", // + 'ee' for trasparency.
+    // An opaque CSS variable covers page content and follows theme changes.
+    background: "var(--global-bg-color)",
     margin: margin(), // leaves the zoomed image at roughly 80% of the viewport
   });
 
