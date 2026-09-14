@@ -20,8 +20,10 @@ module Jekyll
       private
 
       def directory_files_content
-        target_path = File.join(directory, '**', '*')
-        Dir[target_path].map{|f| File.read(f) unless File.directory?(f) }.join
+        paths = Array(directory).flat_map do |path|
+          File.directory?(path) ? Dir[File.join(path, '**', '*')] : [path]
+        end
+        paths.select { |path| File.file?(path) }.sort.map { |path| File.read(path) }.join
       end
 
       def file_content
@@ -43,7 +45,10 @@ module Jekyll
     end
 
     def bust_css_cache(file_name)
-      CacheDigester.new(file_name: file_name, directory: 'assets/_sass').digest!
+      # Hash the actual Sass sources and build settings, not the nonexistent
+      # assets/_sass directory (which gave every release the same empty hash).
+      sources = ['_sass', 'assets/css/main.scss', '_config.yml', 'purgecss.config.js']
+      CacheDigester.new(file_name: file_name, directory: sources).digest!
     end
   end
 end
