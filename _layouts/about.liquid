@@ -55,10 +55,10 @@ layout: default
         <div class="hero__portrait">
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
           {% comment %}Match the portrait column widths in _sass/_about.scss.{% endcomment %}
-          {% capture profile_sizes %}(min-width: 1200px) 20rem, (min-width: 930px) 17.5rem, (min-width: 768px) 15rem, min(13.75rem, 70vw){% endcapture %}
+          {% capture profile_sizes %}(min-width: 930px) 17.5rem, (min-width: 768px) 15rem, min(13.75rem, 70vw){% endcapture %}
           {%
             include figure.liquid loading="eager" path=profile_image_path sizes=profile_sizes
-            alt="Portrait of Xin Wei" width="320" height="400" cache_bust=true
+            alt="Portrait of Xin Wei" width="280" height="350" cache_bust=true
           %}
         </div>
       {% endif %}

@@ -1028,8 +1028,17 @@ html[data-theme="dark"] .about .cardlist {
   transition: transform 0.3s ease;
 }
 
+// Keep journal covers and other opt-in artwork visible in full.
+.about .feed__thumb--contain img {
+  object-fit: contain;
+}
+
 .about a.feed__row:hover .feed__thumb img {
   transform: scale(1.05);
+}
+
+.about a.feed__row:hover .feed__thumb--contain img {
+  transform: none;
 }
 
 .about .feed__title {
@@ -1389,10 +1398,6 @@ html[data-theme="dark"] .about .slider__track--photos img {
 @media (min-width: 1200px) {
   .container:has(> .post.about) {
     max-width: 1080px;
-  }
-
-  .about .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 20rem;
   }
 }
 

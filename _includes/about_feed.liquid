@@ -75,7 +75,9 @@
               {% endif %}
             </span>
             {% if include.excerpt and item.thumbnail %}
-              <span class="feed__thumb">{% include figure.liquid path=item.thumbnail sizes="220px" alt="" %}</span>
+              <span class="feed__thumb{% if item.thumbnail_fit == 'contain' %} feed__thumb--contain{% endif %}">
+                {% include figure.liquid path=item.thumbnail sizes="220px" alt="" %}
+              </span>
             {% endif %}
             <i class="fa-solid fa-arrow-right feed__arrow" aria-hidden="true"></i>
           </a>
