@@ -295,6 +295,16 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/interdisciplinary_science_summit_2026/";
+            },},{id: "news-spark-forum-receives-community-initiative-funding",
+          title: 'SPARK Forum Receives Community Initiative Funding',
+          description: "I led a successful Community Initiative funding application for SPARK Forum, with the main program tentatively planned for March 8–12, 2027, at the University of Michigan.",
+          section: "News",handler: () => {
+              window.location.href = "/news/spark_forum_community_initiative_funding/";
+            },},{id: "news-building-fragility-study-accepted-in-acta-geotechnica",
+          title: 'Building Fragility Study Accepted in Acta Geotechnica',
+          description: "Our paper on the spatiotemporal fragility of buildings affected by slow-moving landslides has been accepted for publication in Acta Geotechnica.",
+          section: "News",handler: () => {
+              window.location.href = "/news/acta_geotechnica_building_fragility_accepted/";
             },},{id: "projects-physics-guided-ai-for-regional-landslide-susceptibility",
           title: 'Physics-Guided AI for Regional Landslide Susceptibility',
           description: "A three-paper first-author research program develops, tests, and interprets physics-guided models for cross-region landslide-susceptibility mapping, with explicit analysis of training-sample variability.",
