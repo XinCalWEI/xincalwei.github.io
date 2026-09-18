@@ -443,7 +443,7 @@ html[data-theme="dark"] .publications .bibtex .highlight .nc {
 .about .hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.75rem, 4vw, 3rem);
+  gap: clamp(1.75rem, 3vw, 3rem);
   align-items: center;
 }
 
@@ -663,7 +663,7 @@ html[data-theme="dark"] .about .btn-ghost:hover {
   position: relative;
   justify-self: center;
   margin: 0;
-  width: min(12.5rem, 60vw);
+  width: min(13.75rem, 70vw);
 }
 
 .about .hero__portrait::before {
@@ -1368,7 +1368,7 @@ html[data-theme="dark"] .about .slider__track--photos img {
 
 @media (min-width: 768px) {
   .about .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 11.5rem;
+    grid-template-columns: minmax(0, 1fr) 15rem;
     align-items: center;
   }
 
@@ -1380,7 +1380,7 @@ html[data-theme="dark"] .about .slider__track--photos img {
 
 @media (min-width: 930px) {
   .about .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 12.5rem;
+    grid-template-columns: minmax(0, 1fr) 17.5rem;
   }
 }
 
@@ -1389,6 +1389,10 @@ html[data-theme="dark"] .about .slider__track--photos img {
 @media (min-width: 1200px) {
   .container:has(> .post.about) {
     max-width: 1080px;
+  }
+
+  .about .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 20rem;
   }
 }
 

@@ -18,11 +18,11 @@ funder: 'Supported by <a href="https://www.schmidtsciences.org/" target="_blank"
 role2: 'Founder of <a href="https://www.terramosaic.org/" target="_blank" rel="noopener noreferrer">TerraMosaic</a>'
 
 profile:
-  image: prof_pic.jpg
+  image: about/xin-wei-2026-09.jpg
   address: 3520 Green Court, Ann Arbor, MI 48105
 
 research_overview:
-  image: about/ai-geohazard-research-overview-hq.webp
+  image: about/ai-geohazard-research-overview-2026-09.png
   alt: Diagram of Xin Wei's research framework integrating geohazard science with AI, data, and computation for prospective modeling, retrospective analysis, and resilient communities
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
