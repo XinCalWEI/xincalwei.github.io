@@ -23,7 +23,7 @@ The primary goal of the study group is to increase communication channels betwee
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/journey_through_cee.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/outreach/journey_through_cee.jpg" class="img-fluid rounded z-depth-1" alt="Group photo at a Journey Through CEE mentorship gathering" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -50,7 +50,7 @@ Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" alt="Certificate presentation at the 2025 Spring Geotechnical Seminar" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -72,13 +72,13 @@ I contributed to designing activities such as VR-based fire escape training and 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_1.jpg" class="img-fluid rounded z-depth-1" alt="Students watching a tabletop wave-dissipating seawall demonstration" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_2.jpg" class="img-fluid rounded z-depth-1" alt="Outreach volunteers explaining coastal hazard demonstrations to students" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_3.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_3.jpg" class="img-fluid rounded z-depth-1" alt="Students taking part in a supervised VR fire escape activity" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -87,19 +87,19 @@ I contributed to designing activities such as VR-based fire escape training and 
 
 <div class="row mt-4">
     <div class="col-sm mt-3 mt-md-0">
-        <video controls preload="metadata" class="img-fluid rounded z-depth-1" style="width: 100%;">
+        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 1" class="img-fluid rounded z-depth-1" style="width: 100%;">
             <source src="{{ 'assets/img/outreach/sjtu_video_1.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        <video controls preload="metadata" class="img-fluid rounded z-depth-1" style="width: 100%;">
+        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 2" class="img-fluid rounded z-depth-1" style="width: 100%;">
             <source src="{{ 'assets/img/outreach/sjtu_video_2.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        <video controls preload="metadata" class="img-fluid rounded z-depth-1" style="width: 100%;">
+        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 3" class="img-fluid rounded z-depth-1" style="width: 100%;">
             <source src="{{ 'assets/img/outreach/sjtu_video_3.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
