@@ -12,6 +12,8 @@ thumbnail: assets/img/blog/agu26-nh052-card.svg
 related_posts: false
 ---
 
+> **Update (November 2026):** the session is scheduled as [NH23F](https://agu.confex.com/agu/agu26/meetingapp.cgi/Session/282060), a poster session on Tuesday, December 8, 2026, 14:15–17:45.
+
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
     {% include figure.liquid loading="eager" path="assets/img/blog/agu26-nh052-call-for-abstracts.jpg" class="img-fluid rounded z-depth-1" zoomable=true alt="Call for abstracts for AGU26 session NH052" %}
@@ -50,6 +52,6 @@ Xin Wei, [Chuxuan Li](https://www.linkedin.com/in/chuxuan-li-phd-03a919271/), [J
 
 The AGU Annual Meeting will take place in San Francisco, California, from December 7–11, 2026. If this session connects with your work, we would be grateful if you shared it with colleagues who may be interested. We hope to see many of you in San Francisco!
 
-- **[View session NH052](https://agu.confex.com/agu/agu26/prelim.cgi/Session/282060)**
+- **[View session NH052](https://agu.confex.com/agu/agu26/meetingapp.cgi/Session/282060)**
 - **[Explore the AGU26 Annual Meeting](https://www.agu.org/annual-meeting)**
 - **[Review the abstract requirements and submission guidance](https://www.agu.org/Meetings/First-Timers-Guide/abstract-knowledge-center/Articles/Abstract-Requirements)**

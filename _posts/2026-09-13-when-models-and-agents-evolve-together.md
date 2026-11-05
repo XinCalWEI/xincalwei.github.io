@@ -16,7 +16,7 @@ toc:
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/fuli-luo-models-agents-notes.png" avoid_scaling=true class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Fuli Luo's interview, connecting models, agent frameworks, post-training, compute, and research organizations along a mountain path" %}
+    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/fuli-luo-models-agents-notes.png" width="1672" height="941" sizes="(min-width: 800px) 736px, 95vw" class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Fuli Luo's interview, connecting models, agent frameworks, post-training, compute, and research organizations along a mountain path" %}
   </div>
 </div>
 <div class="caption">

@@ -16,7 +16,7 @@ toc:
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/heng-liao-chips-systems-ai-notes.png" avoid_scaling=true class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Heng Liao's interview, with an eighteen-level pagoda connecting materials, chips, software, and applications, surrounded by ideas about Ascend and engineering" %}
+    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/heng-liao-chips-systems-ai-notes.png" width="1672" height="941" sizes="(min-width: 800px) 736px, 95vw" class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Heng Liao's interview, with an eighteen-level pagoda connecting materials, chips, software, and applications, surrounded by ideas about Ascend and engineering" %}
   </div>
 </div>
 <div class="caption">
