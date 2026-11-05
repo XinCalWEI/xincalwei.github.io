@@ -2,6 +2,7 @@
 layout: post
 title: "Mentees Present at the 2026 UROP Spring Research Symposium"
 date: 2026-04-22 09:00:00-0400
+description: "My three UROP mentees presented posters on our generative-AI landslide research at the 2026 Spring Symposium; Shivangi Bhatt was named a Blue Ribbon Winner."
 inline: false
 related_posts: false
 thumbnail: assets/img/news/urop_symposium_2026/shivangi-bhatt-poster.jpg

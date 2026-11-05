@@ -28,14 +28,16 @@ layout_width: wide
     </nav>
   {% endif %}
 
-  {% for yg in year_groups %}
+{% for yg in year_groups %}
     <section class="news-year" aria-labelledby="y{{ yg.name }}">
       <div class="news-year__head">
         <h2 id="y{{ yg.name }}">{{ yg.name }}</h2>
         <span class="news-year__count">{{ yg.items | size }} update{% if yg.items.size > 1 %}s{% endif %}</span>
       </div>
       {% assign year_total = yg.items | size %}
-      {% include about_feed.liquid items=yg.items limit=year_total kind='news' excerpt=true %}
+      {% comment %} the newest year's first four rows fill the first screen at 1440x900: their thumbnails load eagerly {% endcomment %}
+      {% if forloop.first %}{% assign feed_eager = 4 %}{% else %}{% assign feed_eager = 0 %}{% endif %}
+      {% include about_feed.liquid items=yg.items limit=year_total kind='news' excerpt=true eager=feed_eager %}
     </section>
-  {% endfor %}
+{% endfor %}
 </div>

@@ -2,6 +2,7 @@
 layout: post
 title: 2024 MIDAS Postdoctoral Fellowship Programs Orientation & AI Bootcamp
 date: 2024-10-15 08:00:00-0400
+description: "At the MIDAS postdoctoral orientation and AI bootcamp I presented a poster on regional landslide susceptibility assessment with integrated AI-physics solutions."
 inline: false
 related_posts: false
 thumbnail: assets/img/midas_2024_bootcamp.jpg

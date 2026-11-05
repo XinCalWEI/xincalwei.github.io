@@ -1,6 +1,7 @@
 ---
 layout: post
 date: 2024-12-09 08:00:00-0500
+description: "I presented “Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions” in the Landslide Life Cycle session at AGU Fall Meeting 2024."
 inline: false
 related_posts: false
 title: AGU Fall Meeting 2024

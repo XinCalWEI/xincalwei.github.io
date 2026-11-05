@@ -2,6 +2,7 @@
 layout: post
 title: EMI/PMC 2024
 date: 2024-05-28 08:00:00-0400
+description: "I presented a hybrid data-driven and physics-based susceptibility mapping model for regional landslide risk assessment at EMI/PMC 2024 in Chicago."
 inline: false
 related_posts: false
 thumbnail: assets/img/news/emipmc2024.jpeg

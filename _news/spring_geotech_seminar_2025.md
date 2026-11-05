@@ -2,6 +2,7 @@
 layout: post
 title: 2025 Spring Geotechnical Seminar
 date: 2025-04-25 08:00:00-0400
+description: "An invited talk on regional landslide risk assessment with integrated AI-physics solutions, given to over 100 geotechnical engineering professionals."
 inline: false
 related_posts: false
 thumbnail: assets/img/spring_geotech_seminar_2025.jpeg
@@ -14,7 +15,7 @@ category: Invited Talk
 
 ---
 
-Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
+Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
 
 ---
 

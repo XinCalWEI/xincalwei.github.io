@@ -9,10 +9,13 @@
     kind    — 'news' | 'posts'
     excerpt — true: show a one-line dek (description, else the opening text)
               and the thumbnail
+    eager   — integer (default 0): the first N thumbnails load eagerly (the
+              rows in the first screen); the rest are lazy
 {% endcomment %}
 
 {% assign feed_limit = include.limit | default: 5 %}
 {% assign feed_count = include.items | size %}
+{% assign feed_eager = include.eager | default: 0 %}
 
 {% if feed_count > 0 %}
   <ol class="feed">
@@ -66,13 +69,47 @@
                   <span class="feed__desc">{{ item.description | strip_html | strip }}</span>
                 {% endif %}
               {% elsif include.excerpt and item.content != blank %}
-                {% comment %} the '</'→' </' replace keeps words from running together across block boundaries after strip_html {% endcomment %}
-                <span class="feed__desc">{{ item.content | replace: '</', ' </' | strip_html | strip_newlines | replace: '  ', ' ' | replace: ' .', '.' | replace: ' ,', ',' | truncate: 200 }}</span>
+                {% comment %}
+                  Fallback when an item has no `description:` (every current
+                  item has one). Line breaks become spaces and block ends
+                  become ' · ', so the dateline, headings and paragraphs never
+                  run together; then whitespace is collapsed and the text is
+                  cut at a word boundary.
+                {% endcomment %}
+                {% assign feed_excerpt = item.content
+                  | newline_to_br
+                  | replace: '<br />', ' '
+                  | replace: '<br>', ' '
+                  | replace: '</p>', ' · '
+                  | replace: '</h2>', ' · '
+                  | replace: '</h3>', ' · '
+                  | replace: '</h4>', ' · '
+                  | replace: '</li>', ' · '
+                  | replace: '</', ' </'
+                  | strip_html
+                  | strip_newlines
+                %}
+                {% assign feed_excerpt = feed_excerpt
+                  | split: ' '
+                  | join: ' '
+                  | replace: ' · ·', ' ·'
+                  | replace: ' · ·', ' ·'
+                  | replace: ' .', '.'
+                  | replace: ' ,', ','
+                  | strip
+                %}
+                {% assign feed_excerpt_head = feed_excerpt | slice: 0, 2 %}
+                {% if feed_excerpt_head == '· ' %}{% assign feed_excerpt = feed_excerpt | remove_first: '· ' %}{% endif %}
+                <span class="feed__desc">{{ feed_excerpt | truncatewords: 28 }}</span>
               {% endif %}
             </span>
             {% if include.excerpt and item.thumbnail %}
               <span class="feed__thumb{% if item.thumbnail_fit == 'contain' %} feed__thumb--contain{% endif %}">
-                {% include figure.liquid path=item.thumbnail sizes="160px" width="160" height="107" alt="" %}
+                {% if forloop.index <= feed_eager %}
+                  {% include figure.liquid loading="eager" path=item.thumbnail sizes="160px" width="160" height="107" alt="" %}
+                {% else %}
+                  {% include figure.liquid loading="lazy" path=item.thumbnail sizes="160px" width="160" height="107" alt="" %}
+                {% endif %}
               </span>
             {% endif %}
           </a>
