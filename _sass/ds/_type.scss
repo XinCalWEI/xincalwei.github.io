@@ -16,7 +16,6 @@ h6 {
   letter-spacing: var(--tracking-display);
   color: var(--xw-ink);
   font-optical-sizing: auto;
-  scroll-margin-top: calc(var(--nav-h) + 1rem);
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -56,8 +55,7 @@ small,
 }
 
 /* ---- Mono metadata ---- */
-.mono,
-.meta-mono {
+.mono {
   font-family: var(--font-mono);
   font-size: var(--text-meta);
   font-weight: 400;
@@ -66,11 +64,8 @@ small,
   color: var(--xw-ink-3);
 }
 
-/* Kicker: mono uppercase label above a title ("01 — Research").
- * .eyebrow is the older name used in page content; same look. */
-.kicker,
-.eyebrow,
-.about .eyebrow {
+/* Kicker: mono uppercase label above a title ("01 — Research") */
+.kicker {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -86,13 +81,6 @@ small,
 
 .kicker__index {
   color: var(--xw-earth);
-}
-
-/* The mosaic-tile glyph belongs to the TerraMosaic feature only; older
- * eyebrows still carry the markup. */
-.eyebrow .tiles,
-.about .eyebrow .tiles {
-  display: none;
 }
 
 /* ---- Prose: the reading column ---- */
@@ -173,6 +161,13 @@ small,
   margin: 0;
 }
 
+/* media rows (Bootstrap grid rows of images: news items, Outreach) get
+ * breathing room from the text around them */
+.prose .row {
+  margin-top: 1.6rem;
+  row-gap: var(--space-4);
+}
+
 .prose img,
 .prose video {
   border-radius: var(--radius-lg);
@@ -189,8 +184,7 @@ small,
 
 /* ---- Captions ---- */
 .caption,
-figcaption,
-.prose .caption {
+figcaption {
   margin: 0.6rem auto 0;
   font-size: var(--text-sm);
   line-height: 1.5;
@@ -198,17 +192,12 @@ figcaption,
   text-align: center;
 }
 
+/* in running text a caption (under a figure or a media row) aligns with the
+ * text column instead of centring */
 .prose .caption {
   max-width: var(--measure);
-}
-
-/* media rows get breathing room from the text around them */
-.prose .row {
-  margin-top: 1.6rem;
-}
-
-.prose .row + .caption {
-  margin-bottom: 1.8rem;
+  margin: 0.75rem 0 1.75rem;
+  text-align: left;
 }
 
 /* marker highlight, shared by the About bio and posts: an earth wash under the

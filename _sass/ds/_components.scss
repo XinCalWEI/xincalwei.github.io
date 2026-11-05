@@ -1,18 +1,13 @@
 /* =============================================================================
  * ds/components: buttons, text links, mono tags, the section-header pattern,
- * hairline list rows, the dated feed rows, and the contour motif layer.
- *
- * .feed / .cardlist / .feed__pill / .btn-ghost used to exist only as
- * `.about .x`; they are un-nested here so any page can use them, and the old
- * `.about` wrappers keep working.
+ * hairline list rows, the dated feed rows, code-block details, and the contour
+ * motif layer.
  * ========================================================================== */
 
 /* ---- Buttons ----
  *   .xw-btn.xw-btn--primary    ink fill, paper text
- *   .xw-btn.xw-btn--secondary  1px ink border
- *   .btn-ghost                 older name for the secondary button */
-.xw-btn,
-.btn-ghost {
+ *   .xw-btn.xw-btn--secondary  1px ink border */
+.xw-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +15,7 @@
   min-height: 44px;
   padding: 0.55rem 1.15rem;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0;
@@ -37,8 +32,7 @@
     border-color var(--dur) var(--ease);
 }
 
-.xw-btn:hover,
-.btn-ghost:hover {
+.xw-btn:hover {
   color: var(--xw-ink);
   background: var(--xw-surface-sunk);
   text-decoration: none;
@@ -63,16 +57,12 @@
   border-color: var(--xw-ink);
 }
 
-.xw-btn .icon,
-.btn-ghost .icon,
-.btn-ghost i {
+.xw-btn .icon {
   font-size: 0.95em;
   transition: transform var(--dur) var(--ease);
 }
 
-.xw-btn:hover .icon--arrow-right,
-.btn-ghost:hover .icon--arrow-right,
-.btn-ghost:hover i {
+.xw-btn:hover .icon--arrow-right {
   transform: translateX(2px);
 }
 
@@ -82,7 +72,7 @@
   align-items: center;
   gap: 0.35rem;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   font-weight: 500;
   color: var(--xw-link);
   text-decoration: underline;
@@ -99,6 +89,15 @@
   font-size: 0.9em;
 }
 
+/* Touch: a 44px hit area (spec §4) without moving the text: padding grows
+ * the target, the equal negative margin keeps the layout */
+@media (pointer: coarse) {
+  .text-link {
+    padding-block: 10px;
+    margin-block: -10px;
+  }
+}
+
 /* ---- Mono tags (venue codes, categories, states) ----
  * Not coloured pills: colour is reserved for state (.tag--earth). */
 .tag {
@@ -108,7 +107,7 @@
   max-width: 100%;
   padding: 0.2em 0.5em;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--text-2xs);
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: 0.04em;
@@ -148,7 +147,7 @@ button.tag:hover {
 .badge {
   padding: 0.25em 0.5em;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--text-2xs);
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: 0.03em;
@@ -277,7 +276,7 @@ button.tag:hover {
 
 .row-item__dek {
   margin: 0.25rem 0 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   line-height: 1.55;
   color: var(--xw-ink-2);
 }
@@ -290,17 +289,6 @@ button.tag:hover {
   .row-item__meta {
     padding-top: 0.2rem;
   }
-}
-
-/* ---- Card list container (older name): now a hairline-ruled block ---- */
-.cardlist {
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--xw-rule);
-  border-bottom: 1px solid var(--xw-rule);
-  border-radius: 0;
-  padding: 0;
-  box-shadow: none;
 }
 
 /* ---- Dated feed rows (News, Writing): mono date column + serif title ---- */
@@ -340,18 +328,6 @@ a.feed__row:hover {
   font-variant-numeric: tabular-nums;
 }
 
-.feed__day,
-.feed__my {
-  display: inline;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 400;
-  letter-spacing: 0;
-  text-transform: none;
-  color: inherit;
-  white-space: nowrap;
-}
-
 .feed__body {
   flex: 1;
   min-width: 0;
@@ -378,16 +354,12 @@ a.feed__row:hover .feed__title {
 .feed__desc {
   display: -webkit-box;
   margin-top: 0.3rem;
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   line-height: 1.55;
   color: var(--xw-ink-2);
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.feed__arrow {
-  display: none;
 }
 
 .feed__ext {
@@ -400,23 +372,6 @@ a.feed__row:hover .feed__title {
   margin: 0;
   padding: 1.2rem 0;
   color: var(--xw-ink-2);
-}
-
-/* category label on a row: a mono tag, neutral for every category */
-.feed__pill {
-  display: inline-block;
-  margin-bottom: 0.4rem;
-  padding: 0.15em 0.5em;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--xw-ink-2);
-  background: transparent;
-  border: 1px solid var(--xw-rule-strong);
-  border-radius: var(--radius-sm);
 }
 
 /* right-side thumbnail on rich rows (news archive) */
@@ -469,7 +424,7 @@ a.feed__row:hover .feed__title {
   }
 
   .feed__title {
-    font-size: 1.0625rem;
+    font-size: var(--text-prose);
   }
 }
 
@@ -486,6 +441,14 @@ a.feed__row:hover .feed__title {
 /* keyboard users reach the button before hovering the block */
 .code-display-wrapper .copy:focus-visible {
   opacity: 1;
+}
+
+/* Dark code theme (jekyll-pygments-themes-native.css) underlines class names
+ * (.nc), so `@article` in a BibTeX block read as a link. It loads after
+ * main.css, hence the theme-scoped selector. */
+html[data-theme="dark"] .highlight .nc,
+html[data-theme="dark"] code .nc {
+  text-decoration: none;
 }
 
 /* ---- Contour motif layer ----

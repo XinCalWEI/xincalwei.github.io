@@ -6,7 +6,6 @@
  * --xw-*      semantic tokens for the design layer (_sass/ds/, _sass/pages/)
  * --global-*  al-folio names, kept as aliases: _base.scss, _cv.scss, the legacy
  *             partials and assets/js/zoom.js read them
- * --font-*, --pill-*, --tm-*  older custom tokens still read by page partials
  *
  * Pure CSS on purpose (no Sass globals) so it can move to @use later.
  * The medium-zoom z-index values (1100/1101) are NOT tokenised: the deploy check
@@ -28,7 +27,6 @@
   --xw-control: #7d8696; /* input / control borders: 3.4:1 on paper (spec #8a93a1 is 2.9:1) */
   --xw-link: #1e40af; /* interactive only, 8:1 */
   --xw-link-hover: #16389b;
-  --xw-link-wash: rgba(30, 64, 175, 0.08);
   --xw-earth: #a8471f; /* the single decorative accent, 5.2:1 as text */
   --xw-earth-wash: #f4e6dc;
   --xw-on-ink: #f7f6f1; /* text on an ink-filled control */
@@ -43,8 +41,6 @@
   --font-serif: "Newsreader", "Newsreader Fallback", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-display: var(--font-serif); /* legacy name: headings */
-  --font-body: var(--font-sans); /* legacy name: body + UI */
 
   --step-hero: clamp(2.6rem, 2rem + 3vw, 4.25rem); /* hero name */
   --step-title: clamp(2.1rem, 1.6rem + 2vw, 3rem); /* page title */
@@ -53,9 +49,11 @@
   --step-h4: 1.0625rem;
   --text-prose: 1.0625rem; /* 17px reading text */
   --text-ui: 1rem;
+  --text-ui-sm: 0.9375rem; /* 15px UI text: nav, buttons, deks */
   --text-sm: 0.875rem;
   --text-meta: 0.78rem; /* mono metadata */
   --text-kicker: 0.72rem; /* mono uppercase kicker */
+  --text-2xs: 0.6875rem; /* 11px mono tags and key hints */
   --leading-prose: 1.65;
   --leading-tight: 1.15;
   --tracking-kicker: 0.08em;
@@ -70,7 +68,6 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --space-9: 6rem;
   --section-gap: clamp(4rem, 2.4rem + 5vw, 7.5rem); /* 64px mobile -> 120px desktop */
 
   /* ---- Shape & elevation ---- */
@@ -78,29 +75,26 @@
   --radius-sm: 3px; /* tags */
   --radius-md: 4px; /* buttons, inputs */
   --radius-lg: 6px; /* the maximum: cards, images */
-  --border-hair: 1px solid var(--xw-rule);
-  --shadow-none: none;
   --shadow-soft: 0 1px 2px rgba(22, 36, 61, 0.05), 0 2px 8px rgba(22, 36, 61, 0.05);
   --shadow-hover: 0 1px 2px rgba(22, 36, 61, 0.06), 0 6px 18px rgba(22, 36, 61, 0.08);
   --shadow-overlay: 0 18px 48px rgba(22, 36, 61, 0.22);
 
   /* ---- Motion ---- */
-  --dur-fast: 120ms;
   --dur: 150ms;
   --ease: cubic-bezier(0.2, 0, 0, 1);
 
   /* ---- Layout ---- */
-  --nav-h: 64px; /* fixed navbar height; progress-bar.js re-measures at runtime */
-  --measure: 68ch; /* prose line length */
+  --nav-h: 64px; /* fixed navbar height, hairline included (ds/_chrome) */
+  --measure: 37.5rem; /* prose line length: ~70 characters of 17px Inter */
   --container: 960px; /* reading pages */
-  --container-wide: 1120px; /* home + index pages (layout_width: wide) */
+  /* --container-wide (home + index pages, `layout_width: wide`) is set in
+   * assets/css/main.scss from _config.yml `max_width` */
   --gutter: 16px;
 
   /* ---- Z-index (all below the zoom overlay at 1100) ---- */
   --z-toc: 1;
   --z-progress: 1031;
-  --z-back-to-top: 1020;
-  --z-nav: 1030;
+  --z-back-to-top: 1020; /* Bootstrap's .fixed-top navbar is 1030 */
   --z-search: 1040;
   --z-skip: 1090;
 
@@ -118,8 +112,6 @@
   --global-distill-app-color: #828282;
   --global-divider-color: var(--xw-rule);
   --global-card-bg-color: var(--xw-surface);
-  --global-surface-color: var(--xw-surface-sunk);
-  --global-control-border-color: var(--xw-control);
   --global-accent-soft: #dee7f8; /* search-highlight background */
   --global-highlight-color: var(--xw-earth);
   --global-back-to-top-bg-color: var(--xw-surface);
@@ -139,24 +131,6 @@
   --global-danger-block-bg: #ffe0e0;
   --global-danger-block-text: #600;
   --global-danger-block-title: #c00;
-
-  /* ---- Older custom tokens (page partials still read these) ---- */
-  /* tinted category pills: being phased out in favour of mono tags */
-  --pill-blue-bg: rgba(30, 64, 175, 0.1);
-  --pill-blue-fg: #1e40af;
-  --pill-teal-bg: rgba(13, 148, 136, 0.12);
-  --pill-teal-fg: #0f766e;
-  --pill-green-bg: rgba(4, 120, 87, 0.1);
-  --pill-green-fg: #047857;
-  --pill-amber-bg: rgba(180, 83, 9, 0.12);
-  --pill-amber-fg: #92400e;
-  --pill-coral-bg: rgba(220, 38, 38, 0.1);
-  --pill-coral-fg: #b91c1c;
-  --pill-violet-bg: rgba(109, 40, 217, 0.1);
-  --pill-violet-fg: #6d28d9;
-  /* contour texture used by the blog masthead; the brand file is assets/img/brand/contours.svg */
-  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%2316243d' stroke-opacity='0.045' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
-  --tm-wash: none; /* was two radial gradients; the spec rules out washes */
 }
 
 html[data-theme="dark"] {
@@ -173,7 +147,6 @@ html[data-theme="dark"] {
   --xw-control: #6f7a94;
   --xw-link: #8db2f8;
   --xw-link-hover: #b3cdfa;
-  --xw-link-wash: rgba(141, 178, 248, 0.12);
   --xw-earth: #e8956b;
   --xw-earth-wash: #2a2026;
   --xw-on-ink: #0f1726;
@@ -190,18 +163,4 @@ html[data-theme="dark"] {
   --global-back-to-top-text-color: var(--xw-ink);
   --global-newsletter-bg-color: #e8e8e8;
   --global-newsletter-text-color: #1c1c1d;
-
-  --pill-blue-bg: rgba(147, 180, 253, 0.14);
-  --pill-blue-fg: #a7c2fd;
-  --pill-teal-bg: rgba(94, 234, 212, 0.13);
-  --pill-teal-fg: #6fdbc8;
-  --pill-green-bg: rgba(110, 231, 183, 0.13);
-  --pill-green-fg: #7fe3b6;
-  --pill-amber-bg: rgba(251, 191, 36, 0.14);
-  --pill-amber-fg: #f2c46d;
-  --pill-coral-bg: rgba(252, 165, 165, 0.13);
-  --pill-coral-fg: #f8a8a8;
-  --pill-violet-bg: rgba(196, 181, 253, 0.14);
-  --pill-violet-fg: #cabffc;
-  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%23e9ecf3' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
 }

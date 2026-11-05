@@ -7,6 +7,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* In-page anchors and keyboard focus land below the fixed navbar
+   * (WCAG 2.4.11). One offset for the whole page: no per-element scroll-margin. */
+  scroll-padding-top: calc(var(--nav-h) + 1rem);
 }
 
 body {
@@ -37,18 +40,18 @@ body.sticky-bottom-footer {
  * class rule still beats it. */
 /* (One selector per element rather than :is(): PurgeCSS drops an :is() list
  * when any member is absent from the built HTML.) */
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) p,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h1,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h2,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h3,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h4,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h5,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) h6,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) em,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) div,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) li,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) span,
-:where(.site-header, .site-footer, .about, .publications, .page-head, .section-head, .btn, .xw-btn, .tag, .feed, .cardlist, .list-rows, .abs-modal) strong {
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) p,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h1,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h2,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h3,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h4,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h5,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) h6,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) em,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) div,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) li,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) span,
+:where(.site-header, .site-footer, .about, .publications, .section-head, .btn, .xw-btn, .tag, .feed, .list-rows, .abs-modal) strong {
   color: inherit;
 }
 
@@ -67,8 +70,11 @@ a:hover {
   text-decoration-thickness: 2px;
 }
 
-/* ---- Focus: 2px link-colour ring, 2px offset, on every interactive element ---- */
-:focus-visible {
+/* ---- Focus: 2px link-colour ring, 2px offset, on every interactive element ----
+ * `*:focus-visible`, not a bare `:focus-visible`: PurgeCSS 8 drops a selector
+ * made of a lone pseudo-class (scroll regions with tabindex, MathJax, video
+ * would fall back to the browser ring). _scripts/check-zoom-css.cjs asserts it. */
+*:focus-visible {
   outline: 2px solid var(--xw-focus);
   outline-offset: 2px;
 }
@@ -124,6 +130,11 @@ figure > picture > img:not([width]) {
   height: 1em;
   flex-shrink: 0;
   vertical-align: -0.125em;
+}
+
+/* mirrored icon (an arrow-right used as "back") */
+.icon--flip {
+  transform: scaleX(-1);
 }
 
 /* Tables: theme-correct colour without waiting for theme.js's .table-dark

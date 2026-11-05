@@ -30,23 +30,16 @@
   padding-bottom: var(--space-8);
 }
 
-/* Section rhythm for stacked page sections */
-.page-section + .page-section {
-  margin-top: var(--section-gap);
-}
-
 /* ---- Page header (page.liquid / post.liquid / cv.liquid) ----
  * Mono kicker (optional `kicker:` front matter) + serif title + one-line dek,
  * hairline below. */
-.post .post-header,
-.page-head {
+.post .post-header {
   margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
   padding-bottom: var(--space-5);
   border-bottom: 1px solid var(--xw-rule);
 }
 
-.post .post-header .post-title,
-.page-head__title {
+.post .post-header .post-title {
   margin: 0;
   font-family: var(--font-serif);
   font-size: var(--step-title);
@@ -60,8 +53,7 @@
   color: inherit;
 }
 
-.post .post-description,
-.page-head__dek {
+.post .post-description {
   margin: 0.75rem 0 0;
   max-width: 62ch;
   font-size: 1.125rem;
@@ -79,30 +71,6 @@
   font-size: var(--text-meta);
   line-height: 1.5;
   color: var(--xw-ink-3);
-}
-
-.post .post-tags {
-  margin: 0.35rem 0 0;
-  padding: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  line-height: 1.6;
-  color: var(--xw-ink-3);
-}
-
-.post .post-tags a {
-  color: var(--xw-ink-2);
-  text-decoration: none;
-}
-
-.post .post-tags a:hover {
-  color: var(--xw-link);
-  text-decoration: underline;
-}
-
-.post .post-tags .fa-sm {
-  font-size: 0.75em;
-  opacity: 0.8;
 }
 
 /* Section headings inside content stay ink; the accent appears on hover only */
@@ -173,7 +141,7 @@ nav[data-toggle="toc"] .nav .nav > li > a {
 
 nav[data-toggle="toc"] .nav .nav > li > a {
   padding-left: 1.6rem;
-  font-size: 0.78rem;
+  font-size: var(--text-meta);
 }
 
 nav[data-toggle="toc"] .nav > li > a:hover,
@@ -196,9 +164,20 @@ nav[data-toggle="toc"] .nav > .active:hover > a {
   background: transparent;
 }
 
-nav[data-toggle="toc"] .nav .nav > .active > a {
+/* Nested (h3) entries: scrollspy puts .active on the <a>, and
+ * bootstrap-toc.min.css (`.nav .nav > li > .active`, padding 28px) and the
+ * nested rule above both outrank the shared active rule, so restate it here:
+ * same 2px earth bar, text does not move. */
+nav[data-toggle="toc"] .nav .nav > .active > a,
+nav[data-toggle="toc"] .nav .nav > li > a.active,
+nav[data-toggle="toc"] .nav .nav > li > a.active:hover,
+nav[data-toggle="toc"] .nav .nav > li > a.active:focus {
   padding-left: calc(1.6rem - 1px);
-  font-size: 0.78rem;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  color: var(--xw-ink);
+  border-left: 2px solid var(--xw-earth);
+  background: transparent;
 }
 
 /* ---- MDB compatibility (MDB CSS is no longer loaded) ----
@@ -215,10 +194,6 @@ nav[data-toggle="toc"] .nav .nav > .active > a {
 .z-depth-2,
 .z-depth-3 {
   box-shadow: var(--shadow-soft);
-}
-
-.font-weight-medium {
-  font-weight: 500;
 }
 
 /* Bootstrap cards used in a few posts: hairline, radius cap */
@@ -238,8 +213,7 @@ nav[data-toggle="toc"] .nav .nav > .active > a {
 /* bootstrap.min.css ships focus glows on buttons and inputs; the design uses
  * the outline ring from ds/base instead */
 .btn:focus,
-.btn.focus,
-.form-control:focus {
+.btn.focus {
   box-shadow: none;
 }
 
