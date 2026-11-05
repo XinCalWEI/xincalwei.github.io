@@ -88,7 +88,7 @@ thrusts:
           - text: AGU25 session recap
             url: /news/agu25_meeting/
           - text: AGU26 session NH23F (primary convener)
-            url: https://agu.confex.com/agu/agu26/prelim.cgi/Session/282060
+            url: https://agu.confex.com/agu/agu26/meetingapp.cgi/Session/282060
             external: true
       - label: Community initiative · Schmidt Sciences
         title: SPARK Forum
