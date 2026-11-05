@@ -1,0 +1,18 @@
+# Student mentees (the people listed on /people/). _layouts/bib.liquid marks a
+# co-author with † ("student mentee") when "first last", as written in
+# _bibliography/papers.bib, matches a `name` (or one of its `aliases`) exactly.
+# Matching uses the full name, never the last name alone, so co-authors who
+# share a surname with a mentee are not marked.
+- name: Reiko Chen
+  program: ECSR
+- name: Margaret Gereghty
+  program: ECSR
+- name: Yayu Zhang
+  program: ECSR
+- name: Andrew Kagan
+  program: UROP
+- name: Shivangi Bhatt
+  program: UROP
+- name: Dwayne Sean Johnson
+  aliases: [SJ Johnson, Dwayne S. Johnson]
+  program: UROP

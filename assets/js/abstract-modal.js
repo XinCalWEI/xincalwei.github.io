@@ -26,7 +26,8 @@
       "  </button>",
       "</form>",
       '<p class="abs-modal__eyebrow">Abstract</p>',
-      '<h2 class="abs-modal__title"></h2>',
+      // data-toc-skip: on project pages bootstrap-toc would list this empty heading
+      '<h2 class="abs-modal__title" data-toc-skip></h2>',
       '<p class="abs-modal__meta"></p>',
       '<div class="abs-modal__body"></div>',
       '<div class="abs-modal__actions"></div>',
@@ -42,6 +43,16 @@
   const text = (root, sel) => {
     const el = root.querySelector(sel);
     return el ? el.textContent.replace(/\s+/g, " ").trim() : "";
+  };
+
+  // full author list: drop the "and N more authors" button and the mentee
+  // marks; the collapsed names are in the DOM (hidden), so they are included
+  const authors = (root) => {
+    const el = root.querySelector(".author");
+    if (!el) return "";
+    const copy = el.cloneNode(true);
+    copy.querySelectorAll("button.more-authors, .bib-mentee, .sr-only").forEach((n) => n.remove());
+    return copy.textContent.replace(/\s+/g, " ").replace(/\s+,/g, ",").trim();
   };
 
   entries.forEach((btn) => {
@@ -60,7 +71,7 @@
         source.classList.remove("open");
 
         titleEl.textContent = text(entry, ".title");
-        metaEl.textContent = [text(entry, ".author"), text(entry, ".periodical")].filter(Boolean).join(" · ");
+        metaEl.textContent = [authors(entry), text(entry, ".periodical")].filter(Boolean).join(" · ");
         const opener = btn;
         bodyEl.innerHTML = "";
         source.querySelectorAll("p").forEach((p) => {
