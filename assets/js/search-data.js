@@ -237,52 +237,52 @@ ninja.data = [{
               window.location.href = "/books/thinking_fast_and_slow/";
             },},{id: "news-emi-pmc-2024",
           title: 'EMI/PMC 2024',
-          description: "",
+          description: "I presented a hybrid data-driven and physics-based susceptibility mapping model for regional landslide risk assessment at EMI/PMC 2024 in Chicago.",
           section: "News",handler: () => {
               window.location.href = "/news/emipmc_2024/";
             },},{id: "news-2024-midas-postdoctoral-fellowship-programs-orientation-amp-ai-bootcamp",
           title: '2024 MIDAS Postdoctoral Fellowship Programs Orientation &amp;amp; AI Bootcamp',
-          description: "",
+          description: "At the MIDAS postdoctoral orientation and AI bootcamp I presented a poster on regional landslide susceptibility assessment with integrated AI-physics solutions.",
           section: "News",handler: () => {
               window.location.href = "/news/midas_2024_bootcamp/";
             },},{id: "news-agu-fall-meeting-2024",
           title: 'AGU Fall Meeting 2024',
-          description: "",
+          description: "I presented “Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions” in the Landslide Life Cycle session at AGU Fall Meeting 2024.",
           section: "News",handler: () => {
               window.location.href = "/news/agu24_announcement/";
             },},{id: "news-2025-spring-geotechnical-seminar",
           title: '2025 Spring Geotechnical Seminar',
-          description: "",
+          description: "An invited talk on regional landslide risk assessment with integrated AI-physics solutions, given to over 100 geotechnical engineering professionals.",
           section: "News",handler: () => {
               window.location.href = "/news/spring_geotech_seminar_2025/";
             },},{id: "news-u-m-knowledge-guided-machine-learning-kgml-workshop",
           title: 'U-M Knowledge-Guided Machine Learning (KGML) Workshop',
-          description: "",
+          description: "A U-M workshop, August 4–8, 2025, training participants in knowledge-guided machine learning: building physical laws and domain knowledge into ML models.",
           section: "News",handler: () => {
               window.location.href = "/news/kgml_workshop_2025/";
             },},{id: "news-ai-in-science-fellowship-entrepreneurial-workshop",
           title: 'AI in Science Fellowship Entrepreneurial Workshop',
-          description: "",
+          description: "AI in Science Fellows at the Entrepreneurial Workshop at the Banbury Center, Lloyd Harbor, New York, September 28 – October 1, 2025.",
           section: "News",handler: () => {
               window.location.href = "/news/banbury_entrepreneurial_workshop_2025/";
             },},{id: "news-u-m-annual-data-science-amp-ai-summit-2025",
           title: 'U-M Annual Data Science &amp;amp; AI Summit 2025',
-          description: "",
+          description: "MIDAS brought the U-M data science and AI community together for two days of research vision talks, cross-disciplinary conversations and poster sessions.",
           section: "News",handler: () => {
               window.location.href = "/news/midas_summit_2025/";
             },},{id: "news-agu25-toward-reliable-and-scalable-geohazard-intelligence",
           title: 'AGU25 – Toward Reliable and Scalable Geohazard Intelligence',
-          description: "",
+          description: "Session details for NH11D (poster, 15 December) and NH33B (oral, 17 December), with invited speakers Benjamin Mirus, Ettore Biondi and Joseph Wartman.",
           section: "News",handler: () => {
               window.location.href = "/news/agu25_announcement/";
             },},{id: "news-2025-american-geophysical-union-agu-fall-meeting",
           title: '2025 American Geophysical Union (AGU) Fall Meeting',
-          description: "",
+          description: "At AGU25 in New Orleans I convened the geohazard intelligence sessions, gave an oral talk on landslide consequences with generative AI, and presented a poster.",
           section: "News",handler: () => {
               window.location.href = "/news/agu25_meeting/";
             },},{id: "news-mentees-present-at-the-2026-urop-spring-research-symposium",
           title: 'Mentees Present at the 2026 UROP Spring Research Symposium',
-          description: "",
+          description: "My three UROP mentees presented posters on our generative-AI landslide research at the 2026 Spring Symposium; Shivangi Bhatt was named a Blue Ribbon Winner.",
           section: "News",handler: () => {
               window.location.href = "/news/urop_symposium_2026/";
             },},{id: "news-multimodal-ai-and-new-collaborations-at-aims26",
@@ -292,7 +292,7 @@ ninja.data = [{
               window.location.href = "/news/aims26_multimodal_ai/";
             },},{id: "news-pitching-terramosaic-at-the-interdisciplinary-science-summit-2026",
           title: 'Pitching TerraMosaic at the Interdisciplinary Science Summit 2026',
-          description: "",
+          description: "At the Interdisciplinary Science Summit 2026 in Durham, I pitched TerraMosaic in the Idea-to-Application Lab, a Shark Tank-style session for early-stage ideas.",
           section: "News",handler: () => {
               window.location.href = "/news/interdisciplinary_science_summit_2026/";
             },},{id: "news-spark-forum-receives-community-initiative-funding",
@@ -360,6 +360,13 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://www.linkedin.com/in/xin-wei-calvin", "_blank");
+        },
+      },{
+        id: 'social-orcid',
+        title: 'ORCID',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://orcid.org/0000-0002-5207-6141", "_blank");
         },
       },{
         id: 'social-scholar',
