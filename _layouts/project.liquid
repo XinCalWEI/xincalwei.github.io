@@ -1,0 +1,88 @@
+---
+layout: default
+---
+{% comment %}
+  Project detail pages (_projects/*.md). Same structure as page.liquid (header,
+  article, References) plus a breadcrumb kicker back to the project's thrust on
+  /projects/ and previous / next links in Research-index order. Thrust titles come
+  from the `thrusts` front matter of _pages/projects.md. Projects with a `status`
+  (e.g. "In development") are left out of previous / next.
+  Styles: _sass/pages/_projects.scss (.project-page, .project-pager).
+{% endcomment %}
+{%- assign research_page = site.pages | where: 'permalink', '/projects/' | first -%}
+{%- assign research_url = '/projects/' | relative_url -%}
+{%- assign thrust = nil -%}
+{%- if research_page and page.thrust -%}
+  {%- assign thrust = research_page.thrusts | where: 'id', page.thrust | first -%}
+{%- endif -%}
+
+{%- assign pager_projects = '' | split: '' -%}
+{%- assign sorted_projects = site.projects | sort: 'importance' -%}
+{%- for p in sorted_projects -%}
+  {%- unless p.status -%}{%- assign pager_projects = pager_projects | push: p -%}{%- endunless -%}
+{%- endfor -%}
+{%- assign prev_project = nil -%}
+{%- assign next_project = nil -%}
+{%- for p in pager_projects -%}
+  {%- if p.url == page.url -%}
+    {%- assign prev_index = forloop.index0 | minus: 1 -%}
+    {%- assign next_index = forloop.index0 | plus: 1 -%}
+    {%- if prev_index >= 0 -%}{%- assign prev_project = pager_projects[prev_index] -%}{%- endif -%}
+    {%- assign next_project = pager_projects[next_index] -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="post project-page">
+  <header class="post-header">
+    <p class="kicker project-page__kicker">
+      <a href="{{ research_url }}{% if thrust %}#{{ thrust.id }}{% endif %}">Research</a>
+      {%- if thrust %}
+        <span class="project-page__sep" aria-hidden="true">/</span>
+        {% if thrust.index != '' %}<span class="kicker__index">{{ thrust.index }}</span> {% endif -%}
+        <span>{{ thrust.title }}</span>
+      {%- endif -%}
+    </p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.description and page.description != '' %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
+    {% if page.status %}
+      <p class="project-page__status"><span class="tag tag--earth">{{ page.status }}</span></p>
+    {% endif %}
+  </header>
+
+  <article>
+    {{ content }}
+  </article>
+
+  {% if page.related_publications %}
+    <h2>References</h2>
+    <div class="publications">
+      {% bibliography --cited_in_order %}
+    </div>
+    <script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
+  {% endif %}
+
+  <nav class="project-pager" aria-label="More research">
+    <a class="project-pager__back" href="{{ research_url }}">
+      <span class="project-pager__label">{% include icon.liquid name="arrow-right" class="icon--flip" %} Back to</span>
+      <span class="project-pager__title">All research</span>
+    </a>
+    {%- if prev_project -%}
+      <a class="project-pager__prev" href="{{ prev_project.url | relative_url }}" rel="prev">
+        <span class="project-pager__label">Previous project</span>
+        <span class="project-pager__title">{{ prev_project.title }}</span>
+      </a>
+    {%- endif -%}
+    {%- if next_project -%}
+      <a class="project-pager__next" href="{{ next_project.url | relative_url }}" rel="next">
+        <span class="project-pager__label">Next project {% include icon.liquid name="arrow-right" %}</span>
+        <span class="project-pager__title">{{ next_project.title }}</span>
+      </a>
+    {%- endif -%}
+  </nav>
+
+  {% if site.giscus and page.giscus_comments %}
+    {% include giscus.liquid %}
+  {% endif %}
+</div>

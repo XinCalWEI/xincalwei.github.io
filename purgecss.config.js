@@ -5,5 +5,7 @@ module.exports = {
   skippedContentGlobs: ["_site/assets/**/*.html"],
   // The CDN-loaded zoom library adds these classes only after an image opens.
   // They are absent from the generated HTML/JS that PurgeCSS scans.
-  safelist: [/^medium-zoom/],
+  // MathJax (CDN) creates its mjx-* elements at runtime; the project pages style
+  // display equations through mjx-container (_sass/pages/_projects.scss).
+  safelist: [/^medium-zoom/, /^mjx-/],
 };

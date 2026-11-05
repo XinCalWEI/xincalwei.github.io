@@ -1,13 +1,19 @@
 ---
-layout: page
+layout: project
 title: Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI
 description: An agentic generative-AI framework that extracts and synthesizes diverse web sources to capture the full range of direct and indirect landslide impacts.
+# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/retrospective-landslide-consequences.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration of a generative-AI evidence network synthesizing dispersed records of landslide consequences across regions."
-importance: 7
+importance: 4
 category: Retrospective Analysis
+# Research index (_pages/projects.md, _includes/projects.liquid)
+thrust: data
+label: Impact records · Generative AI
+period: 2024–present
+schematic: genai-impacts
 ---
 
 <div class="prose" markdown="1">

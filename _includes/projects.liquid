@@ -1,77 +1,68 @@
-{% assign project_href = project.url | relative_url %}
-{% if project.redirect %}
-  {% assign project_href = project.redirect %}
-{% endif %}
-{% assign project_area = project.sub_area | default: project.category %}
-{% assign project_fit = project.cover_fit | default: 'cover' %}
-{% assign project_position = project.cover_position | default: '50% 50%' %}
-{% assign image_sizes = '(min-width: 1200px) 540px, (min-width: 992px) 46vw, 100vw' %}
-{% if project.category == 'Retrospective Analysis' %}
-  {% assign image_sizes = '(min-width: 1200px) 650px, (min-width: 992px) 55vw, 100vw' %}
-{% endif %}
-{% assign image_loading = 'lazy' %}
-{% if project.importance == 1 and project.category == 'Prospective Modelling' %}
-  {% assign image_loading = 'eager' %}
-{% endif %}
-{% assign project_img_avoid_scaling = false %}
-{% if project.img %}
-  {% assign project_img_parts = project.img | split: '.' %}
-  {% assign project_img_ext = project_img_parts | last | downcase %}
-  {% if project_img_ext == 'svg' %}
-    {% assign project_img_avoid_scaling = true %}
-  {% endif %}
-{% endif %}
+{% comment %}
+  One project on the Research index (_pages/projects.md), styled in _sass/pages/_projects.scss.
 
-<article class="project-card project-card--{{ project_area | slugify }}">
-  {% if project.img %}
-    <div
-      class="project-card__media project-card__media--{{ project_fit }}"
-      style="--project-cover-position: {{ project_position }};"
-    >
+  Front matter it reads from _projects/*.md:
+    label        mono sub-area label ("Susceptibility"); falls back to sub_area / category
+    period       mono years ("2021–2024")
+    role         e.g. "Collaborative study" (mono, after the period)
+    thumb        a real research figure, shown on a paper plate (object-fit: contain, 3:2)
+    thumb_alt    alt text for that figure
+    schematic    name of an inline SVG in _includes/research_schematic.liquid (used
+                 instead of a figure when a project has none)
+    status       e.g. "In development": labelled, and the card is not linked
+  `img` / `cover_alt` (the older conceptual covers) are kept in the files but not shown here.
+{% endcomment %}
+{%- assign project_href = project.url | relative_url -%}
+{%- if project.redirect -%}{%- assign project_href = project.redirect -%}{%- endif -%}
+{%- assign project_label = project.label | default: project.sub_area | default: project.category -%}
+{%- assign project_linked = true -%}
+{%- if project.status -%}{%- assign project_linked = false -%}{%- endif -%}
+{%- assign project_media = 'none' -%}
+{%- if project.schematic -%}
+  {%- assign project_media = 'schematic' -%}
+{%- elsif project.thumb -%}
+  {%- assign project_media = 'figure' -%}
+{%- endif -%}
+
+<article class="project-row{% if project_media == 'none' %} project-row--text{% endif %}{% if project_media == 'schematic' %} project-row--feature{% endif %}{% if project.status %} project-row--status{% endif %}">
+  {%- if project_media == 'figure' -%}
+    <div class="project-plate">
       {%
         include figure.liquid
-        loading=image_loading
-        path=project.img
-        sizes=image_sizes
-        alt=project.cover_alt
-        class="project-card__image"
-        avoid_scaling=project_img_avoid_scaling
+        path=project.thumb
+        sizes="(min-width: 992px) 280px, (min-width: 576px) 40vw, 100vw"
+        alt=project.thumb_alt
+        class="project-plate__img"
+        loading="lazy"
       %}
     </div>
-  {% endif %}
-
-  <div class="project-card__body">
-    <div class="project-card__meta">
-      <p class="project-card__area">{{ project_area }}</p>
-      {% if project.status %}
-        <span class="project-card__status">{{ project.status }}</span>
-      {% endif %}
+  {%- elsif project_media == 'schematic' -%}
+    <div class="project-plate project-plate--schematic">
+      {% include research_schematic.liquid name=project.schematic %}
     </div>
-    <h3 class="project-card__title" data-toc-skip>
-      <a class="project-card__link stretched-link" href="{{ project_href }}">{{ project.title }}</a>
-    </h3>
-    {% if project.description %}
-      <p class="project-card__description">{{ project.description }}</p>
-    {% endif %}
-    {% if project.status %}
-      <span class="project-card__cta" aria-hidden="true">View project status <span>→</span></span>
-    {% else %}
-      <span class="project-card__cta" aria-hidden="true">Explore project <span>→</span></span>
-    {% endif %}
+  {%- endif -%}
 
-    {% if project.github %}
-      <div class="project-card__controls">
-        <a href="{{ project.github }}" aria-label="Open code repository for {{ project.title }}">
-          <i class="fa-brands fa-github" aria-hidden="true"></i>
-          <span>Code</span>
-        </a>
-        {% if project.github_stars %}
-          <span class="project-card__stars" title="GitHub stars">
-            <i class="fa-solid fa-star" aria-hidden="true"></i>
-            <span id="{{ project.github_stars }}-stars"></span>
-          </span>
-        {% endif %}
-      </div>
-    {% endif %}
+  <div class="project-row__body">
+    <p class="project-row__meta">
+      <span class="project-row__area">{{ project_label }}</span>
+      {%- if project.period -%}<span class="project-row__period">{{ project.period }}</span>{%- endif -%}
+      {%- if project.role -%}<span class="project-row__period">{{ project.role }}</span>{%- endif -%}
+      {%- if project.status -%}<span class="tag tag--earth project-row__status">{{ project.status }}</span>{%- endif -%}
+    </p>
+    <h3 class="project-row__title" data-toc-skip>
+      {%- if project_linked -%}
+        <a class="project-row__link" href="{{ project_href }}">{{ project.title }}</a>
+      {%- else -%}
+        {{ project.title }}
+      {%- endif -%}
+    </h3>
+    {%- if project.card_description -%}
+      <p class="project-row__desc">{{ project.card_description }}</p>
+    {%- elsif project.description -%}
+      <p class="project-row__desc">{{ project.description }}</p>
+    {%- endif -%}
+    {%- if project_linked -%}
+      <span class="project-row__cta" aria-hidden="true">Read project {% include icon.liquid name="arrow-right" %}</span>
+    {%- endif -%}
   </div>
 </article>
