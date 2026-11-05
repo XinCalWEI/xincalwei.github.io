@@ -1,16 +1,17 @@
-<ul class="card-text font-weight-light list-group list-group-flush">
+{% comment %} Titled groups (e.g. Academic Service): an h3 per group, its items below. {% endcomment %}
+<ol class="cv-rows">
   {% for content in entry.contents %}
-    <li class="list-group-item">
-      <h5 class="font-italic">{{ content.title }}</h5>
-      {% if content.items %}
-        <ul class="subitems">
-          {% for subitem in content.items %}
-            <li>
-              <span class="subitem">{{ subitem }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+    <li class="cv-row">
+      <div class="cv-row__body">
+        <h3 class="cv-row__title" data-toc-skip>{{ content.title }}</h3>
+        {% if content.items %}
+          <ul class="cv-notes">
+            {% for subitem in content.items %}
+              <li>{{ subitem }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
     </li>
   {% endfor %}
-</ul>
+</ol>

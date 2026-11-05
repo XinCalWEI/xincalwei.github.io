@@ -1,5 +1,19 @@
+# CV data: the single source for /cv/ (rendered by _layouts/cv.liquid).
+#
+# Sections render in this order (the order a search committee reads a CV).
+#   type: map | list | time_table | nested_list   content lives here
+#   type: publications | teaching | mentoring     generated from papers.bib,
+#         _data/teaching.yml and the People page front matter, so the CV
+#         never drifts from those pages; `link` points at the full page
+#   placement: header                              rendered compactly in the
+#         page header instead of as a section
+#   style: cards (map only)                        a grid of contact cards
+# time_table rows: year (shown in the left column), title, institution,
+# description (bullets) or items (rows without a title).
+
 - title: General Information
   type: map
+  placement: header
   contents:
     - name: Full Name
       value: Xin Wei
@@ -14,11 +28,22 @@
 
 - title: Summary
   type: list
+  placement: header
   contents:
     - Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship
     - 8+ Years of Experience in Geohazard Susceptibility & Risk Assessment and in ML/AI Applications
     - 670+ Google Scholar citations; h-index 10 (November 2026)
     - National Scholarship (P.R. China)
+
+- title: Appointments
+  type: time_table
+  contents:
+    - title: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
+      institution: University of Michigan
+      year: 2024 - present
+      description:
+        - "Science Mentors: Prof. Sabine Loos, Prof. F. Estéfan T. Garcia"
+        - "AI Mentor: Prof. Elizabeth Bondi-Kelly"
 
 - title: Education
   type: time_table
@@ -38,33 +63,6 @@
       year: 2013 - 2017
       description:
         - GPA ranking 1/186 (every semester)
-
-- title: Academic Service
-  type: nested_list
-  contents:
-    - title: Conference Session Convener
-      items:
-        - "AGU Fall Meeting 2026: Primary Convener, Session NH23F"
-        - "AGU Fall Meeting 2025: Primary Convener and Session Chair - <i>Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations</i> (NH11D poster; NH33B oral)"
-        - "3FOMLIG: Co-Convener, Session PS10 - <i>AI-based Risk and Resilience Analysis for Underground Engineering</i>"
-    - title: Journal Reviewer
-      items:
-        - <i>Acta Geotechnica</i>
-        - <i>Bulletin of Engineering Geology and the Environment</i>
-        - <i>Reliability Engineering & System Safety</i>
-        - <i>Engineering Geology</i>
-        - <i>Rock Mechanics Bulletin</i>
-        - "<i>Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards</i>"
-
-- title: Postdoctoral Experience
-  type: time_table
-  contents:
-    - title: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
-      institution: University of Michigan
-      year: 2024 - present
-      description:
-        - "Science Mentors: Prof. Sabine Loos, Prof. F. Estéfan T. Garcia"
-        - "AI Mentor: Prof. Elizabeth Bondi-Kelly"
 
 - title: Research Platforms & Community Initiatives
   type: time_table
@@ -88,6 +86,11 @@
       institution: Invited talk, 2025 Spring Geotechnical Seminar, ASCE CT Valley Geo-Institute, Cromwell, CT
       year: 2025
 
+- title: Publications
+  type: publications
+  link: /publications/
+  link_label: Publications page, with abstracts and BibTeX
+
 - title: Awards
   type: time_table
   contents:
@@ -107,6 +110,23 @@
       items:
         - National Scholarship (Highest Honor for Undergraduates in China), Ministry of Education
 
+- title: Academic Service
+  type: nested_list
+  contents:
+    - title: Conference Session Convener
+      items:
+        - "AGU Fall Meeting 2026: Primary Convener, Session NH23F"
+        - "AGU Fall Meeting 2025: Primary Convener and Session Chair - <i>Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations</i> (NH11D poster; NH33B oral)"
+        - "3FOMLIG: Co-Convener, Session PS10 - <i>AI-based Risk and Resilience Analysis for Underground Engineering</i>"
+    - title: Journal Reviewer
+      items:
+        - <i>Acta Geotechnica</i>
+        - <i>Bulletin of Engineering Geology and the Environment</i>
+        - <i>Reliability Engineering & System Safety</i>
+        - <i>Engineering Geology</i>
+        - <i>Rock Mechanics Bulletin</i>
+        - "<i>Georisk: Assessment and Management of Risk for Engineered Systems and Geohazards</i>"
+
 - title: Professional Memberships
   type: time_table
   contents:
@@ -116,6 +136,16 @@
     - year: 2024 - present
       items:
         - Member, American Geophysical Union (AGU)
+
+- title: Teaching
+  type: teaching
+  link: /teaching/
+  link_label: Teaching page
+
+- title: Mentoring
+  type: mentoring
+  link: /people/
+  link_label: Mentee profiles
 
 - title: Research Interests
   type: list
@@ -127,6 +157,7 @@
 
 - title: References
   type: map
+  style: cards
   contents:
     - name: Prof. Paolo Gardoni
       value: "Alfredo H. Ang Family Professor<br>Department of Civil and Environmental Engineering<br>University of Illinois at Urbana-Champaign<br>Phone: 217-333-5103<br>Email: gardoni@illinois.edu<br><i>Visiting Scholar Advisor</i>"

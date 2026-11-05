@@ -1,0 +1,28 @@
+---
+---
+{% comment %}
+  jekyll-scholar template for the CV's publication list (used via
+  `{% bibliography --template cv-bib %}` in _includes/cv/publications.liquid).
+  `reference` is the APA citation from citeproc; the year sits in the CV's mono
+  column, my name is set in bold, and the bib `note` / `additional_info`
+  (honours such as "ESI Highly Cited Paper") follow the citation.
+{% endcomment %}
+{%- assign cv_ref = reference | replace: 'Wei, X.', '<strong>Wei, X.</strong>' -%}
+{%- if entry.doi -%}
+  {%- capture cv_doi_url %}https://doi.org/{{ entry.doi }}{% endcapture -%}
+  {%- capture cv_doi_link %}<a href="{{ cv_doi_url }}">{{ cv_doi_url }}</a>{% endcapture -%}
+  {%- assign cv_ref = cv_ref | replace: cv_doi_url, cv_doi_link -%}
+{%- endif -%}
+<div class="cv-row cv-pub">
+  <p class="cv-row__when">{{ entry.year }}</p>
+  <div class="cv-row__body">
+    <p class="cv-pub__ref">{{ cv_ref }}</p>
+    {%- if entry.note or entry.additional_info %}
+      <p class="cv-pub__note">
+        {%- if entry.note %}{{ entry.note }}{% endif -%}
+        {%- if entry.note and entry.additional_info %} · {% endif -%}
+        {%- if entry.additional_info %}{{ entry.additional_info | remove_first: '. ' }}{% endif -%}
+      </p>
+    {%- endif %}
+  </div>
+</div>

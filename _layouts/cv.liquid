@@ -1,141 +1,106 @@
 ---
 layout: default
 ---
-{% unless site.data.resume %}
-  <div class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        {{ page.title }}
-        {% if page.cv_pdf %}
-          <a
-            {% if page.cv_pdf contains '://' %}
-              href="{{ page.cv_pdf }}"
-            {% else %}
-              href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
-            {% endif %}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="float-right"
-            aria-label="Download CV (PDF)"
-            title="Download CV (PDF)"
-          >
-            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-          </a>
-        {% endif %}
-      </h1>
-      {% if page.description %}
-        <p class="post-description">{{ page.description }}</p>
-      {% endif %}
-    </header>
+{% comment %}
+  /cv/ — one source of truth: _data/cv.yml (section order, facts). Sections with
+  `placement: header` render in the page header; `publications`, `teaching` and
+  `mentoring` sections are generated from papers.bib, _data/teaching.yml and the
+  People page, so the CV never drifts from those pages.
 
-    <article>
-      <div class="cv">
-        {% for entry in site.data.cv %}
-          <a class="anchor" id="{{ entry.title }}"></a>
-          <div class="card mt-3 p-3">
-            <h2 class="card-title font-weight-medium">{{ entry.title }}</h2>
-            <div>
-              {% if entry.type == 'list' %}
-                {% include cv/list.liquid %}
-              {% elsif entry.type == 'map' %}
-                {% include cv/map.liquid %}
-              {% elsif entry.type == 'nested_list' %}
-                {% include cv/nested_list.liquid %}
-              {% elsif entry.type == 'time_table' %}
-                {% include cv/time_table.liquid %}
-              {% elsif entry.type == 'list_groups' %}
-                {% include cv/list_groups.liquid %}
-              {% else %}
-                {{ entry.contents }}
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </article>
-  </div>
-{% else %}
-  <div class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        {{ page.title }}
-        {% if page.cv_pdf %}
-          <a
-            {% if page.cv_pdf contains '://' %}
-              href="{{ page.cv_pdf }}"
-            {% else %}
-              href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
-            {% endif %}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="float-right"
-            aria-label="Download CV (PDF)"
-            title="Download CV (PDF)"
-          >
-            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-          </a>
-        {% endif %}
-      </h1>
-      {% if page.description %}
-        <p class="post-description">{{ page.description }}</p>
-      {% endif %}
-    </header>
+  Layout: two-column timeline rows (mono years left, entry right) from 768px up,
+  stacked below. "Print / Save as PDF" calls window.print(); the print rules in
+  _sass/_cv.scss turn the page into a clean paper CV (no chrome, black on white).
+  Headings: h1 name → h2 sections (these feed the TOC) → h3 entries (data-toc-skip).
+{% endcomment %}
+{%- assign cv_name = page.title -%}
+{%- for cv_entry in site.data.cv -%}
+  {%- if cv_entry.placement == 'header' and cv_entry.type == 'map' -%}
+    {%- for item in cv_entry.contents -%}
+      {%- if item.name == 'Full Name' %}{% assign cv_name = item.value %}{% endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
 
-    <article>
-      <div class="cv">
-        {% for data in site.data.resume %}
-          {% if site.jsonresume and site.jsonresume.size > 0 %}
-            {% unless site.jsonresume contains data[0] %}
-              {% continue %}
-            {% endunless %}
+<div class="post cv-doc">
+  <header class="post-header cv-head">
+    <p class="kicker">{{ page.kicker | default: 'Curriculum vitae' }}</p>
+    <div class="cv-head__top">
+      <h1 class="post-title">{{ cv_name }}</h1>
+      <button type="button" class="xw-btn xw-btn--secondary cv-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+    {% if site.footer_identity %}
+      <p class="post-description">
+        {{- site.footer_identity.position -}}
+        {%- if site.footer_identity.affiliation %}, {{ site.footer_identity.affiliation }}{% endif -%}
+      </p>
+    {% endif %}
+
+    {% for cv_entry in site.data.cv %}
+      {% if cv_entry.placement == 'header' %}
+        {% if cv_entry.type == 'map' %}
+          <dl class="cv-contact">
+            {% for item in cv_entry.contents %}
+              {% if item.name == 'Full Name' %}{% continue %}{% endif %}
+              <div class="cv-contact__item">
+                <dt>{{ item.name }}</dt>
+                <dd>
+                  {%- if item.name == 'Email' -%}
+                    <a href="mailto:{{ item.value }}">{{ item.value }}</a>
+                  {%- elsif item.name == 'Phone' -%}
+                    <a href="tel:{{ item.value | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ item.value }}</a>
+                  {%- else -%}
+                    {{ item.value }}
+                  {%- endif -%}
+                </dd>
+              </div>
+            {% endfor %}
+          </dl>
+        {% elsif cv_entry.type == 'list' %}
+          <ul class="cv-summary" aria-label="{{ cv_entry.title }}">
+            {% for item in cv_entry.contents %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </header>
+
+  <article class="cv-body">
+    {% for entry in site.data.cv %}
+      {% if entry.placement == 'header' %}{% continue %}{% endif %}
+      {% assign section_id = entry.title | slugify %}
+      <section class="cv-section cv-section--{{ entry.type }}" aria-labelledby="{{ section_id }}">
+        <div class="cv-section__head">
+          <h2 class="cv-section__title" id="{{ section_id }}">{{ entry.title }}</h2>
+          {% if entry.link %}
+            <a class="text-link cv-section__link" href="{{ entry.link | relative_url }}">
+              {{- entry.link_label | default: 'More' }}
+              {% include icon.liquid name="arrow-right" -%}
+            </a>
           {% endif %}
-          {% if data[0] == 'meta' or data[1].size == 0 %} {% continue %} {% endif %}
-          <a class="anchor" id="{{ data[0] }}"></a>
-          <div class="card mt-3 p-3">
-            {% assign section_title = data[0] | capitalize %}
-            {% if data[0] == 'work' %}
-              {% assign section_title = 'Postdoctoral Experience' %}
-            {% elsif data[0] == 'volunteer' %}
-              {% assign section_title = 'Academic Service' %}
-            {% elsif data[0] == 'certificates' %}
-              {% assign section_title = 'Professional Memberships' %}
-            {% elsif data[0] == 'skills' %}
-              {% assign section_title = 'Research Interests' %}
-            {% endif %}
-            <h2 class="card-title font-weight-medium">{{ section_title }}</h2>
-            <div>
-              {% case data[0] %}
-                {% when 'basics' %}
-                  {% include resume/basics.liquid %}
-                {% when 'education' %}
-                  {% include resume/education.liquid %}
-                {% when 'work' %}
-                  {% include resume/work.liquid %}
-                {% when 'volunteer' %}
-                  {% include resume/volunteer.liquid %}
-                {% when 'projects' %}
-                  {% include resume/projects.liquid %}
-                {% when 'awards' %}
-                  {% include resume/awards.liquid %}
-                {% when 'skills' %}
-                  {% include resume/skills.liquid %}
-                {% when 'publications' %}
-                  {% include resume/publications.liquid %}
-                {% when 'languages' %}
-                  {% include resume/languages.liquid %}
-                {% when 'interests' %}
-                  {% include resume/interests.liquid %}
-                {% when 'certificates' %}
-                  {% include resume/certificates.liquid %}
-                {% when 'references' %}
-                  {% include resume/references.liquid %}
-                {% else %}
-
-              {% endcase %}
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </article>
-  </div>
-{% endunless %}
+        </div>
+        {% case entry.type %}
+          {% when 'time_table' %}
+            {% include cv/time_table.liquid %}
+          {% when 'map' %}
+            {% include cv/map.liquid %}
+          {% when 'list' %}
+            {% include cv/list.liquid %}
+          {% when 'nested_list' %}
+            {% include cv/nested_list.liquid %}
+          {% when 'list_groups' %}
+            {% include cv/list_groups.liquid %}
+          {% when 'publications' %}
+            {% include cv/publications.liquid %}
+          {% when 'teaching' %}
+            {% include cv/teaching.liquid %}
+          {% when 'mentoring' %}
+            {% include cv/mentoring.liquid %}
+          {% else %}
+            <div class="cv-block">{{ entry.contents }}</div>
+        {% endcase %}
+      </section>
+    {% endfor %}
+  </article>
+</div>

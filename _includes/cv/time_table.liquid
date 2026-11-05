@@ -1,118 +1,66 @@
-<ul class="card-text font-weight-light list-group list-group-flush">
+{% comment %}
+  CV timeline rows: years in a mono column on the left (from 768px), the entry on
+  the right. Rows with a `title` get an h3 (kept out of the TOC); rows with only
+  `items` (awards, memberships) list them as the entry text.
+{% endcomment %}
+<ol class="cv-rows">
   {% for content in entry.contents %}
-    <li class="list-group-item">
-      <div class="row">
-        {% if content.year %}
-          <div class="col-xs-2 cl-sm-2 col-md-2 text-center" style="width: 75px">
-            <table class="table-cv">
-              <tbody>
-                <tr>
-                  <td>
-                    <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px">
-                      {{- content.year -}}
-                    </span>
-                  </td>
-                </tr>
-                {% if content.location %}
-                  <tr>
-                    <td>
-                      <p class="location">
-                        <i class="fa-solid fa-location-dot iconlocation"></i>
-                        {{ content.location }}
-                      </p>
-                    </td>
-                  </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
+    <li class="cv-row">
+      {% if content.year %}
+        <p class="cv-row__when">{{ content.year | replace: ' - ', '–' }}</p>
+      {% endif %}
+      <div class="cv-row__body">
+        {% if content.title %}
+          <h3 class="cv-row__title" data-toc-skip>{{ content.title }}</h3>
         {% endif %}
-        <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
-          {% if content.title %}
-            <h6 class="title font-weight-bold ml-1 ml-md-4">{{ content.title }}</h6>
+        {% if content.institution or content.department %}
+          <p class="cv-row__where">
+            {{- content.institution -}}
+            {%- if content.institution and content.department %} · {% endif -%}
+            {{- content.department -}}
+          </p>
+        {% endif %}
+        {% if content.location %}
+          <p class="cv-row__loc">{{ content.location }}</p>
+        {% endif %}
+        {% if content.maindescription %}
+          <div class="cv-row__text">{{ content.maindescription }}</div>
+        {% endif %}
+        {% for group in (1..2) %}
+          {% if group == 1 %}
+            {% assign rows = content.description %}
+          {% else %}
+            {% assign rows = content.items %}
           {% endif %}
-          {% if content.department or content.institution %}
-            <table class="table-cv ml-1 ml-md-4 institution">
-              <tbody>
-                {% if content.institution %}
-                  <tr>
-                    <td style="vertical-align: top; text-align: center" class="institution">
-                      <i class="fa-solid fa-building-columns iconinstitution"></i>
-                    </td>
-                    <td class="institution">{{ content.institution }}</td>
-                  </tr>
-                {% endif %}
-                {% if content.department %}
-                  <tr>
-                    <td style="vertical-align: top; text-align: center" class="department">
-                      <i class="fa-regular fa-circle-dot icondepartment"></i>
-                    </td>
-                    <td class="department">{{ content.department }}</td>
-                  </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          {% endif %}
-          {% if content.maindescription %}
-            <div class="ml-1 ml-md-4">{{ content.maindescription }}</div>
-          {% endif %}
-          {% if content.description %}
-            <ul class="items">
-              {% for item in content.description %}
+          {% if rows %}
+            <ul class="{% if content.title or group == 1 %}cv-notes{% else %}cv-items{% endif %}">
+              {% for item in rows %}
                 <li>
                   {% if item.contents %}
-                    <span class="item-title">{{ item.title }}</span>
-                    <ul class="subitems">
+                    {{ item.title }}
+                    <ul class="cv-notes">
                       {% for subitem in item.contents %}
-                        <li>
-                          <span class="subitem">{{ subitem }}</span>
-                        </li>
+                        <li>{{ subitem }}</li>
                       {% endfor %}
                     </ul>
                   {% else %}
-                    <span class="item">{{ item }}</span>
+                    {{ item }}
                   {% endif %}
                 </li>
               {% endfor %}
             </ul>
           {% endif %}
-          {% if content.items %}
-            <ul class="items">
-              {% for item in content.items %}
-                <li>
-                  {% if item.contents %}
-                    <span class="item-title">{{ item.title }}</span>
-                    <ul class="subitems">
-                      {% for subitem in item.contents %}
-                        <li>
-                          <span class="subitem">{{ subitem }}</span>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    <span class="item">{{ item }}</span>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-          {% if content.linkitems %}
-            <div class="container-links ml-1 ml-md-4">
-              {% for item in content.linkitems %}
-                {% if item.link %}
-                  <div class="container-link-button">
-                    {% if item.linkname %}
-                      <a href="{{ item.link }}" target="_blank" class="btncv z-depth-0">{{ item.linkname }}</a>
-                    {% else %}
-                      <a href="{{ item.link }}" target="_blank" class="btncv z-depth-0">doc</a>
-                    {% endif %}
-                  </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-          {% endif %}
-        </div>
+        {% endfor %}
+        {% if content.linkitems %}
+          <p class="cv-row__links">
+            {% for item in content.linkitems %}
+              {% if item.link %}
+                <a class="text-link" href="{{ item.link }}">{{ item.linkname | default: 'Document' }}</a>
+              {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
       </div>
     </li>
   {% endfor %}
-</ul>
+</ol>
