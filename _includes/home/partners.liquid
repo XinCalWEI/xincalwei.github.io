@@ -9,9 +9,13 @@
 {%- assign head = page.sections.partners -%}
 <section class="home-section home-partners" aria-labelledby="home-partners-title">
   <div class="section-head">
-    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <p class="kicker">
+      <span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}
+    </p>
     <h2 class="section-head__title" id="home-partners-title">{{ head.title }}</h2>
-    {% if head.dek %}<p class="section-head__dek">{{ head.dek }}</p>{% endif %}
+    {% if head.dek %}
+      <p class="section-head__dek">{{ head.dek }}</p>
+    {% endif %}
   </div>
 
   <ul class="home-logos">

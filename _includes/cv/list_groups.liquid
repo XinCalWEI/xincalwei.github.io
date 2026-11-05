@@ -11,7 +11,9 @@
               {%- if item.level %} · {{ item.level }}{% endif -%}
               {%- if item.school %} · {{ item.school }}{% endif -%}
               {%- if item.time %} · {{ item.time }}{% endif -%}
-              {%- if item.link %} · <a class="text-link" href="{{ item.link }}">{{ item.linkname | default: 'Document' }}</a>{% endif %}
+              {%- if item.link %}
+                · <a class="text-link" href="{{ item.link }}">{{ item.linkname | default: 'Document' }}</a>
+              {%- endif %}
             </li>
           {% endfor %}
         </ul>

@@ -1,9 +1,11 @@
 <!-- Metadata, OpenGraph and Schema.org -->
 {% include metadata.liquid %}
 
-<!-- Bootstrap (grid, collapse, dropdown, utilities). MDB is no longer loaded:
-     the few classes content relied on (.z-depth-*, .btn/.badge baselines) live in
-     _sass/ds/. -->
+<!--
+  Bootstrap (grid, collapse, dropdown, utilities). MDB is no longer loaded:
+  the few classes content relied on (.z-depth-*, .btn/.badge baselines) live in
+  _sass/ds/.
+-->
 <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
 
 {% if page.pretty_table %}
@@ -22,7 +24,9 @@
   SVG in social.liquid. The icon-font stylesheets load only if _data/socials.yml lists a
   profile that still needs them.
 {% endcomment %}
-{% assign academicons_socials = 'academia_edu,acm_id,dblp_url,hal_id,ieee_id,inspirehep_id,lattes_id,osf_id,publons_id,research_gate_profile,scopus_id,semanticscholar_id,zotero_username' | split: ',' %}
+{% assign academicons_socials = 'academia_edu,acm_id,dblp_url,hal_id,ieee_id,inspirehep_id,lattes_id,osf_id,publons_id,research_gate_profile,scopus_id,semanticscholar_id,zotero_username'
+  | split: ','
+%}
 {% assign needs_academicons = false %}
 {% assign needs_scholar_icons = false %}
 {% for social in site.data.socials %}

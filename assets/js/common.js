@@ -44,7 +44,7 @@ $(document).ready(function () {
   const mobileNav = window.matchMedia("(max-width: 991.98px)");
   const $navbarNav = $("#navbarNav");
   const setPageBehindMenu = function (covered) {
-    document.querySelectorAll("#main-content, .site-footer, #back-to-top").forEach(function (el) {
+    document.querySelectorAll(".skip-link, #main-content, .site-footer, #back-to-top").forEach(function (el) {
       el.inert = covered;
     });
     document.documentElement.classList.toggle("nav-open", covered);

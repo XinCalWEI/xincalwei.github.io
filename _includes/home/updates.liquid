@@ -9,7 +9,9 @@
 {%- assign head = page.sections.updates -%}
 <section class="home-section home-updates" aria-labelledby="home-updates-title">
   <div class="section-head">
-    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <p class="kicker">
+      <span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}
+    </p>
     <h2 class="section-head__title" id="home-updates-title">{{ head.title }}</h2>
   </div>
 
@@ -64,10 +66,14 @@
           <li class="home-dated__item">
             <p class="home-dated__meta">
               <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d %b %Y' }}</time>
-              {% if cat %}<span class="home-dated__cat">{{ cat | replace: '-', ' ' }}</span>{% endif %}
+              {% if cat -%}
+                <span class="home-dated__cat">{{ cat | replace: '-', ' ' }}</span>
+              {%- endif %}
             </p>
             <div class="home-dated__body">
-              <p class="home-dated__title"><a href="{{ href }}">{{ post.title }}</a></p>
+              <p class="home-dated__title">
+                <a href="{{ href }}">{{ post.title }}</a>
+              </p>
               {% if post.description != blank %}
                 <p class="home-dated__dek">{{ post.description | strip_html | strip }}</p>
               {% endif %}

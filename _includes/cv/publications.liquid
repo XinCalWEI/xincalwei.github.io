@@ -6,7 +6,7 @@
   list that the stylesheet hides.
 {% endcomment %}
 {%- capture cv_n_articles -%}{% bibliography_count --query @article %}{%- endcapture -%}
-{%- capture cv_n_conf -%}{% bibliography_count --query @inproceedings %}{%- endcapture -%}
+{%- capture cv_n_conf -%}{% bibliography_count --query !@article %}{%- endcapture -%}
 {%- assign cv_last_year = site.time | date: '%Y' | plus: 1 -%}
 <p class="cv-pubs__summary">
   <span class="mono">{{ cv_n_articles | strip }} journal articles · {{ cv_n_conf | strip }} conference papers &amp; presentations</span>
@@ -21,5 +21,6 @@
 <div class="cv-pubs">
   {% for cv_year in (2010..cv_last_year) reversed %}
     {% bibliography --query @inproceedings[year={{ cv_year }}] --template cv-bib --group_by none %}
+    {% bibliography --query @misc[year={{ cv_year }}] --template cv-bib --group_by none %}
   {% endfor %}
 </div>

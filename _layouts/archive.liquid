@@ -48,14 +48,30 @@ layout_width: wide
     <p class="kicker">
       <a href="{{ index_url | relative_url }}">{{ index_name }}</a>
       <span aria-hidden="true">·</span>
-      <span>{% if page.type == 'categories' %}{% if is_book_archive %}Subject{% else %}Category{% endif %}{% elsif page.type == 'tags' %}Tag{% else %}Year{% endif %}</span>
+      <span>
+        {%- if page.type == 'categories' -%}
+          {%- if is_book_archive %}Subject{% else %}Category{% endif -%}
+        {%- elsif page.type == 'tags' -%}
+          Tag
+        {%- else -%}
+          Year
+        {%- endif -%}
+      </span>
     </p>
     <h1 class="post-title">
       {% if page.type == 'year' %}{{ page.date | date: '%Y' }}{% else %}{{ archive_display_title }}{% endif %}
     </h1>
     <p class="post-description">
-      {{- n }} {{ item_word }}{% if n != 1 %}s{% endif %}
-      {% if page.type == 'categories' %}in this {% if is_book_archive %}subject{% else %}category{% endif %}{% elsif page.type == 'tags' %}with this tag{% else %}from this year{% endif %}
+      {{- n }}
+      {{ item_word -}}
+      {%- if n != 1 %}s{% endif %}
+      {% if page.type == 'categories' -%}
+        in this {% if is_book_archive %}subject{% else %}category{% endif -%}
+      {%- elsif page.type == 'tags' -%}
+        with this tag
+      {%- else -%}
+        from this year
+      {%- endif %}
     </p>
   </header>
 

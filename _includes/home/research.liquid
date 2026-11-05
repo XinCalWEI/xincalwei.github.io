@@ -7,7 +7,9 @@
 {%- assign head = page.sections.research -%}
 <section class="home-section home-research" aria-labelledby="home-research-title">
   <div class="section-head">
-    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <p class="kicker">
+      <span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}
+    </p>
     <h2 class="section-head__title" id="home-research-title">{{ head.title }}</h2>
     {% if head.url %}
       <a class="text-link section-head__link" href="{{ head.url | relative_url }}">
@@ -30,7 +32,13 @@
       <li class="home-thrust">
         <p class="home-thrust__num" aria-hidden="true">{{ thrust.number }}</p>
         <h3 class="home-thrust__title">
-          {%- if thrust.url -%}<a class="home-thrust__title-link" href="{{ thrust.url | relative_url }}"><span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}</a>{%- else -%}<span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}{%- endif -%}
+          {%- if thrust.url -%}
+            <a class="home-thrust__title-link" href="{{ thrust.url | relative_url }}"
+              ><span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title -}}
+            </a>
+          {%- else -%}
+            <span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}
+          {%- endif -%}
         </h3>
         <p class="home-thrust__blurb">{{ thrust.blurb }}</p>
         <ul class="home-thrust__evidence" aria-label="Evidence for thrust {{ thrust.number }}">

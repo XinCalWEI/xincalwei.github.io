@@ -18,10 +18,14 @@
             {{- content.institution -}}
             {%- if content.institution and content.department %} · {% endif -%}
             {{- content.department -}}
-            {%- if content.location %}<span class="cv-row__loc"> · {{ content.location }}</span>{% endif -%}
+            {%- if content.location -%}
+              <span class="cv-row__loc"> · {{ content.location }}</span>
+            {%- endif -%}
           </p>
         {% elsif content.location %}
-          <p class="cv-row__where"><span class="cv-row__loc">{{ content.location }}</span></p>
+          <p class="cv-row__where">
+            <span class="cv-row__loc">{{ content.location }}</span>
+          </p>
         {% endif %}
         {% if content.maindescription %}
           <div class="cv-row__text">{{ content.maindescription }}</div>

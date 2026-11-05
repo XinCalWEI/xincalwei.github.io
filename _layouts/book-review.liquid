@@ -23,23 +23,31 @@ layout: default
   <header class="post-header">
     <p class="kicker">
       <a href="{{ '/books/' | relative_url }}">Bookshelf</a>
-      {%- if shelf_label %}<span aria-hidden="true">·</span><span>{{ shelf_label }}</span>{% endif %}
+      {%- if shelf_label -%}
+        <span aria-hidden="true">·</span><span>{{ shelf_label }}</span>
+      {%- endif %}
     </p>
     <h1 class="post-title">{{ page.title }}</h1>
     {% if page.author or page.released %}
       <p class="post-meta">
         {{- page.author -}}
-        {%- if page.author and page.released %}<span aria-hidden="true"> · </span>{% endif -%}
+        {%- if page.author and page.released -%}
+          <span aria-hidden="true"> · </span>
+        {%- endif -%}
         {{- page.released -}}
       </p>
     {% endif %}
     {% if page.started or page.finished or page.stars %}
       <p class="post-meta">
         {%- if page.started %}Started {{ page.started }}{% endif -%}
-        {%- if page.started and page.finished %}<span aria-hidden="true"> · </span>{% endif -%}
+        {%- if page.started and page.finished -%}
+          <span aria-hidden="true"> · </span>
+        {%- endif -%}
         {%- if page.finished %}Finished {{ page.finished }}{% endif -%}
         {%- if page.stars -%}
-          {%- if page.started or page.finished %}<span aria-hidden="true"> · </span>{% endif -%}
+          {%- if page.started or page.finished -%}
+            <span aria-hidden="true"> · </span>
+          {%- endif -%}
           Rating {{ page.stars }}/5
         {%- endif -%}
       </p>
@@ -53,12 +61,16 @@ layout: default
         {% endif %}
         {% for tag in page.tags %}
           <li>
-            <a class="tag" href="{{ tag | slugify | prepend: '/books/tag/' | append: '/' | relative_url }}"><span class="sr-only">Tag: </span>{{ tag | replace: '-', ' ' }}</a>
+            <a class="tag" href="{{ tag | slugify | prepend: '/books/tag/' | append: '/' | relative_url }}"
+              ><span class="sr-only">Tag: </span>{{ tag | replace: '-', ' ' -}}
+            </a>
           </li>
         {% endfor %}
         {% for category in page.categories %}
           <li>
-            <a class="tag" href="{{ category | slugify | prepend: '/books/category/' | append: '/' | relative_url }}"><span class="sr-only">Subject: </span>{{ category | replace: '-', ' ' }}</a>
+            <a class="tag" href="{{ category | slugify | prepend: '/books/category/' | append: '/' | relative_url }}"
+              ><span class="sr-only">Subject: </span>{{ category | replace: '-', ' ' -}}
+            </a>
           </li>
         {% endfor %}
       </ul>
@@ -69,7 +81,13 @@ layout: default
     {% capture cover_src %}{% if page.cover %}{{ page.cover | relative_url }}{% elsif page.olid %}https://covers.openlibrary.org/b/olid/{{ page.olid }}-L.jpg?default=false{% elsif page.isbn %}https://covers.openlibrary.org/b/isbn/{{ page.isbn }}-L.jpg?default=false{% endif %}{% endcapture %}
     {% if cover_src != '' %}
       <figure class="book-page__cover">
-        <img src="{{ cover_src }}" alt="Cover of {{ page.title }}"{% if page.cover_width %} width="{{ page.cover_width }}" height="{{ page.cover_height }}"{% endif %}>
+        <img
+          src="{{ cover_src }}"
+          alt="Cover of {{ page.title }}"
+          {% if page.cover_width %}
+            width="{{ page.cover_width }}" height="{{ page.cover_height }}"
+          {% endif %}
+        >
         {% if page.olid %}
           <figcaption class="caption">Cover via <a href="https://openlibrary.org/olid/{{ page.olid }}">Open Library</a></figcaption>
         {% elsif page.isbn %}
@@ -80,7 +98,9 @@ layout: default
 
     <div class="prose">
       {% if content == '' %}
-        <p class="book-page__status"><span class="tag">{{ page.status }}</span></p>
+        <p class="book-page__status">
+          <span class="tag">{{ page.status }}</span>
+        </p>
       {% else %}
         {% if page.start or page.end %}
           <p class="post-meta">
@@ -112,9 +132,7 @@ layout: default
       {% endif %}
 
       <p class="book-page__back">
-        <a class="text-link" href="{{ '/books/' | relative_url }}">
-          {%- include icon.liquid name="arrow-right" class="icon--flip" %} All books</a
-        >
+        <a class="text-link" href="{{ '/books/' | relative_url }}">{%- include icon.liquid name="arrow-right" class="icon--flip" %} All books</a>
       </p>
     </div>
   </article>
