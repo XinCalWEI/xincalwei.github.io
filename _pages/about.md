@@ -82,6 +82,7 @@ research:
   bio: I am an Eric and Wendy Schmidt AI in Science Postdoctoral Fellow at the University of Michigan, hosted by the Michigan Institute for Data and AI in Society (MIDAS). My research integrates geotechnical engineering, geospatial analysis, and risk and reliability analysis with AI to understand and mitigate geohazards, with a current focus on landslides. I earned my Ph.D. in Geotechnical Engineering from Shanghai Jiao Tong University, including a period as a visiting scholar in structural engineering at the University of Illinois Urbana-Champaign.
   thrusts:
     - number: "01"
+      url: /projects/#ai
       title: Reliable, scalable AI for geohazards
       blurb: I integrate physically based slope models with machine learning to map where landslides are likely and anticipate slope response. Physics-derived safety factors, spatial neighborhoods, and cross-region testing improve transfer and reduce training-sample uncertainty; recurrent networks forecast rainfall-driven pore-water pressure to inform early warning.
       evidence:
@@ -95,6 +96,7 @@ research:
           kind: Project
           url: /projects/4_deep_learning_timeseries/
     - number: "02"
+      url: /projects/#data
       title: Landslide data & knowledge discovery
       blurb: I use generative AI to reconstruct how past landslides affected communities. An agentic framework developed with USGS partners extracts, merges, and checks impact records from government reports and news, revealing direct losses and underappreciated indirect consequences.
       evidence:
@@ -105,6 +107,7 @@ research:
           kind: AGU 2025
           url: https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874
     - number: "03"
+      url: /projects/#infrastructure
       title: Community research infrastructure
       blurb: Through TerraMosaic, I bring fragmented landslide datasets together under standardized metadata so AI models can be trained, compared, and tested for transfer. I also convene AGU sessions on reliable and scalable geohazard intelligence and lead the SPARK Forum community initiative.
       evidence:
@@ -126,7 +129,7 @@ research:
     title: Grounded in geotechnical risk and reliability.
     text: "Collaborative studies carry hazards through to infrastructure consequences: quantitative risk assessment, submarine debris flows and pipelines, and offshore foundations."
     link_label: Collaborative risk studies
-    url: /projects/
+    url: /projects/#foundations
   vision:
     lead: Where this is going
     text: "My long-term goal is reliable and scalable geohazard intelligence: AI that is grounded in physical understanding, trained on open and well-documented data, and tested for transfer across regions and hazard types. I aim to connect prospective models of susceptibility, hazard, and infrastructure risk with retrospective evidence of how disasters affect communities, so that each informs the other — and, through TerraMosaic and community initiatives, to turn fragmented geohazard evidence into usable intelligence for researchers, decision-makers, and communities."

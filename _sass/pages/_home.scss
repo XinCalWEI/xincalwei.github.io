@@ -486,6 +486,20 @@ body:has(.home) {
   color: var(--xw-ink);
 }
 
+/* Title links to its section on the Research page; reads as a heading, not
+   as body link text, until hovered or focused. */
+.home-thrust__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-thrust__title-link:hover,
+.home-thrust__title-link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
 .home-thrust__blurb {
   max-width: 40em;
   margin: var(--space-3) 0 0;
@@ -1251,12 +1265,4 @@ html[data-theme="dark"] .home-tm::after {
  * like every other homepage list. */
 .home-pubs .bibliography > li:first-child {
   padding-top: 0;
-}
-
-/* Bootstrap's `.btn:focus { outline: 0 }` (specificity 0,2,0) outranks the
- * ds/_base `a:focus-visible` ring, so the link-type publication actions (DOI,
- * Link, PDF) showed no focus ring. Page-scoped restore until ds/ fixes it. */
-.home .btn:focus-visible {
-  outline: 2px solid var(--xw-focus);
-  outline-offset: 2px;
 }

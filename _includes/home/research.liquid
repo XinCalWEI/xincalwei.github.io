@@ -30,7 +30,7 @@
       <li class="home-thrust">
         <p class="home-thrust__num" aria-hidden="true">{{ thrust.number }}</p>
         <h3 class="home-thrust__title">
-          <span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}
+          {%- if thrust.url -%}<a class="home-thrust__title-link" href="{{ thrust.url | relative_url }}"><span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}</a>{%- else -%}<span class="sr-only">Thrust {{ thrust.number }}: </span>{{ thrust.title }}{%- endif -%}
         </h3>
         <p class="home-thrust__blurb">{{ thrust.blurb }}</p>
         <ul class="home-thrust__evidence" aria-label="Evidence for thrust {{ thrust.number }}">
