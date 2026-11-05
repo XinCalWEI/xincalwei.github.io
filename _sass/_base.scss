@@ -455,9 +455,12 @@ ul.task-list input[type="checkbox"] {
 
 // The theme toggle's icons are blocks (_themes.scss). A glyph's line box puts
 // the baseline at the rounded ascent (14px at 16px, not 14.4px), so lift the
-// SVG 0.4px and give the space back below to keep the 16px box.
+// SVG 0.4px and give the space back below to keep the 16px box. The SVG stays
+// inline so the button keeps a text baseline: as a block it would leave the
+// button without one, and the collapsed menu's theme row would grow by 2px.
 #light-toggle .ti svg {
-  display: block;
+  display: inline-block;
+  vertical-align: top;
   margin-top: -0.025em;
   margin-bottom: 0.025em;
 }
