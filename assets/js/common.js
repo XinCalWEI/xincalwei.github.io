@@ -1,21 +1,42 @@
 $(document).ready(function () {
   // add toggle functionality to abstract, award and bibtex buttons
-  $("a.abstract").click(function () {
-    $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  // (_layouts/bib.liquid renders them as <button>s two levels below the entry;
+  // a.* kept for older markup). aria-expanded mirrors each panel's state.
+  const syncExpanded = function (entry) {
+    ["abstract", "award", "bibtex"].forEach(function (kind) {
+      const open = entry.find("." + kind + ".hidden").hasClass("open");
+      entry.find(".links ." + kind).attr("aria-expanded", open ? "true" : "false");
+    });
+  };
+  $("a.abstract, button.abstract").click(function () {
+    const entry = $(this).parent().parent();
+    entry.find(".abstract.hidden").toggleClass("open");
+    entry.find(".award.hidden.open").toggleClass("open");
+    entry.find(".bibtex.hidden.open").toggleClass("open");
+    syncExpanded(entry);
   });
-  $("a.award").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  $("a.award, button.award").click(function () {
+    const entry = $(this).parent().parent();
+    entry.find(".abstract.hidden.open").toggleClass("open");
+    entry.find(".award.hidden").toggleClass("open");
+    entry.find(".bibtex.hidden.open").toggleClass("open");
+    syncExpanded(entry);
   });
-  $("a.bibtex").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
+  $("a.bibtex, button.bibtex").click(function () {
+    const entry = $(this).parent().parent();
+    entry.find(".abstract.hidden.open").toggleClass("open");
+    entry.find(".award.hidden.open").toggleClass("open");
+    entry.find(".bibtex.hidden").toggleClass("open");
+    syncExpanded(entry);
   });
-  $("a").removeClass("waves-effect waves-light");
+
+  // Escape closes the open mobile menu and returns focus to the toggler
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape" && $("#navbarNav").hasClass("show")) {
+      $("#navbarNav").collapse("hide");
+      $(".navbar-toggler").trigger("focus");
+    }
+  });
 
   // bootstrap-toc
   if ($("#toc-sidebar").length) {

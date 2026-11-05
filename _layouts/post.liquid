@@ -85,6 +85,7 @@ layout: default
     <div class="publications">
       {% bibliography --group_by none --cited_in_order %}
     </div>
+    <script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
   {% endif %}
 
   {% if site.related_blog_posts and site.related_blog_posts.enabled %}

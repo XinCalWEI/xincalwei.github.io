@@ -11,7 +11,7 @@
 (function () {
   "use strict";
 
-  const entries = document.querySelectorAll(".publications a.abstract.btn");
+  const entries = document.querySelectorAll(".publications .links .abstract.btn");
   if (!entries.length || !window.HTMLDialogElement) return;
 
   let dialog = document.getElementById("abstract-dialog");
@@ -22,7 +22,7 @@
     dialog.innerHTML = [
       '<form method="dialog" class="abs-modal__close-form">',
       '  <button class="abs-modal__close" aria-label="Close abstract" value="close">',
-      '    <i class="fa-solid fa-xmark" aria-hidden="true"></i>',
+      '    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>',
       "  </button>",
       "</form>",
       '<p class="abs-modal__eyebrow">Abstract</p>',
@@ -61,6 +61,7 @@
 
         titleEl.textContent = text(entry, ".title");
         metaEl.textContent = [text(entry, ".author"), text(entry, ".periodical")].filter(Boolean).join(" · ");
+        const opener = btn;
         bodyEl.innerHTML = "";
         source.querySelectorAll("p").forEach((p) => {
           const copy = document.createElement("p");
@@ -77,6 +78,7 @@
         });
 
         dialog.showModal();
+        dialog.addEventListener("close", () => opener.focus(), { once: true });
       },
       true // capture phase — runs before the jQuery handler bound on bubble
     );

@@ -6,6 +6,7 @@ nav_title: Publications
 description: Publications are ordered from newest to oldest.
 nav: true
 nav_order: 2
+layout_width: wide
 ---
 
 <!-- _pages/publications.md -->
@@ -20,4 +21,4 @@ nav_order: 2
 
 </div>
 
-<script src="{{ '/assets/js/abstract-modal.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
