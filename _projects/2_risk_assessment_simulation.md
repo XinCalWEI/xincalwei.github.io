@@ -1,27 +1,18 @@
 ---
-layout: project
+layout: page
 title: Landslide Risk Assessment from Failure to Consequence
 description: A subset-simulation and large-deformation framework propagates uncertain soil-strength parameters through slope failure and post-failure response, then links case-specific consequence measures to vulnerability, temporal exposure, and risk.
-# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/landslide-risk-assessment.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration of slope failure, runout, and spatially distributed consequences across an exposed valley community."
 importance: 5
-category: Prospective Modeling
+category: Prospective Modelling
 sub_area: Risk
 toc:
   sidebar: right
   breakpoint: lg
 related_publications: true
-math: true # loads MathJax (see _includes/scripts.liquid)
-# Research index (_pages/projects.md, _includes/projects.liquid)
-thrust: foundations
-label: Landslide risk
-period: 2022
-role: Collaborative study
-thumb: assets/img/projects/research/qra-trace-point-method.png
-thumb_alt: Large-deformation slope simulation coloured by displacement, with trace points used to measure runout distance and debris depth at a structure
 ---
 
 <div class="project-detail prose" markdown="1">
@@ -55,7 +46,7 @@ This study replaces the usual break between slope-stability analysis and empiric
 
 The paper is not a regional susceptibility-mapping study. It evaluates the risk posed by a specified slope to a specified exposed element. Its central distinction is between a slope that becomes unstable and a realization whose motion reaches the element at risk. {% cite cui2022quantitative %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Concept, Meaning in this study, Representation">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Concept</th><th>Meaning in this study</th><th>Representation</th></tr>
@@ -103,7 +94,7 @@ $$
 
 </div>
 
-<div class="project-detail__figure-scroll" tabindex="0" role="region" aria-label="Risk-chain diagram (scrolls sideways on small screens)">
+<div class="project-detail__figure-scroll">
 {% include figure.liquid path="assets/img/projects/research/qra-risk-chain.svg" class="img-fluid" alt="Conceptual chain from lognormal soil-strength samples through CEL failure and runout, the reach threshold, vulnerability, exposure, and risk" %}
 </div>
 
@@ -181,7 +172,7 @@ CEL is the large-deformation implementation used in these cases, but the risk fo
 
 The case studies propagate parametric uncertainty in cohesion $c$ and friction angle $\phi$, both modeled as lognormal random variables. The paper does not state that they are statistically independent. Unit weight, stiffness, Poisson's ratio, geometry, excavation angle, reservoir level, and remediation configuration are prescribed inputs or scenarios. Natural spatial variability is not modeled. {% cite cui2022quantitative %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Case, Random soil-strength parameters, Representative fixed/scenario inputs">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Case</th><th>Random soil-strength parameters</th><th>Representative fixed/scenario inputs</th></tr>
@@ -193,7 +184,7 @@ The case studies propagate parametric uncertainty in cohesion $c$ and friction a
 </table>
 </div>
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Material inputs from Tables 1 and 6">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Case and material</th><th>$\gamma$ (kN/m³)</th><th>$E$ (MPa)</th><th>$\nu$</th><th>$\phi$, mean ± SD</th><th>$c$, mean ± SD</th></tr>
@@ -214,7 +205,7 @@ The case studies propagate parametric uncertainty in cohesion $c$ and friction a
 
 The efficiency and method-comparison results use three distinct routes. Keeping them separate is essential:
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Route, Composition, Purpose, Consequence information">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Route</th><th>Composition</th><th>Purpose</th><th>Consequence information</th></tr>
@@ -239,7 +230,7 @@ The 2011 Baqiao loess landslide was approximately 90 m high and 170 m wide, with
     Baqiao stratigraphy and excavation scenarios. Scenario I is the original slope; Scenarios II–IV prescribe progressively steeper cuts and different slope-to-structure thresholds. Cropped from Fig. 5 in {% cite cui2022quantitative %}.
 </div>
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Scenario, Slope angle, Structure threshold, Mean-parameter FS, Role">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Scenario</th><th>Slope angle</th><th>Structure threshold $b$</th><th>Mean-parameter FS</th><th>Role</th></tr>
@@ -292,7 +283,7 @@ $$
 
 Slope cutting shifts the simulated distributions of runout distance, velocity, and moving volume toward larger values:
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Scenario, Runout distance, mean ± SD, Velocity, mean ± SD, Moving volume, mean ± SD">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Scenario</th><th>Runout distance, mean ± SD</th><th>Velocity, mean ± SD</th><th>Moving volume, mean ± SD</th></tr>
@@ -321,7 +312,7 @@ $$
 
 simulations. At each of the first two levels, the 40 samples with the largest runout distances become seeds for the next level. {% cite cui2022quantitative %}
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Subset, Impacting samples">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Subset</th><th>$P(\Omega_i)$</th><th>Impacting samples</th><th>$P_{fr,i}$</th><th>$\overline{V}_i$</th></tr>
@@ -338,7 +329,7 @@ The weighted calculation gives $P_{fr}\approx0.081$ and $R\approx0.078$; Table 4
 
 ### Risk, direct-MCS validation, and the empirical comparator
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Scenario, SS–CEL, Direct MCS–CEL, Reaching samples / CEL runs (unweighted)">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Scenario</th><th>$P_{fr}$</th><th>$\overline V$</th><th>SS–CEL $R$</th><th>Direct MCS–CEL $R$</th><th>Reaching samples / CEL runs (unweighted)</th></tr>
@@ -357,7 +348,7 @@ The direct-MCS–CEL values provide numerical validation of subset sampling with
 
 The conventional comparison produces much larger risk values in this case:
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Scenario, Assumed vulnerability after reach, Approach 2">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Scenario</th><th>$P_f$</th><th>$P_r$</th><th>Assumed $V$ after reach</th><th>Approach 2 $R$</th></tr>
@@ -386,7 +377,7 @@ The Ganjingzi slope lies approximately 150 m from the Yangtze River navigation c
     Ganjingzi numerical geometry: global and local potential failures, two anti-slide-pile rows, and the two evaluated reservoir levels. Cropped from Fig. 8 in {% cite cui2022quantitative %}.
 </div>
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Scenario, Slope state, Reservoir levels, Consequence pathway">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Scenario</th><th>Slope state</th><th>Reservoir levels</th><th>Consequence pathway</th></tr>
@@ -405,7 +396,7 @@ The CEL model represents bedrock and piles as rigid materials, uses Coulomb-fric
 
 Water-surface trace points convert soil–water motion into maximum wave height. The consequence model then maps wave height to vessel vulnerability: {% cite cui2022quantitative %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Wave height, Alert class, Assigned vessel vulnerability">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Wave height</th><th>Alert class</th><th>Assigned vessel vulnerability</th></tr>
@@ -445,7 +436,7 @@ $$
 
 For this case, stable or blue-alert samples are retained and assigned $V=0$. Table 7 therefore lists $P_{fr}=100\%$ for its aggregation. This is an accounting choice for the wave-consequence calculation; it does not mean that every sampled slope produces a damaging landslide. {% cite cui2022quantitative %}
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Scenario, Water level, Reported, Mean vulnerability, Reported individual risk, Criterion">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Scenario</th><th>Water level</th><th>Reported $P_{fr}$</th><th>$P_t$</th><th>Mean vulnerability</th><th>Reported individual risk $R$</th><th>Criterion</th></tr>

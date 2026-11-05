@@ -1,89 +1,30 @@
-{% comment %}
-  Site footer: contour band, identity block, site links (primary nav + the "More"
-  menu, generated from the same front matter as the header), profile icons, credit.
-  Identity text: site.footer_identity in _config.yml; email from _data/socials.yml.
-{% endcomment %}
-{%- capture author_name -%}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{%- endcapture -%}
-<footer class="site-footer" role="contentinfo">
-  {% if site.newsletter.enabled %}
-    {% include newsletter.liquid %}
+{% capture footer_contents %}
+  &copy; Copyright {{ site.time | date: '%Y' }}
+  {{ site.first_name }}
+  {{ site.middle_name }}
+  {{ site.last_name }}. {{ site.footer_text }}
+  {% if site.impressum_path %}
+    <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
   {% endif %}
-  <div class="site-footer__band" aria-hidden="true"></div>
-  <div class="container container--wide">
-    <div class="site-footer__grid">
-      <div class="site-footer__id">
-        <p class="site-footer__name">
-          <a href="{{ '/' | relative_url }}">{{ author_name | strip }}</a>
-        </p>
-        {% if site.footer_identity %}
-          <p class="site-footer__role">
-            <span>{{ site.footer_identity.position }}</span>
-            {%- if site.footer_identity.affiliation -%}
-              <span>{{ site.footer_identity.affiliation }}</span>
-            {%- endif %}
-          </p>
-          <address class="site-footer__addr">
-            {% if site.footer_identity.address -%}
-              {{- site.footer_identity.address -}}
-              <br>
-            {% endif %}
-            {% if site.data.socials.email %}
-              <a href="mailto:{{ site.data.socials.email | encode_email }}">{{ site.data.socials.email }}</a>
-            {% endif %}
-          </address>
-        {% endif %}
-      </div>
+  {% if site.last_updated %}
+    Last updated: {{ 'now' | date: '%B %d, %Y' }}.
+  {% endif %}
+{% endcapture %}
 
-      <nav class="site-footer__nav" aria-label="Footer">
-        <ul>
-          {% assign footer_pages = site.pages | sort: 'nav_order' %}
-          {% for p in footer_pages %}
-            {% if p.nav and p.autogen == null %}
-              {% if p.dropdown %}
-                {% for child in p.children %}
-                  {% unless child.title == 'divider' %}
-                    <li>
-                      <a href="{% if child.permalink contains '://' %}{{ child.permalink }}{% else %}{{ child.permalink | relative_url }}{% endif %}">
-                        {{- child.title -}}
-                      </a>
-                    </li>
-                  {% endunless %}
-                {% endfor %}
-              {% else %}
-                {%- if p.permalink contains '/blog/' -%}
-                  {%- assign url = '/blog/' -%}
-                {%- else -%}
-                  {%- assign url = p.url -%}
-                {%- endif -%}
-                <li>
-                  <a href="{{ url | relative_url }}">{{ p.nav_title | default: p.title }}</a>
-                </li>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </nav>
-
-      <div class="site-footer__social">
-        <p class="site-footer__label">Profiles</p>
-        <div class="site-footer__icons">{% include social.liquid class="icon-link" %}</div>
-      </div>
+{% if site.footer_fixed %}
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      {{ footer_contents }}
     </div>
+  </footer>
+{% else %}
+  <footer class="sticky-bottom mt-5" role="contentinfo">
+    {% if site.newsletter.enabled %}
+      {% include newsletter.liquid %}
+    {% endif %}
 
-    <div class="site-footer__meta">
-      <p>
-        &copy; {{ site.time | date: '%Y' }}
-        {{ author_name | strip }}
-      </p>
-      <p>{{ site.footer_text }}</p>
-      {% if site.impressum_path %}
-        <p><a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a></p>
-      {% endif %}
-      {% if site.last_updated %}
-        <p>
-          Last updated <time datetime="{{ site.time | date: '%Y-%m-%d' }}">{{ site.time | date: '%B %-d, %Y' }}</time>
-        </p>
-      {% endif %}
+    <div class="container">
+      {{ footer_contents }}
     </div>
-  </div>
-</footer>
+  </footer>
+{% endif %}

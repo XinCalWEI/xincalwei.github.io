@@ -1,41 +1,174 @@
 /*******************************************************************************
- * Theme switching: the JS-coupled rules only. Colour values live in
- * _sass/_tokens.scss.
- *
- * assets/js/theme.js cycles html[data-theme-setting] system -> light -> dark and
- * sets html[data-theme]. The header's #light-toggle holds one icon per setting
- * (_includes/header.liquid); exactly one is displayed, and because hidden
- * elements drop out of the accessibility tree, the button's accessible name
- * (the visible icon's sr-only label) follows the setting.
+ * Themes
  ******************************************************************************/
 
-#light-toggle-system,
-#light-toggle-light,
-#light-toggle-dark {
-  display: none;
-}
+@use "sass:color";
 
-/* default (no stored setting) = system */
-:root:not([data-theme-setting="light"]):not([data-theme-setting="dark"]) #light-toggle-system,
-html[data-theme-setting="light"] #light-toggle-light,
-html[data-theme-setting="dark"] #light-toggle-dark {
-  display: inline-flex;
-}
+:root {
+  color-scheme: light;
+  // "Paper & ink" palette, ported from the TerraMosaic site (landslide-detection repo):
+  // warm paper ground, navy ink text, tm-blue links.
+  --global-bg-color: #f7f6f1; // warm paper, from --tm-paper #f5f4ef
+  --global-code-bg-color: #eeece4; // paper-toned code surface
+  --global-text-color: #16243d; // --tm-ink, 13.6:1 on paper
+  --global-text-color-light: #46505e; // --tm-slate, 7.2:1 on paper
+  --global-theme-color: #1e40af; // deep tm-blue (matches the pill family), 8.1:1 on paper
+  --global-hover-color: #16389b; // darker blue; also used as a background (see --global-hover-text-color)
+  --global-hover-text-color: #{$white-color}; // 9.9:1 on --global-hover-color
+  // footer as an ink band on the paper page (was the stock near-black strip)
+  --global-footer-bg-color: #16243d;
+  --global-footer-text-color: #b7c0d2;
+  --global-footer-link-color: #{$white-color};
+  --global-distill-app-color: #{$grey-color};
+  --global-divider-color: #dedcd2; // opaque hairline on paper, from --tm-line
+  --global-card-bg-color: #{$white-color}; // white cards pop off the paper
+  --global-surface-color: #f6f5ef; // row-hover fill inside white cards
+  --global-control-border-color: #8a93a1; // 3.10:1 — interactive boundaries, meets WCAG SC 1.4.11
+  --global-accent-soft: #dee7f8; // search-highlight background
+  --global-highlight-color: #{$red-color-dark};
+  --global-back-to-top-bg-color: rgba(
+    #{color.channel($black-color, "red", $space: rgb)},
+    #{color.channel($black-color, "green", $space: rgb)},
+    #{color.channel($black-color, "blue", $space: rgb)},
+    0.4
+  );
+  --global-back-to-top-text-color: #{$white-color};
+  --global-newsletter-bg-color: #{$white-color};
+  --global-newsletter-text-color: #{$black-color};
 
-.only-light {
-  display: block;
-}
+  --global-tip-block: #42b983;
+  --global-tip-block-bg: #e2f5ec;
+  --global-tip-block-text: #215d42;
+  --global-tip-block-title: #359469;
+  --global-warning-block: #e7c000;
+  --global-warning-block-bg: #fff8d8;
+  --global-warning-block-text: #6b5900;
+  --global-warning-block-title: #b29400;
+  --global-danger-block: #c00;
+  --global-danger-block-bg: #ffe0e0;
+  --global-danger-block-text: #600;
+  --global-danger-block-title: #c00;
 
-.only-dark {
-  display: none;
+  #light-toggle-system {
+    padding-left: 10px;
+    padding-top: 12px;
+    display: block;
+  }
+
+  #light-toggle-dark {
+    display: none;
+  }
+
+  #light-toggle-light {
+    display: none;
+  }
+
+  .only-light {
+    display: block;
+  }
+
+  .only-dark {
+    display: none;
+  }
+
+  #back-to-top {
+    color: var(--global-back-to-top-text-color);
+    background: var(--global-back-to-top-bg-color);
+    bottom: $back-to-top-bottom;
+    right: $back-to-top-right;
+    height: $back-to-top-height;
+    width: $back-to-top-width;
+    z-index: $back-to-top-z-index;
+  }
 }
 
 html[data-theme="dark"] {
+  color-scheme: dark;
+  // Dark twin of the paper-and-ink palette: the page becomes the ink.
+  --global-bg-color: #10182a; // deep navy ink, brand-consistent dark ground
+  --global-code-bg-color: #1a2338;
+  --global-text-color: #e9ecf3; // 13.9:1
+  --global-text-color-light: #a3adc0; // 7.1:1
+  --global-theme-color: #8db2f8; // tm-blue's dark twin, 7.0:1
+  --global-hover-color: #b3cdfa; // 9.6:1 as text
+  // critical: _base.scss:282 (.dropdown-item.active) and :1051 (pagination :hover) use
+  // --global-hover-color as a BACKGROUND with this colour on top. White would fail.
+  --global-hover-text-color: #10182a; // 9.6:1 on --global-hover-color
+  // footer melts into the dark theme as an elevated navy card (was a light-gray strip)
+  --global-footer-bg-color: #182238;
+  --global-footer-text-color: #a3adc0;
+  --global-footer-link-color: #e9ecf3;
+  --global-distill-app-color: #{$grey-color-light};
+  --global-divider-color: #2a3247; // re-derived for an emissive panel, not a numeric inversion
+  --global-card-bg-color: #182238; // elevated navy card
+  --global-surface-color: #1f2a42; // row-hover fill
+  --global-control-border-color: #6f7a94; // 3.6:1
+  --global-accent-soft: #2b3c5e;
+  --global-back-to-top-bg-color: rgba(
+    #{color.channel($white-color, "red", $space: rgb)},
+    #{color.channel($white-color, "green", $space: rgb)},
+    #{color.channel($white-color, "blue", $space: rgb)},
+    0.5
+  );
+  --global-back-to-top-text-color: #{$black-color};
+  --global-newsletter-bg-color: #{$grey-color-light};
+  --global-newsletter-text-color: #{$grey-color-dark};
+
+  --global-tip-block: #42b983;
+  --global-tip-block-bg: #e2f5ec;
+  --global-tip-block-text: #215d42;
+  --global-tip-block-title: #359469;
+  --global-warning-block: #e7c000;
+  --global-warning-block-bg: #fff8d8;
+  --global-warning-block-text: #6b5900;
+  --global-warning-block-title: #b29400;
+  --global-danger-block: #c00;
+  --global-danger-block-bg: #ffe0e0;
+  --global-danger-block-text: #600;
+  --global-danger-block-title: #c00;
+
   .only-light {
     display: none;
   }
 
   .only-dark {
+    display: block;
+  }
+}
+
+html[data-theme-setting="dark"] {
+  #light-toggle-system {
+    display: none;
+  }
+
+  #light-toggle-dark {
+    padding-left: 10px;
+    padding-top: 12px;
+    display: block;
+  }
+
+  #light-toggle-light {
+    display: none;
+  }
+
+  #back-to-top {
+    color: var(--global-back-to-top-text-color);
+    background: var(--global-back-to-top-bg-color);
+  }
+}
+
+html[data-theme-setting="light"] {
+  #light-toggle-system {
+    display: none;
+  }
+
+  #light-toggle-dark {
+    display: none;
+  }
+
+  #light-toggle-light {
+    padding-left: 10px;
+    padding-top: 12px;
     display: block;
   }
 }

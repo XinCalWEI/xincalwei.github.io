@@ -1,24 +1,18 @@
 ---
-layout: project
+layout: page
 title: Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI
 description: An agentic generative-AI framework that extracts and synthesizes diverse web sources to capture the full range of direct and indirect landslide impacts.
-# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/retrospective-landslide-consequences.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration of a generative-AI evidence network synthesizing dispersed records of landslide consequences across regions."
-importance: 4
+importance: 7
 category: Retrospective Analysis
-# Research index (_pages/projects.md, _includes/projects.liquid)
-thrust: data
-label: Impact records · Generative AI
-period: 2024–present
-schematic: genai-impacts
 ---
 
 <div class="prose" markdown="1">
 
-_A preliminary version of this work was selected for an [oral presentation at **AGU Fall Meeting 2025 (AGU25)**](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874) and was featured as a **Highlighted Talk**._
+_A preliminary version of this work was selected for an oral presentation at **AGU Fall Meeting 2025 (AGU25)** and was featured as a **Highlighted Talk** ([link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874))._
 
 While landslides are pervasive across the U.S., their specific social, economic, and ecological impacts remain underappreciated due to their localized and episodic nature, co-occurrence with other hazards, and variability across broad regions. Efforts to systematically quantify landslide impacts have often been limited to localized case studies, carried out by numerous agencies with differing standards, and constrained to limited time frames due to labor-intensive data collection.
 

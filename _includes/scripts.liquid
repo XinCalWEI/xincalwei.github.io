@@ -1,21 +1,17 @@
 <!-- jQuery -->
-{% comment %}
-  Self-hosted (assets/js/jquery.min.js, the unmodified 3.6.0 file, so the SRI hash
-  in _config.yml still applies): no second origin on the critical path. A full URL
-  in _config.yml switches back to a CDN.
-{% endcomment %}
-{% assign jquery_src = site.third_party_libraries.jquery.url.js %}
-{% unless jquery_src contains '://' %}
-  {% assign jquery_src = jquery_src | relative_url %}
-{% endunless %}
 <script
-  src="{{ jquery_src }}"
+  src="{{ site.third_party_libraries.jquery.url.js }}"
   integrity="{{ site.third_party_libraries.jquery.integrity.js }}"
   crossorigin="anonymous"
 ></script>
 
-<!-- Bootstrap scripts (collapse, dropdown, scrollspy) -->
+<!-- Bootsrap & MDB scripts -->
 <script src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
+<script
+  src="{{ site.third_party_libraries.mdb.url.js }}"
+  integrity="{{ site.third_party_libraries.mdb.integrity.js }}"
+  crossorigin="anonymous"
+></script>
 
 {% if site.enable_masonry %}
   <!-- Masonry & imagesLoaded -->
@@ -156,12 +152,7 @@
   <script src="{{ '/assets/js/tooltips-setup.js' | relative_url | bust_file_cache }}"></script>
 {% endif %}
 
-{% comment %}
-  medium-zoom + zoom.js only where the page has zoomable images (figure.liquid
-  `zoomable=true` writes data-zoomable). `content` here is the page body rendered
-  through every inner layout, so images from layouts and includes count too.
-{% endcomment %}
-{% if site.enable_medium_zoom and content contains 'data-zoomable' %}
+{% if site.enable_medium_zoom %}
   <!-- Medium Zoom JS -->
   <script
     defer
@@ -204,11 +195,7 @@
   <script async src="https://badge.dimensions.ai/badge.js"></script>
 {% endif %}
 
-{% comment %}
-  MathJax (~265 KB gz) loads only where it is used: pages that set `math: true`
-  (or `pseudocode: true`) in front matter.
-{% endcomment %}
-{% if site.enable_math and page.math or site.enable_math and page.pseudocode %}
+{% if site.enable_math %}
   <!-- MathJax -->
   <script
     defer
@@ -220,6 +207,11 @@
   ></script>
   {% unless page.pseudocode %}
     <script src="{{ '/assets/js/mathjax-setup.js' | relative_url | bust_file_cache }}"></script>
+    <script
+      defer
+      src="{{ site.third_party_libraries.polyfill.url.js }}"
+      crossorigin="anonymous"
+    ></script>
   {% else %}
     <script src="{{ '/assets/js/pseudocode-setup.js' | relative_url | bust_file_cache }}"></script>
     <script
@@ -256,8 +248,7 @@
   <script async defer src="https://openpanel.dev/op1.js"></script>
 {% endif %}
 
-{% comment %} header.liquid renders <progress> on blog posts only {% endcomment %}
-{% if site.enable_progressbar and page.collection == 'posts' %}
+{% if site.enable_progressbar %}
   <!-- Scrolling Progress Bar -->
   <script defer src="{{ '/assets/js/progress-bar.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
 {% endif %}
@@ -319,51 +310,13 @@
   <script src="{{ '/assets/js/vanilla-back-to-top.min.js' | relative_url | bust_file_cache }}"></script>
   <script>
     addBackToTop();
-    // The library builds a bare <div>: make it a named button that keyboard and
-    // screen-reader users can reach while it is shown (it is faded out, and here
-    // also unfocusable, at the top of the page). Activating it from the keyboard
-    // puts focus back at the top of the tab order (the skip link).
-    (function () {
-      var btt = document.getElementById('back-to-top');
-      if (!btt) return;
-      btt.setAttribute('role', 'button');
-      btt.setAttribute('aria-label', 'Back to top');
-      var sync = function () {
-        var hidden = btt.classList.contains('hidden');
-        btt.tabIndex = hidden ? -1 : 0;
-        btt.setAttribute('aria-hidden', hidden ? 'true' : 'false');
-      };
-      sync();
-      new MutationObserver(sync).observe(btt, { attributes: true, attributeFilter: ['class'] });
-      btt.addEventListener('keydown', function (e) {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        e.preventDefault();
-        btt.click();
-        var skip = document.querySelector('.skip-link');
-        if (skip) skip.focus({ preventScroll: true });
-      });
-    })();
   </script>
 {% endif %}
 
 {% if site.search_enabled %}
   <!-- Search -->
   <script type="module" src="{{ '/assets/js/search/ninja-keys.min.js' | relative_url | bust_file_cache }}"></script>
-  {% comment %}
-    The slotted footer replaces the library's key hints (styled in ds/_chrome,
-    hidden on phones and touch screens) and holds the live region search-setup.js
-    fills with the result count and the selected result.
-  {% endcomment %}
-  <ninja-keys hideBreadcrumbs noAutoLoadMdIcons placeholder="Type to start searching">
-    <div slot="footer" class="ninja-footer">
-      <p class="ninja-footer__hints" aria-hidden="true">
-        <span><kbd>Enter</kbd>to open</span>
-        <span><kbd>&uarr;</kbd><kbd>&darr;</kbd>to move</span>
-        <span><kbd>Esc</kbd>to close</span>
-      </p>
-      <p id="search-status" class="sr-only" role="status"></p>
-    </div>
-  </ninja-keys>
+  <ninja-keys hideBreadcrumbs noAutoLoadMdIcons placeholder="Type to start searching"></ninja-keys>
   <script src="{{ '/assets/js/search-setup.js' | relative_url | bust_file_cache }}"></script>
   <script src="{{ '/assets/js/search-data.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/shortcut-key.js' | relative_url | bust_file_cache }}"></script>

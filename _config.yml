@@ -2,29 +2,24 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Xin Wei # the website title: header brand, <title> suffix, feed title (al-folio's "blank" would use the full name, but jekyll-feed would print "blank")
+title: blank # the website title (if blank, full name will be used instead)
 first_name: Xin
 middle_name:
 last_name: Wei
 contact_note: >
   Feel free to reach out via email for research collaboration and inquiries.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Reliable, scalable AI for geohazards: anticipating landslides, uncovering the consequences of past disasters, and building open data for resilient communities.
-  Eric and Wendy Schmidt AI in Science Postdoctoral Fellow, University of Michigan.
+  Postdoctoral researcher at the University of Michigan, exploring AI-physics solutions for geohazard risk assessment and resilience.
 footer_text: >
-  Built with <a href="https://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/alshedivat/al-folio">al-folio</a>.
-# Identity block in the site footer (_includes/footer.liquid). Email comes from _data/socials.yml.
-footer_identity:
-  position: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow
-  affiliation: University of Michigan
-  address: 3520 Green Court, Ann Arbor, MI 48105
+  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
 keywords: geohazards, landslide risk assessment, machine learning, AI in geotechnical engineering, natural hazards, resilience # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: brand/favicon.svg # SVG mark in /assets/img/ (an emoji also works); the 180px apple-touch PNG sits next to it
+icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://xincalwei.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
-last_updated: true # set to true if you want to display last updated in the footer
+last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
 
@@ -58,7 +53,7 @@ posts_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 1120px # index pages; prose bodies keep their own ~68ch measure (_sass/_tokens.scss)
+max_width: 930px
 
 # TODO: add layout settings (single page vs. multi-page)
 
@@ -67,9 +62,9 @@ max_width: 1120px # index pages; prose bodies keep their own ~68ch measure (_sas
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: true # Include Open Graph meta tags in the HTML head
-serve_schema_org: true # Include Schema.org in the HTML head
-og_image: /assets/img/brand/og-card.png # 1200x630 social card; regenerate with _scripts/make-og-card.cjs
+serve_og_meta: false # Include Open Graph meta tags in the HTML head
+serve_schema_org: false # Include Schema.org in the HTML head
+og_image: # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -95,9 +90,9 @@ blog_description: Research insights on geohazards, AI, and resilience
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
-# Pagination (jekyll-paginate-v2): off, the blog index filters client-side (assets/js/blog-filter.js)
+# Pagination
 pagination:
-  enabled: false
+  enabled: true
 
 related_blog_posts:
   enabled: true
@@ -195,22 +190,9 @@ exclude:
   - package.json
   - package-lock.json
   - _pages/about_einstein.md
-  # People-page bios: read from disk by {% include_relative %} in _layouts/profiles.liquid,
-  # so they need not (and should not) be published as raw .md files.
-  - _pages/andrew_kagan.md
-  - _pages/margaret_gereghty.md
-  - _pages/reiko_chen.md
-  - _pages/shivangi_bhatt.md
-  - _pages/sj_johnson.md
-  - _pages/yayu_zhang.md
-  # Dev/CI helper scripts (only the *.liquid.js / *-setup.js files are site assets)
-  - _scripts/check-*
-  - _scripts/make-*
-  - _config_dev.yml
   - purgecss.config.js
   - README.md
   - readme_preview/
-  - requirements.txt
   - vendor
 keep_files:
   - CNAME
@@ -221,6 +203,7 @@ plugins:
   - jekyll-archives-v2
   - jekyll-email-protect
   - jekyll-feed
+  - jekyll-get-json
   - jekyll-imagemagick
   - jekyll-jupyter-notebook
   - jekyll-link-attributes
@@ -251,10 +234,6 @@ sass:
 
 jekyll-minifier:
   compress_javascript: false # set to false since we are using terser as the js minifier
-  # Sass already emits compressed CSS. The minifier's CSS pass breaks modern syntax
-  # (it rewrites `calc(var(--nav-h) + 1rem)` to `calc(var( -  - nav - h)…` and strips the
-  # spaces `clamp()` needs around `+`), so leave CSS to Sass.
-  compress_css: false
   exclude: ["robots.txt", "assets/js/search/*.js"]
 
 # -----------------------------------------------------------------------------
@@ -311,10 +290,10 @@ scholar:
 # Display different badges withs stats for your publications
 # Customize badge behavior in _layouts/bib.liquid
 enable_publication_badges:
-  altmetric: false # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
-  dimensions: false # Dimensions badge (Customization options: https://badge.dimensions.ai/)
+  altmetric: true # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
+  dimensions: true # Dimensions badge (Customization options: https://badge.dimensions.ai/)
   google_scholar: true # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html) - Using manual citations from bib file
-  inspirehep: false # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
+  inspirehep: true # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:
@@ -329,7 +308,6 @@ filtered_bibtex_keywords:
     award_name,
     bibtex_show,
     blog,
-    citations,
     code,
     google_scholar_id,
     html,
@@ -338,12 +316,15 @@ filtered_bibtex_keywords:
     poster,
     preview,
     selected,
-    show_all_authors,
     slides,
     supp,
     video,
     website,
   ]
+
+# Maximum number of authors to be shown for each publication (more authors are visible on click)
+max_author_limit: 3 # leave blank to always show all authors
+more_authors_animation_delay: 10 # more authors are revealed on click using animation; smaller delay means faster animation
 
 # Enables publication thumbnails. If disabled, none of the publications will display thumbnails, even if specified in the bib entry.
 enable_publication_thumbnails: true
@@ -400,8 +381,8 @@ enable_pirsch_analytics: false # enables Pirsch analytics (https://pirsch.io/)
 enable_openpanel_analytics: false # enables Openpanel analytics (https://openpanel.dev/)
 enable_google_verification: false # enables google site verification
 enable_bing_verification: false # enables bing site verification
-enable_masonry: false # enables automatic project cards arrangement (no .grid markup on this site)
-enable_math: true # enables math typesetting (uses MathJax); loads only on pages with `math: true` in front matter
+enable_masonry: true # enables automatic project cards arrangement
+enable_math: true # enables math typesetting (uses MathJax)
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
 enable_darkmode: true # enables switching between light/dark modes
 enable_navbar_social: false # enables displaying social links in the navbar on the about page
@@ -457,8 +438,12 @@ third_party_libraries:
         library: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/dist/echarts.min.js"
         dark_theme: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/theme/dark-fresh-cut.js"
     version: "5.5.0"
-  # google_fonts: removed. Newsreader, Inter and JetBrains Mono are self-hosted
-  # (assets/fonts/, @font-face in _sass/ds/_fonts.scss, preloads in head.liquid).
+  google_fonts:
+    url:
+      # Inter (body/UI) + Plus Jakarta Sans (display) — the TerraMosaic type pairing.
+      # Roboto / Roboto Slab / Material Icons were loaded but unused (body uses the
+      # system stack set in _sass/_layout.scss until _sass/_about.scss overrides it).
+      fonts: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
   highlightjs:
     integrity:
       css:
@@ -489,7 +474,7 @@ third_party_libraries:
     integrity:
       js: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     url:
-      js: "/assets/js/jquery.min.js" # self-hosted copy of https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js (same SRI)
+      js: "https://cdn.jsdelivr.net/npm/jquery@{{version}}/dist/jquery.min.js"
     version: "3.6.0"
   leaflet:
     integrity:
@@ -637,3 +622,22 @@ third_party_libraries:
       css: "https://cdn.jsdelivr.net/npm/venobox@{{version}}/dist/venobox.min.css"
       js: "https://cdn.jsdelivr.net/npm/venobox@{{version}}/dist/venobox.min.js"
     version: "2.1.8"
+
+# -----------------------------------------------------------------------------
+# Get external JSON data
+# -----------------------------------------------------------------------------
+
+jekyll_get_json:
+  - data: resume
+    json: assets/json/resume.json # it can also be an url
+
+jsonresume:
+  - basics
+  - work
+  - education
+  - volunteer
+  - awards
+  - certificates
+  - skills
+  - languages
+  - references

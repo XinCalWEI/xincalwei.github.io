@@ -3,52 +3,29 @@
 ---
 @charset "utf-8";
 
-// Wide container for home / index pages (`layout_width: wide`); see _sass/_tokens.scss
+// Dimensions
 $max-content-width: {{ site.max_width }};
 
-// Order is load-bearing:
-//  1. tokens + the JS-coupled theme rules
-//  2. legacy al-folio partials (pruned over time; rules there tie with the
-//     design layer on specificity and lose on source order)
-//  3. icon fonts still in use (FA brands/solid for a few glyphs)
-//  4. the design layer (ds/*; @font-face rules first), then page partials,
-//     then a11y/motion overrides
 @import
   "variables",
-  "tokens",
   "themes",
+  "layout",
   "base",
+  "distill",
   "cv",
+  "tabs",
+  "typograms",
   "font-awesome/fontawesome",
   "font-awesome/brands",
   "font-awesome/solid",
-  "ds/fonts",
-  "ds/base",
-  "ds/type",
-  "ds/layout",
-  "ds/components",
-  "ds/chrome",
-  "ds/publications",
-  "pages/home",
-  "pages/projects",
-  "pages/inner",
-  "pages/blog",
-  "a11y-motion"
+  "font-awesome/regular",
+  "tabler-icons/tabler-icons.scss",
+  "tabler-icons/tabler-icons-filled.scss",
+  "tabler-icons/tabler-icons-outline.scss",
+  // order is load-bearing: brand tokens, inner-page skins, then the dedicated
+  // Blog refinement. These partials win several equal-specificity rules in
+  // the stock theme through source order.
+  "about",
+  "pages",
+  "blog"
 ;
-
-// site.max_width (_config.yml) is the knob for the wide canvas
-:root {
-  --container-wide: #{$max-content-width};
-}
-
-// medium-zoom: image previews sit above the fixed navbar (1030), the search
-// palette and tooltips (up to 1070), with the opened image above its overlay.
-// Kept as literal values in standalone rules: _scripts/check-zoom-css.cjs
-// asserts them in the purged production main.css.
-.medium-zoom-overlay {
-  z-index: 1100;
-}
-
-.medium-zoom-image--opened {
-  z-index: 1101;
-}

@@ -1,76 +1,61 @@
 ---
 layout: page
 ---
-{% comment %}
-  People: mentees grouped by program. In page.profiles, an entry with
-  `section_title` (+ optional `section_url`) starts a group; the person entries
-  that follow belong to it. Each person: square photo, name, mono meta
-  (more_info), and the bio from {% include_relative _pages/<content> %}.
-  Styles: .tm-people in _sass/pages/_inner.scss.
-{% endcomment %}
-<div class="tm-people">
+<!--
+  People rows in the site's card language: grouped by program, each person
+  a photo + name + meta + bio row. Sections come from page.profiles entries
+  with section_title; people entries follow their section.
+-->
+<div class="post about tm-people">
   {% assign open = false %}
-  {% assign person_index = 0 %}
   {% for profile in page.profiles %}
     {% if profile.section_title %}
       {% if open %}
         </ul>
-        </section>
-      {% endif %}
-      {% assign group_id = profile.section_title | slugify | prepend: 'program-' %}
-      <section class="people-group" aria-labelledby="{{ group_id }}">
-        <div class="people-group__head">
-          <h2 class="people-group__title" id="{{ group_id }}">{{ profile.section_title }}</h2>
-          {% if profile.section_url %}
-            <a class="text-link people-group__link" href="{{ profile.section_url }}" target="_blank" rel="noopener noreferrer">
-              Program website {% include icon.liquid name="arrow-up-right" %}
-              <span class="sr-only">(opens in a new tab)</span>
-            </a>
-          {% endif %}
         </div>
-        <ul class="people-grid">
+      {% endif %}
+      <h2 class="people-sec">
+        {% if profile.section_url %}
+          <a href="{{ profile.section_url }}" target="_blank" rel="noopener noreferrer">
+            {{ profile.section_title }}
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        {% else %}
+          {{ profile.section_title }}
+        {% endif %}
+      </h2>
+      <div class="cardlist">
+        <ul class="people">
           {% assign open = true %}
     {% else %}
       {% unless open %}
-        <section class="people-group">
-          <ul class="people-grid">
+        <div class="cardlist">
+          <ul class="people">
             {% assign open = true %}
       {% endunless %}
-      {% assign person_index = person_index | plus: 1 %}
       <li class="person">
-        <div class="person__top">
-          {% if profile.image %}
-            <div class="person__photo">
-              {% comment %}
-                alt="": the h3 next to the photo already gives the name. sizes
-                matches the 6rem photo box. The first row of cards (3 at
-                1440px) is in the first screen, so those photos load eagerly.
-              {% endcomment %}
-              {% assign profile_image_path = profile.image | prepend: 'assets/img/' %}
-              {% if person_index <= 3 %}
-                {% assign photo_loading = 'eager' %}
-              {% else %}
-                {% assign photo_loading = 'lazy' %}
-              {% endif %}
-              {% include figure.liquid loading=photo_loading path=profile_image_path sizes="96px" width="192" height="192" alt="" %}
-            </div>
-          {% endif %}
-          <div class="person__id">
-            <h3 class="person__name">{{ profile.name }}</h3>
-            {% if profile.more_info %}
-              <div class="person__meta">{{ profile.more_info }}</div>
-            {% endif %}
+        {% if profile.image %}
+          <div class="person__photo">
+            {% assign profile_image_path = profile.image | prepend: 'assets/img/' %}
+            {% include figure.liquid loading="eager" path=profile_image_path sizes="220px" alt=profile.name %}
           </div>
-        </div>
-        {% if profile.content %}
-          {% capture profile_content %}{% include_relative {{ profile.content }} %}{% endcapture %}
-          <div class="person__bio">{{ profile_content | markdownify }}</div>
         {% endif %}
+        <div class="person__body">
+          <h3 class="person__name">{{ profile.name }}</h3>
+          {% if profile.more_info %}
+            <div class="person__meta">{{ profile.more_info }}</div>
+          {% endif %}
+          {% if profile.content %}
+            {% capture profile_content %}{% include_relative {{ profile.content }} %}{% endcapture %}
+            <div class="person__bio">{{ profile_content | markdownify }}</div>
+          {% endif %}
+        </div>
       </li>
     {% endif %}
   {% endfor %}
   {% if open %}
     </ul>
-    </section>
+    </div>
   {% endif %}
 </div>

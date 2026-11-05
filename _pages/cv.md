@@ -2,12 +2,10 @@
 layout: cv
 permalink: /cv/
 title: CV
-kicker: Curriculum vitae
-layout_width: wide
 nav: true
-nav_order: 7
-description: Curriculum vitae of Xin Wei, Eric and Wendy Schmidt AI in Science Postdoctoral Fellow at the University of Michigan.
+nav_order: 5
+cv_pdf: example_pdf.pdf
+description:
 toc:
-  sidebar: right
-  breakpoint: lg
+  sidebar: left
 ---

@@ -1,29 +1,4 @@
-{% comment %}
-  Filter toolbar for /publications/ (assets/js/bibsearch.js).
-  Text search across every entry + one type/authorship chip set. The state lives in
-  the URL hash (#q=…&filter=…) so a filtered view can be linked; a bare #<entry-key>
-  stays an ordinary anchor. Hidden without JS (html.no-js), where everything shows.
-{% endcomment %}
 {% if site.bib_search %}
   <script src="{{ '/assets/js/bibsearch.js' | relative_url | bust_file_cache }}" type="module"></script>
-  <div class="bibsearch pub-tools" role="search" aria-label="Filter publications">
-    <div class="pub-tools__search">
-      <label class="sr-only" for="bibsearch">Search publications</label>
-      <input
-        type="search"
-        id="bibsearch"
-        spellcheck="false"
-        autocomplete="off"
-        class="search bibsearch-form-input"
-        placeholder="Search title, author, venue, year"
-      >
-    </div>
-    <div class="pub-tools__chips" role="group" aria-label="Show">
-      <button type="button" class="pub-chip" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" class="pub-chip" data-filter="journal" aria-pressed="false">Journal articles</button>
-      <button type="button" class="pub-chip" data-filter="conference" aria-pressed="false">Conference &amp; presentations</button>
-      <button type="button" class="pub-chip" data-filter="first-author" aria-pressed="false">First author</button>
-    </div>
-    <p class="pub-tools__status" id="pub-status" role="status" aria-live="polite"></p>
-  </div>
+  <input type="text" id="bibsearch" spellcheck="false" autocomplete="off" class="search bibsearch-form-input" placeholder="Type to filter">
 {% endif %}

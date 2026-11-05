@@ -1,23 +1,51 @@
-{% comment %} Grouped name/level lists (al-folio `list_groups` type; unused by cv.yml today). {% endcomment %}
-<ol class="cv-rows">
+<div class="list-groups">
   {% for content in entry.contents %}
-    <li class="cv-row">
-      <div class="cv-row__body">
-        <h3 class="cv-row__title" data-toc-skip>{{ content.category }}</h3>
-        <ul class="cv-notes">
+    <div class="list-group col-md-6">
+      <table class="table-cv list-group-table">
+        <tbody>
+          <tr>
+            {% if content.icon %}
+              <td class="list-group-category-icon"><i class="{{ content.icon }}"></i></td>
+            {% else %}
+              <td class="list-group-category-icon"></td>
+            {% endif %}
+            <!-- Calculate colspan number for category title -->
+            {% assign i = 1 %}
+            {% for item in content.items %}
+              {% assign i = i | plus: 1 %}
+            {% endfor %}
+            <td colspan="{{ i }}" class="list-group-category">{{ content.category }}</td>
+          </tr>
           {% for item in content.items %}
-            <li>
-              {{ item.name }}
-              {%- if item.level %} · {{ item.level }}{% endif -%}
-              {%- if item.school %} · {{ item.school }}{% endif -%}
-              {%- if item.time %} · {{ item.time }}{% endif -%}
-              {%- if item.link %}
-                · <a class="text-link" href="{{ item.link }}">{{ item.linkname | default: 'Document' }}</a>
-              {%- endif %}
-            </li>
+            <tr>
+              <td></td>
+              <td class="list-group-name">
+                <b>{{ item.name }}</b>
+              </td>
+              {% if item.level %}
+                <td class="list-group-level">{{ item.level }}</td>
+              {% endif %}
+              {% if item.school %}
+                <td class="list-group-school">{{ item.school }}
+              {% endif %}
+              {% if item.time %}
+                <br>
+                <span class="list-group-time">{{ item.time }}</span>
+                </td>
+              {% else %}
+                </td>
+              {% endif %}
+              {% if item.link %}
+                <td class="list-group-link">
+                  <a href="{{ item.link }}" target="_blank" class="btncv z-depth-0">
+                    {% if item.linkname %}{{ item.linkname }}{% else %}DOC{% endif %}
+                  </a>
+                </td>
+              {% endif %}
+            </tr>
           {% endfor %}
-        </ul>
-      </div>
-    </li>
+        </tbody>
+      </table>
+    </div>
   {% endfor %}
-</ol>
+</div>

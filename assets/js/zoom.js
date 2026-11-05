@@ -13,6 +13,17 @@
 //    enlarged view is actually high-resolution.
 
 $(document).ready(function () {
+  // The homepage marquee renders every photo twice for its seamless loop, and
+  // the two copies are visually identical. They must BOTH stay zoomable —
+  // whichever copy happens to be under the cursor is the one the visitor
+  // clicks, so disabling either half makes roughly half the strip dead.
+  // The duplicates are only marked decorative so screen readers announce each
+  // photo once; that does not affect the click.
+  document.querySelectorAll("img.slider__dup").forEach((img) => {
+    img.setAttribute("alt", "");
+    img.setAttribute("role", "presentation");
+  });
+
   // hand medium-zoom a high-res source for each zoomable image
   document.querySelectorAll("[data-zoomable]").forEach((img) => {
     if (img.dataset.zoomSrc) return;
@@ -50,25 +61,6 @@ $(document).ready(function () {
   // thumbnail, so the enlarged view is the full-size original even though the
   // in-page <img> still reports a small `currentSrc`. (Verified: the topmost
   // zoomed element renders the 2000px JPEG.)
-
-  // Keyboard access: each zoomable image is a button. Enter or Space opens it;
-  // Escape, a click or scrolling closes it (medium-zoom), and focus goes back to
-  // the image. Images that are already inside a link keep the link's behaviour.
-  document.querySelectorAll("img[data-zoomable]").forEach((img) => {
-    if (img.closest("a, button")) return;
-    img.tabIndex = 0;
-    img.setAttribute("role", "button");
-    const alt = (img.getAttribute("alt") || "").trim();
-    img.setAttribute("aria-label", alt ? `Enlarge image: ${alt}` : "Enlarge image");
-    img.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      e.preventDefault();
-      medium_zoom.open({ target: img });
-    });
-  });
-  medium_zoom.on("closed", (e) => {
-    if (e.target && e.target.tabIndex === 0) e.target.focus({ preventScroll: true });
-  });
 
   // keep the 80% relationship when the window is resized
   let resizeTimer;

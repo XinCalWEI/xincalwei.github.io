@@ -4,8 +4,6 @@ title: "The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma
 shelf_title: "The Body Keeps the Score"
 author: Bessel van der Kolk
 cover: assets/img/book_covers/The Body Keeps the Score.jpg
-cover_width: 387
-cover_height: 595
 categories: psychology trauma mental-health neuroscience
 tags: non-fiction
 buy_link: https://www.penguinrandomhouse.com/books/220243/the-body-keeps-the-score-by-bessel-van-der-kolk-md/

@@ -1,25 +1,17 @@
 ---
-layout: project
+layout: page
 title: Pore-Water Pressure Forecasting with Recurrent Neural Networks
 description: A field study compares MLP, RNN, LSTM, and GRU models for one-hour-ahead pore-water-pressure forecasting from monitored rainfall and PWP histories.
-# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/pwp-monitoring-forecasting.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration linking slope sensors and meteorological time series to recurrent-neural-network forecasts of pore-water pressure."
-importance: 2
-category: Prospective Modeling
+importance: 6
+category: Prospective Modelling
 sub_area: Monitoring
 toc:
   sidebar: right
 related_publications: true
-math: true # loads MathJax (see _includes/scripts.liquid)
-# Research index (_pages/projects.md, _includes/projects.liquid)
-thrust: ai
-label: "Monitoring & forecasting"
-period: 2021
-thumb: assets/img/projects/research/pwp-monitoring-layout.png
-thumb_alt: Topographic monitoring layout of the instrumented Hong Kong slope, locating the piezometers, tensiometers, and rain gauges
 ---
 
 <div class="project-detail prose" markdown="1">
@@ -80,7 +72,7 @@ $$
   <div><strong>43.23 vs. 99.48 s</strong><span>Mean training time for single- versus double-layer GRU, with nearly unchanged accuracy</span></div>
 </div>
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Mean test performance over 30 random training runs with a six-hour input window">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Location</th><th>Model</th><th>Mean R²</th><th>Mean RMSE</th><th>Mean training time</th></tr>

@@ -1,26 +1,17 @@
 ---
-layout: project
+layout: page
 title: Submarine Debris-Flow Runout and Pipeline Risk
 description: Regional runout simulations capture material softening over complex seabed terrain, then estimate pipeline impact, network damage, and the benefits of rerouting.
-# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/submarine-pipeline-risk.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration of submarine debris-flow runout intersecting a seabed pipeline network, with an alternative route outside the main impact corridor."
-importance: 6
-category: Prospective Modeling
+importance: 4
+category: Prospective Modelling
 sub_area: Risk
 toc:
   sidebar: right
 related_publications: true
-math: true # loads MathJax (see _includes/scripts.liquid)
-# Research index (_pages/projects.md, _includes/projects.liquid)
-thrust: foundations
-label: Submarine geohazards
-period: 2022–2023
-role: Collaborative study
-thumb: assets/img/projects/research/submarine-softening-effect.png
-thumb_alt: Four simulated submarine debris-flow deposits that spread further as the material-softening factor increases
 ---
 
 <div class="project-detail prose" markdown="1">

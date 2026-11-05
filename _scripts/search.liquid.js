@@ -29,7 +29,7 @@ ninja.data = [
               id: "dropdown-{{ title | slugify }}",
               title: "{{ title | truncatewords: 13 }}",
               description: "{{ child.description | strip_html | strip_newlines | escape | strip }}",
-              section: "Navigation",
+              section: "Dropdown",
               handler: () => {
                 window.location.href = "{{ url | relative_url }}";
               },

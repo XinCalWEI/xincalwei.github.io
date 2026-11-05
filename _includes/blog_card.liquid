@@ -1,21 +1,10 @@
-{% comment %}
-  One post card for the Blog index and the blog archives.
-  Params: post, featured (lead story), latest, solo, tail, priority (eager image).
-  Hooks read by assets/js/blog-filter.js: .blog-card, data-cats, data-tags,
-  data-search, data-tail, and the --featured / --tail / --solo modifiers.
-  A post without a thumbnail renders as a text card (.blog-card--text): no
-  media block and no placeholder plate.
-{% endcomment %}
 {% assign blog_post = include.post %}
 {% assign primary_category = blog_post.categories | first %}
-{% assign category_label = primary_category | replace: '-', ' ' | capitalize %}
-{% for taxonomy_category in site.data.blog_taxonomy.categories %}
-  {% if taxonomy_category.key == primary_category %}{% assign category_label = taxonomy_category.label %}{% endif %}
-{% endfor %}
+{% assign category_label = blog_post.categories | join: ' · ' | replace: '-', ' ' %}
 {% assign primary_tag = blog_post.tags | first %}
 
 {% if blog_post.external_source == blank %}
-  {% assign word_count = blog_post.content | strip_html | number_of_words %}
+  {% assign word_count = blog_post.content | number_of_words %}
 {% else %}
   {% assign word_count = blog_post.feed_content | strip_html | number_of_words %}
 {% endif %}
@@ -37,7 +26,7 @@
 {% capture card_search %}{{ blog_post.title }} {{ blog_post.description }} {{ blog_post.categories | join: ' ' }} {{ blog_post.tags | join: ' ' }} {{ blog_post.card_status }}{% endcapture %}
 
 <a
-  class="blog-card{% if include.featured %} blog-card--featured{% endif %}{% if include.solo %} blog-card--solo{% endif %}{% if include.tail %} blog-card--tail{% endif %}{% if blog_post.card_status %} blog-card--pending{% endif %}{% unless blog_post.thumbnail %} blog-card--text{% endunless %}"
+  class="blog-card{% if include.featured %} blog-card--featured{% endif %}{% if include.solo %} blog-card--solo{% endif %}{% if include.tail %} blog-card--tail{% endif %}"
   href="{{ card_href }}"
   data-cats="{{ card_categories | strip }}"
   data-tags="{{ card_tags | strip }}"
@@ -49,30 +38,43 @@
     target="_blank" rel="noopener noreferrer"
   {% endif %}
 >
-  {% if blog_post.thumbnail %}
-    <div class="blog-card__media{% if blog_post.thumbnail_fit == 'contain' %} blog-card__media--contain{% elsif blog_post.thumbnail_fit == 'wide' %} blog-card__media--wide{% endif %}{% if blog_post.thumbnail_position == 'top' %} blog-card__media--top{% endif %}">
+  <div
+    class="blog-card__media{% if primary_category %} blog-card__media--{{ primary_category | slugify }}{% endif %}{% if blog_post.thumbnail_fit == 'contain' %} blog-card__media--contain{% elsif blog_post.thumbnail_fit == 'wide' %} blog-card__media--wide{% endif %}{% if blog_post.thumbnail_position == 'top' %} blog-card__media--top{% endif %}"
+  >
+    {% if blog_post.thumbnail %}
       {% if include.featured or include.priority %}
-        {% include figure.liquid loading="eager" fetchpriority="high" path=blog_post.thumbnail sizes="(min-width: 1120px) 600px, (min-width: 768px) 55vw, 100vw" width="1600" height="900" alt="" %}
+        {% include figure.liquid loading="eager" fetchpriority="high" path=blog_post.thumbnail sizes="(min-width: 992px) 580px, (min-width: 768px) 52vw, 100vw" alt="" %}
       {% else %}
-        {% include figure.liquid loading="lazy" path=blog_post.thumbnail sizes="(min-width: 1120px) 540px, (min-width: 768px) 48vw, 100vw" width="1600" height="900" alt="" %}
+        {% include figure.liquid loading="lazy" path=blog_post.thumbnail sizes="(min-width: 992px) 500px, (min-width: 768px) 46vw, 100vw" alt="" %}
       {% endif %}
-    </div>
-  {% endif %}
+    {% else %}
+      <span class="blog-card__ph" aria-hidden="true">
+        <span class="blog-card__ph-orbit"></span>
+        <span class="tiles"><span></span><span></span><span></span><span></span></span>
+        <span class="blog-card__ph-label">
+          {% if category_label != blank %}{{ category_label }}{% else %}Field note{% endif %}
+        </span>
+      </span>
+    {% endif %}
+  </div>
 
   <div class="blog-card__body">
-    <p class="blog-card__topline">
-      {% if primary_category %}
-        <span class="tag">{{ category_label }}</span>
+    <div class="blog-card__topline">
+      {% if category_label != blank %}
+        <span class="feed__pill feed__pill--{{ primary_category | slugify }}">{{ category_label }}</span>
       {% endif %}
       {% if primary_tag %}
-        <span class="blog-card__topic">{{ primary_tag }}</span>
+        <span class="blog-card__topic" title="{{ primary_tag | escape }}"
+          ><i class="fa-solid fa-hashtag" aria-hidden="true"></i>{{ primary_tag -}}
+        </span>
       {% endif %}
       {% if blog_post.card_status %}
-        <span class="tag tag--earth blog-card__status">{{ blog_post.card_status }}</span>
-      {% elsif include.latest %}
-        <span class="blog-card__latest">Latest</span>
+        <span class="blog-card__status">{{ blog_post.card_status }}</span>
       {% endif %}
-    </p>
+      {% if include.latest %}
+        <span class="blog-card__latest"><span aria-hidden="true"></span>Latest</span>
+      {% endif %}
+    </div>
 
     <h2 class="blog-card__title">{{ blog_post.title }}</h2>
     {% if blog_post.description %}
@@ -80,13 +82,15 @@
     {% endif %}
 
     <p class="blog-card__meta">
-      <time datetime="{{ blog_post.date | date_to_xmlschema }}">{{ blog_post.date | date: '%-d %b %Y' }}</time>
-      {%- unless blog_post.card_status -%}
-        <span aria-hidden="true"> · </span>{{ read_time }} min read
-      {%- endunless -%}
-      {%- if is_external -%}
-        <span class="sr-only"> (opens in a new tab)</span>
-      {%- endif -%}
+      <time datetime="{{ blog_post.date | date_to_xmlschema }}">{{ blog_post.date | date: '%b %-d, %Y' }}</time>
+      <span class="blog-card__meta-dot" aria-hidden="true"></span>
+      <span>{{ read_time }} min read</span>
+      <span class="blog-card__arrow" aria-hidden="true">
+        <i class="fa-solid {% if is_external %}fa-arrow-up-right-from-square{% else %}fa-arrow-right{% endif %}"></i>
+      </span>
     </p>
+    {% if is_external -%}
+      <span class="sr-only">Opens in a new tab</span>
+    {%- endif %}
   </div>
 </a>

@@ -2,7 +2,6 @@
 layout: post
 title: 2025 Spring Geotechnical Seminar
 date: 2025-04-25 08:00:00-0400
-description: "An invited talk on regional landslide risk assessment with integrated AI-physics solutions, given to over 100 geotechnical engineering professionals."
 inline: false
 related_posts: false
 thumbnail: assets/img/spring_geotech_seminar_2025.jpeg
@@ -15,7 +14,7 @@ category: Invited Talk
 
 ---
 
-Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
+Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
 
 ---
 
@@ -27,15 +26,15 @@ Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk, "
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" alt="Certificate presentation in front of an ASCE backdrop at the 2025 Spring Geotechnical Seminar" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_2.jpeg" alt="Program flyer for the 2025 Spring Geotechnical Seminar, CT Valley Chapter of the ASCE Geo-Institute, with speaker photos" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_2.jpeg" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_3.jpeg" alt="Seminar attendees outdoors on the lawn at TPC River Highlands, Cromwell, Connecticut" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_3.jpeg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>

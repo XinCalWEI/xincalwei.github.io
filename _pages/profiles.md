@@ -1,13 +1,11 @@
 ---
 layout: profiles
 permalink: /people/
-title: Mentoring
-nav_title: Mentoring
-kicker: Teaching & mentoring
-layout_width: wide
-description: Undergraduate researchers I mentor and have mentored through research programs at the University of Michigan.
+title: People / Mentees
+nav_title: People
+description: Students I mentor and have mentored through undergraduate research programs.
 nav: true
-nav_order: 4
+nav_order: 7
 
 profiles:
   # Explore Computer Science Research Program

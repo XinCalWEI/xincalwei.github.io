@@ -1,16 +1,19 @@
 <!-- Metadata, OpenGraph and Schema.org -->
 {% include metadata.liquid %}
 
-<!--
-  Bootstrap (grid, collapse, dropdown, utilities). MDB is no longer loaded:
-  the few classes content relied on (.z-depth-*, .btn/.badge baselines) live in
-  _sass/ds/.
--->
+<!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
+<link
+  rel="stylesheet"
+  href="{{ site.third_party_libraries.mdb.url.css }}"
+  integrity="{{ site.third_party_libraries.mdb.integrity.css }}"
+  crossorigin="anonymous"
+>
 
 {% if page.pretty_table %}
   <!-- Bootstrap Table -->
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.bootstrap-table.url.css }}"
     integrity="{{ site.third_party_libraries.bootstrap-table.integrity.css }}"
@@ -19,38 +22,18 @@
 {% endif %}
 
 <!-- Fonts & Icons -->
-{% comment %}
-  The common social profiles (email, Scholar, GitHub, LinkedIn, ORCID) render as inline
-  SVG in social.liquid. The icon-font stylesheets load only if _data/socials.yml lists a
-  profile that still needs them.
-{% endcomment %}
-{% assign academicons_socials = 'academia_edu,acm_id,dblp_url,hal_id,ieee_id,inspirehep_id,lattes_id,osf_id,publons_id,research_gate_profile,scopus_id,semanticscholar_id,zotero_username'
-  | split: ','
-%}
-{% assign needs_academicons = false %}
-{% assign needs_scholar_icons = false %}
-{% for social in site.data.socials %}
-  {% if academicons_socials contains social[0] %}{% assign needs_academicons = true %}{% endif %}
-  {% if social[0] == 'leetcode_id' %}{% assign needs_scholar_icons = true %}{% endif %}
-{% endfor %}
-{% if needs_academicons %}
-  <link rel="stylesheet" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
-{% endif %}
-{% if needs_scholar_icons %}
-  <link rel="stylesheet" href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}">
-{% endif %}
-{% comment %}
-  Text fonts are self-hosted: @font-face in _sass/ds/_fonts.scss, files in
-  assets/fonts/. Preload the two faces every page paints above the fold
-  (Newsreader roman for titles, Inter for body + nav). The hrefs must match the
-  url()s in _fonts.scss exactly (no cache-bust query), and `crossorigin` is
-  required for font preloads even on the same origin.
-{% endcomment %}
-<link rel="preload" href="{{ '/assets/fonts/newsreader-v26-latin-wght.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{{ '/assets/fonts/inter-v20-latin-wght.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link defer rel="stylesheet" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
+<link defer rel="stylesheet" href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}">
+<link
+  defer
+  rel="stylesheet"
+  type="text/css"
+  href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+>
 
 <!-- Code Syntax Highlighting -->
 <link
+  defer
   rel="stylesheet"
   href="{{ '/assets/css/jekyll-pygments-themes-github.css' | relative_url | bust_file_cache }}"
   media=""
@@ -59,7 +42,7 @@
 
 {% if page.toc and page.toc.sidebar %}
   <!-- Sidebar Table of Contents -->
-  <link href="{{ '/assets/css/bootstrap-toc.min.css' | relative_url | bust_file_cache }}" rel="stylesheet">
+  <link defer href="{{ '/assets/css/bootstrap-toc.min.css' | relative_url | bust_file_cache }}" rel="stylesheet">
 {% endif %}
 
 <!-- Styles -->
@@ -67,6 +50,7 @@
 {% if page.pseudocode %}
   <!-- pseudocode -->
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.pseudocode.url.css }}"
     integrity="{{ site.third_party_libraries.pseudocode.integrity.css }}"
@@ -80,23 +64,16 @@
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{{ site.icon }}</text></svg>"
   >
 {% elsif site.icon != blank %}
-  {% if site.icon contains '.svg' %}
-    <link rel="icon" type="image/svg+xml" href="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache }}">
-  {% else %}
-    <link rel="shortcut icon" href="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache }}">
-  {% endif %}
+  <link rel="shortcut icon" href="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache}}">
 {% endif %}
-<link rel="apple-touch-icon" href="{{ '/assets/img/brand/apple-touch-icon.png' | relative_url }}">
-<meta name="theme-color" content="#f7f6f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f1726" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | bust_css_cache }}">
-<link rel="alternate" type="application/atom+xml" title="{{ site.first_name }} {{ site.last_name }}" href="{{ '/feed.xml' | absolute_url }}">
 <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 
 {% if site.enable_darkmode %}
   <!-- Dark Mode -->
   <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
   <link
+    defer
     rel="stylesheet"
     href="{{ '/assets/css/jekyll-pygments-themes-native.css' | relative_url | bust_file_cache }}"
     media="none"
@@ -110,6 +87,7 @@
 {% if page.map %}
   <!-- GeoJSON support via Leaflet -->
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.leaflet.url.css }}"
     integrity="{{ site.third_party_libraries.leaflet.integrity.css }}"
@@ -120,6 +98,7 @@
 {% if page.code_diff %}
   <!-- diff2html -->
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.highlightjs.url.css.light }}"
     integrity="{{ site.third_party_libraries.highlightjs.integrity.css.light }}"
@@ -127,6 +106,7 @@
     media="screen and (prefers-color-scheme: light)"
   >
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.highlightjs.url.css.dark }}"
     integrity="{{ site.third_party_libraries.highlightjs.integrity.css.dark }}"
@@ -134,6 +114,7 @@
     media="screen and (prefers-color-scheme: dark)"
   >
   <link
+    defer
     rel="stylesheet"
     href="{{ site.third_party_libraries.diff2html.url.css }}"
     integrity="{{ site.third_party_libraries.diff2html.integrity.css }}"
@@ -145,6 +126,7 @@
   {% if page.images.compare %}
     <!-- Image comparison slider -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.img-comparison-slider.url.css }}"
       integrity="{{ site.third_party_libraries.img-comparison-slider.integrity.css }}"
@@ -154,6 +136,7 @@
   {% if page.images.lightbox2 %}
     <!-- Lightbox2 -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.lightbox2.url.css }}"
       integrity="{{ site.third_party_libraries.lightbox2.integrity.css }}"
@@ -163,6 +146,7 @@
   {% if page.images.photoswipe %}
     <!-- Photoswipe -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.photoswipe.url.css }}"
       crossorigin="anonymous"
@@ -171,6 +155,7 @@
   {% if page.images.slider %}
     <!-- Image slider -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.swiper.url.css }}"
       integrity="{{ site.third_party_libraries.swiper.integrity.css }}"
@@ -180,6 +165,7 @@
   {% if page.images.spotlight %}
     <!-- Spotlight -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.spotlight.url.css }}"
       integrity="{{ site.third_party_libraries.spotlight.integrity.css }}"
@@ -189,6 +175,7 @@
   {% if page.images.venobox %}
     <!-- Venobox -->
     <link
+      defer
       rel="stylesheet"
       href="{{ site.third_party_libraries.venobox.url.css }}"
       integrity="{{ site.third_party_libraries.venobox.integrity.css }}"
@@ -198,5 +185,5 @@
 {% endif %}
 
 {% if page.tikzjax %}
-  <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+  <link defer rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
 {% endif %}

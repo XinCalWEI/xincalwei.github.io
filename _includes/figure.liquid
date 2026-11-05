@@ -18,41 +18,33 @@
         <source
           class="responsive-img-srcset"
           {% if ext == 'gif' or ext == 'jpeg' or ext == 'jpg' or ext == 'png' or ext == 'tiff' %}
-            srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url | replace: ' ', '%20' | replace: ',', '%2C' }}-{{ i }}.webp {{ i }}w,{% endfor %}"
+            srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{ i }}w,{% endfor %}"
             type="image/webp"
           {% else %}
-            srcset="{{ include.path | relative_url | replace: ' ', '%20' | replace: ',', '%2C' }}"
+            srcset="{{ include.path | relative_url }}"
           {% endif %}
-          {% comment %}
-            Default sizes: a figure in the reading column is at most ~736px wide
-            (the article width), so 1x desktop screens fetch the 800w file and 2x
-            screens the 1400w. Callers showing an image wider or narrower than
-            that (heroes, grids, thumbnails) pass their own `sizes`.
-          {% endcomment %}
           {% if include.sizes %}
             sizes="{{ include.sizes }}"
           {% else %}
-            sizes="(min-width: 800px) 736px, 95vw"
+            sizes="95vw"
           {% endif %}
         >
       {% endunless %}
     {% endif %}
-    {% comment %}
-      width/height are only emitted when the caller passes real values (the
-      intrinsic pixel size, so the browser reserves the aspect ratio). Without
-      them the image fills its figure via CSS (ds/_base: figure picture > img).
-      "100%"/"auto" are not valid attribute values and are dropped.
-    {% endcomment %}
     <img
       src="{% if include.url %}{{ include.url }}{% elsif include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
       {% if include.class %}
         class="{{ include.class }}"
       {% endif %}
-      {% if include.width and include.width != '100%' and include.width != 'auto' %}
+      {% if include.width %}
         width="{{ include.width }}"
+      {% else %}
+        width="100%"
       {% endif %}
-      {% if include.height and include.height != 'auto' and include.height != '100%' %}
+      {% if include.height %}
         height="{{ include.height }}"
+      {% else %}
+        height="auto"
       {% endif %}
       {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
         style="
@@ -70,9 +62,11 @@
           {% endif %}
         "
       {% endif %}
-      alt="{{ include.alt | default: '' | escape }}"
+      {% if include.alt %}
+        alt="{{ include.alt }}"
+      {% endif %}
       {% if include.title %}
-        title="{{ include.title | escape }}"
+        title="{{ include.title }}"
       {% endif %}
       {% if include.zoomable %}
         data-zoomable

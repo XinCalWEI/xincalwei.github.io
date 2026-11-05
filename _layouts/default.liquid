@@ -13,32 +13,18 @@
       {% else %}
         {% assign redirect = page.redirect | relative_url %}
       {% endif %}
-      <meta http-equiv="refresh" content="0; url={{ redirect }}">
+      <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
   </head>
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
-    <a class="skip-link" href="#main-content">Skip to content</a>
-
     <!-- Header -->
     {% include header.liquid %}
 
     <!-- Content -->
-    {% comment %}
-      Container width is explicit: `layout_width: wide` in a page's (or layout's) front
-      matter gives the 1120px index/home canvas; everything else uses the reading width.
-      `layout` here is the merged front matter of the whole layout chain.
-    {% endcomment %}
-    {% assign layout_width = page.layout_width | default: layout.layout_width %}
-    <main id="main-content" class="site-main container{% if layout_width == 'wide' %} container--wide{% endif %}" tabindex="-1">
-      {% if page.redirect %}
-        {% comment %} For browsers that block the meta refresh above {% endcomment %}
-        <p class="redirect-notice">
-          This page has moved to <a href="{{ redirect }}">{{ redirect }}</a>.
-        </p>
-      {% endif %}
+    <div class="container mt-5" role="main">
       {% if page.toc and page.toc.sidebar %}
         {% if page.toc.sidebar == 'right' %}
           <div class="row">
@@ -51,11 +37,11 @@
             <!-- sidebar, which will move to the top on a small screen -->
             {% if page.toc.breakpoint == 'lg' %}
               <div class="d-none d-lg-block col-lg-3">
-                <nav id="toc-sidebar" class="sticky-top" aria-label="On this page"></nav>
+                <nav id="toc-sidebar" class="sticky-top"></nav>
               </div>
             {% else %}
               <div class="col-sm-3">
-                <nav id="toc-sidebar" class="sticky-top" aria-label="On this page"></nav>
+                <nav id="toc-sidebar" class="sticky-top"></nav>
               </div>
             {% endif %}
           </div>
@@ -63,7 +49,7 @@
           <div class="row">
             <!-- sidebar, which will move to the top on a small screen -->
             <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top" aria-label="On this page"></nav>
+              <nav id="toc-sidebar" class="sticky-top"></nav>
             </div>
             <!-- main content area -->
             <div class="col-sm-9">{{ content }}</div>
@@ -72,7 +58,7 @@
       {% else %}
         {{ content }}
       {% endif %}
-    </main>
+    </div>
 
     <!-- Footer -->
     {% include footer.liquid %}

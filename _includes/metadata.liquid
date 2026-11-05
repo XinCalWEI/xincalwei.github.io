@@ -38,96 +38,41 @@
     {{ title }}
   {% endif %}
 </title>
-{% comment %}
-  One description for <meta name="description">, OpenGraph, Twitter and Schema.org:
-  the page's own `description`; else, for a generated tag/category/year archive,
-  a line naming what it lists; else, for a collection document (book, post, news
-  item), its first paragraph; only then the site-wide statement (the homepage's).
-{% endcomment %}
-{%- assign meta_description = '' -%}
-{%- if page.description and page.description != '' -%}
-  {%- assign meta_description = page.description -%}
-{%- elsif page.type and page.documents -%}
-  {%- assign archive_first = page.documents | first -%}
-  {%- assign archive_label = page.title -%}
-  {%- if page.type == 'categories' -%}
-    {%- for item in site.data.blog_taxonomy.categories -%}
-      {%- if item.key == page.title -%}{%- assign archive_label = item.label -%}{%- endif -%}
-    {%- endfor -%}
-  {%- elsif page.type == 'tags' -%}
-    {%- for item in site.data.blog_taxonomy.tags -%}
-      {%- if item.key == page.title -%}{%- assign archive_label = item.label -%}{%- endif -%}
-    {%- endfor -%}
-  {%- endif -%}
-  {%- comment -%} labels as _layouts/archive.liquid shows them {%- endcomment -%}
-  {%- if archive_first.layout == 'book-review' -%}
-    {%- assign archive_label = page.title | replace: '-', ' ' | capitalize -%}
-    {%- capture meta_description -%}Books on {{ author_name | strip }}'s bookshelf filed under "{{ archive_label }}".{%- endcapture -%}
-  {%- elsif page.type == 'year' -%}
-    {%- capture meta_description -%}Blog posts by {{ author_name | strip }} from {{ page.date | date: '%Y' }}.{%- endcapture -%}
-  {%- elsif page.type == 'categories' -%}
-    {%- capture meta_description -%}{{ archive_label }} posts on {{ author_name | strip }}'s blog.{%- endcapture -%}
-  {%- else -%}
-    {%- capture meta_description -%}Blog posts by {{ author_name | strip }} tagged "{{ archive_label }}".{%- endcapture -%}
-  {%- endif -%}
-{%- elsif page.collection and page.excerpt -%}
-  {%- assign meta_description = page.excerpt | strip_html | strip_newlines | strip | truncate: 200 -%}
-{%- endif -%}
-{%- if meta_description == '' -%}
-  {%- assign meta_description = site.description -%}
-{%- endif -%}
-{%- assign meta_description = meta_description | strip_html | strip_newlines | strip -%}
 <meta name="author" content="{{ author_name }}">
-<meta name="description" content="{{ meta_description | escape }}">
+<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 {% if page.keywords or site.keywords %}
   <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
 {% endif %}
 
-{% comment %} A post, not the blog index or a year/tag/category archive {% endcomment %}
 {% assign is_blog_post = false %}
-{% if page.collection == 'posts' %}
-  {% assign is_blog_post = true %}
+{% if page.url != '/blog/index.html' and page.url contains '/blog/' %}
+  {% unless page.url contains '/tag/' or page.url contains '/category/' %}
+    {% assign is_blog_post = true %}
+  {% endunless %}
 {% endif %}
-
-{% comment %} One title / image for OpenGraph, Twitter and Schema.org. {% endcomment %}
-{%- if page.url == '/' or page.title == blank or page.title == 'blank' -%}
-  {%- assign meta_title = title | strip -%}
-{%- else -%}
-  {%- capture meta_title -%}{{ page.title | strip_html | strip }} | {{ title | strip }}{%- endcapture -%}
-{%- endif -%}
-{%- assign meta_image = page.og_image | default: site.og_image -%}
-{%- if meta_image and meta_image != blank -%}
-  {%- unless meta_image contains '://' -%}{%- assign meta_image = meta_image | absolute_url -%}{%- endunless -%}
-{%- endif -%}
-{%- assign meta_url = page.url | replace: 'index.html', '' | absolute_url -%}
 
 {% if site.serve_og_meta %}
   <!-- OpenGraph -->
-  <meta property="og:site_name" content="{{ title | strip }}">
+  <meta property="og:site_name" content="{{ title }}">
   <meta property="og:type" content="{% if is_blog_post %}article{% else %}website{% endif %}">
-  <meta property="og:title" content="{{ meta_title | escape }}">
-  <meta property="og:url" content="{{ meta_url }}">
-  <meta property="og:description" content="{{ meta_description | escape }}">
-  {% if meta_image and meta_image != blank %}
-    <meta property="og:image" content="{{ meta_image }}">
-    {% unless page.og_image %}
-      <meta property="og:image:width" content="1200">
-      <meta property="og:image:height" content="630">
-      <meta property="og:image:alt" content="{{ title | strip }}: {{ site.description | strip_newlines | strip | escape }}">
-    {% endunless %}
+  <meta property="og:title" content="{% if page.title %}{{ title }} | {{ page.title }}{% else %}{{ title }}{% endif %}">
+  <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url | remove_first: 'index.html' }}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  {% if page.og_image or site.og_image %}
+    <meta property="og:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
   {% endif %}
   <meta property="og:locale" content="{{ site.lang }}">
 
   <!-- Twitter card -->
-  <meta name="twitter:card" content="{% if meta_image and meta_image != blank %}summary_large_image{% else %}summary{% endif %}">
-  <meta name="twitter:title" content="{{ meta_title | escape }}">
-  <meta name="twitter:description" content="{{ meta_description | escape }}">
-  {% if meta_image and meta_image != blank %}
-    <meta name="twitter:image" content="{{ meta_image }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  {% if page.og_image or site.og_image %}
+    <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
   {% endif %}
-  {% if site.data.socials.x_username %}
-    <meta name="twitter:site" content="@{{ site.data.socials.x_username }}">
-    <meta name="twitter:creator" content="@{{ site.data.socials.x_username }}">
+  {% if site.x_username %}
+    <meta name="twitter:site" content="@{{ site.x_username }}">
+    <meta name="twitter:creator" content="@{{ site.x_username }}">
   {% endif %}
 {% endif %}
 
@@ -278,33 +223,22 @@
     {% endcase %}
   {% endfor %}
 
-  {% comment %}
-    WebSite for the homepage only, BlogPosting (with its dates) for a blog post,
-    WebPage for every other page.
-  {% endcomment %}
   <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "{% if is_blog_post %}BlogPosting{% elsif page.url == '/' %}WebSite{% else %}WebPage{% endif %}",
-      "url": {{ meta_url | jsonify }},
-      "name": {{ meta_title | jsonify }},
-      {% if is_blog_post %}
-        "headline": {{ page.title | strip_html | strip | jsonify }},
-        {% if page.date %}
-          "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
-          "dateModified": {{ page.last_modified_at | default: page.last_updated | default: page.date | date_to_xmlschema | jsonify }},
+        "author":
+        {
+            "@type": "Person",
+            "name": "{{ author_name }}"
+        },
+        "url": "{{ page.url | prepend: site.baseurl | prepend: site.url }}",
+        "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
+        "description": "{% if page.description %}{{ page.description }}{% else if site.description %}{{ site.description }}{% endif %}",
+        "headline": "{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}",
+        {% if sameaslinks != blank %}
+        "sameAs": {{ sameaslinks | jsonify }},
         {% endif %}
-      {% endif %}
-      "description": {{ meta_description | jsonify }},
-      {% if meta_image and meta_image != blank %}"image": {{ meta_image | jsonify }},{% endif %}
-      "author": {
-        "@type": "Person",
-        "name": {{ author_name | strip | jsonify }},
-        {% if site.footer_identity.position %}"jobTitle": {{ site.footer_identity.position | jsonify }},{% endif %}
-        {% if site.footer_identity.affiliation %}"affiliation": { "@type": "Organization", "name": {{ site.footer_identity.affiliation | jsonify }} },{% endif %}
-        {% if sameaslinks != blank %}"sameAs": {{ sameaslinks | jsonify }},{% endif %}
-        "url": {{ '/' | absolute_url | jsonify }}
-      }
+        "name": "{{ author_name }}",
+        "@context": "https://schema.org"
     }
   </script>
 {% endif %}

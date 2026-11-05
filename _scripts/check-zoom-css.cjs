@@ -1,11 +1,5 @@
-// Run after PurgeCSS: it checks rules that a successful Jekyll build alone does
-// not prove survive the purge.
-//  - The image zoom layers: the CDN-loaded zoom library creates these classes at
-//    runtime, so they rely on the safelist in purgecss.config.js.
-//  - The universal focus ring (_sass/ds/_base.scss): PurgeCSS drops a selector
-//    made of a lone pseudo-class (`:focus-visible {`), so it is written
-//    `*:focus-visible`; without it, scroll regions, MathJax and video lose the ring.
-// Usage: node _scripts/check-zoom-css.cjs [path/to/main.css]
+// Run after PurgeCSS: these selectors are created by the CDN-loaded zoom library
+// at runtime, so a successful Jekyll build alone does not verify they survive.
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 
@@ -22,10 +16,4 @@ for (const [selector, zIndex] of [
   );
 }
 
-assert.match(
-  css,
-  /(?:^|[{},\s])\*:focus-visible\s*\{[^}]*outline:\s*2px solid var\(--xw-focus\)/,
-  "Production CSS must retain the universal `*:focus-visible` focus ring (_sass/ds/_base.scss)."
-);
-
-console.log("Production CSS retains both image zoom layers and the universal focus ring.");
+console.log("Production CSS retains both image zoom layers.");

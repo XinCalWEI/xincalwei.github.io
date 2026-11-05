@@ -19,7 +19,7 @@ I’m pleased to share that our paper on building fragility under slow-moving la
 **Corresponding authors:** [Lulu Zhang](https://www.terramosaic.org/people/lulu-zhang/) and [Te Xiao](https://www.terramosaic.org/people/te-xiao/).
 
 <div class="mx-auto my-4" style="max-width: 20rem;">
-  {% include figure.liquid path="assets/img/news/acta-geotechnica-cover.png" class="img-fluid rounded z-depth-1" alt="Acta Geotechnica journal cover" caption="Acta Geotechnica journal cover." width="812" height="962" sizes="(min-width: 400px) 320px, 80vw" zoomable=true %}
+  {% include figure.liquid path="assets/img/news/acta-geotechnica-cover.png" class="img-fluid rounded z-depth-1" alt="Acta Geotechnica journal cover" caption="Acta Geotechnica journal cover." width="812" height="962" zoomable=true avoid_scaling=true %}
 </div>
 
 Stay tuned for more details!

@@ -39,7 +39,7 @@ I’m pleased to share that the Community Initiative proposal I led for **SPARK 
 
 We are planning **SPARK Forum: Responsible Research Translation and Cross-Sector Collaboration** at the **University of Michigan**, with the main program tentatively scheduled for **March 8–12, 2027**.
 
-{% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/news/spark-forum/spark-forum-poster.png" class="img-fluid rounded z-depth-1" alt="SPARK Forum poster illustrating collaboration among current and alumni AI in Science Fellows and partners across academia, government, industry, and national laboratories" width="1920" height="1081" sizes="(min-width: 800px) 736px, 95vw" zoomable=true %}
+{% include figure.liquid path="assets/img/news/spark-forum/spark-forum-poster.png" class="img-fluid rounded z-depth-1" alt="SPARK Forum poster illustrating collaboration among current and alumni AI in Science Fellows and partners across academia, government, industry, and national laboratories" width="1920" height="1081" zoomable=true avoid_scaling=true %}
 
 <div class="caption">
   SPARK Forum promotional illustration. Dates remain tentative.
@@ -64,6 +64,6 @@ These screenshots show the website as of September 18, 2026. Forum dates and pro
 {% assign screenshot_path = screenshot.image | prepend: 'assets/img/news/spark-forum/' %}
 
   <div class="my-4">
-    {% include figure.liquid path=screenshot_path class="img-fluid rounded z-depth-1" alt=screenshot.alt width=screenshot.width height=screenshot.height caption=screenshot.caption sizes="(min-width: 800px) 736px, 95vw" zoomable=true %}
+    {% include figure.liquid path=screenshot_path class="img-fluid rounded z-depth-1" alt=screenshot.alt width=screenshot.width height=screenshot.height caption=screenshot.caption zoomable=true avoid_scaling=true %}
   </div>
 {% endfor %}

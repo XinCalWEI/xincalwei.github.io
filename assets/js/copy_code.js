@@ -1,9 +1,4 @@
 // create element for copy button in code blocks
-// Icons are inline SVG (no icon font needed); the label stays in aria-label.
-var copyIcon =
-  '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="1.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/></svg>';
-var copiedIcon =
-  '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 var codeBlocks = document.querySelectorAll("pre");
 codeBlocks.forEach(function (codeBlock) {
   if (
@@ -20,8 +15,9 @@ codeBlocks.forEach(function (codeBlock) {
     var copyButton = document.createElement("button");
     copyButton.className = "copy";
     copyButton.type = "button";
-    copyButton.setAttribute("aria-label", "Copy code to clipboard");
-    copyButton.innerHTML = copyIcon;
+    copyButton.ariaLabel = "Copy code to clipboard";
+    copyButton.innerText = "Copy";
+    copyButton.innerHTML = '<i class="fa-solid fa-clipboard"></i>';
 
     // get code from code block and copy to clipboard
     copyButton.addEventListener("click", function () {
@@ -37,13 +33,13 @@ codeBlocks.forEach(function (codeBlock) {
         var code = codeBlock.querySelector("code").innerText.trim();
       }
       window.navigator.clipboard.writeText(code);
-      copyButton.setAttribute("aria-label", "Copied");
-      copyButton.innerHTML = copiedIcon;
+      copyButton.innerText = "Copied";
+      copyButton.innerHTML = '<i class="fa-solid fa-clipboard-check"></i>';
       var waitFor = 3000;
 
       setTimeout(function () {
-        copyButton.setAttribute("aria-label", "Copy code to clipboard");
-        copyButton.innerHTML = copyIcon;
+        copyButton.innerText = "Copy";
+        copyButton.innerHTML = '<i class="fa-solid fa-clipboard"></i>';
       }, waitFor);
     });
 

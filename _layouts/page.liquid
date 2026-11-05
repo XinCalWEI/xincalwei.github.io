@@ -10,14 +10,8 @@ layout: default
 
 <div class="post">
   <header class="post-header">
-    {% if page.kicker %}
-      <p class="kicker">{{ page.kicker }}</p>
-    {% endif %}
-    {% comment %} <wbr> lets slash-joined titles ("Publications/Presentations") wrap on phones {% endcomment %}
-    <h1 class="post-title">{{ page.title | replace: '/', '/<wbr>' }}</h1>
-    {% if page.description and page.description != '' %}
-      <p class="post-description">{{ page.description }}</p>
-    {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-description">{{ page.description }}</p>
   </header>
 
   <article>
@@ -29,7 +23,6 @@ layout: default
     <div class="publications">
       {% bibliography --cited_in_order %}
     </div>
-    <script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
   {% endif %}
 
   {% if site.giscus and page.giscus_comments %}

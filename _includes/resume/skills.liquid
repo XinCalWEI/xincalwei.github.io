@@ -1,0 +1,7 @@
+<ul>
+  {% for content in data[1] %}
+    {% for item in content.keywords %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  {% endfor %}
+</ul>

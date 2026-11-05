@@ -1,514 +1,220 @@
-/* =============================================================================
- * CV (/cv/, _layouts/cv.liquid + _includes/cv/*): page header with contact
- * details, then sections of two-column timeline rows (mono years left, entry
- * right) from 768px; stacked on phones. Ends with the print stylesheet that
- * turns the page into a paper CV (window.print() from the header button).
- *
- * Everything is scoped under .cv-doc (two classes), so these rules hold their
- * own against ds/* although this partial is imported before the design layer.
- * ========================================================================== */
+/*****************************
+ * CV shared styles
+ *****************************/
 
-/* Children of these roots inherit colour instead of _base.scss's p/li/span ink. */
-:where(.cv-doc) p,
-:where(.cv-doc) li,
-:where(.cv-doc) span,
-:where(.cv-doc) strong,
-:where(.cv-doc) em,
-:where(.cv-doc) div,
-:where(.cv-doc) h3 {
-  color: inherit;
+div.container-link-button {
+  margin-right: 0.5rem;
 }
 
-.cv-doc {
-  --cv-rail: 7.5rem; /* the year column */
-  --cv-gap: 1.5rem;
-  color: var(--xw-ink);
+table.table-cv {
+  background-color: transparent !important;
+
+  td,
+  th {
+    padding: 1px;
+  }
 }
 
-/* ---- Header: name + print control, position, contact, summary ---- */
-.cv-doc .cv-head__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-4) var(--space-6);
-}
-
-.cv-doc .cv-print {
-  flex-shrink: 0;
-  margin-bottom: 0.35rem;
-}
-
-/* no JS, no window.print(): hide the control rather than show a dead button */
-.no-js .cv-doc .cv-print {
-  display: none;
-}
-
-.cv-doc .cv-contact {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-3) var(--space-6);
-  margin: var(--space-5) 0 0;
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--xw-rule);
-}
-
-.cv-doc .cv-contact__item {
-  min-width: 0;
-}
-
-.cv-doc .cv-contact dt {
-  margin: 0 0 0.15rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-kicker);
-  font-weight: 500;
-  letter-spacing: var(--tracking-kicker);
+a.btncv {
+  color: var(--global-text-color) !important;
+  border: 1px solid var(--global-text-color) !important;
+  border-radius: 0.125rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.7rem;
+  text-align: center;
+  vertical-align: middle;
   text-transform: uppercase;
-  color: var(--xw-ink-3);
-}
-
-.cv-doc .cv-contact dd {
-  margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--xw-ink);
-  overflow-wrap: anywhere;
-}
-
-.cv-doc .cv-summary {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-2) var(--space-6);
-  margin: var(--space-5) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cv-doc .cv-summary li {
-  position: relative;
-  padding-left: 1.25rem;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--xw-ink-2);
-}
-
-/* a short earth dash as the marker: the one accent, used as a survey tick */
-.cv-doc .cv-summary li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.72em;
-  width: 0.7rem;
-  height: 1px;
-  background: var(--xw-earth);
-}
-
-@media (min-width: 576px) {
-  .cv-doc .cv-contact {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cv-doc .cv-summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* ---- Sections ---- */
-.cv-doc .cv-section {
-  margin-top: clamp(2.5rem, 1.9rem + 2vw, 3.5rem);
-}
-
-.cv-doc .cv-section:first-child {
-  margin-top: 0;
-}
-
-.cv-doc .cv-section__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-5);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--xw-rule-strong);
-}
-
-/* the site's one section-heading size (--step-h2), as on News and Publications */
-.cv-doc .cv-section__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: var(--step-h2);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: var(--tracking-display);
-  color: var(--xw-ink);
-}
-
-.cv-doc .cv-section__link {
-  font-size: 0.875rem;
-}
-
-/* ---- Timeline rows ---- */
-.cv-doc .cv-rows,
-.cv-doc .cv-pubs ol.bibliography {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cv-doc .cv-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.2rem var(--cv-gap);
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--xw-rule);
-}
-
-.cv-doc .cv-rows > li:last-child {
-  border-bottom: 0;
-}
-
-/* one list per year (see _includes/cv/publications.liquid): years without
- * entries render an empty list */
-.cv-doc .cv-pubs ol.bibliography:empty {
-  display: none;
-}
-
-.cv-doc .cv-row__when {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  line-height: 1.6;
-  color: var(--xw-ink-3);
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.cv-doc .cv-row__body {
-  min-width: 0;
+a.btncv:hover {
+  color: var(--global-theme-color) !important;
+  border-color: var(--global-theme-color) !important;
+  text-decoration: none !important;
 }
 
-.cv-doc .cv-row__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.005em;
-  color: var(--xw-ink);
+/*****************************
+ * CV TIME_TABLE styles
+ *****************************/
+
+p.location {
+  font-size: 0.7rem;
+  white-space: nowrap;
 }
 
-.cv-doc .cv-row__where {
-  margin: 0.15rem 0 0;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--xw-ink-2);
+i.iconlocation {
+  color: var(--global-theme-color);
+  font-size: 0.8rem;
 }
 
-.cv-doc .cv-row__loc {
-  color: var(--xw-ink-3);
+i.iconinstitution {
+  color: var(--global-theme-color);
+  font-size: 0.95rem;
+  margin-right: 0.3rem;
 }
 
-.cv-doc .cv-row__text {
-  margin-top: 0.4rem;
-  font-size: 0.9375rem;
-  color: var(--xw-ink-2);
+i.icondepartment {
+  color: var(--global-theme-color);
+  font-size: 0.8rem;
+  margin-right: 0.3rem;
 }
 
-.cv-doc .cv-notes {
-  margin: 0.45rem 0 0;
-  padding-left: 1.1rem;
-  list-style-type: disc;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--xw-ink-2);
+table.institution {
+  margin-bottom: 1rem;
 }
 
-.cv-doc .cv-notes li + li {
-  margin-top: 0.2rem;
+td.department {
+  font-size: 0.8rem;
 }
 
-.cv-doc .cv-notes li::marker {
-  color: var(--xw-ink-3);
+div.container-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.cv-doc .cv-notes .cv-person {
-  font-weight: 600;
-  color: var(--xw-ink);
+/*****************************
+ * CV MAP styles
+ *****************************/
+
+div.container-pdf {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-/* rows without a title (awards, memberships): the item is the entry */
-.cv-doc .cv-items {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--xw-ink);
-}
+/*****************************
+ * CV LIST_GROUPS styles
+ *****************************/
 
-.cv-doc .cv-row__links {
+div.list-groups {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  margin: 0.5rem 0 0;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-content: center;
 }
 
-.cv-doc a:not([class]) {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+div.list-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
 }
 
-/* ---- Plain list (research interests), key/value map ---- */
-.cv-doc .cv-list {
-  margin: var(--space-4) 0 0;
-  padding-left: 1.1rem;
-  font-size: 1rem;
-  line-height: 1.55;
+td.list-group-category {
+  color: var(--global-theme-color);
+  margin-bottom: 0.5rem;
 }
 
-.cv-doc .cv-list li + li {
-  margin-top: 0.35rem;
+td.list-group-category-icon {
+  font-size: 0.8rem;
+  color: var(--global-theme-color);
+  width: 1.4rem;
+  padding-right: 0.4rem;
 }
 
-.cv-doc .cv-list li::marker {
-  color: var(--xw-ink-3);
+td.list-group-name {
+  font-size: 0.8rem;
 }
 
-.cv-doc .cv-map {
-  margin: var(--space-4) 0 0;
+td.list-group-level {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
 }
 
-.cv-doc .cv-map__row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0.1rem var(--cv-gap);
-  padding: 0.4rem 0;
+td.list-group-school {
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+  text-align: center;
 }
 
-.cv-doc .cv-map dt {
-  font-weight: 600;
+p.list-group-time {
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
 }
 
-.cv-doc .cv-map dd {
-  margin: 0;
+td.list-group-link {
+  padding-left: 0.5rem;
 }
 
-/* ---- References: contact cards ---- */
-.cv-doc .cv-cards {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0 var(--space-6);
+/*****************************
+ * CV TOC styles
+ *****************************/
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -50px;
+  visibility: hidden;
+}
+
+ul.timeline {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+ul.timeline li {
+  position: relative;
+  min-height: 2.2rem;
+  color: var(--global-text-color);
+  list-style-position: inside;
+}
+
+span.badge-toc {
+  color: var(--global-bg-color);
+  background-color: var(--global-theme-color);
+  border-radius: 0.125rem;
+  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
+  font-weight: 700 !important;
+  display: inline-block;
+  inline-size: fit-content;
+}
+
+ul.timeline li::before {
+  content: "";
+  min-height: 2.5rem;
+  width: 1px;
+  background: var(--global-text-color);
   margin: 0;
   padding: 0;
-  list-style: none;
+  position: absolute;
+  left: 2px;
+  top: -0.5rem;
 }
 
-.cv-doc .cv-card {
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--xw-rule);
+/*ul.timeline::before {
+     content: "●";
+     font-size: 1em;
+     display: inline-block;
+     margin: 0;
+     padding: 0;
+     position: relative;
+     left: -2px;
+     top: 0.4rem;
+     color: var(--global-text-color);
 }
-
-.cv-doc .cv-card__name {
-  margin: 0 0 0.3rem;
-  font-family: var(--font-serif);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--xw-ink);
+ ul.timeline::after {
+     content: "●";
+     font-size: 1em;
+     display: inline-block;
+     margin: 0;
+     padding: 0;
+     position: relative;
+     left: -2px;
+     top: -1rem;
+     color: var(--global-text-color);
 }
-
-.cv-doc .cv-card__text {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--xw-ink-2);
-  overflow-wrap: anywhere;
-}
-
-/* the relationship line ("Ph.D. Advisor") closes each card in ink */
-.cv-doc .cv-card__text i {
-  display: inline-block;
-  margin-top: 0.3rem;
-  font-style: normal;
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  color: var(--xw-ink-3);
-}
-
-/* ---- Publications (generated from papers.bib) ---- */
-.cv-doc .cv-pubs__summary {
-  margin: var(--space-4) 0 0;
-}
-
-.cv-doc .cv-sub {
-  margin: var(--space-5) 0 0;
-  padding-bottom: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-kicker);
-  font-weight: 500;
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
-  color: var(--xw-ink-3);
-  border-bottom: 1px solid var(--xw-rule);
-}
-
-.cv-doc .cv-pub {
-  padding: 0.8rem 0;
-}
-
-.cv-doc .cv-pub__ref {
-  margin: 0;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--xw-ink-2);
-  overflow-wrap: anywhere;
-}
-
-.cv-doc .cv-pub__ref strong {
-  font-weight: 600;
-  color: var(--xw-ink);
-}
-
-.cv-doc .cv-pub__ref i {
-  color: var(--xw-ink);
-}
-
-.cv-doc .cv-pub__note {
-  margin: 0.25rem 0 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  line-height: 1.5;
-  color: var(--xw-earth);
-}
-
-/* ---- Two-column timeline from 768px ---- */
-@media (min-width: 768px) {
-  .cv-doc .cv-row {
-    grid-template-columns: var(--cv-rail) minmax(0, 1fr);
-  }
-
-  .cv-doc .cv-row__body {
-    grid-column: 2;
-  }
-
-  .cv-doc .cv-row__when {
-    padding-top: 0.2rem;
-  }
-
-  /* blocks without a year column line up with the entry column */
-  .cv-doc .cv-list,
-  .cv-doc .cv-map,
-  .cv-doc .cv-pubs__summary {
-    margin-left: calc(var(--cv-rail) + var(--cv-gap));
-  }
-
-  .cv-doc .cv-map__row {
-    grid-template-columns: 9rem minmax(0, 1fr);
-  }
-
-  .cv-doc .cv-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-left: calc(var(--cv-rail) + var(--cv-gap));
-  }
-}
-
-/* ---- Paper CV --------------------------------------------------------------
- * The global print rules (_a11y-motion.scss) already drop the navbar, TOC and
- * progress bar. Here: ink on white whatever the screen theme, no footer or
- * screen-only controls, a denser type scale and sensible page breaks. */
-@media print {
-  @page {
-    margin: 16mm 15mm;
-  }
-
-  html:has(.cv-doc),
-  html[data-theme]:has(.cv-doc) {
-    --xw-paper: #fff;
-    --xw-surface: #fff;
-    --xw-surface-sunk: #fff;
-    --xw-ink: #000;
-    --xw-ink-2: #222;
-    --xw-ink-3: #444;
-    --xw-rule: #c8c8c8;
-    --xw-rule-strong: #888;
-    --xw-link: #000;
-    --xw-earth: #000;
-    color-scheme: light;
-    font-size: 13.5px; /* every rem in the CV scales with it (~10pt body) */
-  }
-
-  body:has(.cv-doc) .site-footer,
-  body:has(.cv-doc) #back-to-top,
-  .cv-doc .cv-print,
-  .cv-doc .cv-section__link {
-    display: none !important;
-  }
-
-  body:has(.cv-doc) .site-main {
-    padding: 0;
-  }
-
-  .cv-doc .post-header {
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom-color: #000;
-  }
-
-  .cv-doc .post-header .post-title {
-    font-size: 2.2rem;
-  }
-
-  .cv-doc .cv-contact,
-  .cv-doc .cv-summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cv-doc a {
-    color: #000;
-    text-decoration: none;
-  }
-
-  .cv-doc .cv-section {
-    margin-top: 1.4rem;
-  }
-
-  .cv-doc .cv-section__head {
-    break-after: avoid;
-    padding-bottom: 0.3rem;
-  }
-
-  .cv-doc .cv-section__title {
-    font-size: 1.5rem;
-  }
-
-  .cv-doc .cv-row {
-    grid-template-columns: 6.5rem minmax(0, 1fr);
-    padding: 0.5rem 0;
-    break-inside: avoid;
-  }
-
-  .cv-doc .cv-row__body {
-    grid-column: 2;
-  }
-
-  .cv-doc .cv-list,
-  .cv-doc .cv-map,
-  .cv-doc .cv-pubs__summary,
-  .cv-doc .cv-cards {
-    margin-left: calc(6.5rem + var(--cv-gap));
-  }
-
-  .cv-doc .cv-sub {
-    break-after: avoid;
-  }
-
-  .cv-doc .cv-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .cv-doc .cv-card {
-    padding: 0.5rem 0;
-    break-inside: avoid;
-  }
-}
+*/

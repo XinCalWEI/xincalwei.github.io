@@ -21,7 +21,7 @@ An interactive visual guide to learning Git branching and workflows.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <a href="https://learngitbranching.js.org/" target="_blank">
-            {% include figure.liquid loading="eager" path="assets/img/blog/learninggit.png" alt="The Learn Git Branching tutorial menu, with introduction, ramping-up and advanced lesson levels" class="img-fluid rounded z-depth-1" zoomable=true %}
+            {% include figure.liquid loading="eager" path="assets/img/blog/learninggit.png" class="img-fluid rounded z-depth-1" zoomable=true %}
         </a>
     </div>
 </div>
@@ -35,7 +35,7 @@ The official Git documentation covering fundamental Git concepts and repository 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <a href="https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository" target="_blank">
-            {% include figure.liquid loading="eager" path="assets/img/blog/git2.png" alt="The Pro Git book chapter Git Basics: Getting a Git Repository, open in a browser" class="img-fluid rounded z-depth-1" zoomable=true %}
+            {% include figure.liquid loading="eager" path="assets/img/blog/git2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
         </a>
     </div>
 </div>
@@ -77,8 +77,6 @@ I check the repository again after editing. This is where I catch temporary file
 
 The short status symbols are especially useful:
 
-<div class="table-responsive" role="region" tabindex="0" aria-label="Table: 2. Inspect before staging 🔍" markdown="1">
-
 | Symbol | Plain-language meaning                               |
 | ------ | ---------------------------------------------------- |
 | `??`   | A new file that Git is not tracking yet              |
@@ -86,8 +84,6 @@ The short status symbols are especially useful:
 | `M `   | A tracked modification is staged for the next commit |
 | `A `   | A new file is staged for the next commit             |
 | `D `   | A deletion is staged for the next commit             |
-
-</div>
 
 Some terminal themes also show a symbol such as `*` or `✭` beside the branch name. That usually means the working tree is not completely clean; `git status` _(Explains the actual reason instead of making me guess what the prompt symbol means.)_
 

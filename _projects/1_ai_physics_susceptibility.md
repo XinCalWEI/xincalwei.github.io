@@ -1,26 +1,18 @@
 ---
-layout: project
+layout: page
 title: Physics-Guided AI for Regional Landslide Susceptibility
 description: A three-paper first-author research program develops, tests, and interprets physics-guided models for cross-region landslide-susceptibility mapping, with explicit analysis of training-sample variability.
-# conceptual cover, kept but no longer shown on the Research index
 img: assets/img/projects/covers/physics-guided-susceptibility.png
 cover_fit: cover
 cover_position: 50% 50%
 cover_alt: "Conceptual illustration of layered terrain inputs, physics-guided learning, and a regional landslide-susceptibility field across mountainous terrain."
 importance: 1
-category: Prospective Modeling
+category: Prospective Modelling
 sub_area: Susceptibility
 toc:
   sidebar: right
   breakpoint: lg
 related_publications: true
-math: true # loads MathJax (see _includes/scripts.liquid)
-# Research index (_pages/projects.md, _includes/projects.liquid)
-thrust: ai
-label: Susceptibility
-period: 2021–2024
-thumb: assets/img/projects/research/susceptibility-wushan-maps.png
-thumb_alt: Two landslide-susceptibility maps of Wushan County from the 2024 study, produced by the two hybrid models without local fine-tuning
 ---
 
 <div class="project-detail prose" markdown="1">
@@ -83,7 +75,7 @@ The three studies use a deliberately spatial evaluation design in the Three Gorg
     Spatial evaluation design used in the 2024 study: Zhuyuan for training, Qinglian for cross-region testing, and Wushan for additional testing without local fine-tuning. Fig. 5 from {% cite wei2024improving %}.
 </div>
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Region roles and inventory context reported across the three papers">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Region</th><th>Role</th><th>Evidence used in the core papers</th></tr>
@@ -137,7 +129,7 @@ $$
 
 The 50-realization leave-one-factor-out experiment considered both the mean AUC and its spread. Omitting lithology produced the lowest mean and the widest range. River distance, road distance, and NDVI also produced comparatively broad distributions when removed. The authors interpreted these patterns as consistent with the roles of reservoir-level fluctuation, engineering activity, and vegetation cover in the study area, while noting that slope and curvature ranked lower than expected. Because the information was limited and the CNN can perform internal feature selection, all 12 factors were retained in the model. {% cite wei2021novel %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Selected leave-one-factor-out results from Fig. 7">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Factor removed</th><th>Mean AUC</th><th>Min–max AUC</th><th>Evidence in this experiment</th></tr>
@@ -203,7 +195,7 @@ The screening threshold and the physical-evaluation threshold serve different pu
 
 ### Evaluation design
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Evaluation, Training data, Testing data, Purpose">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Evaluation</th><th>Training data</th><th>Testing data</th><th>Purpose</th></tr>
@@ -238,7 +230,7 @@ Across 50 cross-region realizations, the hybrid without sample pre-selection inc
     Fifty cross-region realizations separate the gain from replacing lithology with $F_s$ (CNN → unscreened hybrid) from the additional gain produced by negative-sample screening. Fig. 12 from {% cite wei2021novel %}.
 </div>
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Model, Min, 25%, Mean, 75%, Max">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Model</th><th>Min</th><th>25%</th><th>Mean</th><th>75%</th><th>Max</th></tr>
@@ -280,7 +272,7 @@ $$
 
 The raw TRIGRS output is sensitive to the assumed maximum soil depth. At the stand-alone threshold $F_s=1.2$, increasing $Z_{\max}$ from 10 to 30 m raised TPR from 2.9% to 39.7%, while FPR rose from 3.0% to 32.6%. The $Z_{\max}=20$ and 30 m configurations produced TPR/FPR ratios of 1.24 and 1.22; the 10 m configuration produced a ratio below 1 and classified nearly the entire region as safe. {% cite wei2021novel %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Configuration, Stand-alone physical result, Mean screened-hybrid AUC, Screened-hybrid min–max AUC">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Configuration</th><th>Stand-alone physical result</th><th>Mean screened-hybrid AUC</th><th>Screened-hybrid min–max AUC</th></tr>
@@ -313,7 +305,7 @@ All four models replace geological strata with $F_s$ and use a physics-based sta
 
 The spatial transfer problem remains concrete in this dataset: $J_2s$ is absent from Zhuyuan but present in Qinglian, while $J_2xs$ occupies little of the training region—with only one recorded training landslide—but approximately one-fifth of the testing region. The paper also reports differences in elevation, terrain variability, road–inventory distance, and annual precipitation between the two towns. {% cite wei2023comparison %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Hybrid, Physical module, Main physical assumption, How the grid-level Fs is obtained">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Hybrid</th><th>Physical module</th><th>Main physical assumption</th><th>How the grid-level $F_s$ is obtained</th></tr>
@@ -375,7 +367,7 @@ In one realization, CNN AUC decreased from 0.812 over the Zhuyuan training regio
 
 The three two-dimensional modules produced similar stand-alone AUC values in Qinglian, whereas Scoops3D produced approximately 0.45. The authors relate the lower Scoops3D performance to failure-mode applicability: the study inventory is dominated by shallow landslides, while Scoops3D searches spherical rotational surfaces suited to deep-seated failures. {% cite wei2023comparison %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Physical module, Mean Fs, SD of Fs, Stand-alone AUC">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Physical module</th><th>Mean $F_s$</th><th>SD of $F_s$</th><th>Stand-alone AUC</th></tr>
@@ -404,7 +396,7 @@ Scoops3D produced a more spatially concentrated $F_s$ field and the smallest $F_
     The three shallow-slope hybrids have nearly identical mean AUC, but H3 has the narrowest min–max range and the smallest SD. Values in the table below are transcribed from Fig. 15. {% cite wei2023comparison %}
 </div>
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Table: Model, Min, Q1, Mean, Q3, Max, SD">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Model</th><th>Min</th><th>Q1</th><th>Mean</th><th>Q3</th><th>Max</th><th>SD</th></tr>
@@ -451,7 +443,7 @@ In Qinglian, 20 random H3 realizations ranged from 0.626 to 0.723. Averaging sub
 
 Threshold-specific TPR/FPR ratios provide a second evaluation of the five-realization H3 average. At every listed susceptibility-class threshold, H3 has the largest ratio among CNN, saturated ISSM, and the hybrid average:
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="TPR/FPR ratios from Table 4">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Classification threshold</th><th>CNN</th><th>Saturated ISSM</th><th>H3 average</th></tr>
@@ -490,7 +482,7 @@ Wushan is not simply a larger holdout. Its geological and topographic conditions
 
 The 2024 paper moves from proposing a hybrid to dissecting why it performs as it does. Rather than treating hybrid-model performance as a single aggregate gain, it examines five design levers through a sequence of controlled comparisons: physics-derived explanatory-factor nonlinearity, pixel spatial neighborhoods, data-driven algorithmic nonlinearity, model-parameter count, and data quantity and quality. {% cite wei2024improving %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Controlled experiment, What is changed, What is held conceptually fixed">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Controlled experiment</th><th>What is changed</th><th>What is held conceptually fixed</th></tr>
@@ -571,7 +563,7 @@ The physics-derived feature addresses two distinct problems. First, $J_2s^2$ is 
 
 The step-wise deletion procedure is itself part of the experimental contribution. At each step, LR is refitted, the coefficients of all remaining factors are recalculated, and the factor with the smallest absolute fitted coefficient is removed. The deletion order is curvature → NDVI → annual precipitation → distance to roads → slope → distance to rivers. This leaves elevation, land cover, and $F_s$; the next deletion removes $F_s$, followed by elevation. {% cite wei2024improving %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Step, Factors retained, Training AUC, Testing AUC, Factor removed next">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Step</th><th>Factors retained</th><th>Training AUC</th><th>Testing AUC</th><th>Factor removed next</th></tr>
@@ -600,7 +592,7 @@ Using the three-factor Hybrid I, 1,000 m land-cover data produced training/testi
 
 For spatial context, single-pixel Hybrid I begins at 0.691. Local-area samples raise its AUC to approximately 0.72, which the paper summarizes as an approximately 4.2% increase. Hybrid Model I reaches its highest plotted value, 0.727, at 210 m and obtains 0.726 at 270 m. Hybrid Model II reaches its maximum of 0.739 at 270 m. The authors adopt 270 m as the common sample size for the subsequent controlled comparison and Wushan application. {% cite wei2024improving %}
 
-<div class="table-responsive project-detail__table" tabindex="0" role="region" aria-label="Table: Sample side length, Hybrid I: LR + ISSA, Hybrid II: CNN + ISSA">
+<div class="table-responsive project-detail__table">
 <table>
   <thead>
     <tr><th>Sample side length</th><th>Hybrid I: LR + ISSA</th><th>Hybrid II: CNN + ISSA</th></tr>
@@ -647,7 +639,7 @@ Wushan does not provide the same categorical geological-stratum product used in 
 
 The resulting AUC values are **0.745** for Hybrid Model I and **0.756** for Hybrid Model II. At the highest listed quantile threshold, their absolute metrics are nearly identical:
 
-<div class="table-responsive project-detail__table project-detail__table--wide" tabindex="0" role="region" aria-label="Threshold-specific values from Table 8">
+<div class="table-responsive project-detail__table project-detail__table--wide">
 <table>
   <thead>
     <tr><th>Model</th><th>Threshold</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>FPR</th><th>F1</th></tr>
@@ -679,7 +671,7 @@ The paper discusses low precision and comparatively high FPR in relation to inve
 
 ## Synthesis across the three studies {#core-synthesis}
 
-<div class="table-responsive project-detail__table project-detail__program-matrix" tabindex="0" role="region" aria-label="Table: Scientific question, 2021, 2023, 2024">
+<div class="table-responsive project-detail__table project-detail__program-matrix">
 <table>
   <thead>
     <tr><th>Scientific question</th><th>2021</th><th>2023</th><th>2024</th></tr>
