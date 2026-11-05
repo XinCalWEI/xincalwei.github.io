@@ -37,7 +37,7 @@ Both the number of landslide records (labels) and the quality of the input featu
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/blog/key_elements_susceptibility.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/blog/key_elements_susceptibility.jpg" alt="Mind map of key elements for improving pixel-based regional landslide susceptibility mapping" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">

@@ -30,7 +30,7 @@ The findings show that the proposed integrated AI-physics approach significantly
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/agu24.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/agu24.jpg" alt="Estéfan Garcia, Sabine Loos and Xin Wei in front of a poster at the AGU 2024 Fall Meeting" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

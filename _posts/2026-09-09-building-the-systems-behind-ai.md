@@ -81,6 +81,8 @@ Liao uses an “eighteen-level pagoda” to describe the distance from physical 
 
 The following groups collect the examples he gives; they are not a numbered taxonomy.
 
+<div class="table-responsive" role="region" tabindex="0" aria-label="Table: The scarce skill is crossing floors" markdown="1">
+
 | Region of the pagoda      | Examples in the conversation                                           | What the neighboring layers need to understand                |
 | ------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
 | Materials and devices     | Materials, transistor structures, electrical and optical properties    | Which physical behaviors and constraints the design inherits  |
@@ -88,6 +90,8 @@ The following groups collect the examples he gives; they are not a numbered taxo
 | Chips                     | Compute units, memory interfaces, interconnects                        | How available hardware resources match the workload           |
 | Programming and execution | Languages, compilers, kernels, runtimes                                | How to express an algorithm and use the hardware efficiently  |
 | Models and applications   | Sparsity, data formats, context management, agents, services           | Which capabilities create value and what they cost to deliver |
+
+</div>
 
 The point is the traffic between floors. A model developer sees memory pressure; a chip architect sees idle arithmetic units; a compiler engineer sees an opportunity to reorganize the computation. Each can be correct within a local view while missing an improvement that crosses their boundary.
 
@@ -229,11 +233,15 @@ He applies an economic test to the wider industry as well. A sustainable path ne
 
 One distinction I want to keep using is Liao's account of three different software demands.
 
+<div class="table-responsive" role="region" tabindex="0" aria-label="Table: Running inference, training a model, and supporting research" markdown="1">
+
 | Activity                                | What must work                                                                           | Why the support burden changes                                                              |
 | --------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | Inference for an established model      | Correct, efficient serving under the target latency and throughput requirements          | Optimization can be reused across deployments of that model                                 |
 | Production training for a defined model | Forward and backward computation, numerical behavior, distributed execution, convergence | More operations and system behavior must work across a sustained training run               |
 | Research                                | Frequent changes to algorithms, kernels, layouts, and experiments                        | The platform must make unfamiliar work practical without requiring a bespoke port each time |
+
+</div>
 
 This is not a universal ranking of difficulty: production inference can demand exceptional optimization. Liao's distinction concerns the breadth and rate of change the software platform has to absorb. A fixed model provides a relatively stable target. A research team changes the target every day.
 

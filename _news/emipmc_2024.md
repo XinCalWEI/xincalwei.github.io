@@ -20,6 +20,6 @@ I presented "Advancing Regional Landslide Risk Assessment Based on a Hybrid Data
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/emipmc2024.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/emipmc2024.jpeg" alt="Group photo of conference participants in a ballroom at EMI/PMC 2024" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>

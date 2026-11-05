@@ -1,14 +1,14 @@
 {% comment %}
-  Dated row list for the About page, in the TerraMosaic post-item style:
-  big day number + month/year rail, optional category pill (posts), bold
-  title, hover arrow. Each row is one block-level <a>.
-
-  news.liquid / latest_posts.liquid are left untouched so /news/ keeps working.
+  Dated rows for the News archive (/news/): mono date column, category tag,
+  serif title, one-line dek and, from 768px, a small thumbnail. Each row is one
+  block-level link. (The homepage now builds its own list in _includes/home/.)
 
   Params:
-    items — a collection (already ordered newest-first)
-    limit — integer
-    kind  — 'news' | 'posts'
+    items   — a collection, already ordered newest first
+    limit   — integer (default 5)
+    kind    — 'news' | 'posts'
+    excerpt — true: show a one-line dek (description, else the opening text)
+              and the thumbnail
 {% endcomment %}
 
 {% assign feed_limit = include.limit | default: 5 %}
@@ -30,10 +30,7 @@
       <li>
         {% if include.kind == 'news' and item.inline %}
           <div class="feed__row">
-            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">
-              <span class="feed__day">{{ item.date | date: '%-d' }}</span>
-              <span class="feed__my">{{ item.date | date: '%b %Y' }}</span>
-            </time>
+            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: '%-d %b %Y' }}</time>
             <span class="feed__body">
               <span class="feed__title">{{ item.content | remove: '<p>' | remove: '</p>' | emojify }}</span>
             </span>
@@ -47,39 +44,37 @@
               rel="noopener noreferrer"
             {% endif %}
           >
-            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">
-              <span class="feed__day">{{ item.date | date: '%-d' }}</span>
-              <span class="feed__my">{{ item.date | date: '%b %Y' }}</span>
-            </time>
+            <time class="feed__date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: '%-d %b %Y' }}</time>
             <span class="feed__body">
               {% if include.kind == 'posts' %}
                 {% assign cat = item.categories | first %}
                 {% if cat %}
-                  <span class="feed__pill feed__pill--{{ cat | slugify }}">{{ cat | replace: '-', ' ' }}</span>
+                  <span class="tag feed__tag">{{ cat | replace: '-', ' ' }}</span>
                 {% endif %}
               {% elsif include.excerpt and item.category %}
-                <span class="feed__pill feed__pill--{{ item.category | slugify }}">{{ item.category }}</span>
+                <span class="tag feed__tag">{{ item.category }}</span>
               {% endif %}
               <span class="feed__title">
                 {{- item.title -}}
                 {%- if is_external %}
-                  <i class="fa-solid fa-arrow-up-right-from-square feed__ext" aria-hidden="true"></i>
+                  {% include icon.liquid name="arrow-up-right" class="feed__ext" -%}
                   <span class="sr-only">(opens in a new tab)</span>
                 {% endif -%}
               </span>
-              {% if include.kind == 'posts' and item.description != blank %}
-                <span class="feed__desc">{{ item.description | strip_html | strip }}</span>
+              {% if item.description != blank %}
+                {% if include.kind == 'posts' or include.excerpt %}
+                  <span class="feed__desc">{{ item.description | strip_html | strip }}</span>
+                {% endif %}
               {% elsif include.excerpt and item.content != blank %}
                 {% comment %} the '</'→' </' replace keeps words from running together across block boundaries after strip_html {% endcomment %}
-                <span class="feed__desc">{{ item.content | replace: '</', ' </' | strip_html | strip_newlines | truncate: 180 }}</span>
+                <span class="feed__desc">{{ item.content | replace: '</', ' </' | strip_html | strip_newlines | replace: '  ', ' ' | replace: ' .', '.' | replace: ' ,', ',' | truncate: 200 }}</span>
               {% endif %}
             </span>
             {% if include.excerpt and item.thumbnail %}
               <span class="feed__thumb{% if item.thumbnail_fit == 'contain' %} feed__thumb--contain{% endif %}">
-                {% include figure.liquid path=item.thumbnail sizes="220px" alt="" %}
+                {% include figure.liquid path=item.thumbnail sizes="160px" width="160" height="107" alt="" %}
               </span>
             {% endif %}
-            <i class="fa-solid fa-arrow-right feed__arrow" aria-hidden="true"></i>
           </a>
         {% endif %}
       </li>

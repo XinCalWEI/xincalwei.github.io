@@ -1,10 +1,22 @@
 ---
 layout: default
 ---
-{% assign year = page.date | date: '%Y' %}
-{% assign tags = page.tags | join: '' %}
-{% assign categories = page.categories | join: '' %}
+{% comment %}
+  Article layout for blog posts (_posts) and news items (_news).
+  Header: mono kicker (section · category, linked), serif title, dek
+  (description), mono meta (date · reading time), topic tags. Body: .prose
+  measure. Footer: related posts (blog), then "All news/posts" and
+  older/newer links. The tag/category/year archive links that used to sit in
+  the meta line are kept as the tag row and the kicker links.
+{% endcomment %}
 {% assign url_beginning = page.url | slice: 0, 6 %}
+{% assign is_blog = false %}
+{% if url_beginning == '/blog/' %}{% assign is_blog = true %}{% endif %}
+{% assign is_news = false %}
+{% if page.collection == 'news' %}{% assign is_news = true %}{% endif %}
+{% assign year = page.date | date: '%Y' %}
+{% assign word_count = content | strip_html | number_of_words %}
+{% assign read_time = word_count | plus: 179 | divided_by: 180 %}
 
 {% if page._styles %}
   <!-- Page/Post style -->
@@ -13,63 +25,61 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post">
-  <header class="post-header">
+<div class="post post-article">
+  <header class="post-header article-head">
+    <p class="kicker">
+      {% if is_news %}
+        <a href="{{ '/news/' | relative_url }}">News</a>
+        {%- if page.category %}<span aria-hidden="true">·</span><span>{{ page.category }}</span>{% endif %}
+      {% elsif is_blog %}
+        <a href="{{ '/blog/' | relative_url }}">Blog</a>
+        {%- for category in page.categories -%}
+          {%- assign category_label = category | replace: '-', ' ' | capitalize -%}
+          {%- for taxonomy_category in site.data.blog_taxonomy.categories -%}
+            {%- if taxonomy_category.key == category %}{% assign category_label = taxonomy_category.label %}{% endif -%}
+          {%- endfor -%}
+          <span aria-hidden="true">·</span><a href="{{ category | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}">{{ category_label }}</a>
+        {%- endfor -%}
+      {% else %}
+        {{ page.kicker | default: 'Article' }}
+      {% endif %}
+    </p>
     <h1 class="post-title">
       {% if page.redirect %}
-        <a href="{{ page.redirect }}" target="_blank">{{ page.title }}</a>
+        <a href="{{ page.redirect }}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
       {% else %}
         {{ page.title }}
       {% endif %}
     </h1>
+    {% if page.description and page.description != '' %}
+      <p class="post-description">{{ page.description }}</p>
+    {% endif %}
     <p class="post-meta">
-      Created on {{ page.date | date: '%B %d, %Y' }}
-      {% if page.author %}by {{ page.author }}{% endif %}
-      {% if page.last_updated %}, last updated on {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
-      {% if page.meta %}• {{ page.meta }}{% endif %}
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>
+      {%- if page.last_updated %}<span aria-hidden="true"> · </span>Updated <time datetime="{{ page.last_updated | date_to_xmlschema }}">{{ page.last_updated | date: '%-d %B %Y' }}</time>{% endif -%}
+      {%- if is_blog %}<span aria-hidden="true"> · </span>{{ read_time }} min read{% endif -%}
+      {%- if page.author %}<span aria-hidden="true"> · </span>{{ page.author }}{% endif -%}
+      {%- if page.meta %}<span aria-hidden="true"> · </span>{{ page.meta }}{% endif -%}
     </p>
-    <p class="post-tags">
-      {% if url_beginning == '/blog/' %}
-        <a href="{{ year | prepend: '/blog/' | relative_url }}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
-      {% else %}
-        <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}
-      {% endif %}
-      {% if tags != '' %}
-        &nbsp; &middot; &nbsp;
+    {% if is_blog %}
+      <ul class="article-tags" aria-label="Archives">
+        <li>
+          <a class="tag" href="{{ year | prepend: '/blog/' | append: '/' | relative_url }}"><span class="sr-only">Posts from </span>{{ year }}</a>
+        </li>
         {% for tag in page.tags %}
-          {% if url_beginning == '/blog/' %}
-            <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
-          {% else %}
-            <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}
-          {% endif %}
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          <li>
+            <a class="tag" href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}"><span class="sr-only">Tag: </span>{{ tag }}</a>
+          </li>
         {% endfor %}
-      {% endif %}
-
-      {% if categories != '' %}
-        &nbsp; &middot; &nbsp;
-        {% for category in page.categories %}
-          {% if url_beginning == '/blog/' %}
-            <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category -}}</a>
-          {% else %}
-            <i class="fa-solid fa-tag fa-sm"></i> {{ category }}
-          {% endif %}
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
-        {% endfor %}
-      {% endif %}
-    </p>
+      </ul>
+    {% endif %}
   </header>
 
   <article class="post-content">
     {% if page.toc and page.toc.beginning %}
-      <div id="table-of-contents">
+      <nav id="table-of-contents" class="article-toc" aria-label="Contents">
         {% toc %}
-      </div>
-      <hr>
+      </nav>
     {% endif %}
     <div id="markdown-content" class="prose">
       {{ content }}
@@ -92,6 +102,42 @@ layout: default
     {% if page.related_posts == null or page.related_posts %}
       {% include related_posts.liquid %}
     {% endif %}
+  {% endif %}
+
+  {% if is_news or is_blog %}
+    {% if is_news %}
+      {% assign index_url = '/news/' %}
+      {% assign index_label = 'All news' %}
+    {% else %}
+      {% assign index_url = '/blog/' %}
+      {% assign index_label = 'All posts' %}
+    {% endif %}
+    <nav class="article-nav" aria-label="{% if is_news %}More news{% else %}More posts{% endif %}">
+      <a class="text-link article-nav__all" href="{{ index_url | relative_url }}">
+        {%- include icon.liquid name="arrow-right" class="icon--flip" %}
+        {{ index_label -}}
+      </a>
+      {% if page.previous or page.next %}
+        <ul class="article-nav__pager">
+          {% if page.previous %}
+            <li>
+              <a class="article-nav__link" href="{{ page.previous.url | relative_url }}" rel="prev">
+                <span class="article-nav__dir">Older</span>
+                <span class="article-nav__title">{{ page.previous.title }}</span>
+              </a>
+            </li>
+          {% endif %}
+          {% if page.next %}
+            <li class="article-nav__next">
+              <a class="article-nav__link" href="{{ page.next.url | relative_url }}" rel="next">
+                <span class="article-nav__dir">Newer</span>
+                <span class="article-nav__title">{{ page.next.title }}</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </nav>
   {% endif %}
 
   {% if site.disqus_shortname and page.disqus_comments %}

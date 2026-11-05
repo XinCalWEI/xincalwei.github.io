@@ -9,43 +9,42 @@ layout_width: wide
 
 <!-- The index derives every filter from post front matter so the interface
      cannot drift from the content. Pagination remains off because combined
-     search and filtering need access to the complete collection. -->
+     search and filtering need access to the complete collection.
+     JS hooks (assets/js/blog-filter.js): .tm-blog[data-blog-index], .blog-grid,
+     .blog-card[data-cats|data-tags|data-search|data-tail], .chip[data-kind=tag]
+     [data-filter][data-label], #blog-type, #blog-search, .blog-search__clear,
+     .blog-filters__status, .blog-empty, .blog-reset, .blog-empty__reset. -->
 
 {% assign latest_post = site.posts | first %}
 
-<div class="post about tm-blog" data-blog-index>
-  <header class="blog-head">
-    <p class="blog-eyebrow"><span aria-hidden="true"></span>Blog</p>
-    <h1 class="post-title">Ideas, methods, and field notes.</h1>
-    <div class="blog-head__footer">
-      {% if site.blog_description %}
-        <p class="post-description">{{ site.blog_description }}, along with the tools and conversations shaping my work.</p>
-      {% endif %}
-      <p class="blog-head__meta">
-        <span>{{ site.posts | size }} posts</span>
-        {% if latest_post %}
-          <span aria-hidden="true"></span>
-          <span>Updated <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%b %Y' }}</time></span>
-        {% endif %}
-      </p>
-    </div>
+<div class="post tm-blog" data-blog-index>
+  <header class="post-header blog-head">
+    <p class="kicker">News &amp; writing</p>
+    <h1 class="post-title">Blog</h1>
+    <p class="post-description">
+      Ideas, methods, and field notes.
+      {% if site.blog_description %}{{ site.blog_description }}, along with the tools and conversations shaping my work.{% endif %}
+    </p>
+    <p class="post-meta blog-head__meta">
+      {{ site.posts | size }} posts
+      {%- if latest_post %}<span aria-hidden="true"> · </span>Updated <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%b %Y' }}</time>{% endif %}
+    </p>
   </header>
 
   <section class="blog-discovery" aria-label="Find and filter posts">
     <div class="blog-tools">
       <div class="blog-search" role="search" aria-label="Search blog posts">
         <label class="sr-only" for="blog-search">Search posts</label>
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        {% include icon.liquid name="search" class="blog-search__icon" %}
         <input id="blog-search" type="search" placeholder="Search posts" autocomplete="off" spellcheck="false" aria-controls="blog-posts">
         <button class="blog-search__clear" type="button" aria-label="Clear search" hidden>
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
         </button>
         <kbd aria-hidden="true">/</kbd>
       </div>
 
-      <label class="blog-select" for="blog-type">
-        <span class="sr-only">Filter by content type</span>
-        <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+      <div class="blog-select">
+        <label class="blog-select__label" for="blog-type">Type</label>
         <select id="blog-type" aria-controls="blog-posts">
           <option value="">All types</option>
           {% assign registered_category_keys = site.data.blog_taxonomy.categories | map: 'key' %}
@@ -63,12 +62,12 @@ layout_width: wide
             {% endunless %}
           {% endfor %}
         </select>
-        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-      </label>
+        {% include icon.liquid name="chevron-down" class="blog-select__chevron" %}
+      </div>
     </div>
 
     <div class="blog-topics">
-      <span class="blog-topics__label" id="blog-topics-label">Topics &amp; series</span>
+      <span class="blog-topics__label" id="blog-topics-label">Topics</span>
       <div class="blog-filters" role="group" aria-labelledby="blog-topics-label">
         <button class="chip is-active" type="button" data-filter="" data-kind="tag" data-label="All" aria-pressed="true" aria-controls="blog-posts">
           All <span class="chip__n">{{ site.posts | size }}</span>
@@ -95,14 +94,13 @@ layout_width: wide
         {% endfor %}
       </div>
     </div>
-
   </section>
 
   <div class="blog-results">
     <p class="blog-filters__status" role="status" aria-live="polite" aria-atomic="true" data-total="{{ site.posts | size }}">
       Showing all {{ site.posts | size }} posts
     </p>
-    <button class="blog-reset" type="button" hidden>Clear filters <i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <button class="blog-reset" type="button" hidden>Clear filters</button>
   </div>
 
   <div class="blog-grid" id="blog-posts">
@@ -118,11 +116,10 @@ layout_width: wide
   </div>
 
   <div class="blog-empty" hidden>
-    <span class="blog-empty__icon" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
     <h2>No matching posts</h2>
     <p>Try another keyword or clear the current filters.</p>
-    <button class="blog-empty__reset" type="button">Show all posts</button>
+    <button class="xw-btn xw-btn--secondary blog-empty__reset" type="button">Show all posts</button>
   </div>
 </div>
 
-<script src="{{ '/assets/js/blog-filter.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/blog-filter.js' | relative_url | bust_file_cache }}" defer></script>

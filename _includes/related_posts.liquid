@@ -1,36 +1,50 @@
-{% assign have_related_posts = false %}
-{% for post in site.related_posts | limit: site.related_blog_posts.max_related %}
-  {% unless have_related_posts %}
-    {% assign have_related_posts = true %}
-    {% if page.layout == 'post' %}
-      <br>
-      <hr>
-      <br>
-      <ul class="list-disc pl-8"></ul>
+{% comment %}
+  "Keep reading" list at the end of a post: the most recent related posts
+  (site.related_posts, capped by related_blog_posts.max_related) as hairline
+  rows with a mono date column, the same row pattern as the CV and News.
+{% endcomment %}
+{% capture related_rows %}
+  {%- for post in site.related_posts limit: site.related_blog_posts.max_related -%}
+    {%- assign related_href = post.url | relative_url -%}
+    {%- assign related_external = false -%}
+    {%- if post.redirect != blank -%}
+      {%- if post.redirect contains '://' -%}
+        {%- assign related_href = post.redirect -%}
+        {%- assign related_external = true -%}
+      {%- else -%}
+        {%- assign related_href = post.redirect | relative_url -%}
+      {%- endif -%}
+    {%- endif %}
+    <li class="row-item">
+      <p class="row-item__meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %Y' }}</time></p>
+      <div class="row-item__body">
+        <h3 class="row-item__title">
+          <a href="{{ related_href }}" {% if related_external %}target="_blank" rel="noopener noreferrer"{% endif %}>
+            {{- post.title -}}
+            {%- if related_external %}<span class="sr-only"> (opens in a new tab)</span>{% endif -%}
+          </a>
+        </h3>
+        {% if post.description %}
+          <p class="row-item__dek">{{ post.description | strip_html | strip }}</p>
+        {% endif %}
+      </div>
+    </li>
+  {%- endfor -%}
+{% endcapture %}
 
-      <!-- Adds related posts to the end of an article -->
-      <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
-    {% else %}
-      <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
-    {% endif %}
+{% if related_rows contains '<li' %}
+  <aside class="related-posts" aria-labelledby="related-posts-title">
+    <div class="section-head">
+      <p class="kicker">Keep reading</p>
+      <h2 class="section-head__title" id="related-posts-title" data-toc-skip>More from the blog</h2>
+    </div>
+    <ul class="list-rows">
+      {{ related_rows }}
+    </ul>
+  </aside>
+{% endif %}
 
-    <p class="mb-2">Here are some more articles you might like to read next:</p>
-  {% endunless %}
-
-  <li class="my-2">
-    {% if post.redirect == blank %}
-      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    {% elsif post.redirect contains '://' %}
-      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="{{ post.redirect }}" target="_blank">{{ post.title }}</a>
-      <svg width="1rem" height="1rem" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    {% else %}
-      <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="{{ post.redirect | relative_url }}">{{ post.title }}</a>
-    {% endif %}
-  </li>
-{% endfor %}
 {% if site.newsletter.enabled and site.footer_fixed %}
-  <p class="mb-2" style="margin-top: 1.5rem !important">Subscribe to be notified of future articles:</p>
+  <p class="related-posts__newsletter">Subscribe to be notified of future articles:</p>
   {% include newsletter.liquid left=true %}
 {% endif %}

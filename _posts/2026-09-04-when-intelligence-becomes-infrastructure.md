@@ -65,11 +65,15 @@ The middle horizon forces a team to imagine several connected steps. If the long
 
 This connects to three strategic states that should not be managed in the same way:
 
+<div class="table-responsive" role="region" tabindex="0" aria-label="Table: The middle horizon carries the creative burden" markdown="1">
+
 | Strategic state | Primary problem                                        | Appropriate operating emphasis                                                             |
 | --------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | **Exploration** | The direction and viable solution are still uncertain. | Founder-led search, many informative trials, low-cost failure, and fast learning.          |
 | **Formation**   | A repeatable feedback loop is beginning to appear.     | Narrowing the thesis, strengthening the loop, and testing whether it can repeat and scale. |
 | **Maturity**    | The direction is sufficiently understood to scale.     | Efficiency, standardization, reliability, and disciplined execution.                       |
+
+</div>
 
 This table is my operational interpretation of Zeng's discussion. Its value is simple: asking for mature-stage efficiency during exploration can destroy the variation from which a strategy must emerge. Treating a mature system as endless exploration prevents it from compounding.
 
@@ -85,11 +89,15 @@ The model continues to improve and prices continue to change, but the user no lo
 
 My reconstruction of Zeng's three-stage framework is:
 
+<div class="table-responsive" role="region" tabindex="0" aria-label="Table: Why Zeng sees an infrastructure layer maturing" markdown="1">
+
 | Stage                       | What changes                                                                            | Central uncertainty                                                           |
 | --------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **Infrastructure**          | Models become stronger, cheaper to call, and easier to integrate as a standard input.   | Which providers and technical architectures will sustain reliable supply?     |
 | **Application exploration** | Teams build agents, workflows, products, and new business models on top of that input.  | Which tasks create enough value and feedback to support a durable product?    |
 | **Native applications**     | Products and organizations are designed around machine intelligence from the beginning. | Which forms will emerge from the accumulated experiments of the second stage? |
+
+</div>
 
 Zeng offers 2026 as his judgment about a possible boundary: the first stage is becoming mature enough for the second to begin in earnest. I read this as a strategic thesis, not a settled industry fact or a precise date on a universal clock.
 
@@ -197,6 +205,8 @@ Embedding AI into an existing workflow is useful, but Zeng calls it transitional
 
 The contrast can be summarized this way:
 
+<div class="table-responsive" role="region" tabindex="0" aria-label="Table: Adding AI to a workflow is not yet AI-native" markdown="1">
+
 | Industrial organizing logic                            | Possible AI-native organizing logic                                  |
 | ------------------------------------------------------ | -------------------------------------------------------------------- |
 | Define a job and write a job description.              | Define an outcome and decompose the work into tasks.                 |
@@ -204,6 +214,8 @@ The contrast can be summarized this way:
 | Route decisions through reporting lines.               | Route decisions toward relevant capability and context.              |
 | Evaluate the occupant of a position periodically.      | Record contribution and feedback through delivered results.          |
 | Optimize a human-designed workflow with AI assistance. | Redesign the workflow around what humans and AI can each contribute. |
+
+</div>
 
 This is my reconstruction of the direction discussed in the interview, not a complete operating model.
 

@@ -2,6 +2,11 @@
 layout: default
 layout_width: wide
 ---
+{% comment %}
+  Year / tag / category archives (jekyll-archives-v2) for the blog and the
+  bookshelf. Same page header as every inner page; blog archives reuse the
+  blog index cards (_includes/blog_card.liquid), book archives the shelf grid.
+{% endcomment %}
 {% assign first_document = page.documents | first %}
 {% assign is_book_archive = false %}
 {% if first_document.layout == 'book-review' %}
@@ -22,75 +27,51 @@ layout_width: wide
       {% endif %}
     {% endfor %}
   {% endif %}
+{% else %}
+  {% assign archive_display_title = page.title | replace: '-', ' ' | capitalize %}
 {% endunless %}
-<!--
-  Tag / category / year archives, rendered with the same card language as
-  the blog index (see _pages/blog.md). Book collection archives retain their
-  own cover and publication metadata.
--->
-<div class="post about tm-blog tm-archive">
-  <header class="blog-head">
-    <p class="eyebrow">
-      <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-      {% if page.type == 'categories' %}Category{% elsif page.type == 'tags' %}Tag{% else %}Archive{% endif %}
+{% if is_book_archive %}
+  {% assign index_url = '/books/' %}
+  {% assign index_name = 'Bookshelf' %}
+  {% assign index_label = 'All books' %}
+  {% assign item_word = 'book' %}
+{% else %}
+  {% assign index_url = '/blog/' %}
+  {% assign index_name = 'Blog' %}
+  {% assign index_label = 'All posts' %}
+  {% assign item_word = 'post' %}
+{% endif %}
+{% assign n = page.documents | size %}
+
+<div class="post tm-blog tm-archive">
+  <header class="post-header">
+    <p class="kicker">
+      <a href="{{ index_url | relative_url }}">{{ index_name }}</a>
+      <span aria-hidden="true">·</span>
+      <span>{% if page.type == 'categories' %}{% if is_book_archive %}Subject{% else %}Category{% endif %}{% elsif page.type == 'tags' %}Tag{% else %}Year{% endif %}</span>
     </p>
     <h1 class="post-title">
       {% if page.type == 'year' %}{{ page.date | date: '%Y' }}{% else %}{{ archive_display_title }}{% endif %}
     </h1>
     <p class="post-description">
-      {% assign n = page.documents | size -%}
-      {{- n }}
-      {% if is_book_archive %}book{% else %}post{% endif -%}
-      {%- if n != 1 %}s{% endif %}
-      {% if page.type == 'categories' %}in this category{% elsif page.type == 'tags' %}with this tag{% else %}from this year{% endif %}
-    </p>
-    <p class="archive-back">
-      <a class="btn-ghost" href="{% if is_book_archive %}{{ '/books/' | relative_url }}{% else %}{{ '/blog/' | relative_url }}{% endif %}">
-        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-        {% if is_book_archive %}All books{% else %}All posts{% endif %}
-      </a>
+      {{- n }} {{ item_word }}{% if n != 1 %}s{% endif %}
+      {% if page.type == 'categories' %}in this {% if is_book_archive %}subject{% else %}category{% endif %}{% elsif page.type == 'tags' %}with this tag{% else %}from this year{% endif %}
     </p>
   </header>
 
   {% if is_book_archive %}
-    <div class="book-archive-grid">
-      {% for book in page.documents %}
-        <a class="book-archive-card" href="{{ book.url | relative_url }}">
-          <span class="book-archive-card__cover">
-            {% if book.cover %}
-              {% capture cover_alt %}Cover of {{ book.title }}{% endcapture %}
-              {% if forloop.first %}
-                {% include figure.liquid loading="eager" fetchpriority="high" path=book.cover sizes="(min-width: 992px) 220px, 42vw" alt=cover_alt %}
-              {% else %}
-                {% include figure.liquid loading="lazy" path=book.cover sizes="(min-width: 992px) 220px, 42vw" alt=cover_alt %}
-              {% endif %}
-            {% else %}
-              <span class="book-archive-card__placeholder" aria-hidden="true"><i class="fa-solid fa-book-open"></i></span>
-            {% endif %}
-          </span>
-          <span class="book-archive-card__body">
-            {% if book.status -%}
-              <span class="book-archive-card__status">{{ book.status }}</span>
-            {%- endif %}
-            <span class="book-archive-card__title">
-              {%- if book.shelf_title %}{{ book.shelf_title }}{% else %}{{ book.title }}{% endif -%}
-            </span>
-            {% if book.author -%}
-              <span class="book-archive-card__author">{{ book.author }}</span>
-            {%- endif %}
-            {% if book.released -%}
-              <span class="book-archive-card__year">{{ book.released }}</span>
-            {%- endif %}
-          </span>
-        </a>
-      {% endfor %}
+    <div class="tm-shelf">
+      <ul class="shelf__grid">
+        {% for book in page.documents %}
+          {% include books/shelf_item.liquid book=book %}
+        {% endfor %}
+      </ul>
     </div>
   {% else %}
-    {% assign archive_count = page.documents | size %}
-    {% assign archive_remainder = archive_count | modulo: 2 %}
+    {% assign archive_remainder = n | modulo: 2 %}
     <div class="blog-grid">
       {% for post in page.documents %}
-        {% if archive_count == 1 %}
+        {% if n == 1 %}
           {% include blog_card.liquid post=post solo=true priority=forloop.first %}
         {% else %}
           {% assign is_archive_tail = false %}
@@ -102,4 +83,11 @@ layout_width: wide
       {% endfor %}
     </div>
   {% endif %}
+
+  <p class="archive-back">
+    <a class="text-link" href="{{ index_url | relative_url }}">
+      {%- include icon.liquid name="arrow-right" class="icon--flip" %}
+      {{ index_label -}}
+    </a>
+  </p>
 </div>

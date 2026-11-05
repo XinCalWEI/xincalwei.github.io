@@ -26,15 +26,15 @@ Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" alt="Certificate presentation in front of an ASCE backdrop at the 2025 Spring Geotechnical Seminar" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_2.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_2.jpeg" alt="Program flyer for the 2025 Spring Geotechnical Seminar, CT Valley Chapter of the ASCE Geo-Institute, with speaker photos" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_3.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025_3.jpeg" alt="Seminar attendees outdoors on the lawn at TPC River Highlands, Cromwell, Connecticut" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>

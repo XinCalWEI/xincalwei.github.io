@@ -11,66 +11,66 @@ category: Conference
 **December 15–19, 2025**
 **New Orleans, Louisiana**
 
- <!-- Members of the AIDD Lab, including Schmidt AI in Science Postdoctoral Fellow Dr. Xin Wei and Shriya Kethireddy, actively participated in。the meeting. -->
+ <!-- Members of the AIDD Lab, including Schmidt AI in Science Postdoctoral Fellow Dr. Xin Wei and Shriya Kethireddy, actively participated in the meeting. -->
 
 <!-- --- -->
 
-## 🌍 **Leadership and Research Contributions at AGU 2025**
+## Leadership and Research Contributions at AGU 2025
 
 The 2025 American Geophysical Union (AGU) Fall Meeting was held from 15–19 December 2025 in New Orleans, Louisiana.  
 Dr. Wei contributed to AGU 2025 through both scientific leadership and research dissemination. He presented his research in the oral session _"NH31B – Landslide Life Cycle: From Hazard Analysis to Risk Assessment"_, which brought together studies spanning landslide characterization, susceptibility and risk modeling, and hazard communication. He also served as the Primary Convener of the session _"NH33B – Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"_, leading discussions on reliable and interpretable AI methods, multiscale sensing, and open datasets for geohazard analysis, alongside presenting poster work aligned with these themes.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin_Shriya.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin_Shriya.jpg" alt="Xin Wei and Shriya Kethireddy beside the large AGU letters at the 2025 Fall Meeting" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 ---
 
-### 1️⃣ **Primary Convener: "Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"** ([Poster Session](https://agu.confex.com/agu/agu25/meetingapp.cgi/Session/252469) · [Oral Session](https://agu.confex.com/agu/agu25/meetingapp.cgi/Session/269627))
+### Primary Convener: "Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations" ([Poster Session](https://agu.confex.com/agu/agu25/meetingapp.cgi/Session/252469) · [Oral Session](https://agu.confex.com/agu/agu25/meetingapp.cgi/Session/269627))
 
 To address the growing challenges of geohazards, we invite contributions that advance reliable and scalable machine learning/artificial intelligence (ML/AI) approaches for the detection, monitoring, and prediction of geohazards, such as earthquakes, tsunamis, volcanoes, landslides, and surface subsidence. We especially welcome works that (1) integrate multi-scale sensing technologies (e.g., remote sensing and distributed fiber-optic sensing) with ML/AI to support both pre- and post-event assessment of geohazards as well as their cascading impacts in diverse environmental settings, such as urbanized, remote, post-disturbance, and cold landscapes; (2) develop interpretable and knowledge-guided (e.g., physics-informed) ML/AI to reveal the driving factors and physical mechanisms; (3) evaluate and improve model robustness in extreme and data-scarce scenarios through cross-region and cross-scenario model transfer, uncertainty quantification, and real-time data fusion; and (4) develop open-source, multi-scale geohazard datasets to support the training and testing of foundation models toward reliable, scalable, real-world AI deployment.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-AGU-Session.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-AGU-Session.png" alt="Session flyer listing the invited speakers and conveners of Toward Reliable and Scalable Geohazard Intelligence" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ben-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ben-1.jpg" alt="Invited talk by Benjamin Mirus in the convened oral session, title slide on screen" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ben-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ben-2.jpg" alt="Audience at Benjamin Mirus's invited talk in the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Joe-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Joe-1.jpg" alt="Invited talk by Joseph Wartman in the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Joe-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Joe-2.jpg" alt="Audience seated in the session room during the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ettore-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ettore-1.jpg" alt="Invited talk by Ettore Biondi in the convened oral session, a global map on screen" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 ---
 
-### 2️⃣ **Oral Presentation (Highlighted): "Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI"** ([Link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874))
+### Oral Presentation (Highlighted): "Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI" ([Link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874))
 
 **First Author**  
 Xin Wei — Michigan Institute for Data and AI in Society, University of Michigan, Ann Arbor, MI
@@ -90,13 +90,13 @@ While landslides are pervasive across the U.S., their specific social, economic,
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin - oral.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin - oral.jpg" alt="Xin Wei presenting the oral talk on landslide consequences and generative AI at AGU 2025" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 ---
 
-### 3️⃣ **Poster Presentation: "Building a Community-Curated, Open-Access Platform of Global Landslide Datasets to Support Reliable and Scalable AI Models"** ([Link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1915796))
+### Poster Presentation: "Building a Community-Curated, Open-Access Platform of Global Landslide Datasets to Support Reliable and Scalable AI Models" ([Link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1915796))
 
 **First Author**  
 Xin Wei — University of Michigan, Ann Arbor
@@ -112,13 +112,13 @@ Recent advances in machine learning (ML) and deep learning (DL) have significant
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-3.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-3.jpg" alt="Xin Wei discussing the landslide data platform poster with visitors at AGU 2025" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-2.jpg" alt="Xin Wei and colleagues standing at the poster in the AGU 2025 poster hall" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

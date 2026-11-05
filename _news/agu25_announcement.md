@@ -48,6 +48,6 @@ Hall EFG (Poster Hall), New Orleans Convention Center
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/agu25-photo.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/agu25-photo.jpeg" alt="AGU25 call for abstracts for the session Toward Reliable and Scalable Geohazard Intelligence, listing invited speakers and conveners" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
