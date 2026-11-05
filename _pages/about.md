@@ -179,7 +179,7 @@ service:
     link_label: Service on the CV
     url: /cv/
   - label: Outreach
-    text: The Journey Through CEE undergraduate study group, an invited talk for geotechnical practitioners (ASCE CT Valley Geo-Institute, 2025), and a 2019 K-12 hazard-science event.
+    text: The Journey Through CEE undergraduate study group, an invited talk at an ASCE geotechnical seminar (2025), and a 2019 K-12 hazard-science event.
     link_label: Outreach activities
     url: /outreach/
 
