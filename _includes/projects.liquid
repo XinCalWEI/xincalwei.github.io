@@ -44,10 +44,17 @@
 
   <div class="project-row__body">
     <p class="project-row__meta">
+      {%- comment -%} items never break inside; the "·" is drawn before each follow-on item, so a wrap never strands it {%- endcomment -%}
       <span class="project-row__area">{{ project_label }}</span>
-      {%- if project.period -%}<span class="project-row__period">{{ project.period }}</span>{%- endif -%}
-      {%- if project.role -%}<span class="project-row__period">{{ project.role }}</span>{%- endif -%}
-      {%- if project.status -%}<span class="tag tag--earth project-row__status">{{ project.status }}</span>{%- endif -%}
+      {%- if project.period -%}
+        <span class="project-row__period">{{ project.period }}</span>
+      {%- endif -%}
+      {%- if project.role -%}
+        <span class="project-row__period">{{ project.role }}</span>
+      {%- endif -%}
+      {%- if project.status -%}
+        <span class="tag tag--earth project-row__status">{{ project.status }}</span>
+      {%- endif -%}
     </p>
     <h3 class="project-row__title" data-toc-skip>
       {%- if project_linked -%}

@@ -121,7 +121,6 @@
   margin-top: var(--section-gap);
   padding-top: var(--space-5);
   border-top: 1px solid var(--xw-rule-strong);
-  scroll-margin-top: calc(var(--nav-h) + 1rem);
 }
 
 /* the thrust index already separates the intro from the first thrust */
@@ -292,7 +291,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem 0.6rem;
+  gap: 0.25rem calc(1.2rem + 1ch);
+  overflow: hidden;
   margin: 0 0 var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-kicker);
@@ -303,13 +303,20 @@
   color: var(--xw-ink-2);
 }
 
+.project-row__meta > span {
+  white-space: nowrap;
+}
+
 .project-row__period {
+  position: relative;
   color: var(--xw-ink-3);
   letter-spacing: 0.02em;
 }
 
 .project-row__period::before {
   content: "·";
+  position: absolute;
+  right: 100%;
   margin-right: 0.6rem;
   color: var(--xw-ink-3);
 }
@@ -541,6 +548,25 @@ html[data-theme="dark"] .project-plate {
   fill: var(--plate-ink-3);
 }
 
+/* the wide layout is drawn on a 640-unit viewBox that renders at ~530-680px, so
+ * its type is set larger (about 11-13px on screen at 1440) */
+.schematic--wide .sch-col,
+.schematic--wide .sch-foot {
+  font-size: 12px;
+}
+
+.schematic--wide .sch-text {
+  font-size: 13.5px;
+}
+
+.schematic--wide .sch-sub {
+  font-size: 12.5px;
+}
+
+.schematic--wide .sch-step-num {
+  font-size: 13px;
+}
+
 /* ---------------------------------------------------------------------------
  * Project detail pages: breadcrumb kicker, previous / next
  * ------------------------------------------------------------------------ */
@@ -649,8 +675,9 @@ html[data-theme="dark"] .project-plate {
  * Project detail content (project-detail__* in _projects/*.md)
  * ------------------------------------------------------------------------ */
 
+.prose .project-detail__eyebrow,
 .project-detail__eyebrow {
-  margin: 0 0 var(--space-4) !important;
+  margin: 0 0 var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--text-kicker);
   font-weight: 500;
@@ -875,13 +902,24 @@ html[data-theme="dark"] .project-plate {
 }
 
 .project-detail mjx-container[display="true"] {
+  /* same cue as the prose tables (pages/_inner.scss .table-responsive) */
+  --scroll-cover: var(--xw-paper);
+  --scroll-shadow: color-mix(in srgb, var(--xw-ink) 16%, transparent);
+
   max-width: 100%;
   padding: 0.2rem 0;
   overflow-x: auto;
   overflow-y: hidden;
+  background:
+    linear-gradient(to right, var(--scroll-cover) 30%, transparent) left / 2rem 100% no-repeat local,
+    linear-gradient(to left, var(--scroll-cover) 30%, transparent) right / 2rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--scroll-shadow), transparent) left / 0.75rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--scroll-shadow), transparent) right / 0.75rem 100% no-repeat scroll;
 }
 
 .project-detail__equation mjx-container[display="true"] {
+  --scroll-cover: var(--xw-surface-sunk);
+
   margin: 0.4rem 0 0.8rem !important;
 }
 
@@ -906,14 +944,30 @@ html[data-theme="dark"] .project-plate {
   margin: var(--space-5) auto 0;
 }
 
-.project-detail__figure--portrait figure {
-  margin-top: 0 !important;
+.project-detail .project-detail__figure--portrait figure {
+  margin-top: 0;
 }
 
 .project-detail figure img {
   width: 100%;
   height: auto;
   background: #ffffff; /* figures are drawn on white */
+}
+
+/* dark mode: the white ground would be the brightest thing on the page, so the
+ * figure takes the Research index's dimmed paper plate (multiply turns its white
+ * into the plate tone; isolation keeps the blend inside the plate). The zoomed
+ * copy is a clone outside .project-detail, so it shows the original colours. */
+html[data-theme="dark"] .project-detail figure picture {
+  display: block;
+  isolation: isolate;
+  background: #e9e6dd;
+  border-radius: var(--radius-md);
+}
+
+html[data-theme="dark"] .project-detail figure img {
+  background: transparent;
+  mix-blend-mode: multiply;
 }
 
 .project-detail.prose .caption {

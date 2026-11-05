@@ -10,7 +10,13 @@
     {%- capture genai_desc -%}
       Government reports, news articles and non-governmental organization reports feed an agentic generative-AI framework. Its agents preprocess the text, identify landslide impact records, merge complementary records, detect time-evolving records and flag conflicting records for expert review. The output is a set of impact records covering direct losses, such as fatalities, injuries and damages, and indirect consequences, such as environmental degradation, public health concerns and legal actions.
     {%- endcapture -%}
-    <svg class="schematic schematic--wide" viewBox="0 0 720 236" role="img" aria-labelledby="schematic-genai-w-title schematic-genai-w-desc" focusable="false">
+    <svg
+      class="schematic schematic--wide"
+      viewBox="0 0 640 236"
+      role="img"
+      aria-labelledby="schematic-genai-w-title schematic-genai-w-desc"
+      focusable="false"
+    >
       <title id="schematic-genai-w-title">Workflow of the agentic generative-AI framework</title>
       <desc id="schematic-genai-w-desc">{{ genai_desc | strip }}</desc>
       <defs>
@@ -19,52 +25,59 @@
         </marker>
       </defs>
       <text class="sch-col" x="0" y="12">Sources</text>
-      <text class="sch-col" x="214" y="12">Agentic framework</text>
-      <text class="sch-col" x="546" y="12">Impact records</text>
+      <text class="sch-col" x="152" y="12">Agentic framework</text>
+      <text class="sch-col" x="466" y="12">Impact records</text>
 
       <g class="sch-sources">
-        <rect class="sch-box" x="0.5" y="28.5" width="168" height="52" rx="3" />
-        <text class="sch-text" x="14" y="59">Government reports</text>
-        <rect class="sch-box" x="0.5" y="92.5" width="168" height="52" rx="3" />
-        <text class="sch-text" x="14" y="123">News articles</text>
-        <rect class="sch-box" x="0.5" y="156.5" width="168" height="52" rx="3" />
-        <text class="sch-text" x="14" y="187">NGO reports</text>
+        <rect class="sch-box" x="0.5" y="28.5" width="118" height="52" rx="3" />
+        <text class="sch-text" x="12" y="50">Government</text>
+        <text class="sch-text" x="12" y="67">reports</text>
+        <rect class="sch-box" x="0.5" y="92.5" width="118" height="52" rx="3" />
+        <text class="sch-text" x="12" y="123">News articles</text>
+        <rect class="sch-box" x="0.5" y="156.5" width="118" height="52" rx="3" />
+        <text class="sch-text" x="12" y="187">NGO reports</text>
       </g>
 
       <g class="sch-links">
-        <path class="sch-line" d="M170 54.5 C192 54.5 192 118.5 210 118.5" marker-end="url(#schematic-arrow-w)" />
-        <path class="sch-line" d="M170 118.5 H210" marker-end="url(#schematic-arrow-w)" />
-        <path class="sch-line" d="M170 182.5 C192 182.5 192 118.5 210 118.5" marker-end="url(#schematic-arrow-w)" />
-        <path class="sch-line" d="M506 118.5 H540" marker-end="url(#schematic-arrow-w)" />
+        <path class="sch-line" d="M120 54.5 C136 54.5 134 118.5 148 118.5" marker-end="url(#schematic-arrow-w)" />
+        <path class="sch-line" d="M120 118.5 H148" marker-end="url(#schematic-arrow-w)" />
+        <path class="sch-line" d="M120 182.5 C136 182.5 134 118.5 148 118.5" marker-end="url(#schematic-arrow-w)" />
+        <path class="sch-line" d="M434 118.5 H462" marker-end="url(#schematic-arrow-w)" />
       </g>
 
       <g class="sch-agents">
-        <rect class="sch-box sch-box--accent" x="214.5" y="28.5" width="290" height="180" rx="3" />
-        <text class="sch-step-num" x="230" y="58">1</text>
-        <text class="sch-text" x="250" y="58">Preprocess: recognize, extract, clean</text>
-        <text class="sch-step-num" x="230" y="90">2</text>
-        <text class="sch-text" x="250" y="90">Identify landslide impact records</text>
-        <text class="sch-step-num" x="230" y="122">3</text>
-        <text class="sch-text" x="250" y="122">Merge complementary records</text>
-        <text class="sch-step-num" x="230" y="154">4</text>
-        <text class="sch-text" x="250" y="154">Detect time-evolving records</text>
-        <text class="sch-step-num" x="230" y="186">5</text>
-        <text class="sch-text" x="250" y="186">Flag conflicts for expert review</text>
+        <rect class="sch-box sch-box--accent" x="152.5" y="28.5" width="280" height="180" rx="3" />
+        <text class="sch-step-num" x="168" y="58">1</text>
+        <text class="sch-text" x="188" y="58">Preprocess: recognize, extract, clean</text>
+        <text class="sch-step-num" x="168" y="90">2</text>
+        <text class="sch-text" x="188" y="90">Identify landslide impact records</text>
+        <text class="sch-step-num" x="168" y="122">3</text>
+        <text class="sch-text" x="188" y="122">Merge complementary records</text>
+        <text class="sch-step-num" x="168" y="154">4</text>
+        <text class="sch-text" x="188" y="154">Detect time-evolving records</text>
+        <text class="sch-step-num" x="168" y="186">5</text>
+        <text class="sch-text" x="188" y="186">Flag conflicts for expert review</text>
       </g>
 
       <g class="sch-records">
-        <rect class="sch-box" x="546.5" y="28.5" width="173" height="84" rx="3" />
-        <text class="sch-text sch-text--strong" x="560" y="56">Direct losses</text>
-        <text class="sch-sub" x="560" y="78">fatalities, injuries,</text>
-        <text class="sch-sub" x="560" y="94">damages</text>
-        <rect class="sch-box" x="546.5" y="124.5" width="173" height="84" rx="3" />
-        <text class="sch-text sch-text--strong" x="560" y="152">Indirect consequences</text>
-        <text class="sch-sub" x="560" y="174">environmental, public</text>
-        <text class="sch-sub" x="560" y="190">health, legal actions</text>
+        <rect class="sch-box" x="466.5" y="28.5" width="173" height="84" rx="3" />
+        <text class="sch-text sch-text--strong" x="478" y="56">Direct losses</text>
+        <text class="sch-sub" x="478" y="78">fatalities, injuries,</text>
+        <text class="sch-sub" x="478" y="94">damages</text>
+        <rect class="sch-box" x="466.5" y="124.5" width="173" height="84" rx="3" />
+        <text class="sch-text sch-text--strong" x="478" y="152">Indirect consequences</text>
+        <text class="sch-sub" x="478" y="174">environmental, public</text>
+        <text class="sch-sub" x="478" y="190">health, legal actions</text>
       </g>
-      <text class="sch-foot" x="214" y="231">Builds on the USGS national landslide damage and loss dataset</text>
+      <text class="sch-foot" x="152" y="231">Builds on the USGS national landslide damage and loss dataset</text>
     </svg>
-    <svg class="schematic schematic--stacked" viewBox="0 0 340 452" role="img" aria-labelledby="schematic-genai-s-title schematic-genai-s-desc" focusable="false">
+    <svg
+      class="schematic schematic--stacked"
+      viewBox="0 0 340 452"
+      role="img"
+      aria-labelledby="schematic-genai-s-title schematic-genai-s-desc"
+      focusable="false"
+    >
       <title id="schematic-genai-s-title">Workflow of the agentic generative-AI framework</title>
       <desc id="schematic-genai-s-desc">{{ genai_desc | strip }}</desc>
       <defs>
