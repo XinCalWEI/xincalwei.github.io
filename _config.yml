@@ -460,12 +460,8 @@ third_party_libraries:
         library: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/dist/echarts.min.js"
         dark_theme: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/theme/dark-fresh-cut.js"
     version: "5.5.0"
-  google_fonts:
-    url:
-      # Newsreader (display/headings, optical size) + Inter (body/UI) + JetBrains Mono
-      # (metadata). Only the weights the design layer uses are requested; see
-      # --font-* in _sass/_tokens.scss. head.liquid preconnects to both Google origins.
-      fonts: "https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
+  # google_fonts: removed. Newsreader, Inter and JetBrains Mono are self-hosted
+  # (assets/fonts/, @font-face in _sass/ds/_fonts.scss, preloads in head.liquid).
   highlightjs:
     integrity:
       css:

@@ -35,9 +35,15 @@
 {% if needs_scholar_icons %}
   <link rel="stylesheet" href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}">
 {% endif %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="{{ site.third_party_libraries.google_fonts.url.fonts }}">
+{% comment %}
+  Text fonts are self-hosted: @font-face in _sass/ds/_fonts.scss, files in
+  assets/fonts/. Preload the two faces every page paints above the fold
+  (Newsreader roman for titles, Inter for body + nav). The hrefs must match the
+  url()s in _fonts.scss exactly (no cache-bust query), and `crossorigin` is
+  required for font preloads even on the same origin.
+{% endcomment %}
+<link rel="preload" href="{{ '/assets/fonts/newsreader-v26-latin-wght.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/inter-v20-latin-wght.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 
 <!-- Code Syntax Highlighting -->
 <link

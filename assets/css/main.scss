@@ -11,7 +11,8 @@ $max-content-width: {{ site.max_width }};
 //  2. legacy al-folio partials (pruned over time; rules there tie with the
 //     design layer on specificity and lose on source order)
 //  3. icon fonts still in use (FA brands/solid for a few glyphs)
-//  4. the design layer (ds/*), then page partials, then a11y/motion overrides
+//  4. the design layer (ds/*; @font-face rules first), then page partials,
+//     then a11y/motion overrides
 @import
   "variables",
   "tokens",
@@ -21,6 +22,7 @@ $max-content-width: {{ site.max_width }};
   "font-awesome/fontawesome",
   "font-awesome/brands",
   "font-awesome/solid",
+  "ds/fonts",
   "ds/base",
   "ds/type",
   "ds/layout",

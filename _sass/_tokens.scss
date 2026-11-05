@@ -38,8 +38,10 @@
   --xw-contour-opacity: 0.08;
 
   /* ---- Type ---- */
-  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* self-hosted (ds/_fonts); each "Fallback" face is a metric-matched system
+   * font that stands in while the web font loads */
+  --font-serif: "Newsreader", "Newsreader Fallback", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-display: var(--font-serif); /* legacy name: headings */
   --font-body: var(--font-sans); /* legacy name: body + UI */
