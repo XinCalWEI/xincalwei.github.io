@@ -38,22 +38,58 @@
     {{ title }}
   {% endif %}
 </title>
+{% comment %}
+  One description for <meta name="description">, OpenGraph, Twitter and Schema.org:
+  the page's own `description`; else, for a generated tag/category/year archive,
+  a line naming what it lists; else, for a collection document (book, post, news
+  item), its first paragraph; only then the site-wide statement (the homepage's).
+{% endcomment %}
+{%- assign meta_description = '' -%}
+{%- if page.description and page.description != '' -%}
+  {%- assign meta_description = page.description -%}
+{%- elsif page.type and page.documents -%}
+  {%- assign archive_first = page.documents | first -%}
+  {%- assign archive_label = page.title -%}
+  {%- if page.type == 'categories' -%}
+    {%- for item in site.data.blog_taxonomy.categories -%}
+      {%- if item.key == page.title -%}{%- assign archive_label = item.label -%}{%- endif -%}
+    {%- endfor -%}
+  {%- elsif page.type == 'tags' -%}
+    {%- for item in site.data.blog_taxonomy.tags -%}
+      {%- if item.key == page.title -%}{%- assign archive_label = item.label -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- comment -%} labels as _layouts/archive.liquid shows them {%- endcomment -%}
+  {%- if archive_first.layout == 'book-review' -%}
+    {%- assign archive_label = page.title | replace: '-', ' ' | capitalize -%}
+    {%- capture meta_description -%}Books on {{ author_name | strip }}'s bookshelf filed under "{{ archive_label }}".{%- endcapture -%}
+  {%- elsif page.type == 'year' -%}
+    {%- capture meta_description -%}Blog posts by {{ author_name | strip }} from {{ page.date | date: '%Y' }}.{%- endcapture -%}
+  {%- elsif page.type == 'categories' -%}
+    {%- capture meta_description -%}{{ archive_label }} posts on {{ author_name | strip }}'s blog.{%- endcapture -%}
+  {%- else -%}
+    {%- capture meta_description -%}Blog posts by {{ author_name | strip }} tagged "{{ archive_label }}".{%- endcapture -%}
+  {%- endif -%}
+{%- elsif page.collection and page.excerpt -%}
+  {%- assign meta_description = page.excerpt | strip_html | strip_newlines | strip | truncate: 200 -%}
+{%- endif -%}
+{%- if meta_description == '' -%}
+  {%- assign meta_description = site.description -%}
+{%- endif -%}
+{%- assign meta_description = meta_description | strip_html | strip_newlines | strip -%}
 <meta name="author" content="{{ author_name }}">
-<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="description" content="{{ meta_description | escape }}">
 {% if page.keywords or site.keywords %}
   <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
 {% endif %}
 
+{% comment %} A post, not the blog index or a year/tag/category archive {% endcomment %}
 {% assign is_blog_post = false %}
-{% if page.url != '/blog/index.html' and page.url contains '/blog/' %}
-  {% unless page.url contains '/tag/' or page.url contains '/category/' %}
-    {% assign is_blog_post = true %}
-  {% endunless %}
+{% if page.collection == 'posts' %}
+  {% assign is_blog_post = true %}
 {% endif %}
 
-{% comment %} One description / title / image for OpenGraph, Twitter and Schema.org. {% endcomment %}
-{%- capture meta_description -%}{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}{%- endcapture -%}
-{%- assign meta_description = meta_description | strip_html | strip_newlines | strip -%}
+{% comment %} One title / image for OpenGraph, Twitter and Schema.org. {% endcomment %}
 {%- if page.url == '/' or page.title == blank or page.title == 'blank' -%}
   {%- assign meta_title = title | strip -%}
 {%- else -%}
@@ -242,13 +278,23 @@
     {% endcase %}
   {% endfor %}
 
+  {% comment %}
+    WebSite for the homepage only, BlogPosting (with its dates) for a blog post,
+    WebPage for every other page.
+  {% endcomment %}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
+      "@type": "{% if is_blog_post %}BlogPosting{% elsif page.url == '/' %}WebSite{% else %}WebPage{% endif %}",
       "url": {{ meta_url | jsonify }},
       "name": {{ meta_title | jsonify }},
-      "headline": {{ meta_title | jsonify }},
+      {% if is_blog_post %}
+        "headline": {{ page.title | strip_html | strip | jsonify }},
+        {% if page.date %}
+          "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+          "dateModified": {{ page.last_modified_at | default: page.last_updated | default: page.date | date_to_xmlschema | jsonify }},
+        {% endif %}
+      {% endif %}
       "description": {{ meta_description | jsonify }},
       {% if meta_image and meta_image != blank %}"image": {{ meta_image | jsonify }},{% endif %}
       "author": {
