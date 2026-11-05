@@ -15,12 +15,21 @@
 
     <div class="home-hero__text">
       <div class="home-hero__head">
-        {%- comment -%} each term (with its trailing "·") is unbreakable, so a wrapped kicker never splits a term or starts a line with a dot {%- endcomment -%}
+        {%- comment -%}
+          Each term is unbreakable and its "·" separator is drawn in CSS
+          (.home-hero__term::before), so a wrapped kicker never starts or ends
+          a line with a dot.
+        {%- endcomment -%}
         {%- assign kicker_terms = hero.kicker | split: ' · ' -%}
         <p class="kicker home-hero__kicker">
-          {%- for term in kicker_terms -%}
-            <span class="home-hero__term">{{ term }}{% unless forloop.last %}&nbsp;·{% endunless %}</span>{% unless forloop.last %}&#32;{% endunless %}
-          {%- endfor -%}
+          <span class="home-hero__terms">
+            {%- for term in kicker_terms -%}
+              <span class="home-hero__term">{{ term }}</span>
+              {%- unless forloop.last -%}
+                <span class="sr-only">,</span>&#32;
+              {%- endunless %}
+            {%- endfor -%}
+          </span>
         </p>
         <h1 class="home-hero__name" id="home-name">{{ author_name | strip }}</h1>
       </div>
@@ -28,7 +37,7 @@
       <p class="home-hero__statement">{{ hero.statement }}</p>
 
       <div class="home-hero__position">
-        <p class="home-hero__role">{{ hero.position }}</p>
+        <p class="home-hero__role">{{ hero.position | default: site.footer_identity.position }}</p>
         <p class="home-hero__org">{{ hero.affiliation }}</p>
         {% if hero.founder %}
           <p class="home-hero__founder">
@@ -111,17 +120,38 @@
   </div>
 
   {% if hero.facts %}
+    {%- comment -%}
+      The Google Scholar numbers and their date live once, in the front matter
+      of the Publications page (scholar_citations, scholar_h_index,
+      scholar_checked); a fact with `metric: scholar` reads them from there.
+    {%- endcomment -%}
+    {%- assign pubs_page = site.pages | where: 'permalink', '/publications/' | first -%}
     <dl class="home-hero__facts">
       {% for fact in hero.facts %}
+        {%- assign fact_label = fact.label -%}
+        {%- assign fact_text = fact.text -%}
+        {%- assign fact_url = fact.url -%}
+        {%- if fact.metric == 'scholar' and pubs_page.scholar_citations -%}
+          {%- capture fact_text -%}{{ pubs_page.scholar_citations }} citations · h-index {{ pubs_page.scholar_h_index }}{%- endcapture -%}
+          {%- if pubs_page.scholar_checked -%}
+            {%- assign fact_label = fact.label | append: ', ' | append: pubs_page.scholar_checked -%}
+          {%- endif -%}
+          {%- if fact_url == null and socials.scholar_userid -%}
+            {%- assign fact_url = 'https://scholar.google.com/citations?user=' | append: socials.scholar_userid -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- if fact_text == blank -%}{%- continue -%}{%- endif -%}
         <div class="home-hero__fact">
-          <dt>{{ fact.label }}</dt>
+          <dt>{{ fact_label }}</dt>
           <dd>
-            {% if fact.url %}
-              <a href="{{ fact.url | relative_url }}">{{ fact.text }}</a>
+            {% if fact_url %}
+              <a href="{{ fact_url | relative_url }}">{{ fact_text }}</a>
             {% else %}
-              {{ fact.text }}
+              {{ fact_text }}
             {% endif %}
-            {% if fact.detail %}<span class="home-hero__fact-detail">{{ fact.detail }}</span>{% endif %}
+            {% if fact.detail -%}
+              <span class="home-hero__fact-detail">{{ fact.detail }}</span>
+            {%- endif %}
           </dd>
         </div>
       {% endfor %}

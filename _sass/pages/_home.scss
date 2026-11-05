@@ -24,6 +24,7 @@
   /* the logo panel stays paper in both themes so every logo stays legible */
   --home-plate: var(--xw-surface);
   --home-plate-rule: var(--xw-rule);
+  --home-plate-focus: var(--xw-focus);
 
   color: var(--xw-ink);
   overflow-wrap: break-word;
@@ -33,6 +34,7 @@ html[data-theme="dark"] .home {
   --home-band: var(--xw-surface);
   --home-plate: #e9e7df;
   --home-plate-rule: #cfccc2;
+  --home-plate-focus: #1e40af; /* the light theme's link blue: 7.4:1 on the plate */
 }
 
 /* The hero contours reach past the container to the viewport's right edge
@@ -57,6 +59,11 @@ body:has(.home) {
   letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
   color: var(--xw-ink-3);
+}
+
+/* deks here are one or two lines: balance them so none ends on a lone word */
+.home .section-head__dek {
+  text-wrap: balance;
 }
 
 /* two text links side by side in a section head */
@@ -136,13 +143,37 @@ body:has(.home) {
   grid-area: head;
 }
 
+/* Kicker terms wrap as whole terms, and no line starts or ends with a "·":
+ * every term carries its own leading dot in a fixed slot, the row is pulled
+ * left by one slot, and the kicker clips its sides, so the dot in front of
+ * whichever term starts a line falls outside the box. */
 .home-hero__kicker {
-  display: block; /* inline terms wrap; .kicker's flex row would not */
+  --home-kicker-sep: 1.6em;
+
+  display: block;
   margin-bottom: var(--space-3);
+  clip-path: inset(-0.5em 0);
+}
+
+.home-hero__terms {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--home-kicker-sep));
 }
 
 .home-hero__term {
+  position: relative;
+  padding-left: var(--home-kicker-sep);
   white-space: nowrap;
+}
+
+.home-hero__term::before {
+  content: "·";
+  content: "·" / "";
+  position: absolute;
+  left: 0;
+  width: var(--home-kicker-sep);
+  text-align: center;
 }
 
 .home-hero__name {
@@ -233,6 +264,16 @@ body:has(.home) {
   margin: var(--space-3) 0 0;
   padding: 0;
   list-style: none;
+  container-type: inline-size;
+}
+
+/* When the four profile links fit on one line but the whole row does not,
+ * give the email its own line, so the row never wraps 4 + 1 and leaves
+ * "LinkedIn" alone (narrower rows wrap 2 + 3 or 1 + 2 + 2 on their own). */
+@container (min-width: 26.5rem) and (max-width: 37.5rem) {
+  .home-hero__contact > li:first-child {
+    flex-basis: 100%;
+  }
 }
 
 .home-hero__link {
@@ -301,8 +342,7 @@ body:has(.home) {
 }
 
 /* the strip's top rule runs edge to edge, closing the contour field like the
- * navbar's border opens it (painted past the container by a clipped spread
- * shadow, so it adds no overflow) */
+ * navbar's border opens it (see .home-tm for the full-bleed technique) */
 .home-hero__facts::before {
   content: "";
   position: absolute;
@@ -310,9 +350,9 @@ body:has(.home) {
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--xw-rule-strong);
-  box-shadow: 0 0 0 100vmax var(--xw-rule-strong);
-  clip-path: inset(0 -100vmax);
+  border-image-source: linear-gradient(var(--xw-rule-strong), var(--xw-rule-strong));
+  border-image-slice: 0 fill;
+  border-image-outset: 0 100vmax;
 }
 
 .home-hero__fact dt {
@@ -798,10 +838,14 @@ body:has(.home) {
 
 /* =============================================================================
  * TerraMosaic band
- * Full-bleed without layout overflow: the band paints past the container with
- * a spread box-shadow (never scrollable overflow), clipped to its own height.
- * Inside, the tokens switch to their dark-theme twins so every shared
- * component (kicker, buttons, links, focus ring) reads on the ink ground.
+ * Full-bleed without layout overflow: the band's colour is a border-image
+ * that fills the box and is outset 100vmax to each side. Outset border images
+ * are ink overflow (never scrollable), and the band and its bleed are one
+ * paint, so a band edge at a fractional y anti-aliases the same inside and
+ * outside the container (a background plus a spread box-shadow left a 1px
+ * two-tone seam there). Inside, the tokens switch to their dark-theme twins
+ * so every shared component (kicker, buttons, links, focus ring) reads on
+ * the ink ground.
  * ========================================================================== */
 
 .home-tm {
@@ -821,9 +865,9 @@ body:has(.home) {
   margin-top: var(--section-gap);
   padding-block: clamp(3.5rem, 2.25rem + 4.5vw, 6.5rem);
   color: var(--xw-ink);
-  background-color: var(--home-band);
-  box-shadow: 0 0 0 100vmax var(--home-band);
-  clip-path: inset(0 -100vmax);
+  border-image-source: linear-gradient(var(--home-band), var(--home-band));
+  border-image-slice: 0 fill;
+  border-image-outset: 0 100vmax;
 }
 
 /* dark mode: the band is a raised surface; hairlines mark its edges */
@@ -834,9 +878,9 @@ html[data-theme="dark"] .home-tm::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--xw-rule-strong);
-  box-shadow: 0 0 0 100vmax var(--xw-rule-strong);
-  clip-path: inset(0 -100vmax);
+  border-image-source: linear-gradient(var(--xw-rule-strong), var(--xw-rule-strong));
+  border-image-slice: 0 fill;
+  border-image-outset: 0 100vmax;
 }
 
 html[data-theme="dark"] .home-tm::before {
@@ -845,6 +889,21 @@ html[data-theme="dark"] .home-tm::before {
 
 html[data-theme="dark"] .home-tm::after {
   bottom: 0;
+}
+
+/* Forced colours drop backgrounds and shadows but keep border images: remove
+ * the band's paint so the system Canvas shows through, and draw the strip's
+ * full-bleed rule in CanvasText. */
+@media (forced-colors: active) {
+  .home-tm,
+  html[data-theme="dark"] .home-tm::before,
+  html[data-theme="dark"] .home-tm::after {
+    border-image: none;
+  }
+
+  .home-hero__facts::before {
+    border-image-source: linear-gradient(CanvasText, CanvasText);
+  }
 }
 
 .home-tm__grid {
@@ -987,6 +1046,14 @@ html[data-theme="dark"] .home-tm::after {
 @media (min-width: 480px) {
   .home-tm__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* stacked below 992px: keep the logo card near its desktop size instead of
+ * stretching it (and the logo) across a tablet-wide column */
+@media (max-width: 991.98px) {
+  .home-tm__aside {
+    max-width: 30rem;
   }
 }
 
@@ -1216,14 +1283,19 @@ html[data-theme="dark"] .home-tm::after {
   align-items: center;
   justify-content: center;
   height: 6rem;
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3);
 }
 
-/* the cell clips anything outside it, so the ring sits inside */
+/* The cell clips anything outside it, so the ring sits inside. The plate is
+ * light in both themes, so the ring keeps the light theme's link blue (the
+ * dark theme's light blue would read 1.7:1 on the plate). */
 .home-logo__link:focus-visible {
+  outline-color: var(--home-plate-focus);
   outline-offset: -4px;
 }
 
+/* Logos sit in greyscale so filled badges and transparent marks read as one
+ * calm row; each takes its own colours on hover or focus. */
 .home-logo__img {
   display: block;
   width: auto;
@@ -1232,6 +1304,17 @@ html[data-theme="dark"] .home-tm::after {
   max-height: 2.6rem;
   /* white logo boxes melt into the panel */
   mix-blend-mode: multiply;
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0.8;
+  transition:
+    filter var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+
+.home-logo__link:hover .home-logo__img,
+.home-logo__link:focus-visible .home-logo__img {
+  filter: none;
+  opacity: 1;
 }
 
 .home-logo--wide .home-logo__img {
@@ -1250,6 +1333,10 @@ html[data-theme="dark"] .home-tm::after {
 @media (min-width: 576px) {
   .home-logos {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-logo__link {
+    padding: var(--space-4) var(--space-5);
   }
 }
 

@@ -24,10 +24,31 @@
     <div class="home-tm__aside">
       {% if tm.logo %}
         <div class="home-tm__plate">
-          {%- assign tm_logo_webp = tm.logo.image | remove: '.png' | append: '-480.webp' -%}
+          {%- comment -%}
+            WebP widths from jekyll-imagemagick. It never upscales, so the
+            first size at or above the original is the original's width.
+            sizes mirrors .home-tm__aside minus the plate padding
+            (_sass/pages/_home.scss): ~24rem beside the intro from 992px,
+            the 30rem card below that, the full column on phones.
+          {%- endcomment -%}
+          {%- assign tm_logo_base = tm.logo.image | remove: '.png' -%}
+          {%- capture tm_logo_srcset -%}
+            {%- for w in site.imagemagick.widths -%}
+              {%- if w < tm.logo.width -%}
+                {{ tm_logo_base | append: '-' | append: w | append: '.webp' | relative_url }} {{ w }}w,
+              {%- else -%}
+                {{ tm_logo_base | append: '-' | append: w | append: '.webp' | relative_url }} {{ tm.logo.width }}w
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
           <picture>
             {% if site.imagemagick.enabled %}
-              <source srcset="{{ tm_logo_webp | relative_url }}" type="image/webp">
+              <source
+                srcset="{{ tm_logo_srcset | strip | split: ',' | join: ', ' | strip }}"
+                sizes="(min-width: 992px) 24rem, (min-width: 512px) 27rem, calc(100vw - 4.5rem)"
+                type="image/webp"
+              >
             {% endif %}
             <img
               src="{{ tm.logo.image | relative_url }}"
