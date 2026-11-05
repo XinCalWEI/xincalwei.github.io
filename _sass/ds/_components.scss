@@ -126,11 +126,20 @@
   border-color: transparent;
 }
 
-a.tag {
+/* Interactive tags (links/buttons) meet the 24px target size (WCAG 2.5.8);
+ * plain label tags keep their compact height. */
+a.tag,
+button.tag {
+  min-height: 24px;
   text-decoration: none;
 }
 
-a.tag:hover {
+button.tag {
+  cursor: pointer;
+}
+
+a.tag:hover,
+button.tag:hover {
   color: var(--xw-link);
   border-color: currentColor;
 }

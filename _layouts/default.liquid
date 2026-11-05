@@ -13,7 +13,7 @@
       {% else %}
         {% assign redirect = page.redirect | relative_url %}
       {% endif %}
-      <meta http-equiv="refresh" content="3; url={{ redirect }}">
+      <meta http-equiv="refresh" content="0; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
   </head>
@@ -33,6 +33,10 @@
     {% endcomment %}
     {% assign layout_width = page.layout_width | default: layout.layout_width %}
     <main id="main-content" class="site-main container{% if layout_width == 'wide' %} container--wide{% endif %}" tabindex="-1">
+      {% if page.redirect %}
+        {% comment %} For browsers that block the meta refresh above {% endcomment %}
+        <p class="redirect-notice">This page has moved to <a href="{{ redirect }}">{{ redirect }}</a>.</p>
+      {% endif %}
       {% if page.toc and page.toc.sidebar %}
         {% if page.toc.sidebar == 'right' %}
           <div class="row">

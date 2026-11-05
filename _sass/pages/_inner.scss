@@ -77,23 +77,6 @@
   color: var(--xw-ink-2);
 }
 
-/* "On this page" over the table of contents on articles and the CV
- * (#toc-sidebar is filled by bootstrap-toc; the nav already carries the
- * accessible name) */
-.site-main:has(.post-article) #toc-sidebar::before,
-.site-main:has(.cv-doc) #toc-sidebar::before {
-  content: "On this page";
-  display: block;
-  margin: 0 0 var(--space-3);
-  padding-left: 0.9rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-kicker);
-  font-weight: 500;
-  letter-spacing: var(--tracking-kicker);
-  text-transform: uppercase;
-  color: var(--xw-ink-3);
-}
-
 /* =============================================================================
  * Articles: blog posts and news items (_layouts/post.liquid)
  * ========================================================================== */
