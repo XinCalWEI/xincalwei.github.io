@@ -17,11 +17,16 @@
         </p>
         {% if site.footer_identity %}
           <p class="site-footer__role">
-            {{ site.footer_identity.position }}
-            {%- if site.footer_identity.affiliation %}<br>{{ site.footer_identity.affiliation }}{% endif %}
+            <span>{{ site.footer_identity.position }}</span>
+            {%- if site.footer_identity.affiliation -%}
+              <span>{{ site.footer_identity.affiliation }}</span>
+            {%- endif %}
           </p>
           <address class="site-footer__addr">
-            {% if site.footer_identity.address %}{{ site.footer_identity.address }}<br>{% endif %}
+            {% if site.footer_identity.address -%}
+              {{- site.footer_identity.address -}}
+              <br>
+            {% endif %}
             {% if site.data.socials.email %}
               <a href="mailto:{{ site.data.socials.email | encode_email }}">{{ site.data.socials.email }}</a>
             {% endif %}
@@ -66,13 +71,18 @@
     </div>
 
     <div class="site-footer__meta">
-      <p>&copy; {{ site.time | date: '%Y' }} {{ author_name | strip }}</p>
+      <p>
+        &copy; {{ site.time | date: '%Y' }}
+        {{ author_name | strip }}
+      </p>
       <p>{{ site.footer_text }}</p>
       {% if site.impressum_path %}
         <p><a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a></p>
       {% endif %}
       {% if site.last_updated %}
-        <p>Last updated <time datetime="{{ site.time | date: '%Y-%m-%d' }}">{{ site.time | date: '%B %-d, %Y' }}</time></p>
+        <p>
+          Last updated <time datetime="{{ site.time | date: '%Y-%m-%d' }}">{{ site.time | date: '%B %-d, %Y' }}</time>
+        </p>
       {% endif %}
     </div>
   </div>

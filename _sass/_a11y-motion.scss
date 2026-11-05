@@ -33,15 +33,19 @@ html.transition *::after {
     scroll-behavior: auto !important;
   }
 
-  .about .slider__track {
-    animation: none !important;
+  /* medium-zoom injects `.medium-zoom-image { transition: transform .3s
+   * !important }` after main.css, which beats the reset above. A near-zero
+   * duration, not `none`: the library waits for transitionend to finish
+   * closing, and with no transition the overlay would stay. */
+  :root .medium-zoom-image,
+  :root .medium-zoom-overlay {
+    transition-duration: 0.01ms !important;
   }
 }
 
 /* ---- Forced colours (Windows High Contrast) ---- */
 @media (forced-colors: active) {
   .xw-btn,
-  .btn-ghost,
   .tag,
   .badge,
   .nav-tool,
@@ -65,6 +69,18 @@ html.transition *::after {
 
   .icon {
     forced-color-adjust: auto;
+  }
+
+  /* Logos and figures on light plates: forced colours would paint the plate
+   * black Canvas, and the multiply-blended logos would vanish into it (or show
+   * navy on black). Keep the plates' own light colours. */
+  .home-logos,
+  .home-logo,
+  .home-tm__plate,
+  .tm-blog .blog-card__media,
+  .project-plate,
+  .project-detail figure picture {
+    forced-color-adjust: none;
   }
 }
 

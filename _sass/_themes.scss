@@ -39,14 +39,3 @@ html[data-theme="dark"] {
     display: block;
   }
 }
-
-/* vanilla-back-to-top injects its own <style>; :root raises specificity over it */
-:root #back-to-top {
-  color: var(--global-back-to-top-text-color);
-  background: var(--global-back-to-top-bg-color);
-  bottom: $back-to-top-bottom;
-  right: $back-to-top-right;
-  height: 44px;
-  width: 44px;
-  z-index: var(--z-back-to-top);
-}

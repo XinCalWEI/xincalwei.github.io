@@ -38,6 +38,27 @@ $(document).ready(function () {
     }
   });
 
+  // While the full-height mobile menu is open, the page behind it is inert, so
+  // Tab cannot land on content the sheet covers, and html.nav-open stops it
+  // scrolling (_sass/ds/_chrome.scss). Desktop widths show the menu inline.
+  const mobileNav = window.matchMedia("(max-width: 991.98px)");
+  const $navbarNav = $("#navbarNav");
+  const setPageBehindMenu = function (covered) {
+    document.querySelectorAll("#main-content, .site-footer, #back-to-top").forEach(function (el) {
+      el.inert = covered;
+    });
+    document.documentElement.classList.toggle("nav-open", covered);
+  };
+  $navbarNav.on("show.bs.collapse", function (e) {
+    if (e.target === this && mobileNav.matches) setPageBehindMenu(true);
+  });
+  $navbarNav.on("hide.bs.collapse", function (e) {
+    if (e.target === this) setPageBehindMenu(false);
+  });
+  mobileNav.addEventListener("change", function () {
+    setPageBehindMenu(mobileNav.matches && $navbarNav.hasClass("show"));
+  });
+
   // bootstrap-toc
   if ($("#toc-sidebar").length) {
     // remove related publications years from the TOC

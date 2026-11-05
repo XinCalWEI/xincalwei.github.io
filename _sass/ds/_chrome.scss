@@ -4,7 +4,10 @@
  * Markup: _includes/header.liquid and _includes/footer.liquid.
  * ========================================================================== */
 
-/* ---- Navbar: paper ground, hairline bottom border, no frosted glass ---- */
+/* ---- Navbar: paper ground, hairline bottom border, no frosted glass ----
+ * Closed, the bar is exactly --nav-h tall, hairline included: the container
+ * row is --nav-h minus the 1px border, so body's padding-top (--nav-h) and the
+ * height progress-bar.js measures on posts agree (no 1px jump after load). */
 #navbar.navbar {
   min-height: var(--nav-h);
   padding: 0;
@@ -17,7 +20,7 @@
 }
 
 #navbar > .container {
-  min-height: var(--nav-h);
+  min-height: calc(var(--nav-h) - 1px);
   flex-wrap: wrap;
   align-items: center;
   /* Bootstrap zeroes these below lg for .navbar-expand-lg > .container */
@@ -55,7 +58,7 @@
   align-items: center;
   gap: 0.3rem;
   min-height: 44px;
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   font-weight: 500;
   line-height: 1.2;
   color: var(--xw-ink-2);
@@ -112,7 +115,7 @@
   min-width: 12rem;
   margin-top: 0;
   padding: 0.35rem 0;
-  font-size: 0.9375rem;
+  font-size: var(--text-ui-sm);
   background-color: var(--xw-surface);
   border: 1px solid var(--xw-rule);
   border-radius: var(--radius-lg);
@@ -195,7 +198,7 @@
 #navbar .nav-kbd {
   padding: 0.1rem 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: var(--text-2xs);
   line-height: 1.3;
   letter-spacing: 0.02em;
   color: var(--xw-ink-3);
@@ -269,6 +272,11 @@
     align-self: stretch;
   }
 
+  /* the mobile sheet wrapper is transparent to the desktop flex row */
+  #navbar .navbar-sheet {
+    display: contents;
+  }
+
   #navbar .navbar-nav:first-child {
     margin-left: auto;
   }
@@ -310,16 +318,39 @@
   }
 }
 
-/* ---- Mobile panel (< 992px): full-width list with large tap targets ---- */
+/* ---- Mobile panel (< 992px): a full-height sheet with large tap targets ----
+ * The sheet wrapper fills the viewport below the bar, so the collapse
+ * animation runs to full height and the page underneath is covered (not
+ * showing through below the last item). common.js makes the page behind it
+ * inert and adds html.nav-open while it is open. */
 @media (max-width: 991.98px) {
+  /* the brand keeps the first flex row --nav-h tall when the panel wraps
+   * below it, so the brand and the toggler do not jump when it opens */
+  #navbar .navbar-brand {
+    min-height: calc(var(--nav-h) - 1px);
+  }
+
   #navbar .navbar-collapse {
     flex-basis: 100%;
     max-height: calc(100vh - var(--nav-h));
     max-height: calc(100dvh - var(--nav-h));
     overflow-y: auto;
+    overscroll-behavior: contain;
     margin: 0 calc(-1 * var(--gutter));
     padding: 0 var(--gutter);
     border-top: 1px solid var(--xw-rule);
+  }
+
+  #navbar .navbar-sheet {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--nav-h) - 1px);
+    min-height: calc(100dvh - var(--nav-h) - 1px);
+  }
+
+  html.nav-open {
+    overflow: hidden;
+    scrollbar-gutter: stable;
   }
 
   #navbar .navbar-nav {
@@ -427,19 +458,40 @@ progress#progress::-moz-progress-bar {
   background-color: var(--xw-earth);
 }
 
-/* ---- Back to top (vanilla-back-to-top injects the element and a <style>) ---- */
+/* ---- Back to top ----
+ * vanilla-back-to-top injects the element and a <style> at the start of
+ * <head>; :root raises specificity over it. _includes/scripts.liquid makes it
+ * a named button that is focusable only while shown. */
 :root #back-to-top {
+  bottom: $back-to-top-bottom;
+  right: $back-to-top-right;
+  z-index: var(--z-back-to-top);
   display: flex;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
+  color: var(--global-back-to-top-text-color);
+  background: var(--global-back-to-top-bg-color);
   border: 1px solid var(--xw-rule-strong);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
 }
 
+/* hidden state (scrolled to the top): faded out and not clickable */
+:root #back-to-top.hidden {
+  pointer-events: none;
+}
+
 :root #back-to-top:hover {
   color: var(--xw-link);
   border-color: var(--xw-link);
+}
+
+/* the library's own style sets `outline: 0` at id specificity */
+:root #back-to-top:focus-visible {
+  outline: 2px solid var(--xw-focus);
+  outline-offset: 2px;
 }
 
 #back-to-top svg {
@@ -472,6 +524,38 @@ ninja-keys::part(ninja-input) {
 
 ninja-keys::part(ninja-input-wrapper) {
   background: var(--xw-surface);
+}
+
+/* Our footer (slot="footer", _includes/scripts.liquid) replaces the library's:
+ * the key hints, without "move to parent" (no nested results here), plus the
+ * results live region. Hidden until the element upgrades. */
+ninja-keys:not(:defined) > * {
+  display: none;
+}
+
+.ninja-footer__hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  line-height: 1.4;
+  color: var(--xw-ink-3);
+  border-top: 1px solid var(--xw-rule);
+}
+
+.ninja-footer__hints kbd {
+  margin-right: 0.3rem;
+  font-size: var(--text-2xs);
+}
+
+/* the hints mean nothing on touch screens, and wrap on narrow phones */
+@media (max-width: 575.98px), (pointer: coarse) {
+  .ninja-footer__hints {
+    display: none;
+  }
 }
 
 /* ---- Footer ---- */
@@ -551,6 +635,12 @@ ninja-keys::part(ninja-input-wrapper) {
   color: var(--xw-ink-2);
 }
 
+/* position and affiliation balance separately: no one-word last line */
+.site-footer__role > span {
+  display: block;
+  text-wrap: balance;
+}
+
 .site-footer__addr {
   margin: var(--space-3) 0 0;
   font-family: var(--font-mono);
@@ -580,6 +670,12 @@ ninja-keys::part(ninja-input-wrapper) {
   align-items: center;
   min-height: 36px;
   color: var(--xw-ink);
+}
+
+@media (pointer: coarse) {
+  .site-footer__nav a {
+    min-height: 44px;
+  }
 }
 
 .site-footer .site-footer__label {

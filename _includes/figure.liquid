@@ -23,25 +23,31 @@
           {% else %}
             srcset="{{ include.path | relative_url }}"
           {% endif %}
+          {% comment %}
+            Default sizes: a figure in the reading column is at most ~736px wide
+            (the article width), so 1x desktop screens fetch the 800w file and 2x
+            screens the 1400w. Callers showing an image wider or narrower than
+            that (heroes, grids, thumbnails) pass their own `sizes`.
+          {% endcomment %}
           {% if include.sizes %}
             sizes="{{ include.sizes }}"
           {% else %}
-            sizes="95vw"
+            sizes="(min-width: 800px) 736px, 95vw"
           {% endif %}
         >
       {% endunless %}
     {% endif %}
+    {% comment %}
+      width/height are only emitted when the caller passes real values (the
+      intrinsic pixel size, so the browser reserves the aspect ratio). Without
+      them the image fills its figure via CSS (ds/_base: figure picture > img).
+      "100%"/"auto" are not valid attribute values and are dropped.
+    {% endcomment %}
     <img
       src="{% if include.url %}{{ include.url }}{% elsif include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
       {% if include.class %}
         class="{{ include.class }}"
       {% endif %}
-      {% comment %}
-        width/height are only emitted when the caller passes real values (the
-        intrinsic pixel size, so the browser reserves the aspect ratio). Without
-        them the image fills its figure via CSS (ds/_base: figure picture > img).
-        "100%"/"auto" are not valid attribute values and are dropped.
-      {% endcomment %}
       {% if include.width and include.width != '100%' and include.width != 'auto' %}
         width="{{ include.width }}"
       {% endif %}
@@ -64,9 +70,9 @@
           {% endif %}
         "
       {% endif %}
-      alt="{{ include.alt | default: '' }}"
+      alt="{{ include.alt | default: '' | escape }}"
       {% if include.title %}
-        title="{{ include.title }}"
+        title="{{ include.title | escape }}"
       {% endif %}
       {% if include.zoomable %}
         data-zoomable
