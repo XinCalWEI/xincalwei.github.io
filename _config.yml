@@ -11,15 +11,19 @@ contact_note: >
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Postdoctoral researcher at the University of Michigan, exploring AI-physics solutions for geohazard risk assessment and resilience.
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+  Built with <a href="https://jekyllrb.com/">Jekyll</a> &amp; <a href="https://github.com/alshedivat/al-folio">al-folio</a>.
+# Identity block in the site footer (_includes/footer.liquid). Email comes from _data/socials.yml.
+footer_identity:
+  position: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow
+  affiliation: University of Michigan
+  address: 3520 Green Court, Ann Arbor, MI 48105
 keywords: geohazards, landslide risk assessment, machine learning, AI in geotechnical engineering, natural hazards, resilience # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://xincalwei.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
-last_updated: false # set to true if you want to display last updated in the footer
+last_updated: true # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
 
@@ -53,7 +57,7 @@ posts_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 930px
+max_width: 1120px # index pages; prose bodies keep their own ~68ch measure (_sass/_tokens.scss)
 
 # TODO: add layout settings (single page vs. multi-page)
 
@@ -247,6 +251,10 @@ sass:
 
 jekyll-minifier:
   compress_javascript: false # set to false since we are using terser as the js minifier
+  # Sass already emits compressed CSS. The minifier's CSS pass breaks modern syntax
+  # (it rewrites `calc(var(--nav-h) + 1rem)` to `calc(var( -  - nav - h)…` and strips the
+  # spaces `clamp()` needs around `+`), so leave CSS to Sass.
+  compress_css: false
   exclude: ["robots.txt", "assets/js/search/*.js"]
 
 # -----------------------------------------------------------------------------
@@ -453,10 +461,10 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      # Inter (body/UI) + Plus Jakarta Sans (display) — the TerraMosaic type pairing.
-      # Roboto / Roboto Slab / Material Icons were loaded but unused (body uses the
-      # system stack set in _sass/_layout.scss until _sass/_about.scss overrides it).
-      fonts: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      # Newsreader (display/headings, optical size) + Inter (body/UI) + JetBrains Mono
+      # (metadata). Only the weights the design layer uses are requested; see
+      # --font-* in _sass/_tokens.scss. head.liquid preconnects to both Google origins.
+      fonts: "https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400..500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap"
   highlightjs:
     integrity:
       css:

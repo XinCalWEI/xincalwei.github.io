@@ -7,7 +7,7 @@ permalink: /
 subtitle: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow, University of Michigan
 
 # Hero fields. `tagline` allows inline HTML: <span class="kw">…</span> renders
-# the gradient-underline keyword treatment (see _sass/_about.scss).
+# an earth-underlined keyword (see _sass/pages/_home.scss).
 eyebrow: AI for Science · Geotechnical Engineering · Geohazards
 tagline: 'Understanding and predicting <span class="kw">geohazards</span> by uniting <span class="kw">AI and domain knowledge</span>, for more resilient communities.'
 role: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
@@ -37,6 +37,7 @@ latest_posts:
   enabled: true
   scrollable: false
   limit: 3 # leave blank to include all the blog posts
+layout_width: wide
 ---
 
 <div class="bio-visual">

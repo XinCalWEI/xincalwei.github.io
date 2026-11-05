@@ -4,7 +4,7 @@ permalink: /outreach/
 title: Community Outreach
 nav_title: Outreach
 description: Community engagement and public science outreach activities.
-nav: true
+nav: false # reached through the "More" menu and the footer
 nav_order: 5
 ---
 

@@ -1,0 +1,595 @@
+/* =============================================================================
+ * Homepage (/) — the `.about` scope of _layouts/about.liquid.
+ *
+ * Moved verbatim from the old _sass/_about.scss and retokened (colours, fonts,
+ * radii, shadows now come from _sass/_tokens.scss). Shared pieces that used to
+ * live here are now site-wide components: .feed / .cardlist / .feed__pill /
+ * .btn-ghost (ds/_components), .eyebrow (ds/_type), .hl (ds/_type), the
+ * publication entry (ds/_publications). The hero entrance animation and the
+ * :has() container widening were removed (layout_width: wide replaces it).
+ *
+ * The homepage redesign replaces most of this file.
+ * ========================================================================== */
+
+.about {
+  color: var(--xw-ink);
+  overflow-wrap: break-word;
+}
+
+/* Plain content links inside .about take the link colour; classed component
+ * links keep their own (see ds/_components). */
+.about a:not([class]) {
+  color: var(--xw-link);
+}
+
+.about a:not([class]):hover {
+  color: var(--xw-link-hover);
+}
+
+
+.about .tiles {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 7px);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.about .tiles span {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+}
+
+.about .tiles span:nth-child(1) {
+  background: #2563eb;
+}
+
+.about .tiles span:nth-child(2) {
+  background: #059669;
+}
+
+.about .tiles span:nth-child(3) {
+  background: #d97706;
+}
+
+.about .tiles span:nth-child(4) {
+  background: #dc2626;
+}
+
+/* ---------- Hero ---------- */
+
+.about .hero {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(2.25rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+/* Washes + topo live on a pseudo-element whose edges fade out, so the texture
+ * never draws a visible rectangle against the paper around the container. */
+.about .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--tm-wash), var(--tm-topo);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  pointer-events: none;
+}
+
+.about .hero > * {
+  position: relative;
+}
+
+.about .hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.75rem, 3vw, 3rem);
+  align-items: center;
+}
+
+.about .hero__name {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-serif);
+  font-size: var(--step-hero);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--xw-ink);
+  text-wrap: balance;
+}
+
+.about .hero__tagline {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--xw-ink);
+  text-wrap: balance;
+  max-width: 24em;
+}
+
+/* Keyword emphasis inside the tagline: ink with an earth underline */
+.about .kw {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--xw-earth);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.14em;
+}
+
+.about .hero__role {
+  margin: 0 0 0.2rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--xw-ink);
+}
+
+.about .hero__org {
+  margin: 0 0 1.4rem;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--xw-ink-2);
+}
+
+/* funder credit — quieter than the affiliation it follows */
+.about .hero__funder {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--xw-ink-2);
+}
+
+.about .hero__funder a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--xw-rule);
+  text-underline-offset: 3px;
+}
+
+.about .hero__funder a:hover {
+  color: var(--xw-link);
+  text-decoration-color: currentColor;
+}
+
+/* third identity line ("Founder of TerraMosaic") */
+.about .hero__text:has(.hero__founder) .hero__org,
+.about .hero__text:has(.hero__funder) .hero__org {
+  margin-bottom: 0.3rem;
+}
+
+.about .hero__founder {
+  margin: 0.15rem 0 1.4rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--xw-ink);
+}
+
+.about .hero__founder a {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.about .hero__founder a:hover {
+  color: var(--xw-link-hover);
+}
+
+/* ---------- Hero contact channels: uniform circular ghost buttons ---------- */
+
+.about .hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.about .hero__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--xw-ink);
+  background: transparent;
+  border: 1px solid var(--xw-control);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition:
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.about .hero__links a i,
+.about .hero__links a i::before,
+.about .hero__links a .icon {
+  color: inherit;
+  font-size: inherit;
+}
+
+.about .hero__links a:hover {
+  color: var(--xw-link);
+  border-color: var(--xw-link);
+  background: var(--xw-link-wash);
+  text-decoration: none;
+}
+
+
+.about .hero__addr {
+  margin: 0.9rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--xw-ink-2);
+}
+
+.about .hero__addr i {
+  margin-right: 0.35rem;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  .about .partners__hint {
+    display: none;
+  }
+}
+
+/* ---------- Portrait: a print with a hairline frame ---------- */
+
+.about .hero__portrait {
+  position: relative;
+  justify-self: center;
+  margin: 0;
+  width: min(13.75rem, 70vw);
+}
+
+.about .hero__portrait figure {
+  position: relative;
+  margin: 0;
+}
+
+.about .hero__portrait picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--xw-rule);
+  background-color: var(--xw-surface-sunk);
+}
+
+.about .hero__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
+/* ---------- Bio ---------- */
+
+/* Full container width, matching every section below it. The research diagram
+ * floats top-left and the prose wraps around it; measure stays readable
+ * because the float eats ~half the line for the first paragraphs. */
+.about .bio {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+}
+
+/* clear the float so the next section never collides with a tall diagram */
+.about .bio::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.about .bio p {
+  margin: 0 0 1.1rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--xw-ink);
+}
+
+.about .bio p:last-child {
+  margin-bottom: 0;
+}
+
+.about .bio a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Research overview: large enough for the diagram's labels, but visually
+ * subordinate to the hero and bio. The full-resolution image remains
+ * available through the site's click-to-zoom behavior. */
+/* Below 768px the diagram is full width and the prose simply follows it. */
+.about .bio-visual {
+  width: 100%;
+  margin: 0 0 clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+/* From 768px up it floats top-left and the paragraphs wrap around it. */
+@media (min-width: 768px) {
+  .about .bio-visual {
+    float: left;
+    width: min(52%, 30rem);
+    margin: 0.35rem 1.75rem 1.25rem 0;
+    shape-margin: 1.75rem;
+  }
+}
+
+.about .bio-visual figure {
+  margin: 0;
+}
+
+.about .bio-visual picture {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
+  background: var(--xw-surface);
+}
+
+.about .bio-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html[data-theme="dark"] .about .bio-visual picture {
+  background: var(--xw-chip);
+}
+
+
+/* ---------- Section shell: centered eyebrow + display title ---------- */
+
+.about .section {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+.about .section__head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about .section__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-display);
+  color: var(--xw-ink);
+}
+
+/* decorative icon after the section title (newspaper / megaphone / team) */
+.about .section__title img {
+  height: 1.05em;
+  width: auto;
+  margin-left: 0.35em;
+  vertical-align: -0.12em;
+  display: inline-block;
+}
+
+.about .section__sub {
+  margin: 0.6rem auto 0;
+  max-width: 40em;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--xw-ink-2);
+}
+
+/* "View all" ghost pill centred under each card */
+.about .section__foot {
+  text-align: center;
+  margin-top: 1.4rem;
+}
+
+
+/* ---------- Partners marquee — ported from TerraMosaic's
+ * "Built together, across institutions" section ---------- */
+
+.about .partners__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.about .slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  overflow: hidden;
+  /* the mask creates a stacking context, so the imgs' multiply blend cannot
+   * reach the page behind it — paint the paper onto the slider itself to give
+   * the blend an opaque backdrop (white logo boxes melt into it). */
+  background: var(--xw-paper);
+  /* fade logos in/out at the edges instead of hard clipping */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.about .slider:hover .slider__track {
+  animation-play-state: paused;
+}
+
+.about .slider__track {
+  display: flex;
+  gap: 56px;
+  align-items: center;
+  animation: aboutSlideLeft 45s linear infinite;
+  /* the animated transform creates a stacking context on the track, so the
+   * imgs' multiply blend can only reach backdrops INSIDE the track — paint
+   * the paper here (not on .slider) for white logo boxes to melt into. */
+  background: var(--xw-paper);
+}
+
+.about .slider__track--reverse {
+  animation: aboutSlideRight 45s linear infinite;
+}
+
+.about .slider__track a {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.about .slider__track a:focus-visible,
+.about .slider__track--photos img:focus-visible {
+  outline: 2px solid var(--xw-focus);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.about .slider__track img {
+  /* one shared height; widths breathe naturally */
+  height: 72px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  flex-shrink: 0;
+  /* multiply-blend melts white logo boxes into the paper ground */
+  mix-blend-mode: multiply;
+}
+
+.about .slider__track img[alt="Garcia Research Group"] {
+  transform: scale(1.12);
+}
+
+.about .slider__track img[alt="Schmidt Sciences"] {
+  transform: scale(1.2);
+}
+
+/* Dark mode: multiply would sink white logo boxes into the ink — give each
+ * logo a small paper chip instead. */
+html[data-theme="dark"] .about .slider__track img {
+  mix-blend-mode: normal;
+  background: var(--xw-chip);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  box-sizing: content-box;
+}
+
+@keyframes aboutSlideLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes aboutSlideRight {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Gallery photo strip — same marquee mechanics, photo treatment ---------- */
+
+.about .slider__track--photos {
+  gap: 18px;
+  animation-duration: 80s;
+  /* photos need no blend backdrop */
+  background: transparent;
+}
+
+.about .slider__track--photos figure {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.about .slider__track--photos img {
+  height: 11rem;
+  width: auto;
+  max-width: none;
+  mix-blend-mode: normal;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--xw-rule);
+  transition: transform var(--dur) var(--ease);
+}
+
+.about .slider__track--photos img {
+  cursor: zoom-in;
+}
+
+.about .slider__track--photos figure:hover img {
+  transform: scale(1.03);
+}
+
+/* photos never get the dark-mode paper chip that logos need */
+html[data-theme="dark"] .about .slider__track--photos img {
+  background: none;
+  padding: 0;
+  border-color: var(--xw-rule);
+}
+
+@media (max-width: 575.98px) {
+  .about .slider__track--photos img {
+    height: 8rem;
+  }
+}
+
+/* generous air before the footer */
+.about > .section:last-of-type {
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 768px) {
+  .about .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    align-items: center;
+  }
+
+  .about .hero__portrait {
+    justify-self: end;
+    width: 100%;
+  }
+}
+
+@media (min-width: 930px) {
+  .about .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 17.5rem;
+  }
+}
+
+
+
+/* Reduced motion: the frozen marquee would clip half its logos behind the edge
+ * mask; turn each row into a plain scrollable strip instead. (The global
+ * transition/animation kill switch lives in _a11y-motion.scss.) */
+@media (prefers-reduced-motion: reduce) {
+  .about .slider {
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .about .hero__links a:hover {
+    transform: none;
+  }
+}
+

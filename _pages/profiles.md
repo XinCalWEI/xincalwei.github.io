@@ -5,7 +5,7 @@ title: People / Mentees
 nav_title: People
 description: Students I mentor and have mentored through undergraduate research programs.
 nav: true
-nav_order: 7
+nav_order: 4
 
 profiles:
   # Explore Computer Science Research Program

@@ -264,7 +264,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .dropdown-divider {
-    border-top: 1px solid var(--global-divider-color) !important;
+    border-top: 1px solid var(--global-divider-color);
   }
 }
 
@@ -280,7 +280,7 @@ ul.task-list input[type="checkbox"] {
 .dropdown-item.active,
 .dropdown-item:active {
   background-color: var(--global-hover-color);
-  color: var(--global-hover-text-color) !important;
+  color: var(--global-hover-text-color);
 
   &:hover {
     color: var(--global-hover-text-color);
@@ -529,8 +529,8 @@ footer.sticky-bottom {
       border-color: var(--global-divider-color);
 
       .badge {
-        color: var(--global-card-bg-color) !important;
-        background-color: var(--global-theme-color) !important;
+        color: var(--global-card-bg-color);
+        background-color: var(--global-theme-color);
       }
     }
   }
@@ -756,7 +756,7 @@ footer.sticky-bottom {
           display: inline-block;
           background-color: var(--global-theme-color);
           margin-bottom: 0.5rem;
-          color: var(--global-card-bg-color) !important;
+          color: var(--global-card-bg-color);
 
           a {
             color: white;
@@ -1126,15 +1126,7 @@ nav[data-toggle="toc"] {
   display: none !important;
 }
 
-// Keep image previews above Bootstrap's fixed navigation, sticky elements,
-// and tooltips (up to z-index 1070), with the image above its opaque overlay.
-.medium-zoom-overlay {
-  z-index: 1100;
-}
-
-.medium-zoom-image--opened {
-  z-index: 1101;
-}
+// The medium-zoom z-index rules live at the end of assets/css/main.scss.
 
 #toc-sidebar {
   z-index: 1;

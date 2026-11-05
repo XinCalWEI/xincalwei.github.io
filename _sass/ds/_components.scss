@@ -1,0 +1,501 @@
+/* =============================================================================
+ * ds/components: buttons, text links, mono tags, the section-header pattern,
+ * hairline list rows, the dated feed rows, and the contour motif layer.
+ *
+ * .feed / .cardlist / .feed__pill / .btn-ghost used to exist only as
+ * `.about .x`; they are un-nested here so any page can use them, and the old
+ * `.about` wrappers keep working.
+ * ========================================================================== */
+
+/* ---- Buttons ----
+ *   .xw-btn.xw-btn--primary    ink fill, paper text
+ *   .xw-btn.xw-btn--secondary  1px ink border
+ *   .btn-ghost                 older name for the secondary button */
+.xw-btn,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--xw-ink);
+  background: transparent;
+  border: 1px solid var(--xw-ink);
+  border-radius: var(--radius-md);
+  transition:
+    color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.xw-btn:hover,
+.btn-ghost:hover {
+  color: var(--xw-ink);
+  background: var(--xw-surface-sunk);
+  text-decoration: none;
+}
+
+.xw-btn--primary,
+.xw-btn--primary:visited {
+  color: var(--xw-on-ink);
+  background: var(--xw-ink);
+  border-color: var(--xw-ink);
+}
+
+.xw-btn--primary:hover {
+  color: var(--xw-on-ink);
+  background: var(--xw-link-hover);
+  border-color: var(--xw-link-hover);
+}
+
+.xw-btn--secondary {
+  color: var(--xw-ink);
+  background: transparent;
+  border-color: var(--xw-ink);
+}
+
+.xw-btn .icon,
+.btn-ghost .icon,
+.btn-ghost i {
+  font-size: 0.95em;
+  transition: transform var(--dur) var(--ease);
+}
+
+.xw-btn:hover .icon--arrow-right,
+.btn-ghost:hover .icon--arrow-right,
+.btn-ghost:hover i {
+  transform: translateX(2px);
+}
+
+/* ---- Text links: "All publications ->" ---- */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.text-link:hover {
+  color: var(--xw-link-hover);
+  text-decoration-thickness: 2px;
+}
+
+.text-link .icon {
+  font-size: 0.9em;
+}
+
+/* ---- Mono tags (venue codes, categories, states) ----
+ * Not coloured pills: colour is reserved for state (.tag--earth). */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  max-width: 100%;
+  padding: 0.2em 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--xw-ink-2);
+  background: transparent;
+  border: 1px solid var(--xw-rule-strong);
+  border-radius: var(--radius-sm);
+}
+
+.tag--earth {
+  color: var(--xw-earth);
+  background: var(--xw-earth-wash);
+  border-color: transparent;
+}
+
+a.tag {
+  text-decoration: none;
+}
+
+a.tag:hover {
+  color: var(--xw-link);
+  border-color: currentColor;
+}
+
+/* Bootstrap .badge without MDB: the same mono tag look (CV dates and others) */
+.badge {
+  padding: 0.25em 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  color: var(--xw-ink-2);
+  background-color: transparent;
+  border: 1px solid var(--xw-rule-strong);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- .btn baseline (Bootstrap without MDB) for bib actions and modal clones ---- */
+.btn {
+  font-family: var(--font-sans);
+  color: var(--xw-ink);
+  border-radius: var(--radius-md);
+  text-transform: none;
+  box-shadow: none;
+}
+
+.btn:hover {
+  color: var(--xw-link);
+}
+
+/* ---- Section header pattern ----
+ *   <div class="section-head">
+ *     <p class="kicker"><span class="kicker__index">01</span> — Research</p>
+ *     <h2 class="section-head__title">Research program</h2>
+ *     <p class="section-head__dek">One line in ink-2.</p>
+ *     <a class="text-link section-head__link" href="…">All publications {% include icon.liquid name="arrow-right" %}</a>
+ *   </div>
+ * Left-aligned; hairline rule underneath; the optional link sits right on desktop. */
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 0 var(--space-6);
+  margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
+
+.section-head > .kicker {
+  margin-bottom: var(--space-2);
+}
+
+.section-head__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  color: var(--xw-ink);
+}
+
+.section-head__dek {
+  margin: 0.5rem 0 0;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+}
+
+.section-head__link {
+  margin-top: var(--space-3);
+  justify-self: start;
+}
+
+@media (min-width: 768px) {
+  .section-head:has(> .section-head__link) {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .section-head > :not(.section-head__link) {
+    grid-column: 1;
+  }
+
+  .section-head__link {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
+    justify-self: end;
+    margin-top: 0;
+  }
+}
+
+/* ---- Hairline list rows (mono meta column left on desktop) ----
+ *   <ul class="list-rows"><li class="row-item">
+ *     <p class="row-item__meta">2025</p>
+ *     <div class="row-item__body"><h3 class="row-item__title">…</h3><p class="row-item__dek">…</p></div>
+ *   </li></ul> */
+.list-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--xw-rule);
+}
+
+.list-rows > li {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.row-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem var(--space-5);
+}
+
+.row-item__meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+  color: var(--xw-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.row-item__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--xw-ink);
+}
+
+.row-item__dek {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+}
+
+@media (min-width: 768px) {
+  .row-item {
+    grid-template-columns: 8rem minmax(0, 1fr);
+  }
+
+  .row-item__meta {
+    padding-top: 0.2rem;
+  }
+}
+
+/* ---- Card list container (older name): now a hairline-ruled block ---- */
+.cardlist {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--xw-rule);
+  border-bottom: 1px solid var(--xw-rule);
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* ---- Dated feed rows (News, Writing): mono date column + serif title ---- */
+.feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feed > li + li .feed__row {
+  border-top: 1px solid var(--xw-rule);
+}
+
+.feed__row {
+  position: relative;
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+  padding: 1.1rem 0;
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+a.feed__row:hover {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.feed__date {
+  flex-shrink: 0;
+  width: 7.5rem;
+  padding-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  color: var(--xw-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.feed__day,
+.feed__my {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.feed__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.feed__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--xw-ink);
+  transition: color var(--dur) var(--ease);
+}
+
+a.feed__row:hover .feed__title {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.feed__desc {
+  display: -webkit-box;
+  margin-top: 0.3rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.feed__arrow {
+  display: none;
+}
+
+.feed__ext {
+  margin-left: 0.35rem;
+  font-size: 0.75em;
+  color: var(--xw-ink-3);
+}
+
+.feed__empty {
+  margin: 0;
+  padding: 1.2rem 0;
+  color: var(--xw-ink-2);
+}
+
+/* category label on a row: a mono tag, neutral for every category */
+.feed__pill {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  padding: 0.15em 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--xw-ink-2);
+  background: transparent;
+  border: 1px solid var(--xw-rule-strong);
+  border-radius: var(--radius-sm);
+}
+
+/* right-side thumbnail on rich rows (news archive) */
+.feed__thumb {
+  flex-shrink: 0;
+  align-self: center;
+  width: 9rem;
+}
+
+.feed__thumb figure {
+  margin: 0;
+}
+
+.feed__thumb picture {
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--xw-rule);
+}
+
+.feed__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feed__thumb--contain img {
+  object-fit: contain;
+}
+
+@media (max-width: 575.98px) {
+  .feed__row {
+    flex-wrap: wrap;
+    gap: 0.25rem var(--space-4);
+  }
+
+  .feed__date {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .feed__thumb {
+    width: 5.5rem;
+  }
+
+  .feed__thumb picture {
+    aspect-ratio: 1 / 1;
+  }
+
+  .feed__title {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ---- Copy button on code blocks (assets/js/copy_code.js) ---- */
+.code-display-wrapper .copy {
+  width: 32px;
+  height: 32px;
+  color: var(--xw-ink-2);
+  background: var(--xw-surface);
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-sm);
+}
+
+/* keyboard users reach the button before hovering the block */
+.code-display-wrapper .copy:focus-visible {
+  opacity: 1;
+}
+
+/* ---- Contour motif layer ----
+ * A decorative layer painted with the brand contour file through a mask, so it
+ * takes the theme's ink colour: put <div class="contour-field" aria-hidden="true">
+ * inside a position:relative parent. Tune with --xw-contour-opacity and
+ * --contour-position / --contour-size. Static; never animated. */
+.contour-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--xw-contour);
+  opacity: var(--xw-contour-opacity);
+  -webkit-mask-image: url("../img/brand/contours.svg");
+  mask-image: url("../img/brand/contours.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: var(--contour-size, cover);
+  mask-size: var(--contour-size, cover);
+  -webkit-mask-position: var(--contour-position, center);
+  mask-position: var(--contour-position, center);
+}

@@ -1,5 +1,6 @@
 ---
 layout: default
+layout_width: wide
 ---
 <div class="post about">
   <!-- ============================ Hero ============================ -->
@@ -54,7 +55,7 @@ layout: default
       {% if page.profile.image %}
         <div class="hero__portrait">
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% comment %}Match the portrait column widths in _sass/_about.scss.{% endcomment %}
+          {% comment %}Match the portrait column widths in _sass/pages/_home.scss.{% endcomment %}
           {% capture profile_sizes %}(min-width: 930px) 17.5rem, (min-width: 768px) 15rem, min(13.75rem, 70vw){% endcapture %}
           {%
             include figure.liquid loading="eager" path=profile_image_path sizes=profile_sizes
@@ -238,4 +239,4 @@ layout: default
   {% endif %}
 </div>
 
-<script src="{{ '/assets/js/abstract-modal.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>

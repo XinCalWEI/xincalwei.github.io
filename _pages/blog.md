@@ -3,7 +3,8 @@ layout: default
 permalink: /blog/
 title: Blog
 nav: true
-nav_order: 1
+nav_order: 6
+layout_width: wide
 ---
 
 <!-- The index derives every filter from post front matter so the interface

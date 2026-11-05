@@ -4,7 +4,7 @@ permalink: /teaching/
 title: Teaching
 description: I have served as a guest lecturer, teaching assistant, and faculty member for the following courses.
 nav: true
-nav_order: 6
+nav_order: 3
 ---
 
 <!-- Course list in the site's card-row language: institution pill (tinted

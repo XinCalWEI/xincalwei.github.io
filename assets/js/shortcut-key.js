@@ -1,11 +1,14 @@
-// Check if the user is on a Mac and update the shortcut key for search accordingly
+// On a Mac, show the Command-key shortcut for search (the header renders "Ctrl K").
+// Only the <kbd> hint and the button's accessible name change; the SVG icon in
+// #search-toggle .nav-link is left alone.
 document.addEventListener("readystatechange", () => {
   if (document.readyState === "interactive") {
-    let isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-    let shortcutKeyElement = document.querySelector("#search-toggle .nav-link");
-    if (shortcutKeyElement && isMac) {
-      // use the unicode for command key
-      shortcutKeyElement.innerHTML = '&#x2318; k <i class="ti ti-search"></i>';
-    }
+    const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+    const toggle = document.getElementById("search-toggle");
+    if (!toggle || !isMac) return;
+    const kbd = toggle.querySelector(".nav-link kbd");
+    if (kbd) kbd.textContent = "⌘K";
+    toggle.setAttribute("aria-label", "Search (Command K)");
+    toggle.setAttribute("title", "Search (⌘K)");
   }
 });

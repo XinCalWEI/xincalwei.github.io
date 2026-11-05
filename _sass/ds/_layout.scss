@@ -1,0 +1,225 @@
+/* =============================================================================
+ * ds/layout: containers, page header, section rhythm, TOC column, and the
+ * compatibility classes content still uses after MDB was dropped.
+ * ========================================================================== */
+
+/* ---- Containers ----
+ * Reading pages: --container (960px). Home + index pages opt into the wide
+ * canvas with `layout_width: wide` in front matter, which default.liquid turns
+ * into .container--wide. Prose inside either keeps its own --measure. */
+.container {
+  max-width: var(--container);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+.site-main {
+  display: block;
+  min-height: 50vh;
+  padding-top: clamp(2.25rem, 1.25rem + 3vw, 4rem);
+  padding-bottom: var(--space-8);
+}
+
+/* Section rhythm for stacked page sections */
+.page-section + .page-section {
+  margin-top: var(--section-gap);
+}
+
+/* ---- Page header (page.liquid / post.liquid / cv.liquid) ----
+ * Mono kicker (optional `kicker:` front matter) + serif title + one-line dek,
+ * hairline below. */
+.post .post-header,
+.page-head {
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.post .post-header .post-title,
+.page-head__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-title);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--xw-ink);
+}
+
+.post .post-header .post-title a {
+  color: inherit;
+}
+
+.post .post-description,
+.page-head__dek {
+  margin: 0.75rem 0 0;
+  max-width: 62ch;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+}
+
+.post .post-description:empty {
+  display: none;
+}
+
+.post .post-meta {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  color: var(--xw-ink-3);
+}
+
+.post .post-tags {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.6;
+  color: var(--xw-ink-3);
+}
+
+.post .post-tags a {
+  color: var(--xw-ink-2);
+  text-decoration: none;
+}
+
+.post .post-tags a:hover {
+  color: var(--xw-link);
+  text-decoration: underline;
+}
+
+.post .post-tags .fa-sm {
+  font-size: 0.75em;
+  opacity: 0.8;
+}
+
+/* Section headings inside content stay ink; the accent appears on hover only */
+.post h1 > a,
+.post h2 > a,
+.post h3 > a,
+.post h4 > a {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.post h1 > a:hover,
+.post h2 > a:hover,
+.post h3 > a:hover,
+.post h4 > a:hover {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ---- Table of contents column (bootstrap-toc + scrollspy in common.js) ---- */
+#toc-sidebar {
+  z-index: var(--z-toc);
+  top: calc(var(--nav-h) + 1.5rem);
+  max-height: calc(100vh - var(--nav-h) - 3rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+}
+
+nav[data-toggle="toc"] {
+  top: calc(var(--nav-h) + 1.5rem);
+  font-family: var(--font-sans);
+}
+
+nav[data-toggle="toc"] .nav > li > a,
+nav[data-toggle="toc"] .nav .nav > li > a {
+  display: block;
+  padding: 0.3rem 0 0.3rem 0.9rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--xw-ink-2);
+  border-left: 1px solid var(--xw-rule);
+  text-decoration: none;
+}
+
+nav[data-toggle="toc"] .nav .nav > li > a {
+  padding-left: 1.6rem;
+  font-size: 0.78rem;
+}
+
+nav[data-toggle="toc"] .nav > li > a:hover,
+nav[data-toggle="toc"] .nav > li > a:focus {
+  color: var(--xw-ink);
+  border-left-color: var(--xw-ink-3);
+  background: transparent;
+}
+
+nav[data-toggle="toc"] .nav-link.active,
+nav[data-toggle="toc"] .nav-link.active:hover,
+nav[data-toggle="toc"] .nav-link.active:focus,
+nav[data-toggle="toc"] .nav > .active > a,
+nav[data-toggle="toc"] .nav > .active:hover > a {
+  padding-left: calc(0.9rem - 1px);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--xw-ink);
+  border-left: 2px solid var(--xw-earth);
+  background: transparent;
+}
+
+nav[data-toggle="toc"] .nav .nav > .active > a {
+  padding-left: calc(1.6rem - 1px);
+  font-size: 0.78rem;
+}
+
+/* ---- MDB compatibility (MDB CSS is no longer loaded) ----
+ * .z-depth-* appears ~60 times in content images: a hairline frame, no float. */
+.z-depth-0 {
+  box-shadow: none;
+}
+
+.z-depth-1,
+.z-depth-1-half {
+  box-shadow: 0 0 0 1px var(--xw-rule);
+}
+
+.z-depth-2,
+.z-depth-3 {
+  box-shadow: var(--shadow-soft);
+}
+
+.font-weight-medium {
+  font-weight: 500;
+}
+
+/* Bootstrap cards used in a few posts: hairline, radius cap */
+.card {
+  color: var(--xw-ink);
+  background-color: var(--xw-surface);
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
+}
+
+.card .card-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--xw-ink);
+}
+
+/* bootstrap.min.css ships focus glows on buttons and inputs; the design uses
+ * the outline ring from ds/base instead */
+.btn:focus,
+.btn.focus,
+.form-control:focus {
+  box-shadow: none;
+}

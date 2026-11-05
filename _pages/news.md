@@ -4,7 +4,8 @@ title: News
 permalink: /news/
 description: Conferences, workshops, invited talks, and program milestones — newest first.
 nav: true
-nav_order: 0
+nav_order: 5
+layout_width: wide
 ---
 
 <!-- Year-grouped archive built on the shared About feed rows (with 2-line

@@ -1,13 +1,15 @@
 ---
 layout: page
-title: Submenus
+title: More
 nav: true
 nav_order: 8
 dropdown: true
+sitemap: false
 children:
-  - title: Bookshelf
-    permalink: /books/
-  - title: divider
+  - title: Outreach
+    permalink: /outreach/
   - title: Gallery
     permalink: /gallery/
+  - title: Bookshelf
+    permalink: /books/
 ---

@@ -1,12 +1,14 @@
 ---
 layout: page
-title: Projects
+title: Research
 permalink: /projects/
 description: Research on geohazard susceptibility, runout, monitoring, infrastructure response, and risk, complemented by retrospective analysis of observed impacts.
 nav: true
-nav_order: 3
+nav_order: 1
 display_categories: [Prospective Modelling, Retrospective Analysis]
 horizontal: false
+nav_title: Research
+layout_width: wide
 ---
 
 <p class="projects-visual-note">

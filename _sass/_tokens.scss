@@ -1,0 +1,205 @@
+/* =============================================================================
+ * Design tokens ("Strata"): the single source of colour, type, space, radius,
+ * elevation, motion and layout values. Light values on :root, dark twins on
+ * html[data-theme="dark"] (set by assets/js/theme.js; it is the only dark switch).
+ *
+ * --xw-*      semantic tokens for the design layer (_sass/ds/, _sass/pages/)
+ * --global-*  al-folio names, kept as aliases: _base.scss, _cv.scss, the legacy
+ *             partials and assets/js/zoom.js read them
+ * --font-*, --pill-*, --tm-*  older custom tokens still read by page partials
+ *
+ * Pure CSS on purpose (no Sass globals) so it can move to @use later.
+ * The medium-zoom z-index values (1100/1101) are NOT tokenised: the deploy check
+ * (_scripts/check-zoom-css.cjs) needs them as literals in main.css.
+ * ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Palette (contrast on --xw-paper noted) ---- */
+  --xw-paper: #f7f6f1; /* page ground */
+  --xw-surface: #fdfcf8; /* raised panels, used sparingly */
+  --xw-surface-sunk: #efede5; /* wells, code, hover fills */
+  --xw-ink: #16243d; /* text, 14:1 */
+  --xw-ink-2: #46505e; /* secondary text, 7.5:1 */
+  --xw-ink-3: #5c6472; /* meta text, 5.6:1; never lighter */
+  --xw-rule: #dedcd2; /* hairlines */
+  --xw-rule-strong: #c9c6b8; /* section rules */
+  --xw-control: #7d8696; /* input / control borders: 3.4:1 on paper (spec #8a93a1 is 2.9:1) */
+  --xw-link: #1e40af; /* interactive only, 8:1 */
+  --xw-link-hover: #16389b;
+  --xw-link-wash: rgba(30, 64, 175, 0.08);
+  --xw-earth: #a8471f; /* the single decorative accent, 5.2:1 as text */
+  --xw-earth-wash: #f4e6dc;
+  --xw-on-ink: #f7f6f1; /* text on an ink-filled control */
+  --xw-chip: #f5f4ef; /* light plate behind logos / line art in dark mode */
+  --xw-focus: var(--xw-link);
+  --xw-contour: var(--xw-ink); /* contour motif stroke; opacity set per use */
+  --xw-contour-opacity: 0.08;
+
+  /* ---- Type ---- */
+  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-display: var(--font-serif); /* legacy name: headings */
+  --font-body: var(--font-sans); /* legacy name: body + UI */
+
+  --step-hero: clamp(2.6rem, 2rem + 3vw, 4.25rem); /* hero name */
+  --step-title: clamp(2.1rem, 1.6rem + 2vw, 3rem); /* page title */
+  --step-h2: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); /* section heading */
+  --step-h3: 1.25rem;
+  --step-h4: 1.0625rem;
+  --text-prose: 1.0625rem; /* 17px reading text */
+  --text-ui: 1rem;
+  --text-sm: 0.875rem;
+  --text-meta: 0.78rem; /* mono metadata */
+  --text-kicker: 0.72rem; /* mono uppercase kicker */
+  --leading-prose: 1.65;
+  --leading-tight: 1.15;
+  --tracking-kicker: 0.08em;
+  --tracking-display: -0.015em;
+
+  /* ---- Space (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-gap: clamp(4rem, 2.4rem + 5vw, 7.5rem); /* 64px mobile -> 120px desktop */
+
+  /* ---- Shape & elevation ---- */
+  --radius-xs: 2px;
+  --radius-sm: 3px; /* tags */
+  --radius-md: 4px; /* buttons, inputs */
+  --radius-lg: 6px; /* the maximum: cards, images */
+  --border-hair: 1px solid var(--xw-rule);
+  --shadow-none: none;
+  --shadow-soft: 0 1px 2px rgba(22, 36, 61, 0.05), 0 2px 8px rgba(22, 36, 61, 0.05);
+  --shadow-hover: 0 1px 2px rgba(22, 36, 61, 0.06), 0 6px 18px rgba(22, 36, 61, 0.08);
+  --shadow-overlay: 0 18px 48px rgba(22, 36, 61, 0.22);
+
+  /* ---- Motion ---- */
+  --dur-fast: 120ms;
+  --dur: 150ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---- Layout ---- */
+  --nav-h: 64px; /* fixed navbar height; progress-bar.js re-measures at runtime */
+  --measure: 68ch; /* prose line length */
+  --container: 960px; /* reading pages */
+  --container-wide: 1120px; /* home + index pages (layout_width: wide) */
+  --gutter: 16px;
+
+  /* ---- Z-index (all below the zoom overlay at 1100) ---- */
+  --z-toc: 1;
+  --z-progress: 1031;
+  --z-back-to-top: 1020;
+  --z-nav: 1030;
+  --z-search: 1040;
+  --z-skip: 1090;
+
+  /* ---- al-folio aliases ---- */
+  --global-bg-color: var(--xw-paper);
+  --global-code-bg-color: var(--xw-surface-sunk);
+  --global-text-color: var(--xw-ink);
+  --global-text-color-light: var(--xw-ink-2);
+  --global-theme-color: var(--xw-link);
+  --global-hover-color: var(--xw-link-hover);
+  --global-hover-text-color: #ffffff; /* text on --global-hover-color fills */
+  --global-footer-bg-color: var(--xw-paper);
+  --global-footer-text-color: var(--xw-ink-2);
+  --global-footer-link-color: var(--xw-ink);
+  --global-distill-app-color: #828282;
+  --global-divider-color: var(--xw-rule);
+  --global-card-bg-color: var(--xw-surface);
+  --global-surface-color: var(--xw-surface-sunk);
+  --global-control-border-color: var(--xw-control);
+  --global-accent-soft: #dee7f8; /* search-highlight background */
+  --global-highlight-color: var(--xw-earth);
+  --global-back-to-top-bg-color: var(--xw-surface);
+  --global-back-to-top-text-color: var(--xw-ink);
+  --global-newsletter-bg-color: #ffffff;
+  --global-newsletter-text-color: #000000;
+
+  --global-tip-block: #42b983;
+  --global-tip-block-bg: #e2f5ec;
+  --global-tip-block-text: #215d42;
+  --global-tip-block-title: #359469;
+  --global-warning-block: #e7c000;
+  --global-warning-block-bg: #fff8d8;
+  --global-warning-block-text: #6b5900;
+  --global-warning-block-title: #b29400;
+  --global-danger-block: #c00;
+  --global-danger-block-bg: #ffe0e0;
+  --global-danger-block-text: #600;
+  --global-danger-block-title: #c00;
+
+  /* ---- Older custom tokens (page partials still read these) ---- */
+  /* tinted category pills: being phased out in favour of mono tags */
+  --pill-blue-bg: rgba(30, 64, 175, 0.1);
+  --pill-blue-fg: #1e40af;
+  --pill-teal-bg: rgba(13, 148, 136, 0.12);
+  --pill-teal-fg: #0f766e;
+  --pill-green-bg: rgba(4, 120, 87, 0.1);
+  --pill-green-fg: #047857;
+  --pill-amber-bg: rgba(180, 83, 9, 0.12);
+  --pill-amber-fg: #92400e;
+  --pill-coral-bg: rgba(220, 38, 38, 0.1);
+  --pill-coral-fg: #b91c1c;
+  --pill-violet-bg: rgba(109, 40, 217, 0.1);
+  --pill-violet-fg: #6d28d9;
+  /* contour texture used by the blog masthead; the brand file is assets/img/brand/contours.svg */
+  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%2316243d' stroke-opacity='0.045' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
+  --tm-wash: none; /* was two radial gradients; the spec rules out washes */
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --xw-paper: #0f1726;
+  --xw-surface: #162033;
+  --xw-surface-sunk: #0b1220;
+  --xw-ink: #e9ecf3; /* 15:1 */
+  --xw-ink-2: #a3adc0;
+  --xw-ink-3: #8b95a9; /* 6:1 */
+  --xw-rule: #263149;
+  --xw-rule-strong: #34405c;
+  --xw-control: #6f7a94;
+  --xw-link: #8db2f8;
+  --xw-link-hover: #b3cdfa;
+  --xw-link-wash: rgba(141, 178, 248, 0.12);
+  --xw-earth: #e8956b;
+  --xw-earth-wash: #2a2026;
+  --xw-on-ink: #0f1726;
+  --xw-contour-opacity: 0.09;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(0, 0, 0, 0.3);
+  --shadow-overlay: 0 18px 48px rgba(0, 0, 0, 0.55);
+
+  --global-hover-text-color: #0f1726; /* dark ink on the light-blue hover fill */
+  --global-distill-app-color: #e8e8e8;
+  --global-accent-soft: #2b3c5e;
+  --global-back-to-top-bg-color: var(--xw-surface);
+  --global-back-to-top-text-color: var(--xw-ink);
+  --global-newsletter-bg-color: #e8e8e8;
+  --global-newsletter-text-color: #1c1c1d;
+
+  --pill-blue-bg: rgba(147, 180, 253, 0.14);
+  --pill-blue-fg: #a7c2fd;
+  --pill-teal-bg: rgba(94, 234, 212, 0.13);
+  --pill-teal-fg: #6fdbc8;
+  --pill-green-bg: rgba(110, 231, 183, 0.13);
+  --pill-green-fg: #7fe3b6;
+  --pill-amber-bg: rgba(251, 191, 36, 0.14);
+  --pill-amber-fg: #f2c46d;
+  --pill-coral-bg: rgba(252, 165, 165, 0.13);
+  --pill-coral-fg: #f8a8a8;
+  --pill-violet-bg: rgba(196, 181, 253, 0.14);
+  --pill-violet-fg: #cabffc;
+  --tm-topo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='480' viewBox='0 0 720 480'%3E%3Cg fill='none' stroke='%23e9ecf3' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 96c72-24 132-60 216-48s108 72 192 72 168-60 312-48'/%3E%3Cpath d='M0 150c84-30 156-78 240-64s120 88 204 88 156-72 276-58'/%3E%3Cpath d='M0 318c96 18 168-42 252-30s96 66 180 66 144-54 288-42'/%3E%3Cpath d='M0 390c96 24 192-36 288-24s120 60 216 60 132-36 216-24'/%3E%3Cellipse cx='540' cy='186' rx='90' ry='40'/%3E%3Cellipse cx='540' cy='186' rx='60' ry='25'/%3E%3Cellipse cx='540' cy='186' rx='32' ry='12'/%3E%3Cellipse cx='150' cy='300' rx='70' ry='30'/%3E%3Cellipse cx='150' cy='300' rx='42' ry='17'/%3E%3C/g%3E%3C/svg%3E");
+}

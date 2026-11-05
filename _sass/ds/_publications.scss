@@ -1,0 +1,524 @@
+/* =============================================================================
+ * ds/publications: the bibliography entry (_layouts/bib.liquid), used on /,
+ * /publications/ and the project pages' References. Editorial, not boxed:
+ *
+ *   li > .row                          grid: [meta column | entry]
+ *     .abbr   .bib-year + abbr.badge   mono year + venue tag (1px rule border)
+ *     #key    .title                   serif
+ *             .author > em             self, by weight (no underline)
+ *             .periodical (> em)       venue italic, then year
+ *             .periodical.note         ink-3 note
+ *             .honors                  earth, mono (e.g. "ESI Highly Cited Paper")
+ *             .links > .btn            compact text actions (Abstract, BibTeX, DOI…)
+ *             .badges > a.cite-count   mono citation count
+ *             .award/.abstract/.bibtex.hidden(.open)   panels toggled by common.js
+ *
+ * Selectors mirror _base.scss's .publications block (specificity (0,3,x)-(0,4,x))
+ * and win on source order.
+ * ========================================================================== */
+
+.publications {
+  margin-top: var(--space-5);
+}
+
+/* ---- Year groups (/publications/, References): mono year over a rule ---- */
+.publications h2.bibliography {
+  margin: var(--space-6) 0 0;
+  padding: var(--space-3) 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: none;
+  color: var(--xw-ink-2);
+  border-top: 1px solid var(--xw-rule-strong);
+}
+
+.publications h2.bibliography:first-child,
+.bibsearch + .publications h2.bibliography:first-of-type {
+  margin-top: var(--space-5);
+}
+
+.publications ol.bibliography {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.publications ol.bibliography > li {
+  margin: 0;
+  padding: var(--space-5) 0;
+}
+
+.publications ol.bibliography > li + li {
+  border-top: 1px solid var(--xw-rule);
+}
+
+/* ---- Entry grid ---- */
+.publications ol.bibliography li > .row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+}
+
+.publications ol.bibliography li > .row > [class*="col"] {
+  flex: none;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .publications ol.bibliography li > .row {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+  }
+}
+
+/* ---- Meta column: year + venue tag ---- */
+.publications ol.bibliography li .abbr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .publications ol.bibliography li .abbr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding-top: 0.2rem;
+  }
+}
+
+.publications ol.bibliography li .bib-year {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--xw-ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* lists already grouped under a year heading don't repeat it per entry */
+.publications h2.bibliography + ol.bibliography .bib-year {
+  display: none;
+}
+
+.publications ol.bibliography li .abbr abbr.badge {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.2em 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.03em;
+  text-align: left;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: var(--xw-ink-2);
+  background-color: transparent;
+  border: 1px solid var(--xw-rule-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  cursor: default;
+}
+
+.publications ol.bibliography li .abbr abbr.badge a,
+.publications ol.bibliography li .abbr abbr.badge div {
+  color: inherit;
+  text-decoration: none;
+}
+
+.publications ol.bibliography li .preview {
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* ---- Entry text ---- */
+.publications ol.bibliography li .title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--xw-ink);
+  overflow-wrap: break-word;
+}
+
+.publications ol.bibliography li .author {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+}
+
+.publications ol.bibliography li .author > em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--xw-ink);
+  border-bottom: 0;
+}
+
+.publications ol.bibliography li .author a {
+  color: var(--xw-ink-2);
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--xw-rule-strong);
+}
+
+.publications ol.bibliography li .author a:hover {
+  color: var(--xw-link);
+  text-decoration-color: currentColor;
+}
+
+.publications ol.bibliography li .author > span.more-authors {
+  color: var(--xw-ink-3);
+  border-bottom: 1px dotted var(--xw-ink-3);
+  cursor: pointer;
+}
+
+.publications ol.bibliography li .author > span.more-authors:hover {
+  color: var(--xw-ink);
+  border-bottom-color: var(--xw-ink);
+}
+
+.publications ol.bibliography li .periodical {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+}
+
+.publications ol.bibliography li .periodical em {
+  font-style: italic;
+  color: var(--xw-ink-2);
+}
+
+.publications ol.bibliography li .periodical.note {
+  font-size: var(--text-sm);
+  color: var(--xw-ink-3);
+}
+
+.publications ol.bibliography li .honors {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--xw-earth);
+}
+
+/* ---- Actions + citation count on one line ----
+ * The parent stays a block container so the collapsible panels below keep
+ * their place; .links and .badges are inline-flex siblings. */
+.publications ol.bibliography li .links,
+.publications ol.bibliography li .badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-4);
+  margin-top: 0.35rem;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.publications ol.bibliography li .links:empty {
+  display: none;
+}
+
+.publications ol.bibliography li .links + .badges {
+  margin-left: var(--space-4);
+}
+
+.publications ol.bibliography li .links .btn,
+.publications ol.bibliography li .links a.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--xw-link);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.publications ol.bibliography li .links .btn:hover,
+.publications ol.bibliography li .links a.btn:hover {
+  color: var(--xw-link-hover);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+}
+
+.publications ol.bibliography li .links .btn[aria-expanded="true"] {
+  color: var(--xw-ink);
+  text-decoration-color: var(--xw-earth);
+  text-decoration-thickness: 2px;
+}
+
+.publications ol.bibliography li .links .award.btn {
+  color: var(--xw-earth);
+}
+
+.publications ol.bibliography li .badges a.cite-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-height: 36px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--xw-ink-3);
+  text-decoration: none;
+}
+
+.publications ol.bibliography li .badges a.cite-count b {
+  font-weight: 500;
+  color: var(--xw-ink-2);
+}
+
+.publications ol.bibliography li .badges a.cite-count:hover,
+.publications ol.bibliography li .badges a.cite-count:hover b {
+  color: var(--xw-link);
+  text-decoration: underline;
+}
+
+/* ---- Collapsible panels (Abstract / BibTeX / Award) ---- */
+.publications ol.bibliography li .hidden {
+  font-size: var(--text-sm);
+  text-align: left;
+  /* collapsed panels keep focusable <pre>/copy button: take them out of tab order */
+  visibility: hidden;
+}
+
+.publications ol.bibliography li .hidden.open {
+  visibility: visible;
+  margin-top: var(--space-3);
+}
+
+.publications ol.bibliography li .hidden p {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  line-height: 1.6;
+  color: var(--xw-ink-2);
+}
+
+.publications ol.bibliography li div.abstract.hidden,
+.publications ol.bibliography div.award.hidden {
+  border: 0;
+  border-left: 2px solid transparent;
+}
+
+.publications ol.bibliography li div.abstract.hidden.open,
+.publications ol.bibliography div.award.hidden.open {
+  border-left-color: var(--xw-rule-strong);
+}
+
+.publications ol.bibliography li .hidden figure.highlight {
+  margin: 0;
+}
+
+.publications ol.bibliography li .hidden pre {
+  max-width: 100%;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  overflow-x: auto;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre;
+  color: var(--xw-ink);
+  background-color: var(--xw-surface-sunk);
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-md);
+}
+
+/* BibTeX token colours on the code surface (the vendored pygments themes land
+ * just under AA there) */
+.publications .bibtex .highlight .na,
+.publications .bibtex .highlight .nv {
+  color: #00695f;
+}
+
+html[data-theme="dark"] .publications .bibtex .highlight .na,
+html[data-theme="dark"] .publications .bibtex .highlight .nv {
+  color: #5fc9c9;
+}
+
+html[data-theme="dark"] .publications .bibtex .highlight .nc {
+  color: #8ab4f8;
+}
+
+/* ---- /publications/ filter input ---- */
+.bibsearch {
+  max-width: 34rem;
+}
+
+input#bibsearch.bibsearch-form-input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-ui);
+  color: var(--xw-ink);
+  background: var(--xw-surface);
+  border: 1px solid var(--xw-control);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  transition: border-color var(--dur) var(--ease);
+}
+
+input#bibsearch.bibsearch-form-input:focus {
+  border-color: var(--xw-link);
+  outline: 2px solid var(--xw-focus);
+  outline-offset: 1px;
+}
+
+input#bibsearch.bibsearch-form-input::placeholder {
+  color: var(--xw-ink-3);
+  opacity: 1;
+}
+
+/* ---- Abstract dialog (assets/js/abstract-modal.js, native <dialog>) ---- */
+.abs-modal {
+  width: min(44rem, calc(100vw - 2rem));
+  max-height: min(82vh, 44rem);
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  color: var(--xw-ink);
+  background: var(--xw-surface);
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-overlay);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.abs-modal::backdrop {
+  background: rgba(15, 23, 38, 0.5);
+}
+
+html[data-theme="dark"] .abs-modal::backdrop {
+  background: rgba(4, 8, 16, 0.7);
+}
+
+.abs-modal__close-form {
+  float: right;
+  margin: -0.5rem -0.5rem 0 0.75rem;
+}
+
+.abs-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.1rem;
+  color: var(--xw-ink-2);
+  background: transparent;
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.abs-modal__close:hover {
+  color: var(--xw-ink);
+  border-color: var(--xw-control);
+}
+
+.abs-modal__eyebrow {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.abs-modal__title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--xw-ink);
+}
+
+.abs-modal__meta {
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-4);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--xw-ink-2);
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.abs-modal__meta:empty {
+  display: none;
+}
+
+.abs-modal__body p {
+  margin: 0 0 1em;
+  font-size: var(--text-prose);
+  line-height: var(--leading-prose);
+  color: var(--xw-ink);
+  text-align: left;
+}
+
+.abs-modal__body p:last-child {
+  margin-bottom: 0;
+}
+
+.abs-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--xw-rule);
+}
+
+.abs-modal__actions:empty {
+  display: none;
+}
+
+.abs-modal__actions .btn {
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--xw-link);
+  background: transparent;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
