@@ -51,28 +51,47 @@
   {% endunless %}
 {% endif %}
 
+{% comment %} One description / title / image for OpenGraph, Twitter and Schema.org. {% endcomment %}
+{%- capture meta_description -%}{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}{%- endcapture -%}
+{%- assign meta_description = meta_description | strip_html | strip_newlines | strip -%}
+{%- if page.url == '/' or page.title == blank or page.title == 'blank' -%}
+  {%- assign meta_title = title | strip -%}
+{%- else -%}
+  {%- capture meta_title -%}{{ page.title | strip_html | strip }} | {{ title | strip }}{%- endcapture -%}
+{%- endif -%}
+{%- assign meta_image = page.og_image | default: site.og_image -%}
+{%- if meta_image and meta_image != blank -%}
+  {%- unless meta_image contains '://' -%}{%- assign meta_image = meta_image | absolute_url -%}{%- endunless -%}
+{%- endif -%}
+{%- assign meta_url = page.url | replace: 'index.html', '' | absolute_url -%}
+
 {% if site.serve_og_meta %}
   <!-- OpenGraph -->
-  <meta property="og:site_name" content="{{ title }}">
+  <meta property="og:site_name" content="{{ title | strip }}">
   <meta property="og:type" content="{% if is_blog_post %}article{% else %}website{% endif %}">
-  <meta property="og:title" content="{% if page.title %}{{ title }} | {{ page.title }}{% else %}{{ title }}{% endif %}">
-  <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url | remove_first: 'index.html' }}">
-  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  {% if page.og_image or site.og_image %}
-    <meta property="og:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+  <meta property="og:title" content="{{ meta_title | escape }}">
+  <meta property="og:url" content="{{ meta_url }}">
+  <meta property="og:description" content="{{ meta_description | escape }}">
+  {% if meta_image and meta_image != blank %}
+    <meta property="og:image" content="{{ meta_image }}">
+    {% unless page.og_image %}
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:image:alt" content="{{ title | strip }}: {{ site.description | strip_newlines | strip | escape }}">
+    {% endunless %}
   {% endif %}
   <meta property="og:locale" content="{{ site.lang }}">
 
   <!-- Twitter card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
-  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  {% if page.og_image or site.og_image %}
-    <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+  <meta name="twitter:card" content="{% if meta_image and meta_image != blank %}summary_large_image{% else %}summary{% endif %}">
+  <meta name="twitter:title" content="{{ meta_title | escape }}">
+  <meta name="twitter:description" content="{{ meta_description | escape }}">
+  {% if meta_image and meta_image != blank %}
+    <meta name="twitter:image" content="{{ meta_image }}">
   {% endif %}
-  {% if site.x_username %}
-    <meta name="twitter:site" content="@{{ site.x_username }}">
-    <meta name="twitter:creator" content="@{{ site.x_username }}">
+  {% if site.data.socials.x_username %}
+    <meta name="twitter:site" content="@{{ site.data.socials.x_username }}">
+    <meta name="twitter:creator" content="@{{ site.data.socials.x_username }}">
   {% endif %}
 {% endif %}
 
@@ -225,20 +244,21 @@
 
   <script type="application/ld+json">
     {
-        "author":
-        {
-            "@type": "Person",
-            "name": "{{ author_name }}"
-        },
-        "url": "{{ page.url | prepend: site.baseurl | prepend: site.url }}",
-        "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
-        "description": "{% if page.description %}{{ page.description }}{% else if site.description %}{{ site.description }}{% endif %}",
-        "headline": "{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}",
-        {% if sameaslinks != blank %}
-        "sameAs": {{ sameaslinks | jsonify }},
-        {% endif %}
-        "name": "{{ author_name }}",
-        "@context": "https://schema.org"
+      "@context": "https://schema.org",
+      "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
+      "url": {{ meta_url | jsonify }},
+      "name": {{ meta_title | jsonify }},
+      "headline": {{ meta_title | jsonify }},
+      "description": {{ meta_description | jsonify }},
+      {% if meta_image and meta_image != blank %}"image": {{ meta_image | jsonify }},{% endif %}
+      "author": {
+        "@type": "Person",
+        "name": {{ author_name | strip | jsonify }},
+        {% if site.footer_identity.position %}"jobTitle": {{ site.footer_identity.position | jsonify }},{% endif %}
+        {% if site.footer_identity.affiliation %}"affiliation": { "@type": "Organization", "name": {{ site.footer_identity.affiliation | jsonify }} },{% endif %}
+        {% if sameaslinks != blank %}"sameAs": {{ sameaslinks | jsonify }},{% endif %}
+        "url": {{ '/' | absolute_url | jsonify }}
+      }
     }
   </script>
 {% endif %}
