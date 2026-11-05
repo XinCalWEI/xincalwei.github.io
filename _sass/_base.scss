@@ -406,6 +406,31 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Navbar icons: inline Tabler SVGs in place of the Tabler icon font. The viewBox
+// maps Tabler's 24-unit grid onto the font's 1em glyph box (ascent 0.9em,
+// descent 0.1em), so each icon sits where its glyph did. The 1/64px right
+// margin matches the glyph's advance as Chrome lays it out (16.016px at 16px).
+.ti {
+  font-style: normal;
+  line-height: 1;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.015625px;
+    vertical-align: -0.1em;
+  }
+}
+
+// The theme toggle's icons are blocks (_themes.scss). A glyph's line box puts
+// the baseline at the rounded ascent (14px at 16px, not 14.4px), so lift the
+// SVG 0.4px and give the space back below to keep the 16px box.
+#light-toggle .ti svg {
+  display: block;
+  margin-top: -0.025em;
+  margin-bottom: 0.025em;
+}
+
 // Social (bottom)
 
 .social {

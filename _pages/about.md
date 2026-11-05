@@ -43,7 +43,7 @@ latest_posts:
   {% assign bio_visual_path = page.research_overview.image | prepend: 'assets/img/' %}
   {%
     include figure.liquid path=bio_visual_path alt=page.research_overview.alt
-    width="1672" height="941" zoomable=true avoid_scaling=true
+    width="1672" height="941" zoomable=true
   %}
 </div>
 

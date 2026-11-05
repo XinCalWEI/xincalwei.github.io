@@ -4,8 +4,8 @@ document.addEventListener("readystatechange", () => {
     let isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
     let shortcutKeyElement = document.querySelector("#search-toggle .nav-link");
     if (shortcutKeyElement && isMac) {
-      // use the unicode for command key
-      shortcutKeyElement.innerHTML = '&#x2318; k <i class="ti ti-search"></i>';
+      // use the unicode for command key (only the label text changes; the inline SVG icon stays)
+      shortcutKeyElement.firstChild.textContent = "\u2318 k ";
     }
   }
 });

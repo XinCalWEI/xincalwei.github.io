@@ -16,7 +16,7 @@ toc:
 
 <div class="row mt-3">
   <div class="col-sm mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/fuli-luo-models-agents-notes.png" avoid_scaling=true class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Fuli Luo's interview, connecting models, agent frameworks, post-training, compute, and research organizations along a mountain path" %}
+    {% include figure.liquid loading="eager" fetchpriority="high" path="assets/img/blog/fuli-luo-models-agents-notes.png" width="1672" height="941" class="img-fluid rounded z-depth-1" zoomable=true alt="Illustrated notes on Fuli Luo's interview, connecting models, agent frameworks, post-training, compute, and research organizations along a mountain path" %}
   </div>
 </div>
 <div class="caption">
@@ -63,11 +63,15 @@ She describes Claude Code as a strong reference for software development and Ope
 
 The word “learning” can hide several different changes in this discussion. I find it helpful to separate them:
 
+<div class="table-responsive" markdown="1">
+
 | What changes     | An example from the discussion                                        | What has actually improved                                                |
 | ---------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Retained context | Memories, skills, task history, and working preferences               | The system has more relevant information available for future interaction |
 | The framework    | Revised orchestration, routing, memory handling, or coordination code | The model operates in a different environment                             |
 | Model parameters | Supervised fine-tuning or reinforcement learning on task experience   | Training changes the model's behavior                                     |
+
+</div>
 
 The first two can make an agent more useful without changing its model weights. They can also expose tasks and failure modes that later become training material. Luo's larger ambition is for these forms of improvement to reinforce one another: a stronger model helps redesign the framework, and a better framework gives the model more effective ways to act and learn.
 
@@ -129,10 +133,14 @@ Luo separates context capacity from the difficulty of training on genuinely long
 
 Two model specifications help anchor the discussion. These are launch-era figures from Xiaomi's [Flash repository](https://github.com/XiaomiMiMo/MiMo-V2-Flash) and [Pro announcement](https://mimo.mi.com/docs/en-US/news/previous-news/v2-pro-release).
 
+<div class="table-responsive" markdown="1">
+
 | Model         | Total / active parameters | Local : global attention pattern | Published context capacity |
 | ------------- | ------------------------- | -------------------------------- | -------------------------- |
 | MiMo-V2-Flash | 309B / 15B                | 5:1                              | Up to 256K tokens          |
 | MiMo-V2-Pro   | Over 1T / 42B             | 7:1                              | Up to 1M tokens            |
+
+</div>
 
 The ratios describe the main hybrid pattern. Flash has a first-layer exception: its [technical report](https://arxiv.org/html/2601.02780v1) lists 39 sliding-window attention layers and 9 global layers. These attention ratios are separate from expert activation. In a mixture-of-experts model, a token uses only a subset of the model's experts; total and active parameter counts therefore describe different aspects of its size and computation.
 
