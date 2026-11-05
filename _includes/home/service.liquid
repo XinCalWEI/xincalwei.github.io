@@ -1,19 +1,44 @@
 {% comment %}
   04 · Teaching, mentoring & service: four compact facts with links.
-  Copy: page.service.
+  Copy: page.service. Counts are computed so they never drift from their
+  source: {mentees} is the number of entries in _data/mentees.yml, {journals}
+  the number of journals listed under "Journal Reviewer" in _data/cv.yml.
+  Both are spelled out ("six"), or read "several" if their source is missing;
+  a text that starts with one is capitalised.
 {% endcomment %}
 {%- assign head = page.sections.service -%}
+{%- assign number_words = 'several,one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve' | split: ',' -%}
+
+{%- assign mentee_count = site.data.mentees | size -%}
+{%- assign mentees_word = number_words[mentee_count] | default: mentee_count -%}
+
+{%- assign journal_count = 0 -%}
+{%- assign cv_service = site.data.cv | where: 'title', 'Academic Service' | first -%}
+{%- if cv_service -%}
+  {%- assign cv_reviewing = cv_service.contents | where: 'title', 'Journal Reviewer' | first -%}
+  {%- assign journal_count = cv_reviewing.items | size -%}
+{%- endif -%}
+{%- assign journals_word = number_words[journal_count] | default: journal_count -%}
+
 <section class="home-section home-service" aria-labelledby="home-service-title">
   <div class="section-head">
-    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <p class="kicker">
+      <span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}
+    </p>
     <h2 class="section-head__title" id="home-service-title">{{ head.title }}</h2>
   </div>
 
   <ul class="home-svc">
     {% for item in page.service %}
+      {%- assign svc_text = item.text | replace: '{mentees}', mentees_word | replace: '{journals}', journals_word -%}
+      {%- assign svc_first = svc_text | slice: 0 | upcase -%}
+      {%- assign svc_rest = svc_text | slice: 1, svc_text.size -%}
       <li class="home-svc__item">
         <h3 class="home-svc__label">{{ item.label }}</h3>
-        <p class="home-svc__text">{{ item.text }}</p>
+        <p class="home-svc__text">
+          {{ svc_first -}}
+          {{- svc_rest }}
+        </p>
         <a class="text-link home-svc__link" href="{{ item.url | relative_url }}">
           {{- item.link_label }}
           {% include icon.liquid name="arrow-right" -%}

@@ -4,7 +4,7 @@ title: About
 permalink: /
 layout_width: wide
 # Not rendered by the About layout, but it feeds the site search index: keep it
-# in sync with hero.position / hero.affiliation below.
+# in sync with footer_identity.position in _config.yml and hero.affiliation below.
 subtitle: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow, University of Michigan
 
 # -----------------------------------------------------------------------------
@@ -16,7 +16,8 @@ subtitle: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow, University o
 hero:
   kicker: Geohazards · Landslide science · AI for science
   statement: "Reliable, scalable AI for geohazards: anticipating landslides, uncovering the consequences of past disasters, and building open data for resilient communities."
-  position: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow
+  # position: defaults to footer_identity.position in _config.yml (one source
+  # for the hero and the footer); set it here only to override the hero line.
   affiliation: University of Michigan · Michigan Institute for Data and AI in Society
   founder: # "Founder, TerraMosaic"
     role: Founder
@@ -32,18 +33,20 @@ hero:
       url: /cv/
   # Contact links come from _data/socials.yml (email, scholar, ORCID, GitHub, LinkedIn).
   # At-a-glance strip under the hero. Date-stamp any metric that changes.
+  # `metric: scholar` fills the text, the date in the label and the link from
+  # scholar_citations / scholar_h_index / scholar_checked in
+  # _pages/publications.md, so the Scholar numbers are kept in one place.
   facts:
     - label: Based in
       text: Ann Arbor, Michigan
       detail: 42.28° N, 83.74° W
-    - label: Google Scholar, Nov 2026
-      text: 678 citations · h-index 10
-      url: https://scholar.google.com/citations?user=Bs4I0eAAAAAJ
+    - label: Google Scholar
+      metric: scholar
     - label: Recognition
       text: AGU25 Highlighted Talk
       url: https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874
-    - label: Convening
-      text: Primary convener, AGU 2025 & 2026
+    - label: Primary convener
+      text: AGU 2025 & 2026 sessions
       url: /news/agu25_meeting/
 
 profile:
@@ -75,7 +78,7 @@ sections:
     index: "05"
     kicker: Collaborators
     title: Collaborators & support
-    dek: The labs, centers, and initiatives behind my research.
+    dek: Labs, centers, programs, and partners connected to my research and to TerraMosaic.
 
 research:
   framing: My work spans prospective modeling and retrospective analysis of geohazards. I integrate domain knowledge with AI, drawing on data that ranges from remote sensing to web-based and crowdsourced records, so that models of future hazards and evidence from past disasters inform each other.
@@ -117,9 +120,9 @@ research:
         - label: SPARK Forum receives community initiative funding
           kind: News 2026
           url: /news/spark_forum_community_initiative_funding/
-        - label: AGU26 session on reliable and scalable geohazard intelligence
+        - label: AGU26 session NH23F (primary convener)
           kind: AGU 2026
-          url: /blog/2026/agu26-nh052-call-for-abstracts/
+          url: https://agu.confex.com/agu/agu26/meetingapp.cgi/Session/282060
   framework:
     caption: How the three thrusts connect.
     # the owner's original raster overview (kept in the repo, linked as a download)
@@ -159,21 +162,24 @@ news:
 writing:
   limit: 3
 
+# Each summary says only what its linked page shows. Counts are computed, never
+# typed: {mentees} is the number of people in _data/mentees.yml and {journals}
+# the number of journals under "Journal Reviewer" in _data/cv.yml (spelled out).
 service:
   - label: Teaching
-    text: Courses and academies at Michigan, Illinois, and Shanghai Jiao Tong.
+    text: Courses at U-M, UIUC, and SJTU, including the AI for Scientists and Engineers Summer Academy 2025.
     link_label: Teaching record
     url: /teaching/
   - label: Mentoring
-    text: Six undergraduate researchers through UROP and ECSR; mentees co-authored an AGU25 abstract and presented at the 2026 UROP symposium.
+    text: "{mentees} undergraduate researchers through UROP and ECSR; mentees co-authored an AGU25 abstract and presented at the 2026 UROP symposium."
     link_label: Mentees and projects
     url: /people/
   - label: Service
-    text: Primary convener, AGU Fall Meeting 2025 & 2026; reviewer for six journals; early-career member, FoMLIG Council.
+    text: "Primary convener, AGU Fall Meeting 2025 & 2026; reviewer for {journals} journals; early-career member, FoMLIG Council."
     link_label: Service on the CV
     url: /cv/
   - label: Outreach
-    text: K-12 hazard-science activities, undergraduate mentoring circles, and practitioner talks.
+    text: The Journey Through CEE undergraduate study group, an invited talk for geotechnical practitioners (ASCE CT Valley Geo-Institute, 2025), and a 2019 K-12 hazard-science event.
     link_label: Outreach activities
     url: /outreach/
 
@@ -245,5 +251,5 @@ partners:
     image: assets/img/partners/ground_truth_alaska.png
     width: 365
     height: 211
-    fit: compact
+    fit: large # a filled badge with small lettering: show it at the largest size
 ---
