@@ -16,8 +16,10 @@ layout: default
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
+            aria-label="Download CV (PDF)"
+            title="Download CV (PDF)"
           >
-            <i class="fa-solid fa-file-pdf"></i>
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
           </a>
         {% endif %}
       </h1>
@@ -31,7 +33,7 @@ layout: default
         {% for entry in site.data.cv %}
           <a class="anchor" id="{{ entry.title }}"></a>
           <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">{{ entry.title }}</h3>
+            <h2 class="card-title font-weight-medium">{{ entry.title }}</h2>
             <div>
               {% if entry.type == 'list' %}
                 {% include cv/list.liquid %}
@@ -67,8 +69,10 @@ layout: default
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
+            aria-label="Download CV (PDF)"
+            title="Download CV (PDF)"
           >
-            <i class="fa-solid fa-file-pdf"></i>
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
           </a>
         {% endif %}
       </h1>
@@ -98,7 +102,7 @@ layout: default
             {% elsif data[0] == 'skills' %}
               {% assign section_title = 'Research Interests' %}
             {% endif %}
-            <h3 class="card-title font-weight-medium">{{ section_title }}</h3>
+            <h2 class="card-title font-weight-medium">{{ section_title }}</h2>
             <div>
               {% case data[0] %}
                 {% when 'basics' %}
