@@ -6,6 +6,11 @@
  *   Newsreader roman (wght 400–600) + italic 400   headings, statements, venues
  *   Inter (wght 400–600)                           body + UI
  *   JetBrains Mono (wght 400–500)                  dates, codes, kickers
+ * The variable files are trimmed to the weights declared below (Google ships
+ * the full axes: Newsreader 200–800, Inter 100–900, Mono 400–800), with
+ *   fonttools varLib.instancer <file>.woff2 wght=400:600 -o <file>.woff2
+ *   (JetBrains Mono: wght=400:500)
+ * from fonttools 4.68 with brotli: 34 KB less per page, same rendering.
  * head.liquid preloads the Newsreader roman and Inter files; their URLs there
  * must match the url()s below exactly, or the browser fetches them twice.
  * Paths are relative to /assets/css/main.css.
@@ -18,7 +23,9 @@
   font-weight: 400 600;
   font-display: swap;
   src: url("../fonts/newsreader-v26-latin-wght.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* latin */
@@ -28,7 +35,9 @@
   font-weight: 400;
   font-display: swap;
   src: url("../fonts/newsreader-v26-latin-italic.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* latin */
@@ -38,7 +47,9 @@
   font-weight: 400 600;
   font-display: swap;
   src: url("../fonts/inter-v20-latin-wght.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* latin */
@@ -48,7 +59,9 @@
   font-weight: 400 500;
   font-display: swap;
   src: url("../fonts/jetbrains-mono-v24-latin-wght.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* ---- Metric-matched fallbacks (used only while the web fonts load) ----
@@ -69,7 +82,9 @@
   ascent-override: 76.53%;
   descent-override: 27.59%;
   line-gap-override: 0%;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -79,5 +94,7 @@
   ascent-override: 90.25%;
   descent-override: 22.47%;
   line-gap-override: 0%;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
 }
