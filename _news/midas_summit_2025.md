@@ -2,6 +2,7 @@
 layout: post
 title: U-M Annual Data Science & AI Summit 2025
 date: 2025-11-17 08:00:00-0500
+description: "MIDAS brought the U-M data science and AI community together for two days of research vision talks, cross-disciplinary conversations and poster sessions."
 inline: false
 related_posts: false
 thumbnail: assets/img/U-M Annual Data Science & AI Summit 2025v3.png
@@ -35,15 +36,15 @@ Images from the Michigan Institute for Data and AI in Society (MIDAS) [LinkedIn]
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025v3.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025v3.png" alt="Program graphic for the U-M Annual Data Science & AI Summit 2025 showing keynote and panel speakers" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025-v1.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025-v1.jpeg" alt="Panel discussion on stage at the U-M Annual Data Science & AI Summit 2025" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025v2.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/U-M Annual Data Science & AI Summit 2025v2.jpeg" alt="Audience filling the hall at the U-M Annual Data Science & AI Summit 2025" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>

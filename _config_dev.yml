@@ -1,0 +1,30 @@
+# Local dev-loop override. Production (CI) never reads this file.
+#
+# Usage, from the repo root:
+#   export LANG=C.UTF-8 LC_ALL=C.UTF-8     # bibtex-ruby aborts under a US-ASCII locale
+#   bundle exec jekyll serve --config _config.yml,_config_dev.yml \
+#     --destination /tmp/xw-site --incremental --livereload
+#
+# Notes
+# - Build into a directory outside the repo (or at least not _site), so a local
+#   build never collides with the deploy workflow's output.
+# - Do not export JEKYLL_ENV=production for iteration: jekyll-minifier only runs
+#   in production and adds ~30 s per build.
+# - --incremental is fast for SCSS and layout edits (~2 s). Edits to _data/,
+#   _config*.yml, global includes (header, footer, figure) or front matter that
+#   list pages read need a full rebuild: restart serve, or delete the
+#   destination's .jekyll-metadata.
+# - Jekyll deep-merges hashes from this file; arrays are replaced wholesale.
+
+# Skip responsive WebP generation (~570 conversions on a cold destination).
+# With this off, figure.liquid emits no <source> and every <img> points at the
+# original file: layout and CSS are identical, only the bytes differ. For
+# byte-for-byte parity, keep it on and seed the destination with existing WebP:
+#   rsync -a --include='*/' --include='*.webp' --exclude='*' _site/ /tmp/xw-site/
+imagemagick:
+  enabled: false
+
+# Faster Sass and no 1.9 MB source map.
+sass:
+  style: expanded
+  sourcemap: never

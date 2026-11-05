@@ -2,6 +2,7 @@
 layout: post
 title: AGU25 – Toward Reliable and Scalable Geohazard Intelligence
 date: 2025-12-15 08:00:00-0600
+description: "Session details for NH11D (poster, 15 December) and NH33B (oral, 17 December), with invited speakers Benjamin Mirus, Ettore Biondi and Joseph Wartman."
 inline: false
 related_posts: false
 thumbnail: assets/img/agu25-photo.jpeg
@@ -48,6 +49,6 @@ Hall EFG (Poster Hall), New Orleans Convention Center
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/agu25-photo.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/agu25-photo.jpeg" alt="AGU25 call for abstracts for the session Toward Reliable and Scalable Geohazard Intelligence, listing invited speakers and conveners" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>

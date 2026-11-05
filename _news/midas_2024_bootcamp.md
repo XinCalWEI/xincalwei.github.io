@@ -2,6 +2,7 @@
 layout: post
 title: 2024 MIDAS Postdoctoral Fellowship Programs Orientation & AI Bootcamp
 date: 2024-10-15 08:00:00-0400
+description: "At the MIDAS postdoctoral orientation and AI bootcamp I presented a poster on regional landslide susceptibility assessment with integrated AI-physics solutions."
 inline: false
 related_posts: false
 thumbnail: assets/img/midas_2024_bootcamp.jpg
@@ -25,7 +26,7 @@ The event also featured a series of insightful lectures, such as "Integrating Sc
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/midas_2024_bootcamp.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/midas_2024_bootcamp.jpg" alt="Simone Curtis, Major Zeng, Sabine Loos, Christin Salley and Xin Wei at the 2024 MIDAS orientation" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

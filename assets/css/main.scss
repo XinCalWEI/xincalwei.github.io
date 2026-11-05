@@ -19,9 +19,6 @@ $max-content-width: {{ site.max_width }};
   "font-awesome/brands",
   "font-awesome/solid",
   "font-awesome/regular",
-  "tabler-icons/tabler-icons.scss",
-  "tabler-icons/tabler-icons-filled.scss",
-  "tabler-icons/tabler-icons-outline.scss",
   // order is load-bearing: brand tokens, inner-page skins, then the dedicated
   // Blog refinement. These partials win several equal-specificity rules in
   // the stock theme through source order.

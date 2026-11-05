@@ -12,6 +12,7 @@ sub_area: Monitoring
 toc:
   sidebar: right
 related_publications: true
+math: true # loads MathJax (see _includes/scripts.liquid)
 ---
 
 <div class="project-detail prose" markdown="1">

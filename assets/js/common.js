@@ -57,4 +57,46 @@ $(document).ready(function () {
   $('[data-toggle="popover"]').popover({
     trigger: "hover",
   });
+
+  // Escape closes the expanded mobile menu and returns focus to its button
+  $(document).on("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var $menu = $("#navbarNav.show");
+    if (!$menu.length) return;
+    var active = document.activeElement;
+    if (active && active !== document.body && !$(active).closest("#navbar").length) return;
+    $menu.collapse("hide");
+    $(".navbar-toggler").trigger("focus");
+  });
+
+  // Tables (and wide project figures) that scroll sideways inside their wrapper:
+  // make the scroll container reachable by keyboard and give it a unique name
+  // from the nearest preceding heading. Wrappers that do not scroll are left alone.
+  function labelScrollableTables() {
+    var used = {};
+    $(".table-responsive, .project-detail__figure-scroll").each(function () {
+      var scrolls = this.scrollWidth > this.clientWidth + 1;
+      if (scrolls && (!this.hasAttribute("tabindex") || this.hasAttribute("data-scroll-region"))) {
+        var kind = $(this).hasClass("table-responsive") ? "Table" : "Figure";
+        var heading = $(this).prevAll("h1, h2, h3, h4, h5, h6").first().text().trim();
+        var label = heading ? kind + ": " + heading : kind;
+        used[label] = (used[label] || 0) + 1;
+        if (used[label] > 1) label += " (" + used[label] + ")";
+        $(this).attr({
+          tabindex: "0",
+          role: "region",
+          "aria-label": label,
+          "data-scroll-region": "",
+        });
+      } else if (!scrolls && this.hasAttribute("data-scroll-region")) {
+        $(this).removeAttr("tabindex role aria-label data-scroll-region");
+      }
+    });
+  }
+  labelScrollableTables();
+  var tableResizeTimer;
+  $(window).on("resize", function () {
+    clearTimeout(tableResizeTimer);
+    tableResizeTimer = setTimeout(labelScrollableTables, 200);
+  });
 });

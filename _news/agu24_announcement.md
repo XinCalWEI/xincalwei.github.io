@@ -1,6 +1,7 @@
 ---
 layout: post
 date: 2024-12-09 08:00:00-0500
+description: "I presented “Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions” in the Landslide Life Cycle session at AGU Fall Meeting 2024."
 inline: false
 related_posts: false
 title: AGU Fall Meeting 2024
@@ -30,7 +31,7 @@ The findings show that the proposed integrated AI-physics approach significantly
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/agu24.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/agu24.jpg" alt="Estéfan Garcia, Sabine Loos and Xin Wei in front of a poster at the AGU 2024 Fall Meeting" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

@@ -17,7 +17,7 @@
   contents:
     - Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship
     - 8+ Years of Experience in Geohazard Susceptibility & Risk Assessment and in ML/AI Applications
-    - 500+ Google Scholar Citations
+    - 678 Google Scholar citations; h-index 10 (November 2026)
     - National Scholarship (P.R. China)
 
 - title: Education
@@ -44,7 +44,8 @@
   contents:
     - title: Conference Session Convener
       items:
-        - "AGU Fall Meeting 2025: Primary Convener, Session NH035 - <i>Toward Reliable and Scalable Geohazard Intelligence: From Multi-Scale Sensing to Open Data Foundations</i>"
+        - "AGU Fall Meeting 2026: Primary Convener, Session NH23F"
+        - "AGU Fall Meeting 2025: Primary Convener and Session Chair - <i>Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations</i> (NH11D poster; NH33B oral)"
         - "3FOMLIG: Co-Convener, Session PS10 - <i>AI-based Risk and Resilience Analysis for Underground Engineering</i>"
     - title: Journal Reviewer
       items:
@@ -65,12 +66,34 @@
         - "Science Mentors: Prof. Sabine Loos, Prof. F. Estéfan T. Garcia"
         - "AI Mentor: Prof. Elizabeth Bondi-Kelly"
 
+- title: Research Platforms & Community Initiatives
+  type: time_table
+  contents:
+    - title: "Founder, TerraMosaic: a community-curated, open-access landslide research platform"
+      year: 2024 - present
+      description:
+        - '<a href="https://www.terramosaic.org/">terramosaic.org</a>'
+    - title: Lead applicant, SPARK Forum (Responsible Research Translation and Cross-Sector Collaboration)
+      year: 2026
+      description:
+        - Funded by the Schmidt Sciences AI in Science Fellowship Community Initiatives Fund; main program planned for March 2027 at the University of Michigan
+
+- title: Invited Talks & Highlighted Presentations
+  type: time_table
+  contents:
+    - title: "Unveiling the Underappreciated Consequences of Landslides across the United States with Generative AI"
+      institution: AGU Fall Meeting 2025, New Orleans (oral NH31B-04, Highlighted Talk)
+      year: 2025
+    - title: "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions"
+      institution: Invited talk, 2025 Spring Geotechnical Seminar, ASCE CT Valley Geo-Institute, Cromwell, CT
+      year: 2025
+
 - title: Awards
   type: time_table
   contents:
     - year: 2024
       items:
-        - CEE Community Engagement and Empowerment (CEE^2) Fellow, University of Michigan
+        - CEE Community Engagement and Empowerment (CEE²) Fellow, University of Michigan
     - year: 2021
       items:
         - Huangjinzhi Civil Engineering Scholarship, Shanghai Jiao Tong University

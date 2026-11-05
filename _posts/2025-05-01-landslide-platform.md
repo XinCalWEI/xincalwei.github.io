@@ -16,7 +16,7 @@ thumbnail_fit: contain
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/blog/new-logo-20251124v3.png" class="img-fluid" style="max-width: 150px;" %}
+        {% include figure.liquid loading="eager" path="assets/img/blog/new-logo-20251124v3.png" alt="TerraMosaic logo" class="img-fluid" style="max-width: 150px;" %}
     </div>
 </div>
 
@@ -36,7 +36,7 @@ This platform serves as a centralized hub for high-quality, globally sourced lan
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/blog/terramosaic1.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/blog/terramosaic1.png" alt="TerraMosaic homepage: Community-Curated, Open-Access Landslide Platform, over an aerial photo of autumn forest" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -45,7 +45,7 @@ This platform serves as a centralized hub for high-quality, globally sourced lan
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/blog/terramosaic2.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/blog/terramosaic2.png" alt="TerraMosaic page reading Connect the Pieces of Global Landslide Research" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">

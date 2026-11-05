@@ -2,6 +2,7 @@
 layout: post
 title: "Pitching TerraMosaic at the Interdisciplinary Science Summit 2026"
 date: 2026-07-01 08:00:00-0400
+description: "At the Interdisciplinary Science Summit 2026 in Durham, I pitched TerraMosaic in the Idea-to-Application Lab, a Shark Tank-style session for early-stage ideas."
 inline: false
 related_posts: false
 thumbnail: assets/img/news/interdisciplinary-science-summit-2026/terramosaic-pitch.jpg

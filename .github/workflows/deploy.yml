@@ -9,6 +9,7 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "_includes/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -38,6 +39,7 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "_includes/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -74,7 +76,9 @@ jobs:
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3.5"
+          # Series pin: newer runner images only ship the latest patch of each
+          # Ruby series, so an exact patch (e.g. 3.3.5) eventually 404s.
+          ruby-version: "3.3"
           bundler-cache: true
       - name: Setup Python 🐍
         uses: actions/setup-python@v5

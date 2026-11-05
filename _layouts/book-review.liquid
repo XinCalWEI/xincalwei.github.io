@@ -43,7 +43,8 @@ layout: default
             &nbsp;&middot;&nbsp;
           {% endif %}
           {% if page.goodreads_review %}
-            <a target="_blank" href="https://www.goodreads.com/review/show/{{ page.goodreads_review }}"><i class="fa-brands fa-goodreads-g"></i>
+            <a target="_blank" href="https://www.goodreads.com/review/show/{{ page.goodreads_review }}" aria-label="Goodreads review"
+              ><i class="fa-brands fa-goodreads-g"></i>
           {% endif %}
           {% assign full_stars = page.stars | floor %}
           {% assign half_star = page.stars | minus: full_stars %}
@@ -66,7 +67,7 @@ layout: default
           {% if page.started or page.finished or page.stars %}
             &nbsp;&middot;&nbsp;
           {% endif %}
-          <a target="_blank" href="{{ page.buy_link }}"
+          <a target="_blank" href="{{ page.buy_link }}" aria-label="Buy this book"
             ><i class="fa-solid fa-cart-shopping"></i>
             {% assign is_amazon_link = page.buy_link | slice: 0, 19 %}
             {% if is_amazon_link == 'https://www.amazon.' %}
@@ -77,7 +78,9 @@ layout: default
       </p>
     {% endif %}
     <p class="post-tags">
-      <a href="{{ year | prepend: '/books/' | relative_url }}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}</a>
+      <a href="{{ year | prepend: '/books/' | relative_url }}" aria-label="Bookshelf{% if year != '' %} {{ year }}{% endif %}">
+        <i class="fa-solid fa-calendar fa-sm"></i> {{ year -}}
+      </a>
       {% if tags != '' %}
         &nbsp;&middot;&nbsp;
         {% for tag in page.tags %}

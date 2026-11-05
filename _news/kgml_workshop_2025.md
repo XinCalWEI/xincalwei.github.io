@@ -2,6 +2,7 @@
 layout: post
 title: U-M Knowledge-Guided Machine Learning (KGML) Workshop
 date: 2025-08-04 08:00:00-0400
+description: "A U-M workshop, August 4–8, 2025, training participants in knowledge-guided machine learning: building physical laws and domain knowledge into ML models."
 inline: false
 related_posts: false
 thumbnail: assets/img/news/kgml_workshop.jpeg
@@ -34,7 +35,7 @@ This workshop trains participants in the principles and practice of Knowledge-Gu
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/kgml_workshop.jpeg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/kgml_workshop.jpeg" alt="Group photo of participants at the Knowledge-Guided Machine Learning Workshop, University of Michigan" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
