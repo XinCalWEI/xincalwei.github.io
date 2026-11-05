@@ -156,6 +156,7 @@ thrusts:
 
 {%- for thrust in page.thrusts -%}
 {%- assign thrust_projects = research_projects | where: 'thrust', thrust.id -%}
+
   <section class="thrust thrust--{{ thrust.id }}{% if thrust.index == '' %} thrust--support{% endif %}" id="{{ thrust.id }}" aria-labelledby="{{ thrust.id }}-title">
     <header class="thrust__head">
       {%- if thrust.index != '' -%}
