@@ -2,6 +2,7 @@
 layout: post
 title: 2025 American Geophysical Union (AGU) Fall Meeting
 date: 2025-12-21 08:00:00-0600
+description: "At AGU25 in New Orleans I convened the geohazard intelligence sessions, gave an oral talk on landslide consequences with generative AI, and presented a poster."
 inline: false
 related_posts: false
 thumbnail: assets/img/news/agu25/Xin_Shriya.jpg
@@ -11,18 +12,18 @@ category: Conference
 **December 15–19, 2025**
 **New Orleans, Louisiana**
 
- <!-- Members of the AIDD Lab, including Schmidt AI in Science Postdoctoral Fellow Dr. Xin Wei and Shriya Kethireddy, actively participated in。the meeting. -->
+ <!-- Members of the AIDD Lab, including Schmidt AI in Science Postdoctoral Fellow Dr. Xin Wei and Shriya Kethireddy, actively participated in the meeting. -->
 
 <!-- --- -->
 
 ## 🌍 **Leadership and Research Contributions at AGU 2025**
 
 The 2025 American Geophysical Union (AGU) Fall Meeting was held from 15–19 December 2025 in New Orleans, Louisiana.  
-Dr. Wei contributed to AGU 2025 through both scientific leadership and research dissemination. He presented his research in the oral session _"NH31B – Landslide Life Cycle: From Hazard Analysis to Risk Assessment"_, which brought together studies spanning landslide characterization, susceptibility and risk modeling, and hazard communication. He also served as the Primary Convener of the session _"NH33B – Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"_, leading discussions on reliable and interpretable AI methods, multiscale sensing, and open datasets for geohazard analysis, alongside presenting poster work aligned with these themes.
+Dr. Wei contributed to AGU 2025 through both scientific leadership and research dissemination. He presented his research in the oral session _"NH31B – Landslide Life Cycle: From Hazard Analysis to Risk Assessment"_, which brought together studies spanning landslide characterization, susceptibility and risk modeling, and hazard communication. He also served as the Primary Convener of _"Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"_, which ran as two sessions (NH11D, poster; NH33B, oral), leading discussions on reliable and interpretable AI methods, multiscale sensing, and open datasets for geohazard analysis, alongside presenting poster work aligned with these themes.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin_Shriya.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin_Shriya.jpg" alt="Xin Wei and Shriya Kethireddy beside the large AGU letters at the 2025 Fall Meeting" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -34,37 +35,37 @@ To address the growing challenges of geohazards, we invite contributions that ad
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-AGU-Session.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-AGU-Session.png" alt="Session flyer listing the invited speakers and conveners of Toward Reliable and Scalable Geohazard Intelligence" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ben-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ben-1.jpg" alt="Invited talk by Benjamin Mirus in the convened oral session, title slide on screen" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ben-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ben-2.jpg" alt="Audience at Benjamin Mirus's invited talk in the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Joe-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Joe-1.jpg" alt="Invited talk by Joseph Wartman in the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Joe-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Joe-2.jpg" alt="Audience seated in the session room during the convened oral session" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Ettore-1.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Ettore-1.jpg" alt="Invited talk by Ettore Biondi in the convened oral session, a global map on screen" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -79,7 +80,7 @@ Xin Wei — Michigan Institute for Data and AI in Society, University of Michiga
 Vaibhav Balloli — Electrical Engineering and Computer Science, University of Michigan, Ann Arbor, MI  
 Lauren Palermo — Geologic Hazards Science Center, U.S. Geological Survey, Golden, CO  
 Benjamin B. Mirus — Geologic Hazards Science Center, U.S. Geological Survey, Golden, CO  
-Nathan J. Wood — Western Geographic Science Center, U.S. Geological Survey, Moffett Field, CA  
+Nathan J. Wood — Western Geographic Science Center, U.S. Geological Survey, Portland, OR  
 Alice Pennaz — Office of Risk and Resilience, U.S. Geological Survey, Reston, VA  
 Aleeza Wilkins — Office of Risk and Resilience, U.S. Geological Survey, Reston, VA  
 Elizabeth Bondi-Kelly — Electrical Engineering and Computer Science, University of Michigan, Ann Arbor, MI  
@@ -90,7 +91,7 @@ While landslides are pervasive across the U.S., their specific social, economic,
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin - oral.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin - oral.jpg" alt="Xin Wei presenting the oral talk on landslide consequences and generative AI at AGU 2025" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
@@ -112,13 +113,13 @@ Recent advances in machine learning (ML) and deep learning (DL) have significant
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-3.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-3.jpg" alt="Xin Wei discussing the landslide data platform poster with visitors at AGU 2025" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-2.jpg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/news/agu25/Xin-poster-2.jpg" alt="Xin Wei and colleagues standing at the poster in the AGU 2025 poster hall" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

@@ -6,7 +6,7 @@
     "email": "xincwei@umich.edu",
     "phone": "+1 (217) 560-4967",
     "url": "https://xincalwei.github.io",
-    "summary": "<ul><li>Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship</li><li>8+ Years of Experience in Geohazard Susceptibility & Risk Assessment and in ML/AI Applications</li><li>500+ Google Scholar Citations</li><li>National Scholarship (P.R. China)</li></ul>",
+    "summary": "<ul><li>Eric and Wendy Schmidt AI in Science Postdoctoral Fellowship</li><li>8+ Years of Experience in Geohazard Susceptibility & Risk Assessment and in ML/AI Applications</li><li>678 Google Scholar citations; h-index 10 (November 2026)</li><li>National Scholarship (P.R. China)</li></ul>",
     "location": {
       "address": "3520 Green Court",
       "postalCode": "MI 48105",
@@ -36,8 +36,14 @@
   "volunteer": [
     {
       "organization": "AGU Fall Meeting 2025",
-      "position": "Primary Convener, Session NH035",
-      "summary": "Toward Reliable and Scalable Geohazard Intelligence: From Multi-Scale Sensing to Open Data Foundations",
+      "position": "Primary Convener and Session Chair, Sessions NH11D (poster) and NH33B (oral)",
+      "summary": "Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations",
+      "highlights": []
+    },
+    {
+      "organization": "AGU Fall Meeting 2026",
+      "position": "Primary Convener, Session NH23F",
+      "summary": "Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations",
       "highlights": []
     },
     {
@@ -97,7 +103,7 @@
   ],
   "awards": [
     {
-      "title": "CEE Community Engagement and Empowerment (CEE^2) Fellow",
+      "title": "CEE Community Engagement and Empowerment (CEE²) Fellow",
       "date": "2024",
       "awarder": "University of Michigan",
       "url": "https://cee.engin.umich.edu/2024/12/16/building-bridges-advancing-community-at-u-m-civil-environmental-engineering/",

@@ -69,7 +69,7 @@ Before claiming that learning would generalize from task A to tasks B, C, and D,
 
 She assembled an inexpensive six-degree-of-freedom arm from available components and equipped it with chopsticks. The hardware was far from ideal: calibration and joint inaccuracies could accumulate at the end effector, at a scale comparable to the small objects it needed to grasp. But teleoperation supplied an important existence proof. If a person could remotely guide the imperfect mechanism to complete the task, then the hardware did not make success physically impossible. That did not prove a policy could learn the skill. It isolated the next question: could data and learning recover an effective strategy despite the hardware's imperfections?
 
-The first stage relied on human demonstrations and model-free imitation learning. In [Grasping with Chopsticks](https://personalrobotics.cs.washington.edu/publications/ke2021grasping.pdf), Ke and her collaborators addressed covariate shift—the tendency of small prediction errors to push a learned policy into states absent from its demonstrations. They increased data support around the object and created synthetic corrective labels for nearby deviations. On the physical system, these methods raised average grasp success from 37.3% to 80%, close to the reported human teleoperator result of 82.6%.
+The first stage relied on human demonstrations and model-free imitation learning. In [Grasping with Chopsticks](https://arxiv.org/abs/2011.06719), Ke and her collaborators addressed covariate shift—the tendency of small prediction errors to push a learned policy into states absent from its demonstrations. They increased data support around the object and created synthetic corrective labels for nearby deviations. On the physical system, these methods raised average grasp success from 37.3% to 80%, close to the reported human teleoperator result of 82.6%.
 
 The result was strong, but it exposed the ceiling of imitation. Producing especially clean demonstrations required substantial human attention, and the policy was still learning to reproduce the behavior it had been given. A demonstrator can show a successful trajectory, but does not naturally demonstrate every state that the robot's own errors will create. Nor does copying explain how the policy should move beyond the demonstrator's speed or reactivity.
 
@@ -101,12 +101,16 @@ A black-box policy is not unconstrained merely because its internal process is h
 
 More data is not automatically better data. Ke describes quality along several distinct dimensions.
 
+<div class="table-responsive" markdown="1">
+
 | Dimension                  | The question it asks                                                                  |
 | -------------------------- | ------------------------------------------------------------------------------------- |
 | **Task value**             | Does the experience concern a behavior that is meaningful or transferable?            |
 | **Action quality**         | Is the trajectory direct, efficient, precise, and worth imitating?                    |
 | **Coverage and diversity** | Which objects, environments, initial states, perturbations, and failures are present? |
 | **Information and labels** | Can the learner recover the task, outcome, objects, corrections, and relevant state?  |
+
+</div>
 
 Two datasets with the same number of trajectories can therefore have very different value. A hesitant grasp and a skilled grasp may both end in success, while ten nearly identical demonstrations may add less than one trajectory that reveals a new failure mode.
 
@@ -144,11 +148,15 @@ The choice between real and simulated data depends on a concrete question: **Whi
 
 I read this as Ke's retrospective framing rather than an official PI taxonomy.
 
+<div class="table-responsive" markdown="1">
+
 | Stage              | Central question                                                          | What must be demonstrated                                                                         |
 | ------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | **Capability**     | Can the robot perform a task that was previously out of reach?            | A new class of sufficiently complex physical behavior is technically possible.                    |
 | **Generalization** | Can it work with unfamiliar objects, environments, tasks, or embodiments? | The skill survives a meaningful shift rather than depending on one recreated training scene.      |
 | **Performance**    | Can it work quickly, reliably, repeatedly, and recover from mistakes?     | The behavior is useful as a sustained process, not merely successful in a selected demonstration. |
+
+</div>
 
 [π₀](https://www.pi.website/blog/pi0) addressed capability through a generalist vision-language-action model trained on diverse tasks and robot platforms. It combines a pretrained vision-language model with an action expert and directly produces low-level motor commands. Its demonstrations included laundry folding, table bussing, grocery packing, cable routing, box assembly, and other dexterous behaviors across single-arm, dual-arm, and mobile manipulators. The contribution was not that every task was solved completely. It was evidence that broad cross-embodiment pretraining could provide a shared foundation and then be specialized to demanding downstream tasks.
 
