@@ -3,6 +3,8 @@ layout: book-review
 title: Rainfall-Induced Soil Slope Failure
 author: Lulu Zhang, Jinhui Li, Xu Li, Jie Zhang, Hong Zhu
 cover: assets/img/book_covers/rainfall_induced_slope_failure.jpg
+cover_width: 665
+cover_height: 1000
 categories: geotechnical engineering hydrology slope-stability probabilistic-assessment
 tags: research
 buy_link: https://www.taylorfrancis.com/books/mono/10.1201/b20116/rainfall-induced-soil-slope-failure-lulu-zhang-jinhui-li-xu-li-jie-zhang-hong-zhu

@@ -3,6 +3,8 @@ layout: book-review
 title: "Shoe Dog"
 author: Phil Knight
 cover: assets/img/book_covers/Shoe Dog.jpg
+cover_width: 985
+cover_height: 1500
 categories: memoir business entrepreneurship
 tags: non-fiction
 buy_link: https://www.penguinrandomhouse.com/books/246098/shoe-dog-by-phil-knight/

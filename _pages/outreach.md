@@ -3,12 +3,13 @@ layout: page
 permalink: /outreach/
 title: Community Outreach
 nav_title: Outreach
+kicker: Service & outreach
 description: Community engagement and public science outreach activities.
 nav: false # reached through the "More" menu and the footer
 nav_order: 5
 ---
 
-<div class="prose">
+<div class="prose tm-outreach">
 
 <article class="story" markdown="1">
 <p class="story__kicker">Mentorship</p>
@@ -23,7 +24,7 @@ The primary goal of the study group is to increase communication channels betwee
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/journey_through_cee.jpg" class="img-fluid rounded z-depth-1" alt="Group photo at a Journey Through CEE mentorship gathering" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/outreach/journey_through_cee.jpg" width="4032" height="3024" class="img-fluid rounded z-depth-1" alt="Group photo at a Journey Through CEE mentorship gathering" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -44,13 +45,13 @@ The primary goal of the study group is to increase communication channels betwee
 
 ## [2025 Spring Geotechnical Seminar](https://sections.asce.org/connecticut/042525-spring-geotechnical-seminar-earn-7-nys-pdhs)
 
-**April 25, 2025 · TPC River Highlands, Cromwell, Connecticut**
+<p class="story__meta">25 April 2025 · TPC River Highlands, Cromwell, Connecticut</p>
 
 Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" class="img-fluid rounded z-depth-1" alt="Certificate presentation at the 2025 Spring Geotechnical Seminar" zoomable=true %}
+        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" width="4032" height="3024" class="img-fluid rounded z-depth-1" alt="Certificate presentation at the 2025 Spring Geotechnical Seminar" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -70,43 +71,43 @@ The program combined expert lectures, hands-on activities, interactive games, an
 
 I contributed to designing activities such as VR-based fire escape training and wave-dissipating seawall demonstrations, which transformed abstract natural hazard concepts into tangible experiences. These activities strengthened students' understanding of disaster risks, fostered curiosity about science and engineering, and encouraged early awareness of community resilience.
 
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_1.jpg" class="img-fluid rounded z-depth-1" alt="Students watching a tabletop wave-dissipating seawall demonstration" zoomable=true %}
+<div class="row media-row mt-3">
+    <div class="col-sm" style="--ar: 1.778">
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_1.jpg" width="1920" height="1080" class="img-fluid rounded z-depth-1" alt="Students watching a tabletop wave-dissipating seawall demonstration" zoomable=true %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_2.jpg" class="img-fluid rounded z-depth-1" alt="Outreach volunteers explaining coastal hazard demonstrations to students" zoomable=true %}
+    <div class="col-sm" style="--ar: 1.333">
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_2.jpg" width="1440" height="1080" class="img-fluid rounded z-depth-1" alt="Outreach volunteers explaining coastal hazard demonstrations to students" zoomable=true %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/sjtu_outreach_3.jpg" class="img-fluid rounded z-depth-1" alt="Students taking part in a supervised VR fire escape activity" zoomable=true %}
+    <div class="col-sm" style="--ar: 1.333">
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_3.jpg" width="3968" height="2976" class="img-fluid rounded z-depth-1" alt="Students taking part in a supervised VR fire escape activity" zoomable=true %}
     </div>
 </div>
 <div class="caption">
     Elementary school students engaging with VR fire escape training and wave-dissipating seawall demonstrations at the Urban Hazards and Risk Management event, Tongji University, 2019.
 </div>
 
-<div class="row mt-4">
-    <div class="col-sm mt-3 mt-md-0">
-        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 1" class="img-fluid rounded z-depth-1" style="width: 100%;">
+<div class="row media-row mt-4">
+    <div class="col-sm">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_1_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 1" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_1.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 2" class="img-fluid rounded z-depth-1" style="width: 100%;">
+    <div class="col-sm">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_2_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 2" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_2.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <video controls playsinline preload="metadata" aria-label="Urban Hazards and Risk Management outreach demonstration 3" class="img-fluid rounded z-depth-1" style="width: 100%;">
+    <div class="col-sm">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_3_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 3" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_3.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 </div>
 <div class="caption">
-    Video demonstrations of the hands-on activities at the event.
+    Video demonstrations of the hands-on activities at the event (about 15–18 seconds each, 9–11 MB; they load when played).
 </div>
 
 </article>

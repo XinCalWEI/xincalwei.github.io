@@ -1,8 +1,10 @@
 ---
 layout: profiles
 permalink: /people/
-title: People / Mentees
+title: Mentees
 nav_title: People
+kicker: Teaching & mentoring
+layout_width: wide
 description: Students I mentor and have mentored through undergraduate research programs.
 nav: true
 nav_order: 4

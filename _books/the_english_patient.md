@@ -3,6 +3,8 @@ layout: book-review
 title: "The English Patient"
 author: Michael Ondaatje
 cover: assets/img/book_covers/english patient.jpg
+cover_width: 339
+cover_height: 522
 categories: fiction literature war
 tags: novel
 buy_link: https://www.penguinrandomhouse.com/books/298126/the-english-patient-by-michael-ondaatje/

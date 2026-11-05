@@ -3,6 +3,8 @@ layout: book-review
 title: "Thinking, Fast and Slow"
 author: Daniel Kahneman
 cover: assets/img/book_covers/Thinking, Fast and Slow.jpg
+cover_width: 397
+cover_height: 595
 categories: psychology cognitive-science behavioral-economics
 tags: non-fiction
 buy_link: https://us.macmillan.com/books/9780374533557/thinkingfastandslow

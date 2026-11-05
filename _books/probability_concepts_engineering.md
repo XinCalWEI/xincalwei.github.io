@@ -4,6 +4,8 @@ title: "Probability Concepts in Engineering: Emphasis on Applications to Civil a
 shelf_title: "Probability Concepts in Engineering"
 author: Alfredo Ang, Wilson Tang
 cover: assets/img/book_covers/probability_concepts_engineering.jpg
+cover_width: 300
+cover_height: 376
 categories: probability statistics engineering civil-engineering environmental-engineering
 tags: textbook
 buy_link: https://www.wiley.com/en-us/Probability+Concepts+in+Engineering%3A+Emphasis+on+Applications+to+Civil+and+Environmental+Engineering%2C+2nd+Edition-p-9780471720645

@@ -1,0 +1,26 @@
+{% comment %}
+  One book on a shelf grid (Bookshelf page and book archives).
+  Params: book — a _books document.
+  The cover is decorative (alt=""): the link text already names the book.
+{% endcomment %}
+{% assign book = include.book %}
+<li class="book">
+  <a class="book__link" href="{{ book.url | relative_url }}">
+    <span class="book__cover">
+      {% if book.cover %}
+        <img src="{{ book.cover | relative_url }}" alt="" loading="lazy" decoding="async"{% if book.cover_width %} width="{{ book.cover_width }}" height="{{ book.cover_height }}"{% endif %}>
+      {% elsif book.olid %}
+        <img src="https://covers.openlibrary.org/b/olid/{{ book.olid }}-L.jpg?default=false" alt="" loading="lazy" decoding="async">
+      {% elsif book.isbn %}
+        <img src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg?default=false" alt="" loading="lazy" decoding="async">
+      {% endif %}
+    </span>
+    <span class="book__title">{{ book.shelf_title | default: book.title }}</span>
+    <span class="book__meta">
+      {{- book.author | split: ',' | first | strip -}}
+      {%- assign book_author_count = book.author | split: ',' | size -%}
+      {%- if book_author_count > 1 %} et al.{% endif -%}
+      {%- if book.released %} · {{ book.released }}{% endif -%}
+    </span>
+  </a>
+</li>

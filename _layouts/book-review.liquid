@@ -1,9 +1,16 @@
 ---
 layout: default
 ---
+{% comment %}
+  A single book (_books/*.md). Header pattern shared with articles: kicker
+  (Bookshelf · shelf), title, mono meta (author · year), subject tags linking to
+  the book archives. Body: cover beside the note (a two-column grid from 768px,
+  so the cover can no longer float past the footer). Text links only.
+{% endcomment %}
 {% assign year = page.started | date: '%Y' %}
-{% assign tags = page.tags | join: '' %}
-{% assign categories = page.categories | join: '' %}
+{% assign shelf_label = page.status %}
+{% if page.status == 'Read' %}{% assign shelf_label = 'Books I love' %}{% endif %}
+{% if page.status == 'Recommended Textbooks' %}{% assign shelf_label = 'Recommended textbooks' %}{% endif %}
 
 {% if page._styles %}
   <!-- Page/Post style -->
@@ -12,246 +19,107 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post">
+<div class="post book-page">
   <header class="post-header">
+    <p class="kicker">
+      <a href="{{ '/books/' | relative_url }}">Bookshelf</a>
+      {%- if shelf_label %}<span aria-hidden="true">·</span><span>{{ shelf_label }}</span>{% endif %}
+    </p>
     <h1 class="post-title">{{ page.title }}</h1>
     {% if page.author or page.released %}
       <p class="post-meta">
-        {% if page.author %}
-          {{ page.author }}
-        {% endif %}
-        {% if page.author and page.released %} &nbsp;&middot;&nbsp; {% endif %}
-        {% if page.released %}
-          {{ page.released }}
-        {% endif %}
+        {{- page.author -}}
+        {%- if page.author and page.released %}<span aria-hidden="true"> · </span>{% endif -%}
+        {{- page.released -}}
       </p>
     {% endif %}
-
     {% if page.started or page.finished or page.stars %}
       <p class="post-meta">
-        {% if page.started %}
-          <i class="fa-solid fa-play fa-sm" style="color: var(--global-tip-block) !important"></i> <em>{{ page.started }}</em>
-        {% endif %}
-        {% if page.finished %}
-          {% if page.started %}
-            &nbsp;&middot;&nbsp;
-          {% endif %}
-          <i class="fa-solid fa-stop fa-sm" style="color: #e56565 !important"></i> <em>{{ page.finished }}</em>
-        {% endif %}
-        {% if page.stars %}
-          {% if page.started or page.finished %}
-            &nbsp;&middot;&nbsp;
-          {% endif %}
-          {% if page.goodreads_review %}
-            <a target="_blank" href="https://www.goodreads.com/review/show/{{ page.goodreads_review }}"><i class="fa-brands fa-goodreads-g"></i>
-          {% endif %}
-          {% assign full_stars = page.stars | floor %}
-          {% assign half_star = page.stars | minus: full_stars %}
-          {% assign empty_stars = 5 | minus: full_stars %}
-          {% if half_star > 0 %}
-            {% assign empty_stars = empty_stars | minus: 1 %}
-          {% endif %}
-          {% for i in (1..full_stars) -%}
-            <i class="fa-solid fa-star fa-sm"></i>
-          {%- endfor -%}
-          {%- if half_star > 0 %}<i class="fa-solid fa-star-half-stroke fa-sm"></i>{% endif -%}
-          {%- for i in (1..empty_stars) -%}
-            <i class="fa-regular fa-star fa-sm"></i>
-          {%- endfor -%}
-          {% if page.goodreads_review %}
-            </a>
-          {% endif %}
-        {% endif %}
-        {% if page.buy_link %}
-          {% if page.started or page.finished or page.stars %}
-            &nbsp;&middot;&nbsp;
-          {% endif %}
-          <a target="_blank" href="{{ page.buy_link }}"
-            ><i class="fa-solid fa-cart-shopping"></i>
-            {% assign is_amazon_link = page.buy_link | slice: 0, 19 %}
-            {% if is_amazon_link == 'https://www.amazon.' %}
-              <i class="fa-brands fa-amazon"></i>
-            {% endif %}
-          </a>
-        {% endif %}
+        {%- if page.started %}Started {{ page.started }}{% endif -%}
+        {%- if page.started and page.finished %}<span aria-hidden="true"> · </span>{% endif -%}
+        {%- if page.finished %}Finished {{ page.finished }}{% endif -%}
+        {%- if page.stars -%}
+          {%- if page.started or page.finished %}<span aria-hidden="true"> · </span>{% endif -%}
+          Rating {{ page.stars }}/5
+        {%- endif -%}
       </p>
     {% endif %}
-    <p class="post-tags">
-      <a href="{{ year | prepend: '/books/' | relative_url }}"> <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}</a>
-      {% if tags != '' %}
-        &nbsp;&middot;&nbsp;
+    {% if page.categories.size > 0 or page.tags.size > 0 or page.started %}
+      <ul class="article-tags" aria-label="Book archives">
+        {% if page.started %}
+          <li>
+            <a class="tag" href="{{ year | prepend: '/books/' | append: '/' | relative_url }}"><span class="sr-only">Books from </span>{{ year }}</a>
+          </li>
+        {% endif %}
         {% for tag in page.tags %}
-          <a href="{{ tag | slugify | prepend: '/books/tag/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          <li>
+            <a class="tag" href="{{ tag | slugify | prepend: '/books/tag/' | append: '/' | relative_url }}"><span class="sr-only">Tag: </span>{{ tag | replace: '-', ' ' }}</a>
+          </li>
         {% endfor %}
-      {% endif %}
-
-      {% if categories != '' %}
-        &nbsp;&middot;&nbsp;
         {% for category in page.categories %}
-          <a href="{{ category | slugify | prepend: '/books/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category }}</a>
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          <li>
+            <a class="tag" href="{{ category | slugify | prepend: '/books/category/' | append: '/' | relative_url }}"><span class="sr-only">Subject: </span>{{ category | replace: '-', ' ' }}</a>
+          </li>
         {% endfor %}
-      {% endif %}
-    </p>
-    <hr>
+      </ul>
+    {% endif %}
   </header>
 
-  <article>
-    {% if content == '' %}
-      <figure class="empty-review">
-        {% if page.cover %}
-          <img class="empty-review-cover" alt="{{ page.title }} cover" src="{{ site.baseurl }}/{{ page.cover }}">
-          <figcaption class="empty-review-caption">
-            Cover of <em>{{ page.title }}</em>
-          </figcaption>
-        {% elsif page.olid %}
-          <img class="empty-review-cover" alt="{{ page.title }} cover" src="http://covers.openlibrary.org/b/olid/{{ page.olid }}-L.jpg?default=false">
-          <figcaption class="empty-review-caption">
-            Cover of <em>{{ page.title }}</em> on the <a href="https://openlibrary.org/olid/{{ page.olid }}">Open Library</a>.
-          </figcaption>
+  <article class="book-page__body">
+    {% capture cover_src %}{% if page.cover %}{{ page.cover | relative_url }}{% elsif page.olid %}https://covers.openlibrary.org/b/olid/{{ page.olid }}-L.jpg?default=false{% elsif page.isbn %}https://covers.openlibrary.org/b/isbn/{{ page.isbn }}-L.jpg?default=false{% endif %}{% endcapture %}
+    {% if cover_src != '' %}
+      <figure class="book-page__cover">
+        <img src="{{ cover_src }}" alt="Cover of {{ page.title }}"{% if page.cover_width %} width="{{ page.cover_width }}" height="{{ page.cover_height }}"{% endif %}>
+        {% if page.olid %}
+          <figcaption class="caption">Cover via <a href="https://openlibrary.org/olid/{{ page.olid }}">Open Library</a></figcaption>
         {% elsif page.isbn %}
-          <img class="empty-review-cover" alt="{{ page.title }} cover" src="http://covers.openlibrary.org/b/isbn/{{ page.isbn }}-L.jpg?default=false">
-          <figcaption class="empty-review-caption">
-            Cover of <em>{{ page.title }}</em> on the <a href="https://openlibrary.org/isbn/{{ page.isbn }}">Open Library</a>.
-          </figcaption>
+          <figcaption class="caption">Cover via <a href="https://openlibrary.org/isbn/{{ page.isbn }}">Open Library</a></figcaption>
         {% endif %}
       </figure>
-      {% assign status = page.status | upcase %}
-      <div class="clearfix">
-        <h4>{{ status }}</h4>
-      </div>
-    {% else %}
-      <figure>
-        {% if page.cover %}
-          <img alt="{{ page.title }} cover" src="{{ site.baseurl }}/{{ page.cover }}">
-          <figcaption>
-            Cover of <em>{{ page.title }}</em>
-          </figcaption>
-        {% elsif page.olid %}
-          <img alt="{{ page.title }} cover" src="http://covers.openlibrary.org/b/olid/{{ page.olid }}-L.jpg?default=false">
-          <figcaption>
-            Cover of <em>{{ page.title }}</em> on the <a href="https://openlibrary.org/olid/{{ page.olid }}">Open Library</a>.
-          </figcaption>
-        {% elsif page.isbn %}
-          <img alt="{{ page.title }} cover" src="http://covers.openlibrary.org/b/isbn/{{ page.isbn }}-L.jpg?default=false">
-          <figcaption>
-            Cover of <em>{{ page.title }}</em> on the <a href="https://openlibrary.org/isbn/{{ page.isbn }}">Open Library</a>.
-          </figcaption>
-        {% endif %}
-      </figure>
-      <br class="mobile-break" clear="right">
-      <h4>
-        {% if page.start %} Start Date: {{ page.start | date: '%-d %B %Y' }}. {% endif %}
-        {% if page.end %} End Date: {{ page.end | date: '%-d %B %Y' }}. {% endif %}
-      </h4>
-      {{ content }}
     {% endif %}
+
+    <div class="prose">
+      {% if content == '' %}
+        <p class="book-page__status"><span class="tag">{{ page.status }}</span></p>
+      {% else %}
+        {% if page.start or page.end %}
+          <p class="post-meta">
+            {%- if page.start %}Started {{ page.start | date: '%-d %B %Y' }}{% endif -%}
+            {%- if page.start and page.end %} · {% endif -%}
+            {%- if page.end %}Finished {{ page.end | date: '%-d %B %Y' }}{% endif -%}
+          </p>
+        {% endif %}
+        {{ content }}
+      {% endif %}
+
+      {% if page.buy_link or page.goodreads_review %}
+        <p class="book-page__links">
+          {% if page.buy_link %}
+            {% assign is_amazon_link = page.buy_link | slice: 0, 19 %}
+            <a class="text-link" href="{{ page.buy_link }}" target="_blank" rel="noopener noreferrer">
+              {%- if is_amazon_link == 'https://www.amazon.' %}View on Amazon{% else %}Publisher's page{% endif %}
+              {% include icon.liquid name="arrow-up-right" %}
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          {% endif %}
+          {% if page.goodreads_review %}
+            <a class="text-link" href="https://www.goodreads.com/review/show/{{ page.goodreads_review }}" target="_blank" rel="noopener noreferrer">
+              Review on Goodreads {% include icon.liquid name="arrow-up-right" %}
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          {% endif %}
+        </p>
+      {% endif %}
+
+      <p class="book-page__back">
+        <a class="text-link" href="{{ '/books/' | relative_url }}">
+          {%- include icon.liquid name="arrow-right" class="icon--flip" %} All books</a
+        >
+      </p>
+    </div>
   </article>
 
   {% if site.giscus and page.giscus_comments %}
     {% include giscus.liquid %}
   {% endif %}
 </div>
-
-<style>
-      figure {
-        float: none;
-        width: auto;
-        display: block;
-        margin-right: auto;
-        margin-left: auto;
-
-      }
-      figure  > img {
-
-           vertical-align: top;
-           display: block;
-           margin-right: 0px;
-           margin-left: 0px;
-           padding: 0px;
-
-      }
-      figure figcaption {
-
-        display: block;
-        caption-side: bottom;
-        text-align: center;
-      }
-
-      @media screen and (min-width: 600px)  {
-
-        .empty-review{
-          float: left;
-          display: block; /* in-line block; */
-          margin: 0px 0px 0px 0px;  /* adjust as needed */
-          padding: 0px 0px 0px 20px;
-         /* top right bottom left */
-          }
-
-         .empty-review-caption {
-                  caption-side: left;
-                  text-align: left;
-
-
-                  }
-
-          .empty-review-cover {
-              width:250px;
-              vertical-align: top;
-              padding-right: 40px;
-              }
-
-          figure {
-
-                float: right;
-                display: in-line block; /* in-line block; */
-                margin: 0px 0px 0px 0px;  /* adjust as needed */
-                padding: 0px 0px 0px 20px;
-               /* top right bottom left */
-              }
-
-          figure img {
-                  width:300px;
-                  vertical-align: top;
-
-                }
-
-          figure figcaption {
-                  caption-side: bottom;
-                  text-align: left;
-
-                  }
-
-          .mobile-break { display: none; }
-
-  /* =Blockquote
-  -------------------------------------------------------------- */
-  blockquote {
-
-      position: relative;
-      marign: 0px;
-      display: table;
-
-  }
-  blockquote:before, blockquote:after {
-
-   /* properties to format the block quotes /*
-
-  }
-  blockquote:before {
-      top: 0;
-      left: 0;
-
-
-  }
-  blockquote:after {
-      top: 0;
-      right: 0;
-
-  }
-</style>

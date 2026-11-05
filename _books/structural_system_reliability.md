@@ -3,6 +3,8 @@ layout: book-review
 title: Structural and System Reliability
 author: Armen Der Kiureghian
 cover: assets/img/book_covers/structural_system_reliability.jpg
+cover_width: 180
+cover_height: 236
 categories: reliability structural-engineering system-reliability bayesian-methods engineering
 tags: textbook
 buy_link: https://www.cambridge.org/highereducation/books/structural-and-system-reliability/7B7F299239AD41812A0C3E2E93B3CA57#contents

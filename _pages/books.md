@@ -1,6 +1,8 @@
 ---
 layout: book-shelf
 title: Bookshelf
+kicker: Reading
+description: Books I love, and the textbooks and monographs I recommend.
 permalink: /books/
 nav: false
 collection: books

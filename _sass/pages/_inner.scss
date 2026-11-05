@@ -1,11 +1,166 @@
 /* =============================================================================
- * Inner pages: prose extras (poster lists, award marks, photo grids), Outreach
- * stories, the News archive, Gallery, People, Teaching and the CV skin.
- * Moved from the old _sass/_pages.scss and retokened. Generic prose, page
- * headers, the abstract dialog and the publications filter moved to ds/.
+ * Inner pages (lane: News, articles, Teaching, People, Outreach, Gallery,
+ * Bookshelf, 404). The CV lives in _sass/_cv.scss and the Blog in
+ * pages/_blog.scss. Shared patterns come from ds/*: the page header
+ * (.post-header: kicker, serif title, dek, hairline), .tag, .text-link,
+ * .section-head, .list-rows/.row-item and .feed rows.
+ *
+ * One rhythm everywhere: a mono meta column on the left (dates, years,
+ * institution codes) from 768px, serif titles, ink-2 deks, hairline rows.
  * ========================================================================== */
 
-/* uniform photo grid: every image in the row renders at the same 3:4 shape */
+/* _base.scss paints p/li/span/div/h* with the text colour at (0,0,1); inside
+ * these roots colour inherits instead (same specificity, later source order),
+ * so component rules can set colour once on the parent. One selector per
+ * element: PurgeCSS drops a selector list if any member is missing. */
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) p,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) li,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) span,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) div,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) em,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) strong,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) h2,
+:where(.post-article, .tm-news, .tm-teach, .tm-people, .tm-gallery, .tm-shelf, .book-page, .notfound) h3 {
+  color: inherit;
+}
+
+/* Plain links in running text are underlined (spec §9), as in .prose */
+.tm-people .person__bio a,
+.tm-teach .teach-also a,
+.book-page .caption a,
+.tm-news .news-years a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.tm-people .person__bio a:hover,
+.tm-teach .teach-also a:hover,
+.book-page .caption a:hover,
+.tm-news .news-years a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* "← All posts": the arrow icon, mirrored */
+.icon--flip {
+  transform: scaleX(-1);
+}
+
+/* Kicker links (article and archive headers): quiet, but still underlined so
+ * they read as links next to plain kicker text */
+.post-header .kicker a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--xw-rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.post-header .kicker a:hover {
+  color: var(--xw-link);
+  text-decoration-color: currentColor;
+}
+
+/* Tag rows under a header (post topics, book subjects): mono tags with a
+ * 24px+ target */
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-tags .tag {
+  padding: 0.38rem 0.6rem;
+  color: var(--xw-ink-2);
+}
+
+/* "On this page" over the table of contents on articles and the CV
+ * (#toc-sidebar is filled by bootstrap-toc; the nav already carries the
+ * accessible name) */
+.site-main:has(.post-article) #toc-sidebar::before,
+.site-main:has(.cv-doc) #toc-sidebar::before {
+  content: "On this page";
+  display: block;
+  margin: 0 0 var(--space-3);
+  padding-left: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+/* =============================================================================
+ * Articles: blog posts and news items (_layouts/post.liquid)
+ * ========================================================================== */
+
+/* the whole article keeps the reading measure; images and tables stay inside it */
+.post-article {
+  max-width: 46rem;
+  color: var(--xw-ink);
+}
+
+.post-article .post-header .post-title {
+  font-size: clamp(2rem, 1.55rem + 1.8vw, 2.85rem);
+  line-height: 1.1;
+}
+
+.post-article .prose {
+  max-width: none;
+}
+
+/* contents list when a post asks for `toc: beginning` */
+.post-article .article-toc {
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--xw-rule);
+  border-bottom: 1px solid var(--xw-rule);
+  font-size: 0.9375rem;
+}
+
+/* Bootstrap grid rows of images inside prose (news items, Outreach) */
+.prose .row {
+  row-gap: var(--space-4);
+}
+
+.prose .row img,
+.prose .row video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.prose figure {
+  margin: 0;
+}
+
+/* captions directly under a media row */
+.prose .row + .caption,
+.prose .caption {
+  margin: 0.75rem 0 1.75rem;
+  text-align: left;
+}
+
+/* Justified media rows (Outreach): each column grows with its image's aspect
+ * ratio (--ar on the column), so a row of mixed landscape shapes shares one
+ * height without cropping */
+@media (min-width: 576px) {
+  .prose .media-row {
+    flex-wrap: nowrap;
+  }
+
+  .prose .media-row > [class*="col"] {
+    flex: var(--ar, 1) 1 0;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+/* uniform portrait grid: every image in the row renders at the same 3:4 shape */
 .prose .row--photo-grid [class*="col"] img {
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -17,16 +172,64 @@
   object-position: 28% center;
 }
 
+/* Wide tables scroll inside a focusable region (.table-responsive with
+ * tabindex + label in the post) instead of widening the page. The table itself
+ * goes back to table layout so only the wrapper scrolls. */
+.prose .table-responsive {
+  margin: 1.6em 0;
+  border-top: 1px solid var(--xw-rule-strong);
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
 
-/* structured poster list — name line + title line, hairline rows in a card */
+.prose .table-responsive > table {
+  display: table;
+  width: 100%;
+  min-width: 34rem;
+  max-width: none;
+  margin: 0;
+  overflow: visible;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-collapse: collapse;
+}
+
+.prose .table-responsive th,
+.prose .table-responsive td {
+  padding: 0.6rem 1rem 0.6rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.prose .table-responsive th {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--xw-ink-3);
+  text-align: left;
+}
+
+.prose .table-responsive tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Bootstrap-table (no_defer.js) adds .table-hover: keep rows calm */
+.prose .table-hover tbody tr:hover {
+  color: inherit;
+  background-color: var(--xw-surface-sunk);
+}
+
+.prose .table-responsive:focus-visible {
+  outline-offset: 4px;
+}
+
+/* structured poster list: name line + title line, hairline rows */
 .prose .poster-list {
   margin: 1.5rem 0;
-  padding: 0.35rem 1.5rem;
+  padding: 0;
   list-style: none;
-  background: var(--xw-surface);
-  border: 1px solid var(--xw-rule);
-  border-radius: var(--radius-lg);
-  box-shadow: none;
+  border-top: 1px solid var(--xw-rule-strong);
+  border-bottom: 1px solid var(--xw-rule);
 }
 
 .prose .poster-list > li {
@@ -34,7 +237,7 @@
   align-items: center;
   gap: 1.1rem;
   margin: 0;
-  padding: 1.05rem 0;
+  padding: 0.95rem 0;
 }
 
 .prose .poster-list > li + li {
@@ -50,15 +253,15 @@
   display: block;
   margin-bottom: 0.2rem;
   font-family: var(--font-serif);
-  font-size: 1.02rem;
+  font-size: 1.0625rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
   color: var(--xw-ink);
 }
 
 .prose .poster-list__title {
   display: block;
-  font-size: 0.93rem;
+  font-size: 0.9375rem;
   font-style: italic;
   line-height: 1.5;
   color: var(--xw-ink-2);
@@ -66,7 +269,7 @@
 
 .prose .poster-list__ribbon {
   flex-shrink: 0;
-  width: 3.2rem;
+  width: 3rem;
 }
 
 .prose .poster-list__ribbon figure {
@@ -82,182 +285,369 @@
   background: transparent;
 }
 
-/* the ribbon's navy tails vanish on the dark ground — give it a paper chip,
- * the same treatment the marquee logos and blog thumbnails use */
+/* the ribbon's navy tails vanish on the dark ground: a paper plate */
 html[data-theme="dark"] .prose .poster-list__ribbon img {
+  padding: 0.25rem;
   background: var(--xw-chip);
-  padding: 0.3rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
 }
 
-/* award pill — amber tint with a medal glyph */
+/* award mark: an earth state tag (the one place colour carries meaning) */
 .prose .award-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.32rem;
-  padding: 0.18rem 0.65rem;
-  margin-left: 0.15rem;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  margin-left: 0.35rem;
+  padding: 0.18em 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
   text-transform: uppercase;
-  vertical-align: 0.1em;
-  background: var(--pill-amber-bg);
-  color: var(--pill-amber-fg);
+  vertical-align: 0.15em;
   white-space: nowrap;
+  color: var(--xw-earth);
+  background: var(--xw-earth-wash);
+  border-radius: var(--radius-sm);
 }
 
 .prose .award-pill i {
-  font-size: 0.8em;
-}
-
-.prose .row + .caption {
-  margin-bottom: 1.8rem;
-}
-
-/* ---------------------------------------------------------------------------
- * Story cards — the Outreach page's editorial structure: kicker label,
- * headline, body, media with captions; hairline rules between stories
- * ------------------------------------------------------------------------ */
-
-.story {
-  padding: 2.4rem 0 1rem;
-}
-
-.story:first-of-type {
-  padding-top: 0.8rem;
-}
-
-.story + .story {
-  border-top: 1px solid var(--xw-rule);
-}
-
-.story__kicker {
-  margin: 0 0 0.55rem;
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--xw-link);
-}
-
-.prose .story h2 {
-  margin-top: 0;
-}
-
-/* ---------------------------------------------------------------------------
- * News page — year-grouped archive built on the shared feed rows
- * ------------------------------------------------------------------------ */
-
-.news-page {
-  margin-top: 0.5rem;
-}
-
-.news-page .news-year {
-  margin-top: 2.25rem;
-}
-
-.news-page .news-year:first-of-type {
-  margin-top: 0;
-}
-
-.news-page .news-year__head {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-bottom: 0.9rem;
-}
-
-.news-page .news-year__head h2 {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
-  font-weight: 600;
-  letter-spacing: var(--tracking-display);
-  color: var(--xw-ink);
-}
-
-.news-page .news-year__count {
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--xw-ink-2);
-}
-
-/* the archive rows carry a 2-line excerpt (the homepage section stays bare) */
-.news-page .feed__desc {
-  -webkit-line-clamp: 2;
-}
-
-/* rich rows carry thumbnails — the hover arrow would collide with them */
-.news-page .feed__arrow {
   display: none;
 }
 
-/* ---------------------------------------------------------------------------
- * Gallery — equal-width masonry columns.
- *
- * Deliberately NOT a fixed-aspect tile grid: cropping every photo to 4:3 with
- * object-fit also crops the medium-zoom enlargement (which scales the very same
- * element), so portrait and 16:9 shots lost content when opened. Equal column
- * width fixes the "some photos are far bigger than others" problem while every
- * photo keeps its true shape and zooms complete.
- * ------------------------------------------------------------------------ */
-
-.tm-gallery {
-  margin-top: 0.5rem;
+/* end of article: index link + older/newer */
+.article-nav {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--xw-rule-strong);
 }
 
-.tm-gallery .gallery-set + .gallery-set {
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+.article-nav__pager {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--xw-rule);
 }
 
-.tm-gallery .gallery-set__title {
-  margin: 0 0 1.1rem;
-  padding-bottom: 0.6rem;
-  font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
-  font-weight: 600;
-  letter-spacing: var(--tracking-display);
-  color: var(--xw-ink);
+.article-nav__pager > li {
   border-bottom: 1px solid var(--xw-rule);
 }
 
-.tm-gallery .gallery-grid {
-  column-count: 3;
-  column-gap: 1rem;
+.article-nav__link {
+  display: block;
+  padding: var(--space-4) 0;
+  color: var(--xw-ink);
+  text-decoration: none;
 }
 
-@media (max-width: 767.98px) {
-  .tm-gallery .gallery-grid {
-    column-count: 2;
+.article-nav__link:hover {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.article-nav__dir {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.article-nav__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--xw-ink);
+}
+
+.article-nav__link:hover .article-nav__title {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+@media (min-width: 576px) {
+  .article-nav__pager {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+
+  .article-nav__pager > .article-nav__next {
+    grid-column: 2;
+    text-align: right;
   }
 }
 
-@media (max-width: 479.98px) {
+/* "Keep reading" (_includes/related_posts.liquid) */
+.related-posts {
+  margin-top: var(--space-8);
+}
+
+.related-posts .section-head {
+  margin-bottom: 0;
+}
+
+/* the section head already draws the top rule */
+.related-posts .list-rows {
+  border-top: 0;
+}
+
+.related-posts .list-rows > li:last-child {
+  border-bottom: 0;
+}
+
+.related-posts .row-item__title a {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.related-posts .row-item__title a:hover {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+@media (min-width: 768px) {
+  .related-posts .row-item {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+}
+
+/* =============================================================================
+ * News archive (/news/): year groups of feed rows (_includes/about_feed.liquid)
+ * ========================================================================== */
+
+.tm-news {
+  color: var(--xw-ink);
+}
+
+.tm-news .news-years {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-5);
+  margin: calc(-1 * var(--space-4)) 0 var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--xw-ink-3);
+}
+
+.tm-news .news-years ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tm-news .news-years a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--xw-ink-2);
+  text-decoration-color: var(--xw-rule-strong);
+}
+
+.tm-news .news-years a:hover {
+  color: var(--xw-link);
+}
+
+.tm-news .news-year + .news-year {
+  margin-top: var(--space-8);
+}
+
+.tm-news .news-year__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
+
+.tm-news .news-year__head h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  font-variant-numeric: lining-nums;
+}
+
+.tm-news .news-year__count {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--xw-ink-3);
+}
+
+.tm-news .feed__row {
+  align-items: flex-start;
+  padding: 1.25rem 0;
+}
+
+.tm-news .feed__tag {
+  margin-bottom: 0.45rem;
+}
+
+.tm-news .feed__title {
+  font-size: 1.25rem;
+}
+
+.tm-news .feed__desc {
+  max-width: 68ch;
+}
+
+/* thumbnails from 768px only; on phones the row is text */
+.tm-news .feed__thumb {
+  display: none;
+}
+
+.tm-news .feed__thumb picture {
+  aspect-ratio: 3 / 2;
+  background: var(--xw-chip);
+}
+
+.tm-news .feed__thumb--contain img {
+  padding: 0.35rem;
+}
+
+.tm-news a.feed__row:hover .feed__thumb picture {
+  border-color: var(--xw-ink-3);
+}
+
+@media (min-width: 768px) {
+  .tm-news .feed__thumb {
+    display: block;
+    align-self: flex-start;
+    width: 10rem;
+  }
+}
+
+/* =============================================================================
+ * Outreach (/outreach/): stories with a mono kicker and serif headline
+ * ========================================================================== */
+
+.tm-outreach .story {
+  padding: var(--space-7) 0 var(--space-2);
+}
+
+.tm-outreach .story:first-of-type {
+  padding-top: 0;
+}
+
+.tm-outreach .story + .story {
+  border-top: 1px solid var(--xw-rule-strong);
+}
+
+.tm-outreach .story__kicker {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.tm-outreach .story h2 {
+  margin-top: 0;
+  font-size: clamp(1.45rem, 1.25rem + 0.8vw, 1.85rem);
+  line-height: 1.2;
+}
+
+/* headline links to the source page: a quiet rule that firms up on hover */
+.tm-outreach .story h2 a {
+  color: var(--xw-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--xw-rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.tm-outreach .story h2 a:hover {
+  color: var(--xw-link);
+  text-decoration-color: currentColor;
+}
+
+/* the date/venue line under a headline */
+.tm-outreach .story__meta {
+  margin: -0.2rem 0 1.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--xw-ink-3);
+}
+
+.tm-outreach video {
+  background: var(--xw-surface-sunk);
+}
+
+/* =============================================================================
+ * Gallery (/gallery/): equal-width columns, every photo at its true shape.
+ * Deliberately not a cropped tile grid: medium-zoom enlarges the same element,
+ * so a cropped tile would also crop the enlargement.
+ * ========================================================================== */
+
+.tm-gallery .gallery-set + .gallery-set {
+  margin-top: var(--space-8);
+}
+
+.tm-gallery .gallery-set__title {
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-3);
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: var(--tracking-display);
+  color: var(--xw-ink);
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
+
+.tm-gallery .gallery-grid {
+  column-count: 1;
+  column-gap: var(--space-5);
+}
+
+@media (min-width: 360px) {
   .tm-gallery .gallery-grid {
-    column-count: 1;
+    column-count: 2;
+    column-gap: var(--space-3);
+  }
+}
+
+@media (min-width: 768px) {
+  .tm-gallery .gallery-grid {
+    column-gap: var(--space-5);
+  }
+}
+
+@media (min-width: 992px) {
+  .tm-gallery .gallery-grid {
+    column-count: 3;
   }
 }
 
 .tm-gallery .gallery-tile {
-  margin: 0 0 1rem;
-  /* never let a photo + caption be split across two columns */
+  margin: 0 0 var(--space-5);
   break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
 }
 
 .tm-gallery .gallery-tile picture {
   display: block;
   overflow: hidden;
-  border-radius: var(--radius-lg);
   border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
   background: var(--xw-surface-sunk);
 }
 
@@ -268,24 +658,20 @@ html[data-theme="dark"] .prose .poster-list__ribbon img {
   border-radius: 0;
   box-shadow: none;
   cursor: zoom-in;
-  transition: transform var(--dur) var(--ease);
-}
-
-.tm-gallery .gallery-tile:hover img {
-  transform: scale(1.03);
 }
 
 .tm-gallery .gallery-tile figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.82rem;
+  margin: 0.5rem 0 0;
+  font-size: var(--text-sm);
   line-height: 1.45;
-  color: var(--xw-ink-2);
+  text-align: left;
+  color: var(--xw-ink-3);
 }
 
 .tm-gallery .gallery-set__note {
-  margin: 1rem 0 0;
-  font-size: 0.85rem;
-  color: var(--xw-ink-2);
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+  color: var(--xw-ink-3);
 }
 
 /* while zoomed the image is lifted out of its rounded frame */
@@ -294,62 +680,63 @@ img.medium-zoom-image--opened {
   cursor: zoom-out;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .tm-gallery .gallery-tile img,
-  .tm-gallery .gallery-tile:hover img {
-    transition: none;
-    transform: none;
-  }
+/* =============================================================================
+ * People (/people/, _layouts/profiles.liquid): program groups of mentee cards
+ * ========================================================================== */
+
+.tm-people .people-group + .people-group {
+  margin-top: var(--space-8);
 }
 
-/* ---------------------------------------------------------------------------
- * People — program sections + person rows (photo, name, meta, bio)
- * ------------------------------------------------------------------------ */
-
-.tm-people {
-  margin-top: 0.25rem;
+.tm-people .people-group__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--xw-rule-strong);
 }
 
-.tm-people .people-sec {
-  margin: 2.6rem 0 1rem;
-  padding-bottom: 0.55rem;
+.tm-people .people-group__title {
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 2vw, 1.55rem);
-  font-weight: 600;
+  font-size: clamp(1.4rem, 1.25rem + 0.6vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
   letter-spacing: var(--tracking-display);
-  color: var(--xw-ink);
-  border-bottom: 1px solid var(--xw-rule);
 }
 
-.tm-people .people-sec:first-of-type {
-  margin-top: 0.5rem;
+.tm-people .people-group__link {
+  font-size: 0.875rem;
 }
 
-.tm-people .people-sec i {
-  margin-left: 0.3rem;
-  font-size: 0.55em;
-  color: var(--xw-ink-2);
-}
-
-.tm-people .people {
+.tm-people .people-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 var(--space-7);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .tm-people .person {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 1.5rem 0;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--xw-rule);
 }
 
-.tm-people .person + .person {
-  border-top: 1px solid var(--xw-rule);
+.tm-people .person:last-child {
+  border-bottom: 0;
+}
+
+.tm-people .person__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
 }
 
 .tm-people .person__photo {
-  flex: 0 0 8.5rem;
+  flex: 0 0 6rem;
 }
 
 .tm-people .person__photo figure {
@@ -360,8 +747,9 @@ img.medium-zoom-image--opened {
   display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: var(--radius-lg);
   border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
+  background: var(--xw-surface-sunk);
 }
 
 .tm-people .person__photo img {
@@ -369,33 +757,35 @@ img.medium-zoom-image--opened {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 30%;
 }
 
 .tm-people .person__name {
-  margin: 0 0 0.3rem;
+  margin: 0.15rem 0 0.35rem;
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--xw-ink);
 }
 
 .tm-people .person__meta {
-  margin-bottom: 0.55rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--xw-ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.55;
+  color: var(--xw-ink-3);
 }
 
 .tm-people .person__meta p {
   margin: 0;
-  color: inherit;
 }
 
 .tm-people .person__bio {
-  font-size: 0.95rem;
+  margin-top: var(--space-4);
+  font-size: 0.9375rem;
   line-height: 1.65;
-  color: var(--xw-ink);
+  color: var(--xw-ink-2);
 }
 
 .tm-people .person__bio p {
@@ -407,183 +797,361 @@ img.medium-zoom-image--opened {
 }
 
 .tm-people .person__bio a {
-  color: var(--xw-link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 575.98px) {
-  .tm-people .person {
-    gap: 1rem;
+@media (min-width: 992px) {
+  .tm-people .people-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .tm-people .person__photo {
-    flex-basis: 6rem;
+  .tm-people .person,
+  .tm-people .person:last-child {
+    border-bottom: 0;
   }
 }
 
-/* ---------------------------------------------------------------------------
- * Teaching — course rows: institution pill (tinted toward each school's
- * color), display-face title, optional external link
- * ------------------------------------------------------------------------ */
+/* =============================================================================
+ * Teaching (/teaching/, _data/teaching.yml): institution groups, course rows
+ * ========================================================================== */
 
-.tm-teach {
-  margin-top: 0.5rem;
+.tm-teach .teach-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3) var(--space-6);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--xw-rule-strong);
 }
 
-.tm-teach .teach {
+.tm-teach .teach-group:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.tm-teach .teach-group:last-of-type {
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
+
+.tm-teach .teach-group__head .tag {
+  margin-bottom: var(--space-2);
+}
+
+.tm-teach .teach-group__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.tm-teach .teach-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.tm-teach .teach > li {
+.tm-teach .teach-item {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  padding: 1.4rem 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-5);
+  padding: var(--space-3) 0;
 }
 
-.tm-teach .teach > li + li {
+.tm-teach .teach-item + .teach-item {
   border-top: 1px solid var(--xw-rule);
 }
 
-.tm-teach .teach__title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  color: var(--xw-ink);
+.tm-teach .teach-item:first-child {
+  padding-top: 0.2rem;
 }
 
-.tm-teach .teach__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.88rem;
-  font-weight: 600;
+.tm-teach .teach-item__title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.tm-teach .teach-item .text-link {
+  font-size: 0.875rem;
+}
+
+.tm-teach .teach-also {
+  margin: var(--space-7) 0 0;
+  font-size: 0.9375rem;
+  color: var(--xw-ink-2);
+}
+
+@media (min-width: 768px) {
+  .tm-teach .teach-group {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+}
+
+/* =============================================================================
+ * Bookshelf (/books/, book pages, book archives)
+ * ========================================================================== */
+
+/* the shelf's epigraph */
+.tm-shelf blockquote,
+.shelf-intro blockquote {
+  max-width: 62ch;
+  margin: 0 0 var(--space-7);
+  padding: 0 0 0 1.1rem;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-style: italic;
+  line-height: 1.55;
+  text-align: left;
+  color: var(--xw-ink-2);
+  background: transparent;
+  border-left: 2px solid var(--xw-earth);
+}
+
+.shelf-intro blockquote p {
+  margin: 0 0 0.5em;
+  color: inherit;
+}
+
+.shelf-intro blockquote p:last-child {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-style: normal;
+}
+
+.tm-shelf .shelf + .shelf {
+  margin-top: var(--space-8);
+}
+
+.tm-shelf .shelf__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--xw-rule-strong);
+}
+
+.tm-shelf .shelf__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 1.25rem + 0.6vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-display);
+}
+
+.tm-shelf .shelf__count {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--xw-ink-3);
+}
+
+.tm-shelf .shelf__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 576px) {
+  .tm-shelf .shelf__grid {
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  }
+}
+
+.tm-shelf .book__link {
+  display: block;
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.tm-shelf .book__link:hover {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+/* covers stand on a common baseline at their own shape, like a shelf */
+.tm-shelf .book__cover {
+  display: flex;
+  align-items: flex-end;
+  height: 13rem;
+  margin-bottom: var(--space-3);
+}
+
+.tm-shelf .book__cover img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 1px var(--xw-rule);
+}
+
+.tm-shelf .book__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.tm-shelf .book__link:hover .book__title {
   color: var(--xw-link);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
-.tm-teach .teach__link i {
-  font-size: 0.72em;
-}
-
-.tm-teach .teach__link:hover {
-  color: var(--xw-link-hover);
-}
-
-/* institution tints, echoing each school's color */
-.tm-teach .teach__pill--um {
-  background: var(--pill-blue-bg);
-  color: var(--pill-blue-fg);
-}
-
-.tm-teach .teach__pill--uiuc {
-  background: var(--pill-amber-bg);
-  color: var(--pill-amber-fg);
-}
-
-.tm-teach .teach__pill--sjtu {
-  background: var(--pill-coral-bg);
-  color: var(--pill-coral-fg);
-}
-
-/* ---------------------------------------------------------------------------
- * CV (resume branch of _layouts/cv.liquid): sections as hairline-ruled blocks;
- * date badges are mono tags (ds/_components .badge), no colour fill.
- * ------------------------------------------------------------------------ */
-
-.cv .card {
-  background-color: transparent;
-  border: 0;
-  border-top: 1px solid var(--xw-rule-strong);
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.cv .card:first-of-type {
-  border-top: 0;
-}
-
-.cv .card .card-title {
-  font-family: var(--font-serif);
-  font-size: var(--step-h3);
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  color: var(--xw-ink);
-}
-
-.cv .card .list-group-item {
-  padding-left: 0;
-  padding-right: 0;
-  color: var(--xw-ink);
-  background-color: transparent;
-  border-color: var(--xw-rule);
-}
-
-.cv .card .badge,
-.cv .card .list-group-item .badge {
-  color: var(--xw-ink-2);
-  background-color: transparent;
-  border: 1px solid var(--xw-rule-strong);
-  border-radius: var(--radius-sm);
+.tm-shelf .book__meta {
+  display: block;
+  margin-top: 0.3rem;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  padding: 0.25rem 0.45rem;
+  font-size: var(--text-meta);
+  line-height: 1.45;
+  color: var(--xw-ink-3);
 }
 
-/* ---------------------------------------------------------------------------
- * 404 (_pages/404.md): helpful links over a contour field, no auto-redirect.
- * ------------------------------------------------------------------------ */
+/* a single book (_layouts/book-review.liquid) */
+.book-page {
+  color: var(--xw-ink);
+}
+
+.book-page .book-page__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.book-page .book-page__cover {
+  max-width: 14rem;
+  margin: 0;
+}
+
+.book-page .book-page__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 1px var(--xw-rule);
+}
+
+.book-page .book-page__cover figcaption {
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.book-page .book-page__status {
+  margin: 0 0 var(--space-4);
+}
+
+.book-page .book-page__links,
+.book-page .book-page__back {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-5) 0 0;
+}
+
+.book-page .book-page__back {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--xw-rule);
+}
+
+@media (min-width: 768px) {
+  .book-page .book-page__body {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+}
+
+/* =============================================================================
+ * 404 (_pages/404.md): helpful links over a contour field, no auto-redirect
+ * ========================================================================== */
 
 .notfound {
   position: relative;
-  min-height: 18rem;
-  padding: var(--space-2) 0 var(--space-7);
-  --contour-position: left top;
-  --contour-size: auto 160%;
+  min-height: 22rem;
+  padding: 0 0 var(--space-7);
+  --contour-position: right top;
+  --contour-size: auto 150%;
 }
 
 .notfound > :not(.contour-field) {
   position: relative;
 }
 
-/* a "map inset" on the right, framed by the page-header rule above */
+/* a "map inset" on the right, under the page-header rule */
 .notfound .contour-field {
-  inset: 0 calc(-1 * var(--gutter)) 0 38%;
+  inset: calc(-1 * var(--space-6)) calc(-1 * var(--gutter)) 0 48%;
+}
+
+@media (max-width: 767.98px) {
+  .notfound .contour-field {
+    inset: auto calc(-1 * var(--gutter)) 0 0;
+    height: 12rem;
+  }
 }
 
 .notfound__lead {
-  margin: 0 0 var(--space-4);
+  max-width: 46ch;
+  margin: 0 0 var(--space-6);
   font-size: var(--text-prose);
+  line-height: var(--leading-prose);
   color: var(--xw-ink-2);
 }
 
 .notfound__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-5);
+  max-width: 30rem;
   margin: 0 0 var(--space-6);
   padding: 0;
   list-style: none;
+  border-top: 1px solid var(--xw-rule);
+}
+
+.notfound__links li {
+  border-bottom: 1px solid var(--xw-rule);
 }
 
 .notfound__links a {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
   min-height: 44px;
+  padding: 0.6rem 0;
   font-family: var(--font-serif);
   font-size: 1.25rem;
   font-weight: 500;
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.notfound__links a .icon {
+  align-self: center;
+  font-size: 0.85rem;
+  color: var(--xw-ink-3);
+  transition: transform var(--dur) var(--ease);
+}
+
+.notfound__links a:hover {
+  color: var(--xw-link);
+}
+
+.notfound__links a:hover .icon {
+  color: currentColor;
+  transform: translateX(2px);
 }
