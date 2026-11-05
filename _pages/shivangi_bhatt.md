@@ -1,3 +1,3 @@
 Shivangi Bhatt is a Computer Engineering student at the University of Michigan–Ann Arbor with a strong interest in hardware engineering, particularly within the medical device space. This past summer, she interned at Warmilu LLC, where she performed thermal testing on 15+ infant warming packs. She is also a prototyping member of U-M M-HEAL's Neonatal Asphyxia Project team, contributing to the development of a neonatal therapeutic cooling system. Through her UROP project with Dr. Wei, Shivangi hopes to deepen her understanding of LLMs and generative AI, and to build a database that supports a meaningful and impactful research initiative.
 
-**LinkedIn:** [https://www.linkedin.com/in/shivangi-bhatt-67a8a4268/](https://www.linkedin.com/in/shivangi-bhatt-67a8a4268/)
+[Shivangi Bhatt on LinkedIn](https://www.linkedin.com/in/shivangi-bhatt-67a8a4268/)

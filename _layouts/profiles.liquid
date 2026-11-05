@@ -10,10 +10,11 @@ layout: page
 {% endcomment %}
 <div class="tm-people">
   {% assign open = false %}
+  {% assign person_index = 0 %}
   {% for profile in page.profiles %}
     {% if profile.section_title %}
       {% if open %}
-          </ul>
+        </ul>
         </section>
       {% endif %}
       {% assign group_id = profile.section_title | slugify | prepend: 'program-' %}
@@ -28,19 +29,30 @@ layout: page
           {% endif %}
         </div>
         <ul class="people-grid">
-      {% assign open = true %}
+          {% assign open = true %}
     {% else %}
       {% unless open %}
         <section class="people-group">
           <ul class="people-grid">
-        {% assign open = true %}
+            {% assign open = true %}
       {% endunless %}
+      {% assign person_index = person_index | plus: 1 %}
       <li class="person">
         <div class="person__top">
           {% if profile.image %}
             <div class="person__photo">
+              {% comment %}
+                alt="": the h3 next to the photo already gives the name. sizes
+                matches the 6rem photo box. The first row of cards (3 at
+                1440px) is in the first screen, so those photos load eagerly.
+              {% endcomment %}
               {% assign profile_image_path = profile.image | prepend: 'assets/img/' %}
-              {% include figure.liquid loading="lazy" path=profile_image_path sizes="192px" width="192" height="192" alt=profile.name %}
+              {% if person_index <= 3 %}
+                {% assign photo_loading = 'eager' %}
+              {% else %}
+                {% assign photo_loading = 'lazy' %}
+              {% endif %}
+              {% include figure.liquid loading=photo_loading path=profile_image_path sizes="96px" width="192" height="192" alt="" %}
             </div>
           {% endif %}
           <div class="person__id">
@@ -58,7 +70,7 @@ layout: page
     {% endif %}
   {% endfor %}
   {% if open %}
-      </ul>
+    </ul>
     </section>
   {% endif %}
 </div>

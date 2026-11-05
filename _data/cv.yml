@@ -40,7 +40,7 @@
 - title: Appointments
   type: time_table
   contents:
-    - title: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
+    - title: Eric and Wendy Schmidt AI in Science Postdoctoral Fellow
       institution: University of Michigan
       location: Ann Arbor, MI, USA
       year: 2024 - present
@@ -79,7 +79,7 @@
     - title: "Founder, TerraMosaic: a community-curated, open-access landslide research platform"
       year: 2024 - present
       description:
-        - "<a href=\"https://www.terramosaic.org/\">terramosaic.org</a>"
+        - '<a href="https://www.terramosaic.org/">terramosaic.org</a>'
     - title: Lead applicant, SPARK Forum (Responsible Research Translation and Cross-Sector Collaboration)
       year: 2026
       description:
@@ -169,7 +169,7 @@
   style: cards
   contents:
     - name: Prof. Paolo Gardoni
-      value: "Alfredo H. Ang Family Professor<br>Department of Civil and Environmental Engineering<br>University of Illinois at Urbana-Champaign<br>Phone: 217-333-5103<br>Email: gardoni@illinois.edu<br><i>Visiting Scholar Advisor</i>"
+      value: "Alfredo H. Ang Family Professor<br>Department of Civil and Environmental Engineering<br>University of Illinois Urbana-Champaign<br>Phone: 217-333-5103<br>Email: gardoni@illinois.edu<br><i>Visiting Scholar Advisor</i>"
       links:
         - name: Faculty profile
           link: "https://cee.illinois.edu/directory/profile/gardoni"

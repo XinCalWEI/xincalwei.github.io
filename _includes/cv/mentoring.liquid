@@ -5,25 +5,27 @@
   {% for profile in people_page.profiles %}
     {% if profile.section_title %}
       {% if open %}
-            </ul>
-          </div>
+        </ul>
+        </div>
         </li>
       {% endif %}
       <li class="cv-row">
         <div class="cv-row__body">
           <h3 class="cv-row__title" data-toc-skip>{{ profile.section_title }}</h3>
           <ul class="cv-notes">
-      {% assign open = true %}
+            {% assign open = true %}
     {% elsif open %}
       <li>
         <strong class="cv-person">{{ profile.name }}</strong>
-        {%- if profile.more_info %}, {{ profile.more_info | replace: '<br>', ', ' | strip_html | strip_newlines | strip }}{% endif %}
+        {%- if profile.more_info -%}
+          , {{ profile.more_info | replace: '<br>', ', ' | strip_html | strip_newlines | strip | split: ' ' | join: ' ' | replace: ', (', ' (' -}}
+        {%- endif %}
       </li>
     {% endif %}
   {% endfor %}
   {% if open %}
-          </ul>
-        </div>
-      </li>
+    </ul>
+    </div>
+    </li>
   {% endif %}
 </ol>
