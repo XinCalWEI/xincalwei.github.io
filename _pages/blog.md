@@ -2,6 +2,7 @@
 layout: default
 permalink: /blog/
 title: Blog
+description: Research notes on geohazards, landslide data, and AI, plus perspectives on AI systems, tutorials, and event reports.
 nav: true
 nav_order: 6
 layout_width: wide

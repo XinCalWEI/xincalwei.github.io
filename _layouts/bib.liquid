@@ -431,7 +431,7 @@
       {% comment %} Hidden BibTeX. Site-only fields are stripped; \x7b/\x7d stand for braces because Liquid ends an output tag at a bare closing brace. {% endcomment %}
       <div class="bibtex hidden">
         {% highlight bibtex %}
-        {{- entry.bibtex | hideCustomBibtex | regex_replace: '^[ \t]*(citations|show_all_authors)[ \t]*=[ \t]*\x7b[^\x7d\n]*\x7d,?[ \t]*\n', '' -}}
+        {{- entry.bibtex | hideCustomBibtex -}}
       {% endhighlight %}
       </div>
     {% endif %}
