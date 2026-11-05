@@ -115,7 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
       term = params.get("q") || "";
       next = params.get("filter") || "all";
     } else if (raw) {
-      const decoded = decodeURIComponent(raw);
+      // a stray "%" (e.g. #100%) is not valid percent-encoding: use the raw text
+      let decoded = raw;
+      try {
+        decoded = decodeURIComponent(raw);
+      } catch (e) {
+        decoded = raw;
+      }
       target = document.getElementById(decoded);
       if (!target) term = decoded;
     }
