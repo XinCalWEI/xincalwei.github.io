@@ -1,0 +1,50 @@
+{% comment %}
+  TerraMosaic feature band: full-bleed (painted past the container with a
+  box-shadow, so it never adds horizontal overflow). Ink band in light mode,
+  raised surface in dark. The mosaic-tile motif lives here and nowhere else.
+  Copy: page.terramosaic.
+{% endcomment %}
+{%- assign tm = page.terramosaic -%}
+<section class="home-tm" aria-labelledby="home-tm-title">
+  <div class="home-tm__grid">
+    <div class="home-tm__intro">
+      <p class="kicker home-tm__kicker">
+        <span class="home-tm__glyph" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        {{ tm.kicker }}
+      </p>
+      <h2 class="home-tm__title" id="home-tm-title">{{ tm.title }}</h2>
+      <p class="home-tm__tagline">{{ tm.tagline }}</p>
+      <p class="home-tm__body">{{ tm.body }}</p>
+      <a class="xw-btn home-tm__cta" href="{{ tm.cta.url }}">
+        {{- tm.cta.label }}
+        {% include icon.liquid name="arrow-up-right" -%}
+      </a>
+    </div>
+
+    <div class="home-tm__aside">
+      {% if tm.logo %}
+        <div class="home-tm__plate">
+          {%- assign tm_logo_webp = tm.logo.image | remove: '.png' | append: '-480.webp' -%}
+          <picture>
+            {% if site.imagemagick.enabled %}
+              <source srcset="{{ tm_logo_webp | relative_url }}" type="image/webp">
+            {% endif %}
+            <img
+              src="{{ tm.logo.image | relative_url }}"
+              alt=""
+              width="{{ tm.logo.width }}"
+              height="{{ tm.logo.height }}"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+        </div>
+      {% endif %}
+      <ul class="home-tm__facts">
+        {% for fact in tm.facts %}
+          <li class="home-tm__fact home-tm__fact--{{ forloop.index }}">{{ fact }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

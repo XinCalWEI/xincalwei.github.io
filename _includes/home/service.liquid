@@ -1,0 +1,24 @@
+{% comment %}
+  04 · Teaching, mentoring & service: four compact facts with links.
+  Copy: page.service.
+{% endcomment %}
+{%- assign head = page.sections.service -%}
+<section class="home-section home-service" aria-labelledby="home-service-title">
+  <div class="section-head">
+    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <h2 class="section-head__title" id="home-service-title">{{ head.title }}</h2>
+  </div>
+
+  <ul class="home-svc">
+    {% for item in page.service %}
+      <li class="home-svc__item">
+        <h3 class="home-svc__label">{{ item.label }}</h3>
+        <p class="home-svc__text">{{ item.text }}</p>
+        <a class="text-link home-svc__link" href="{{ item.url | relative_url }}">
+          {{- item.link_label }}
+          {% include icon.liquid name="arrow-right" -%}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

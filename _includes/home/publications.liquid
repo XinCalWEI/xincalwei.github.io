@@ -1,0 +1,21 @@
+{% comment %}
+  02 · Selected publications: bib entries flagged selected={true}, rendered by
+  the shared publication component (bib.liquid + ds/_publications).
+{% endcomment %}
+{%- assign head = page.sections.publications -%}
+<section class="home-section home-pubs" aria-labelledby="home-pubs-title">
+  <div class="section-head">
+    <p class="kicker"><span class="kicker__index">{{ head.index }}</span> — {{ head.kicker }}</p>
+    <h2 class="section-head__title" id="home-pubs-title">{{ head.title }}</h2>
+    {% if head.dek %}<p class="section-head__dek">{{ head.dek }}</p>{% endif %}
+    <p class="section-head__link home-links">
+      <a class="text-link" href="{{ '/publications/' | relative_url }}">
+        All publications {% include icon.liquid name="arrow-right" %}
+      </a>
+      <a class="text-link" href="https://scholar.google.com/citations?user={{ site.data.socials.scholar_userid }}">
+        Google Scholar {% include icon.liquid name="arrow-up-right" %}
+      </a>
+    </p>
+  </div>
+  {% include selected_papers.liquid %}
+</section>

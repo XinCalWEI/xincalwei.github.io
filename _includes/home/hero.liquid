@@ -1,0 +1,130 @@
+{% comment %}
+  Homepage hero: kicker, name, statement, position, actions, contact links,
+  portrait, and the at-a-glance strip. Copy: page.hero / page.profile.
+  The statement is the mobile LCP and the portrait the desktop LCP: neither
+  may fade or slide in, and the portrait loads eagerly at high priority. The
+  contour motif is inline SVG (home/hero-contours.svg) so it is never an LCP
+  candidate itself, as a CSS mask image would be.
+{% endcomment %}
+{%- assign hero = page.hero -%}
+{%- assign socials = site.data.socials -%}
+{%- capture author_name -%}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{%- endcapture -%}
+<section class="home-hero" aria-labelledby="home-name">
+  <div class="home-hero__grid">
+    <div class="home-hero__contours" aria-hidden="true">{% include home/hero-contours.svg %}</div>
+
+    <div class="home-hero__text">
+      <div class="home-hero__head">
+        {%- comment -%} each term (with its trailing "·") is unbreakable, so a wrapped kicker never splits a term or starts a line with a dot {%- endcomment -%}
+        {%- assign kicker_terms = hero.kicker | split: ' · ' -%}
+        <p class="kicker home-hero__kicker">
+          {%- for term in kicker_terms -%}
+            <span class="home-hero__term">{{ term }}{% unless forloop.last %}&nbsp;·{% endunless %}</span>{% unless forloop.last %}&#32;{% endunless %}
+          {%- endfor -%}
+        </p>
+        <h1 class="home-hero__name" id="home-name">{{ author_name | strip }}</h1>
+      </div>
+
+      <p class="home-hero__statement">{{ hero.statement }}</p>
+
+      <div class="home-hero__position">
+        <p class="home-hero__role">{{ hero.position }}</p>
+        <p class="home-hero__org">{{ hero.affiliation }}</p>
+        {% if hero.founder %}
+          <p class="home-hero__founder">
+            {{ hero.founder.role }}, <a href="{{ hero.founder.url }}">{{ hero.founder.name }}</a>
+          </p>
+        {% endif %}
+        {% if hero.funder %}
+          <p class="home-hero__funder">{{ hero.funder }}</p>
+        {% endif %}
+      </div>
+
+      <div class="home-hero__actions">
+        {% for action in hero.actions %}
+          <a
+            class="xw-btn {% if forloop.first %}xw-btn--primary{% else %}xw-btn--secondary{% endif %}"
+            href="{{ action.url | relative_url }}"
+          >
+            {{- action.label -}}
+            {%- if forloop.first %}{% include icon.liquid name="arrow-right" %}{% endif -%}
+          </a>
+        {% endfor %}
+      </div>
+
+      <ul class="home-hero__contact" aria-label="Contact and profiles">
+        {% if socials.email %}
+          <li>
+            <a class="home-hero__link" href="mailto:{{ socials.email | encode_email }}">
+              {%- include icon.liquid name="email" -%}
+              <span>{{ socials.email }}</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if socials.scholar_userid %}
+          <li>
+            <a class="home-hero__link" href="https://scholar.google.com/citations?user={{ socials.scholar_userid }}">
+              {%- include icon.liquid name="google-scholar" -%}
+              <span>Google Scholar</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if socials.orcid_id %}
+          <li>
+            <a class="home-hero__link" href="https://orcid.org/{{ socials.orcid_id }}">
+              {%- include icon.liquid name="orcid" -%}
+              <span>ORCID</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if socials.github_username %}
+          <li>
+            <a class="home-hero__link" href="https://github.com/{{ socials.github_username }}">
+              {%- include icon.liquid name="github" -%}
+              <span>GitHub</span>
+            </a>
+          </li>
+        {% endif %}
+        {% if socials.linkedin_username %}
+          <li>
+            <a class="home-hero__link" href="https://www.linkedin.com/in/{{ socials.linkedin_username }}">
+              {%- include icon.liquid name="linkedin" -%}
+              <span>LinkedIn</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    {% if page.profile.image %}
+      <div class="home-hero__portrait">
+        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+        {% comment %}sizes mirrors .home-hero__portrait widths in _sass/pages/_home.scss{% endcomment %}
+        {%
+          include figure.liquid path=profile_image_path
+          sizes="(min-width: 992px) 18.5rem, (min-width: 768px) 14rem, 5rem"
+          alt=page.profile.alt width="296" height="370"
+          loading="eager" fetchpriority="high" cache_bust=true
+        %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if hero.facts %}
+    <dl class="home-hero__facts">
+      {% for fact in hero.facts %}
+        <div class="home-hero__fact">
+          <dt>{{ fact.label }}</dt>
+          <dd>
+            {% if fact.url %}
+              <a href="{{ fact.url | relative_url }}">{{ fact.text }}</a>
+            {% else %}
+              {{ fact.text }}
+            {% endif %}
+            {% if fact.detail %}<span class="home-hero__fact-detail">{{ fact.detail }}</span>{% endif %}
+          </dd>
+        </div>
+      {% endfor %}
+    </dl>
+  {% endif %}
+</section>

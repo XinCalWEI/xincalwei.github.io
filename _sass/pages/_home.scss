@@ -1,595 +1,1262 @@
 /* =============================================================================
- * Homepage (/) — the `.about` scope of _layouts/about.liquid.
+ * Homepage (/): _layouts/about.liquid + _includes/home/*.liquid.
+ * Copy lives in _pages/about.md front matter.
  *
- * Moved verbatim from the old _sass/_about.scss and retokened (colours, fonts,
- * radii, shadows now come from _sass/_tokens.scss). Shared pieces that used to
- * live here are now site-wide components: .feed / .cardlist / .feed__pill /
- * .btn-ghost (ds/_components), .eyebrow (ds/_type), .hl (ds/_type), the
- * publication entry (ds/_publications). The hero entrance animation and the
- * :has() container widening were removed (layout_width: wide replaces it).
+ *   .home-hero        name, statement, position, actions, contacts, portrait,
+ *                     at-a-glance strip; contour motif bleeding off the right
+ *   .home-research    01 framing + background, thrusts, framework diagram,
+ *                     supporting strand, vision
+ *   .home-tm          TerraMosaic band (full-bleed; the only mosaic tiles)
+ *   .home-pubs        02 selected publications (component: ds/_publications)
+ *   .home-updates     03 news & writing
+ *   .home-service     04 teaching, mentoring & service
+ *   .home-partners    05 collaborators & support logo grid
  *
- * The homepage redesign replaces most of this file.
+ * Section heads, buttons, text links and kickers are the shared components in
+ * ds/_components and ds/_type. No entrance animation anywhere: the statement
+ * (mobile) and the portrait (desktop) are the LCP elements.
  * ========================================================================== */
 
-.about {
+.home {
+  /* the TerraMosaic band colour: ink in light mode, raised surface in dark.
+   * Resolved here, outside the band, because the band re-tokens --xw-ink. */
+  --home-band: var(--xw-ink);
+  /* the logo panel stays paper in both themes so every logo stays legible */
+  --home-plate: var(--xw-surface);
+  --home-plate-rule: var(--xw-rule);
+
   color: var(--xw-ink);
   overflow-wrap: break-word;
 }
 
-/* Plain content links inside .about take the link colour; classed component
- * links keep their own (see ds/_components). */
-.about a:not([class]) {
-  color: var(--xw-link);
+html[data-theme="dark"] .home {
+  --home-band: var(--xw-surface);
+  --home-plate: #e9e7df;
+  --home-plate-rule: #cfccc2;
 }
 
-.about a:not([class]):hover {
-  color: var(--xw-link-hover);
+/* The hero contours reach past the container to the viewport's right edge
+ * (100vw-based). Clip the page sideways so a classic (space-taking) scrollbar
+ * can never turn that bleed into a horizontal scroll. The full-bleed bands use
+ * clipped box-shadows, which never add scrollable overflow. */
+body:has(.home) {
+  overflow-x: clip;
 }
 
-
-.about .tiles {
-  display: inline-grid;
-  grid-template-columns: repeat(2, 7px);
-  gap: 2px;
-  flex-shrink: 0;
+.home-section {
+  margin-top: var(--section-gap);
 }
 
-.about .tiles span {
-  width: 7px;
-  height: 7px;
-  border-radius: 2px;
+/* small mono label (e.g. "Background") */
+.home-label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
 }
 
-.about .tiles span:nth-child(1) {
-  background: #2563eb;
+/* two text links side by side in a section head */
+.home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: 0;
 }
 
-.about .tiles span:nth-child(2) {
-  background: #059669;
-}
+/* =============================================================================
+ * Hero
+ * ========================================================================== */
 
-.about .tiles span:nth-child(3) {
-  background: #d97706;
-}
-
-.about .tiles span:nth-child(4) {
-  background: #dc2626;
-}
-
-/* ---------- Hero ---------- */
-
-.about .hero {
+.home-hero {
   position: relative;
-  padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(2.25rem, 5vw, 3.5rem);
-  border-bottom: 1px solid var(--xw-rule);
+  isolation: isolate;
 }
 
-/* Washes + topo live on a pseudo-element whose edges fade out, so the texture
- * never draws a visible rectangle against the paper around the container. */
-.about .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: var(--tm-wash), var(--tm-topo);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  pointer-events: none;
-}
-
-.about .hero > * {
+.home-hero__grid {
   position: relative;
-}
-
-.about .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1.75rem, 3vw, 3rem);
-  align-items: center;
+  padding-bottom: clamp(2.5rem, 1.75rem + 2.5vw, 4rem);
+  grid-template-columns: 5rem minmax(0, 1fr);
+  grid-template-areas:
+    "head head"
+    "statement statement"
+    "portrait position"
+    "actions actions"
+    "contact contact";
+  column-gap: var(--space-4);
+  align-items: start;
 }
 
-.about .hero__name {
-  margin: 0 0 0.75rem;
+/* Contours: behind the portrait, from mid-hero to the viewport's right edge.
+ * The field runs from the navbar's bottom border (it reaches up through
+ * .site-main's top padding, ds/_layout) down to the facts strip's rule, so its
+ * top and bottom edges sit on existing hairlines; a gradient mask fades the
+ * left edge (a corner patch on phones) so lines never stop on a hard edge.
+ * The SVG is inline (_includes/home/hero-contours.svg) and slices to cover. */
+.home-hero__contours {
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * clamp(2.25rem, 1.25rem + 3vw, 4rem));
+  left: 38%;
+  right: calc(50% - 50vw);
+  height: 15rem;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--xw-contour);
+  opacity: var(--xw-contour-opacity);
+  /* phones: a corner patch, fading toward the text below and to the left */
+  -webkit-mask-image: radial-gradient(130% 100% at 100% 0, #000 40%, transparent 100%);
+  mask-image: radial-gradient(130% 100% at 100% 0, #000 40%, transparent 100%);
+}
+
+.home-hero__contour-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.home-hero__contour-svg path {
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.home-hero__contour-svg .home-hero__contour-index {
+  stroke-width: 1.8;
+}
+
+.home-hero__text {
+  display: contents;
+}
+
+.home-hero__head {
+  grid-area: head;
+}
+
+.home-hero__kicker {
+  display: block; /* inline terms wrap; .kicker's flex row would not */
+  margin-bottom: var(--space-3);
+}
+
+.home-hero__term {
+  white-space: nowrap;
+}
+
+.home-hero__name {
+  margin: 0;
   font-family: var(--font-serif);
   font-size: var(--step-hero);
   font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
   color: var(--xw-ink);
-  text-wrap: balance;
 }
 
-.about .hero__tagline {
-  margin: 0 0 1.1rem;
+.home-hero__statement {
+  grid-area: statement;
+  max-width: 27em;
+  margin: var(--space-5) 0 0;
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
+  font-size: clamp(1.3rem, 1.05rem + 1.1vw, 1.875rem);
   font-weight: 400;
   line-height: 1.3;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   color: var(--xw-ink);
-  text-wrap: balance;
-  max-width: 24em;
+  text-wrap: pretty;
 }
 
-/* Keyword emphasis inside the tagline: ink with an earth underline */
-.about .kw {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--xw-earth);
-  text-decoration-thickness: 0.06em;
-  text-underline-offset: 0.14em;
+.home-hero__position {
+  grid-area: position;
+  margin-top: var(--space-5);
 }
 
-.about .hero__role {
-  margin: 0 0 0.2rem;
-  font-size: 1.02rem;
+.home-hero__position p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.home-hero__role {
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.45;
   color: var(--xw-ink);
 }
 
-.about .hero__org {
-  margin: 0 0 1.4rem;
-  font-size: 1.02rem;
-  font-weight: 400;
-  line-height: 1.45;
+.home-hero__org {
+  font-size: 0.9375rem;
   color: var(--xw-ink-2);
 }
 
-/* funder credit — quieter than the affiliation it follows */
-.about .hero__funder {
-  margin: 0.15rem 0 0;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--xw-ink-2);
-}
-
-.about .hero__funder a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--xw-rule);
-  text-underline-offset: 3px;
-}
-
-.about .hero__funder a:hover {
-  color: var(--xw-link);
-  text-decoration-color: currentColor;
-}
-
-/* third identity line ("Founder of TerraMosaic") */
-.about .hero__text:has(.hero__founder) .hero__org,
-.about .hero__text:has(.hero__funder) .hero__org {
-  margin-bottom: 0.3rem;
-}
-
-.about .hero__founder {
-  margin: 0.15rem 0 1.4rem;
-  font-size: 1.02rem;
-  font-weight: 600;
-  line-height: 1.45;
+.home-hero__position .home-hero__founder {
+  margin-top: var(--space-2);
+  font-size: 0.9375rem;
   color: var(--xw-ink);
 }
 
-.about .hero__founder a {
+.home-hero__founder a,
+.home-hero__funder a {
   color: var(--xw-link);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
-.about .hero__founder a:hover {
+.home-hero__founder a:hover,
+.home-hero__funder a:hover {
   color: var(--xw-link-hover);
+  text-decoration-thickness: 2px;
 }
 
-/* ---------- Hero contact channels: uniform circular ghost buttons ---------- */
+.home-hero__funder {
+  font-size: 0.8125rem;
+  color: var(--xw-ink-3);
+}
 
-.about .hero__links {
+.home-hero__actions {
+  grid-area: actions;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.7rem;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
 }
 
-.about .hero__links a {
+.home-hero__contact {
+  grid-area: contact;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-hero__link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  font-size: 1.15rem;
-  line-height: 1;
-  color: var(--xw-ink);
-  background: transparent;
-  border: 1px solid var(--xw-control);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  transition:
-    color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    background-color var(--dur) var(--ease);
-}
-
-.about .hero__links a i,
-.about .hero__links a i::before,
-.about .hero__links a .icon {
-  color: inherit;
-  font-size: inherit;
-}
-
-.about .hero__links a:hover {
-  color: var(--xw-link);
-  border-color: var(--xw-link);
-  background: var(--xw-link-wash);
-  text-decoration: none;
-}
-
-
-.about .hero__addr {
-  margin: 0.9rem 0 0;
-  font-size: 0.8125rem;
-  line-height: 1.5;
+  gap: 0.45rem;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--xw-ink-2);
+  text-decoration: none;
 }
 
-.about .hero__addr i {
-  margin-right: 0.35rem;
-  font-size: 0.75rem;
+.home-hero__link .icon {
+  font-size: 1rem;
+  color: var(--xw-ink-3);
+  transition: color var(--dur) var(--ease);
 }
 
-@media (max-width: 767.98px) {
-  .about .partners__hint {
-    display: none;
-  }
+.home-hero__link:hover {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
-/* ---------- Portrait: a print with a hairline frame ---------- */
+.home-hero__link:hover .icon {
+  color: currentColor;
+}
 
-.about .hero__portrait {
-  position: relative;
-  justify-self: center;
+/* Portrait: a print with a hairline frame, cropped 4:5 at the head.
+ * Below 768px it is a thumbnail beside the position lines, under the statement. */
+.home-hero__portrait {
+  grid-area: portrait;
+  margin-top: calc(var(--space-5) + 0.2rem);
+}
+
+.home-hero__portrait figure {
   margin: 0;
-  width: min(13.75rem, 70vw);
 }
 
-.about .hero__portrait figure {
-  position: relative;
-  margin: 0;
-}
-
-.about .hero__portrait picture {
+.home-hero__portrait picture {
   display: block;
-  width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--xw-rule);
   background-color: var(--xw-surface-sunk);
+  box-shadow: 0 0 0 1px var(--xw-rule);
 }
 
-.about .hero__portrait img {
+.home-hero__portrait img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
-  box-shadow: none;
+  object-position: 50% 18%;
 }
 
-
-/* ---------- Bio ---------- */
-
-/* Full container width, matching every section below it. The research diagram
- * floats top-left and the prose wraps around it; measure stays readable
- * because the float eats ~half the line for the first paragraphs. */
-.about .bio {
-  margin: clamp(2rem, 5vw, 3rem) 0 0;
+/* At-a-glance strip: survey-style legend (mono label over value) */
+.home-hero__facts {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5) var(--space-5);
+  margin: 0;
+  padding-top: var(--space-5);
 }
 
-/* clear the float so the next section never collides with a tall diagram */
-.about .bio::after {
+/* the strip's top rule runs edge to edge, closing the contour field like the
+ * navbar's border opens it (painted past the container by a clipped spread
+ * shadow, so it adds no overflow) */
+.home-hero__facts::before {
   content: "";
-  display: block;
-  clear: both;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--xw-rule-strong);
+  box-shadow: 0 0 0 100vmax var(--xw-rule-strong);
+  clip-path: inset(0 -100vmax);
 }
 
-.about .bio p {
-  margin: 0 0 1.1rem;
-  font-size: 1.0625rem;
-  line-height: 1.7;
+.home-hero__fact dt {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.home-hero__fact dd {
+  margin: 0;
+  text-wrap: balance;
+  font-size: 0.9375rem;
+  line-height: 1.45;
   color: var(--xw-ink);
 }
 
-.about .bio p:last-child {
-  margin-bottom: 0;
-}
-
-.about .bio a {
+.home-hero__fact a {
+  color: var(--xw-ink);
   text-decoration: underline;
+  text-decoration-color: var(--xw-control);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 
-/* Research overview: large enough for the diagram's labels, but visually
- * subordinate to the hero and bio. The full-resolution image remains
- * available through the site's click-to-zoom behavior. */
-/* Below 768px the diagram is full width and the prose simply follows it. */
-.about .bio-visual {
-  width: 100%;
-  margin: 0 0 clamp(1.2rem, 2.5vw, 1.6rem);
+.home-hero__fact a:hover {
+  color: var(--xw-link);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
 }
 
-/* From 768px up it floats top-left and the paragraphs wrap around it. */
-@media (min-width: 768px) {
-  .about .bio-visual {
-    float: left;
-    width: min(52%, 30rem);
-    margin: 0.35rem 1.75rem 1.25rem 0;
-    shape-margin: 1.75rem;
+.home-hero__fact-detail {
+  display: block;
+  margin-top: 0.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  color: var(--xw-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 576px) {
+  .home-hero__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.about .bio-visual figure {
+@media (min-width: 768px) {
+  .home-hero__grid {
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    grid-template-areas: none;
+    column-gap: clamp(2.5rem, 1rem + 4vw, 5.5rem);
+    align-items: center;
+  }
+
+  .home-hero__text {
+    display: block;
+  }
+
+  .home-hero__text {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .home-hero__portrait {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .home-hero__contours {
+    bottom: 0;
+    height: auto;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
+    mask-image: linear-gradient(90deg, transparent, #000 45%);
+  }
+
+  .home-hero__statement {
+    margin-top: var(--space-5);
+  }
+}
+
+@media (min-width: 992px) {
+  .home-hero__grid {
+    grid-template-columns: minmax(0, 1fr) 18.5rem;
+  }
+
+  .home-hero__facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* =============================================================================
+ * 01 · Research program
+ * ========================================================================== */
+
+.home-intro {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.home-intro__lead {
+  max-width: 32em;
   margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--xw-ink);
+  text-wrap: pretty;
 }
 
-.about .bio-visual picture {
+.home-intro__bio p:not(.home-label) {
+  max-width: var(--measure);
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--xw-ink-2);
+}
+
+@media (min-width: 992px) {
+  .home-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .home-intro__bio {
+    padding-top: 0.35rem;
+  }
+}
+
+/* ---- Thrusts: three numbered columns; subgrid keeps titles, blurbs and
+ * evidence lists aligned across columns ---- */
+.home-thrusts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-thrust {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5) 0 var(--space-6);
+  border-top: 1px solid var(--xw-ink);
+}
+
+.home-thrust__num {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--xw-earth);
+  font-variant-numeric: tabular-nums;
+}
+
+.home-thrust__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 1.2rem + 0.35vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--xw-ink);
+}
+
+.home-thrust__blurb {
+  max-width: 40em;
+  margin: var(--space-3) 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--xw-ink-2);
+}
+
+.home-thrust__evidence {
+  align-self: stretch;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--xw-rule);
+}
+
+.home-thrust__evidence li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.7rem 0 0.75rem;
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.home-thrust__kind {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.home-thrust__link {
+  text-wrap: pretty;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.home-thrust__link:hover {
+  color: var(--xw-link-hover);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
+}
+
+@media (min-width: 992px) {
+  .home-thrusts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(4, auto);
+    column-gap: clamp(2rem, 3.5vw, 3.5rem);
+  }
+
+  .home-thrust {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    align-content: start;
+    padding-bottom: 0;
+  }
+
+  .home-thrust__evidence {
+    align-self: start;
+  }
+}
+
+/* ---- Framework diagram (inline SVG; theme colours from tokens) ---- */
+.home-fw {
+  margin: clamp(3rem, 2rem + 3vw, 4.5rem) 0 0;
+}
+
+.home-fw__svg {
   display: block;
-  overflow: hidden;
-  border: 1px solid var(--xw-rule);
-  border-radius: var(--radius-lg);
-  background: var(--xw-surface);
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-.about .bio-visual img {
+.home-fw__svg--wide {
+  display: none;
+}
+
+.home-fw__svg--tall {
+  max-width: 25rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 992px) {
+  .home-fw__svg--wide {
+    display: block;
+  }
+
+  .home-fw__svg--tall {
+    display: none;
+  }
+}
+
+.home-fw-band--data {
+  fill: var(--xw-surface-sunk);
+}
+
+.home-fw-band--outcome {
+  fill: var(--xw-earth-wash);
+}
+
+.home-fw-node {
+  fill: var(--xw-surface);
+  stroke: var(--xw-rule-strong);
+  stroke-width: 1;
+}
+
+.home-fw-node--core {
+  stroke: var(--xw-ink-3);
+}
+
+.home-fw-wire {
+  fill: none;
+  stroke: var(--xw-ink-3);
+  stroke-width: 1.25;
+}
+
+.home-fw-arrowhead {
+  fill: var(--xw-ink-3);
+}
+
+.home-fw-num,
+.home-fw-label,
+.home-fw-detail {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-fw-num {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  fill: var(--xw-earth);
+}
+
+.home-fw-label {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+  fill: var(--xw-ink-3);
+}
+
+.home-fw-detail {
+  fill: var(--xw-ink-3);
+}
+
+.home-fw-detail--outcome {
+  fill: var(--xw-ink-2);
+}
+
+.home-fw-title {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  fill: var(--xw-ink);
+}
+
+.home-fw-title--band {
+  font-size: 19px;
+}
+
+.home-fw-sub {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  fill: var(--xw-ink-2);
+}
+
+.home-fw__svg--tall .home-fw-title {
+  font-size: 20px;
+}
+
+.home-fw__svg--tall .home-fw-title--band {
+  font-size: 18px;
+}
+
+.home-fw__svg--tall .home-fw-sub {
+  font-size: 14px;
+}
+
+.home-fw__svg--tall .home-fw-detail {
+  font-size: 11px;
+}
+
+.home-fw__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  max-width: none;
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--xw-ink-3);
+  text-align: left;
+}
+
+.home-fw__fig {
+  margin-right: 0.6em;
+  font-family: var(--font-mono);
+  font-size: var(--text-kicker);
+  font-weight: 500;
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--xw-ink-3);
+}
+
+.home-fw__download {
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 991.98px) {
+  .home-fw__caption {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ---- Supporting strand + vision ---- */
+.home-research__coda {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+
+.home-strand {
+  margin: 0;
+  padding-top: var(--space-4);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--xw-ink-2);
+  border-top: 1px solid var(--xw-rule-strong);
+}
+
+.home-strand__title {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: var(--xw-ink);
+}
+
+.home-strand__link {
+  display: flex;
+  width: fit-content;
+  margin-top: var(--space-3);
+}
+
+.home-vision {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--xw-ink);
+}
+
+.home-vision__lead {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--xw-ink);
+}
+
+.home-vision__text {
+  max-width: 36em;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--xw-ink);
+  text-wrap: pretty;
+}
+
+@media (min-width: 992px) {
+  .home-research__coda {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(3rem, 5vw, 5rem);
+    align-items: start;
+  }
+}
+
+/* =============================================================================
+ * TerraMosaic band
+ * Full-bleed without layout overflow: the band paints past the container with
+ * a spread box-shadow (never scrollable overflow), clipped to its own height.
+ * Inside, the tokens switch to their dark-theme twins so every shared
+ * component (kicker, buttons, links, focus ring) reads on the ink ground.
+ * ========================================================================== */
+
+.home-tm {
+  --xw-ink: #e9ecf3;
+  --xw-ink-2: #b5bdcc;
+  --xw-ink-3: #97a1b5;
+  --xw-rule: rgba(233, 236, 243, 0.16);
+  --xw-rule-strong: rgba(233, 236, 243, 0.28);
+  --xw-link: #a9c4fa;
+  --xw-link-hover: #c9dafc;
+  --xw-earth: #e8956b;
+  --xw-surface-sunk: rgba(233, 236, 243, 0.08);
+  --xw-on-ink: #16243d;
+  --xw-focus: #a9c4fa;
+
+  position: relative;
+  margin-top: var(--section-gap);
+  padding-block: clamp(3.5rem, 2.25rem + 4.5vw, 6.5rem);
+  color: var(--xw-ink);
+  background-color: var(--home-band);
+  box-shadow: 0 0 0 100vmax var(--home-band);
+  clip-path: inset(0 -100vmax);
+}
+
+/* dark mode: the band is a raised surface; hairlines mark its edges */
+html[data-theme="dark"] .home-tm::before,
+html[data-theme="dark"] .home-tm::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--xw-rule-strong);
+  box-shadow: 0 0 0 100vmax var(--xw-rule-strong);
+  clip-path: inset(0 -100vmax);
+}
+
+html[data-theme="dark"] .home-tm::before {
+  top: 0;
+}
+
+html[data-theme="dark"] .home-tm::after {
+  bottom: 0;
+}
+
+.home-tm__grid {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.home-tm__kicker {
+  margin-bottom: var(--space-4);
+  color: var(--xw-ink-2);
+}
+
+/* 2x2 mosaic glyph, TerraMosaic's tile colours */
+.home-tm__glyph {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 6px);
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.home-tm__glyph span {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--tile);
+}
+
+/* TerraMosaic's four tile hues, one step lighter so they read on ink */
+.home-tm__glyph span:nth-child(1),
+.home-tm__fact--1 {
+  --tile: #3b82f6;
+}
+
+.home-tm__glyph span:nth-child(2),
+.home-tm__fact--2 {
+  --tile: #10b981;
+}
+
+.home-tm__glyph span:nth-child(3),
+.home-tm__fact--3 {
+  --tile: #f59e0b;
+}
+
+.home-tm__glyph span:nth-child(4),
+.home-tm__fact--4 {
+  --tile: #ef4444;
+}
+
+.home-tm__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 1.7rem + 2.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--xw-ink);
+}
+
+.home-tm__tagline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--xw-ink);
+}
+
+.home-tm__body {
+  max-width: 36em;
+  margin: var(--space-5) 0 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--xw-ink-2);
+}
+
+.home-tm__cta {
+  margin-top: var(--space-6);
+  color: var(--xw-on-ink);
+  background: var(--xw-ink);
+  border-color: var(--xw-ink);
+}
+
+.home-tm__cta:hover,
+.home-tm__cta:focus-visible {
+  color: var(--xw-on-ink);
+  background: var(--xw-link-hover);
+  border-color: var(--xw-link-hover);
+}
+
+.home-tm__plate {
+  padding: clamp(1.1rem, 0.8rem + 1.2vw, 1.75rem) clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem);
+  background: var(--xw-chip);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.home-tm__plate img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-html[data-theme="dark"] .about .bio-visual picture {
-  background: var(--xw-chip);
+/* the facts are the mosaic: four tiles with 1px grout */
+.home-tm__facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--xw-rule);
+  border: 1px solid var(--xw-rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
-
-/* ---------- Section shell: centered eyebrow + display title ---------- */
-
-.about .section {
-  margin-top: clamp(3rem, 7vw, 4.5rem);
+/* under the logo plate the tiles continue the same card */
+.home-tm__plate + .home-tm__facts {
+  border-top: 0;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
-.about .section__head {
-  text-align: center;
-  margin-bottom: 1.5rem;
+.home-tm__fact {
+  padding: var(--space-4) var(--space-4) 1.15rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--xw-ink);
+  background: var(--home-band);
 }
 
-.about .section__title {
+.home-tm__fact::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-bottom: var(--space-3);
+  border-radius: 2px;
+  background: var(--tile);
+}
+
+@media (min-width: 480px) {
+  .home-tm__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .home-tm__grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: center;
+  }
+}
+
+/* =============================================================================
+ * 03 · News & writing
+ * ========================================================================== */
+
+.home-updates__grid {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.home-col__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--xw-ink);
+}
+
+.home-col__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: var(--step-h2);
+  font-size: 1.375rem;
   font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: var(--tracking-display);
+  line-height: 1.2;
   color: var(--xw-ink);
 }
 
-/* decorative icon after the section title (newspaper / megaphone / team) */
-.about .section__title img {
-  height: 1.05em;
-  width: auto;
-  margin-left: 0.35em;
-  vertical-align: -0.12em;
-  display: inline-block;
+.home-dated {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.about .section__sub {
-  margin: 0.6rem auto 0;
-  max-width: 40em;
-  font-size: 1rem;
+.home-dated__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.2rem var(--space-5);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--xw-rule);
+}
+
+.home-dated__meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  line-height: 1.5;
+  color: var(--xw-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.home-dated__cat {
+  margin-left: 0.6em;
+  text-transform: capitalize;
+}
+
+.home-dated__cat::before {
+  content: "· ";
+}
+
+.home-dated__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--xw-ink);
+  text-wrap: pretty;
+}
+
+.home-dated__title a {
+  color: var(--xw-ink);
+  text-decoration: none;
+}
+
+.home-dated__title a:hover {
+  color: var(--xw-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.home-dated__dek {
+  display: -webkit-box;
+  margin: 0.3rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--xw-ink-2);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (min-width: 576px) {
+  .home-dated__item {
+    grid-template-columns: 6.75rem minmax(0, 1fr);
+  }
+
+  .home-dated__meta {
+    padding-top: 0.2rem;
+  }
+
+  .home-dated__cat {
+    display: block;
+    margin-left: 0;
+  }
+
+  .home-dated__cat::before {
+    content: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .home-updates__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(3rem, 5vw, 5rem);
+  }
+}
+
+/* =============================================================================
+ * 04 · Teaching, mentoring & service
+ * ========================================================================== */
+
+.home-svc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: clamp(2rem, 3vw, 3rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-svc__item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5) 0;
+}
+
+.home-svc__item + .home-svc__item {
+  border-top: 1px solid var(--xw-rule);
+}
+
+.home-svc__item:first-child {
+  padding-top: 0;
+}
+
+.home-svc__label {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  color: var(--xw-ink);
+}
+
+.home-svc__text {
+  margin: var(--space-2) 0 var(--space-4);
+  font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--xw-ink-2);
 }
 
-/* "View all" ghost pill centred under each card */
-.about .section__foot {
-  text-align: center;
-  margin-top: 1.4rem;
+.home-svc__link {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
+@media (min-width: 768px) {
+  .home-svc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-6);
+  }
 
-/* ---------- Partners marquee — ported from TerraMosaic's
- * "Built together, across institutions" section ---------- */
+  .home-svc__item,
+  .home-svc__item:first-child {
+    padding: 0 0 0 var(--space-5);
+    border-top: 0;
+    border-left: 1px solid var(--xw-rule-strong);
+  }
 
-.about .partners__sliders {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1.75rem;
+  .home-svc__item + .home-svc__item {
+    border-top: 0;
+  }
 }
 
-.about .slider {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
+@media (min-width: 1100px) {
+  .home-svc {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* =============================================================================
+ * 05 · Collaborators & support: logo grid on one paper panel
+ * ========================================================================== */
+
+.home-logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--home-plate-rule);
+  border: 1px solid var(--home-plate-rule);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  /* the mask creates a stacking context, so the imgs' multiply blend cannot
-   * reach the page behind it — paint the paper onto the slider itself to give
-   * the blend an opaque backdrop (white logo boxes melt into it). */
-  background: var(--xw-paper);
-  /* fade logos in/out at the edges instead of hard clipping */
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 
-.about .slider:hover .slider__track {
-  animation-play-state: paused;
+.home-logo {
+  background: var(--home-plate);
 }
 
-.about .slider__track {
+.home-logo__link {
   display: flex;
-  gap: 56px;
   align-items: center;
-  animation: aboutSlideLeft 45s linear infinite;
-  /* the animated transform creates a stacking context on the track, so the
-   * imgs' multiply blend can only reach backdrops INSIDE the track — paint
-   * the paper here (not on .slider) for white logo boxes to melt into. */
-  background: var(--xw-paper);
+  justify-content: center;
+  height: 6rem;
+  padding: var(--space-4) var(--space-5);
 }
 
-.about .slider__track--reverse {
-  animation: aboutSlideRight 45s linear infinite;
+/* the cell clips anything outside it, so the ring sits inside */
+.home-logo__link:focus-visible {
+  outline-offset: -4px;
 }
 
-.about .slider__track a {
-  flex-shrink: 0;
-  display: inline-flex;
-}
-
-.about .slider__track a:focus-visible,
-.about .slider__track--photos img:focus-visible {
-  outline: 2px solid var(--xw-focus);
-  outline-offset: 4px;
-  border-radius: var(--radius-sm);
-}
-
-.about .slider__track img {
-  /* one shared height; widths breathe naturally */
-  height: 72px;
+.home-logo__img {
+  display: block;
   width: auto;
-  max-width: 240px;
-  object-fit: contain;
-  flex-shrink: 0;
-  /* multiply-blend melts white logo boxes into the paper ground */
+  height: auto;
+  max-width: 100%;
+  max-height: 2.6rem;
+  /* white logo boxes melt into the panel */
   mix-blend-mode: multiply;
 }
 
-.about .slider__track img[alt="Garcia Research Group"] {
-  transform: scale(1.12);
+.home-logo--wide .home-logo__img {
+  max-height: 2.1rem;
 }
 
-.about .slider__track img[alt="Schmidt Sciences"] {
-  transform: scale(1.2);
+.home-logo--compact .home-logo__img {
+  max-height: 3.4rem;
 }
 
-/* Dark mode: multiply would sink white logo boxes into the ink — give each
- * logo a small paper chip instead. */
-html[data-theme="dark"] .about .slider__track img {
-  mix-blend-mode: normal;
-  background: var(--xw-chip);
-  border-radius: var(--radius-md);
-  padding: 8px 12px;
-  box-sizing: content-box;
+/* marks drawn small inside a large transparent canvas */
+.home-logo--large .home-logo__img {
+  max-height: 4.25rem;
 }
 
-@keyframes aboutSlideLeft {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
+@media (min-width: 576px) {
+  .home-logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@keyframes aboutSlideRight {
-  0% {
-    transform: translateX(-50%);
+@media (min-width: 992px) {
+  .home-logos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* ---------- Gallery photo strip — same marquee mechanics, photo treatment ---------- */
-
-.about .slider__track--photos {
-  gap: 18px;
-  animation-duration: 80s;
-  /* photos need no blend backdrop */
-  background: transparent;
-}
-
-.about .slider__track--photos figure {
-  display: inline-flex;
-  flex-shrink: 0;
-  margin: 0;
-}
-
-.about .slider__track--photos img {
-  height: 11rem;
-  width: auto;
-  max-width: none;
-  mix-blend-mode: normal;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--xw-rule);
-  transition: transform var(--dur) var(--ease);
-}
-
-.about .slider__track--photos img {
-  cursor: zoom-in;
-}
-
-.about .slider__track--photos figure:hover img {
-  transform: scale(1.03);
-}
-
-/* photos never get the dark-mode paper chip that logos need */
-html[data-theme="dark"] .about .slider__track--photos img {
-  background: none;
-  padding: 0;
-  border-color: var(--xw-rule);
-}
-
-@media (max-width: 575.98px) {
-  .about .slider__track--photos img {
-    height: 8rem;
+  .home-logo__link {
+    height: 7.5rem;
+    padding: var(--space-5) var(--space-6);
   }
 }
 
-/* generous air before the footer */
-.about > .section:last-of-type {
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+/* The shared publication list: its first entry starts at the section rule
+ * like every other homepage list. */
+.home-pubs .bibliography > li:first-child {
+  padding-top: 0;
 }
 
-
-/* ---------- Responsive ---------- */
-
-@media (min-width: 768px) {
-  .about .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 15rem;
-    align-items: center;
-  }
-
-  .about .hero__portrait {
-    justify-self: end;
-    width: 100%;
-  }
+/* Bootstrap's `.btn:focus { outline: 0 }` (specificity 0,2,0) outranks the
+ * ds/_base `a:focus-visible` ring, so the link-type publication actions (DOI,
+ * Link, PDF) showed no focus ring. Page-scoped restore until ds/ fixes it. */
+.home .btn:focus-visible {
+  outline: 2px solid var(--xw-focus);
+  outline-offset: 2px;
 }
-
-@media (min-width: 930px) {
-  .about .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 17.5rem;
-  }
-}
-
-
-
-/* Reduced motion: the frozen marquee would clip half its logos behind the edge
- * mask; turn each row into a plain scrollable strip instead. (The global
- * transition/animation kill switch lives in _a11y-motion.scss.) */
-@media (prefers-reduced-motion: reduce) {
-  .about .slider {
-    justify-content: flex-start;
-    overflow-x: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-
-  .about .hero__links a:hover {
-    transform: none;
-  }
-}
-

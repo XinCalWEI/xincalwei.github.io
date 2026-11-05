@@ -2,241 +2,28 @@
 layout: default
 layout_width: wide
 ---
-<div class="post about">
-  <!-- ============================ Hero ============================ -->
-  <header class="hero">
-    <div class="hero__grid">
-      <div class="hero__text">
-        {% if page.eyebrow %}
-          <p class="eyebrow">
-            <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-            {{ page.eyebrow }}
-          </p>
-        {% endif %}
-
-        <h1 class="hero__name">
-          {%- if site.title == 'blank' -%}
-            {{ site.first_name }}
-            {% if site.middle_name %}{{ site.middle_name }}{% endif %}
-            {{ site.last_name }}
-          {%- else -%}
-            {{ site.title }}
-          {%- endif -%}
-        </h1>
-
-        {% if page.tagline %}
-          <p class="hero__tagline">{{ page.tagline }}</p>
-        {% endif %}
-
-        {% if page.role %}
-          <p class="hero__role">{{ page.role }}</p>
-        {% endif %}
-        {% if page.affiliation %}
-          <p class="hero__org">{{ page.affiliation }}</p>
-        {% endif %}
-        {% if page.funder %}
-          <p class="hero__funder">{{ page.funder }}</p>
-        {% endif %}
-        {% if page.role2 %}
-          <p class="hero__founder">{{ page.role2 }}</p>
-        {% endif %}
-
-        <!-- Contact channels, uniform ghost design -->
-        <div class="hero__links">{% include social.liquid %}</div>
-
-        {% if page.profile.address %}
-          <p class="hero__addr">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-            {{ page.profile.address }}
-          </p>
-        {% endif %}
-      </div>
-
-      {% if page.profile.image %}
-        <div class="hero__portrait">
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% comment %}Match the portrait column widths in _sass/pages/_home.scss.{% endcomment %}
-          {% capture profile_sizes %}(min-width: 930px) 17.5rem, (min-width: 768px) 15rem, min(13.75rem, 70vw){% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path sizes=profile_sizes
-            alt="Portrait of Xin Wei" width="280" height="350" cache_bust=true
-          %}
-        </div>
-      {% endif %}
-    </div>
-  </header>
-
-  <!-- ============================ Bio ============================ -->
-  <div class="bio">{{ content }}</div>
-
-  <!-- ============================ News ============================ -->
-  {% if page.announcements and page.announcements.enabled %}
-    <section class="section" aria-labelledby="sec-news">
-      <div class="section__head">
-        <h2 class="section__title" id="sec-news">
-          News
-          <img src="{{ '/assets/img/newspaper.png' | relative_url }}" alt="" aria-hidden="true">
-        </h2>
-      </div>
-      {% assign news_items = site.news | sort: 'date' | reverse %}
-      <div class="cardlist">{% include about_feed.liquid items=news_items limit=page.announcements.limit kind='news' %}</div>
-      <div class="section__foot">
-        <a class="btn-ghost" href="{{ '/news/' | relative_url }}">All news <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- ========================= Latest posts ========================= -->
-  {% if page.latest_posts and page.latest_posts.enabled %}
-    <section class="section" aria-labelledby="sec-posts">
-      <div class="section__head">
-        <h2 class="section__title" id="sec-posts">
-          Latest Posts
-          <img src="{{ '/assets/img/megaphone.png' | relative_url }}" alt="" aria-hidden="true">
-        </h2>
-      </div>
-      <div class="cardlist">{% include about_feed.liquid items=site.posts limit=page.latest_posts.limit kind='posts' %}</div>
-      <div class="section__foot">
-        <a class="btn-ghost" href="{{ '/blog/' | relative_url }}">All posts <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-      </div>
-    </section>
-  {% endif %}
-
-  <!-- ===================== Selected publications ===================== -->
+{% comment %}
+  Homepage. Copy lives in _pages/about.md front matter; each section is an
+  include under _includes/home/; styles are in _sass/pages/_home.scss.
+  Order (spec §8): hero · 01 research program · TerraMosaic band ·
+  02 selected publications · 03 news & writing · 04 teaching, mentoring & service ·
+  05 collaborators & support.
+{% endcomment %}
+<div class="about home">
+  {% include home/hero.liquid %}
+  {% include home/research.liquid %}
+  {% include home/terramosaic.liquid %}
   {% if page.selected_papers %}
-    <section class="section" aria-labelledby="sec-work">
-      <div class="section__head">
-        <h2 class="section__title" id="sec-work">
-          Selected Publications/Presentations
-          <img src="{{ '/assets/img/team.png' | relative_url }}" alt="" aria-hidden="true">
-        </h2>
-      </div>
-      <div class="cardlist">{% include selected_papers.liquid %}</div>
-      <div class="section__foot">
-        <a class="btn-ghost" href="{{ '/publications/' | relative_url }}">
-          All publications <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-        </a>
-      </div>
-    </section>
+    {% include home/publications.liquid %}
   {% endif %}
-
-  <!-- =========================== Gallery strip =========================== -->
-  <section class="section gallery-strip" aria-labelledby="sec-gallery">
-    <div class="section__head">
-      <p class="eyebrow eyebrow--center">
-        <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-        Gallery
-      </p>
-      <h2 class="section__title" id="sec-gallery">Beyond the research</h2>
-      <p class="section__sub">A few favorite moments, near and far.</p>
-    </div>
-
-    <div class="slider">
-      <div class="slider__track slider__track--photos">
-        {% comment %}
-          pass 2 is the seamless-loop duplicate: it is hidden from assistive tech
-          and excluded from medium-zoom (see assets/js/zoom.js) so a photo is not
-          registered twice.
-        {% endcomment %}
-        {% for pass in (1..2) %}
-          {% assign dup_class = '' %}
-          {% if pass == 2 %}{% assign dup_class = 'slider__dup' %}{% endif %}
-          {% include figure.liquid path="assets/img/gallery/autumn_1.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/autumn_3.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4917.jpg" sizes="420px" alt="Paraglider above the Pacific Ocean in San Diego" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/group_outing.jpg" sizes="420px" alt="Group outing" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4909.jpg" sizes="420px" alt="Xin Wei with a fellow AIMS26 participant overlooking the Pacific Ocean" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/autumn_2.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/autumn_6.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/autumn_4.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/san-diego-2026-4973.jpg" sizes="420px" alt="Sunbeams over the Pacific Ocean near San Diego" class=dup_class zoomable=true %}
-          {% include figure.liquid path="assets/img/gallery/autumn_5.jpg" sizes="420px" alt="Autumn in Michigan" class=dup_class zoomable=true %}
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="section__foot">
-      <a class="btn-ghost" href="{{ '/gallery/' | relative_url }}">Full gallery <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-    </div>
-  </section>
-
-  <!-- ==================== Partners (TerraMosaic port) ==================== -->
-  <section class="section partners" aria-labelledby="sec-partners">
-    <div class="section__head">
-      <p class="eyebrow eyebrow--center">
-        <span class="tiles" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-        Partners
-      </p>
-      <h2 class="section__title" id="sec-partners">Collaborating across institutions</h2>
-      <p class="section__sub">
-        The labs, centers, and initiatives behind my research.
-        <span class="partners__hint"
-          ><br>
-          Hover over a row to pause.</span
-        >
-      </p>
-    </div>
-
-    <div class="partners__sliders">
-      <!-- Row 1 — slides left -->
-      <div class="slider">
-        <div class="slider__track">
-          {% for pass in (1..2) %}
-            {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
-            <a href="https://www.terramosaic.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/terramosaic.png' | relative_url }}" alt="TerraMosaic">
-            </a>
-            <a href="https://girlsencoded.eecs.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/girls_encoded.png' | relative_url }}" alt="Girls Encoded">
-            </a>
-            <a href="https://disasterdata.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/aidd-logo.png' | relative_url }}" alt="AIDD Lab">
-            </a>
-            <a href="https://sites.google.com/view/realize-lab/home" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/realize.png' | relative_url }}" alt="REALIZE Lab">
-            </a>
-            <a href="http://cse.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/cse.png' | relative_url }}" alt="CSE Michigan">
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-
-      <!-- Row 2 — slides right -->
-      <div class="slider">
-        <div class="slider__track slider__track--reverse">
-          {% for pass in (1..2) %}
-            {% capture dup %}{% if pass == 2 %}tabindex="-1" aria-hidden="true"{% endif %}{% endcapture %}
-            <a href="https://cee.engin.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/cee.png' | relative_url }}" alt="CEE Michigan">
-            </a>
-            <a href="https://mae.cee.illinois.edu/index.html" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/mae_center.png' | relative_url }}" alt="MAE Center">
-            </a>
-            <a href="https://midas.umich.edu/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/midas.png' | relative_url }}" alt="MIDAS">
-            </a>
-            <a href="https://schmidtsciences.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/schmidt_sciences.png' | relative_url }}" alt="Schmidt Sciences">
-            </a>
-            <a href="https://cee.engin.umich.edu/people/garcia-f-estefan-t/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/garcia-group.png' | relative_url }}" alt="Garcia Research Group">
-            </a>
-            <a href="https://groundtruthalaska.org/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/ground_truth_alaska.png' | relative_url }}" alt="Ground Truth Alaska">
-            </a>
-            <a href="https://www.usgs.gov/" target="_blank" rel="noopener noreferrer" {{ dup }}>
-              <img src="{{ '/assets/img/partners/usgs.png' | relative_url }}" alt="U.S. Geological Survey">
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </section>
+  {% include home/updates.liquid %}
+  {% include home/service.liquid %}
+  {% include home/partners.liquid %}
 
   {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
     {% include newsletter.liquid center=true %}
   {% endif %}
 </div>
 
+{% comment %} Abstract dialog for the selected-publication entries {% endcomment %}
 <script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
