@@ -16,14 +16,23 @@ scholar_checked: Nov 2026
 ---
 
 <!-- _pages/publications.md: sections by type, then year (newest first). Entry markup: _layouts/bib.liquid -->
+
 {%- capture journal_count -%}{% bibliography_count --query @article %}{%- endcapture -%}
 {%- capture accepted_count -%}{% bibliography_count --query @article[note~=Accepted] %}{%- endcapture -%}
-{%- capture conference_count -%}{% bibliography_count --query @inproceedings %}{%- endcapture -%}
+{%- comment -%} everything that is not a journal article: the same query as section 02 {%- endcomment -%}
+{%- capture conference_count -%}{% bibliography_count --query !@article %}{%- endcapture -%}
+{%- capture agu_count -%}{% bibliography_count --query @inproceedings[booktitle~=AGU] %}{%- endcapture -%}
+{%- capture proceedings_count -%}{% bibliography_count --query @inproceedings[booktitle!~AGU] %}{%- endcapture -%}
+{%- capture invited_count -%}{% bibliography_count --query @misc[note~=Invited] %}{%- endcapture -%}
 {%- capture first_author_count -%}{% bibliography_count --query @*[author^=Wei] %}{%- endcapture -%}
 {%- capture total_count -%}{% bibliography_count %}{%- endcapture -%}
 {%- assign journal_count = journal_count | strip -%}
 {%- assign accepted_count = accepted_count | strip | plus: 0 -%}
-{%- assign conference_count = conference_count | strip -%}
+{%- assign conference_count = conference_count | strip | plus: 0 -%}
+{%- assign agu_count = agu_count | strip | plus: 0 -%}
+{%- assign proceedings_count = proceedings_count | strip | plus: 0 -%}
+{%- assign invited_count = invited_count | strip | plus: 0 -%}
+{%- assign other_count = conference_count | minus: agu_count | minus: proceedings_count | minus: invited_count -%}
 {%- assign first_author_count = first_author_count | strip -%}
 {%- assign total_count = total_count | strip -%}
 
@@ -80,7 +89,29 @@ scholar_checked: Nov 2026
   <header class="section-head pub-section__head">
     <p class="kicker"><span class="kicker__index">02</span> — Proceedings &amp; meetings</p>
     <h2 class="section-head__title" id="conference-papers-title">Conference papers &amp; presentations</h2>
-    <p class="section-head__dek">A proceedings paper and AGU Fall Meeting presentations, including the AGU25 Highlighted Talk.</p>
+    {%- comment -%} computed, so it follows papers.bib {%- endcomment -%}
+    {%- assign conference_parts = '' | split: '' -%}
+    {%- if proceedings_count > 0 -%}
+      {%- capture part -%}{{ proceedings_count }} proceedings paper{% if proceedings_count != 1 %}s{% endif %}{%- endcapture -%}
+      {%- assign conference_parts = conference_parts | push: part -%}
+    {%- endif -%}
+    {%- if agu_count > 0 -%}
+      {%- capture part -%}{{ agu_count }} AGU Fall Meeting presentation{% if agu_count != 1 %}s{% endif %}{%- endcapture -%}
+      {%- assign conference_parts = conference_parts | push: part -%}
+    {%- endif -%}
+    {%- if invited_count > 0 -%}
+      {%- capture part -%}{{ invited_count }} invited talk{% if invited_count != 1 %}s{% endif %}{%- endcapture -%}
+      {%- assign conference_parts = conference_parts | push: part -%}
+    {%- endif -%}
+    {%- if other_count > 0 -%}
+      {%- capture part -%}{{ other_count }} other presentation{% if other_count != 1 %}s{% endif %}{%- endcapture -%}
+      {%- assign conference_parts = conference_parts | push: part -%}
+    {%- endif -%}
+    {%- assign conference_last = conference_parts | last -%}
+    {%- assign conference_rest = conference_parts | pop | join: ', ' -%}
+    <p class="section-head__dek">
+      {%- if conference_parts.size > 1 -%}{{ conference_rest }}{% if conference_parts.size > 2 %},{% endif %} and {{ conference_last }}{%- else -%}{{ conference_last }}{%- endif -%}.
+    </p>
   </header>
   {%- capture conference_list -%}{% bibliography --query !@article %}{%- endcapture -%}
   <div class="pub-years">

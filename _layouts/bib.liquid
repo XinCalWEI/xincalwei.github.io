@@ -52,7 +52,9 @@
 <div class="row" data-pub-type="{{ pub_type }}" data-first-author="{% if self_position == 1 %}true{% else %}false{% endif %}">
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
-      {%- if entry.year -%}<span class="bib-year">{{ entry.year }}</span>{%- endif -%}
+      {%- if entry.year -%}
+        <span class="bib-year">{{ entry.year }}</span>
+      {%- endif -%}
       {%- if entry.abbr -%}
         {%- if site.data.venues[entry.abbr] -%}
           {% assign venue_style = null %}
@@ -72,7 +74,9 @@
             {% endif %}
           </abbr>
         {% else %}
-          <abbr class="badge" title="{{ entry.journal | default: entry.booktitle | strip_html | escape }}">{{ entry.abbr }}</abbr>
+          <abbr class="badge" title="{{ entry.journal | default: entry.booktitle | default: entry.howpublished | strip_html | escape }}">
+            {{- entry.abbr -}}
+          </abbr>
         {% endif %}
       {% endif %}
       {% if entry.preview %}
@@ -138,16 +142,18 @@
 
         {%- if forloop.length > 1 -%}
           {%- if forloop.first == false -%}
-            {%- if forloop.length > 2 or author_array_limit < author_array_size %}, {% else %} {% endif -%}
+            {%- if forloop.length > 2 or author_array_limit < author_array_size -%}{{ ', ' }}{%- else -%}{{ ' ' }}{%- endif -%}
           {%- endif -%}
           {%- if forloop.last and author_array_limit == author_array_size %}and {% endif -%}
         {%- endif -%}
+        {%- comment -%} one output per name, so a name stays one text node ("Xin Wei") for the search highlighter {%- endcomment -%}
+        {%- assign author_display = author.first | append: ' ' | append: author_last_html -%}
         {%- if author_is_self -%}
-          <em>{{ author.first }} {{ author_last_html }}</em>
+          <em>{{ author_display }}</em>
         {%- elsif coauthor_url -%}
-          <a href="{{ coauthor_url }}">{{ author.first }} {{ author_last_html }}</a>
+          <a href="{{ coauthor_url }}">{{ author_display }}</a>
         {%- else -%}
-          {{ author.first }} {{ author_last_html }}
+          {{ author_display }}
         {%- endif -%}
         {%- if mentee_names contains author_full_name -%}
           <sup class="bib-mentee" title="Student mentee" aria-hidden="true">†</sup><span class="sr-only"> (student mentee)</span>
@@ -180,23 +186,13 @@
           {{- more_authors_label -}}
         </button>
       {%- endif -%}
-      {% if entry.annotation %}
-        <i
-          class="fa-solid fa-circle-info ml-1"
-          data-toggle="popover"
-          data-placement="top"
-          data-html="true"
-          data-content="{{ entry.annotation | escape }}"
-        >
-        </i>
-      {% endif %}
     </div>
 
-    <!-- Venue, volume(issue), pages, date -->
+    <!-- Venue, volume(issue), pages, date. Talks (@misc) give their event in howpublished. -->
     {%- assign proceedings = 'inproceedings,incollection' | split: ',' -%}
     {%- assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' -%}
     {%- assign entry_pages = entry.pages | default: '' | replace: '--', '–' | replace: '-', '–' -%}
-    {%- capture periodical -%}
+    {%- capture periodical_venue -%}
       {%- if entry.type == 'article' -%}
         <em>{{ entry.journal }}</em>
         {%- if entry.volume %} {{ entry.volume }}{% if entry.number %}({{ entry.number }}){% endif %}{% endif -%}
@@ -207,11 +203,20 @@
         {%- if entry_pages != '' %}, pp. {{ entry_pages }}{% endif -%}
       {%- elsif thesis contains entry.type -%}
         <em>{{ entry.school }}</em>
+      {%- elsif entry.type == 'misc' and entry.howpublished -%}
+        <em>{{ entry.howpublished }}</em>
+        {%- if entry.address %}, {{ entry.address }}{% endif -%}
       {%- endif -%}
       {%- if entry.location %}, {{ entry.location }}{% endif -%}
+    {%- endcapture -%}
+    {%- assign periodical_venue = periodical_venue | strip -%}
+    {%- capture periodical -%}
+      {{- periodical_venue -}}
       {%- if entry.year -%}
-        {%- if entry.type == 'article' or proceedings contains entry.type or thesis contains entry.type -%}, {% endif -%}
-        {%- if entry.month and proceedings contains entry.type -%}{{ entry.month | capitalize }} {% endif -%}
+        {%- if periodical_venue != '' %}, {% endif -%}
+        {%- if entry.month and entry.type != 'article' -%}
+          {{ entry.month | capitalize }}
+          {%- if entry.day %} {{ entry.day }},{% endif %} {% endif -%}
         {{ entry.year }}
       {%- endif -%}
     {%- endcapture -%}
@@ -235,6 +240,10 @@
     {% if entry.note and entry.note != '' %}
       <div class="periodical note">{{ entry.note | strip }}</div>
     {% endif %}
+    {% comment %} annotation: site-only commentary (e.g. an honor, or the session it was given in); filtered out of the BibTeX {% endcomment %}
+    {% if entry.annotation and entry.annotation != '' %}
+      <div class="periodical note">{{ entry.annotation | strip }}</div>
+    {% endif %}
     {% if honors != '' %}
       <div class="honors">{{ honors }}</div>
     {% endif %}
@@ -252,7 +261,14 @@
       {% if entry.doi %}
         <a href="https://doi.org/{{ entry.doi }}" class="btn btn-sm" aria-label="DOI {{ entry.doi }}" aria-describedby="{{ entry.key }}-title">DOI</a>
       {% elsif entry.html %}
-        <a href="{{ entry_url }}" class="btn btn-sm" aria-describedby="{{ entry.key }}-title">Link</a>
+        {%- if entry.html contains 'confex' -%}
+          {%- assign html_label = 'AGU abstract' -%}
+        {%- elsif entry.type == 'misc' -%}
+          {%- assign html_label = 'Event page' -%}
+        {%- else -%}
+          {%- assign html_label = 'Publisher page' -%}
+        {%- endif -%}
+        <a href="{{ entry_url }}" class="btn btn-sm" aria-describedby="{{ entry.key }}-title">{{ html_label }}</a>
       {% endif %}
       {% if entry.arxiv %}
         <a href="https://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm" aria-describedby="{{ entry.key }}-title">arXiv</a>
@@ -416,7 +432,7 @@
       <div class="bibtex hidden">
         {% highlight bibtex %}
         {{- entry.bibtex | hideCustomBibtex | regex_replace: '^[ \t]*(citations|show_all_authors)[ \t]*=[ \t]*\x7b[^\x7d\n]*\x7d,?[ \t]*\n', '' -}}
-        {% endhighlight %}
+      {% endhighlight %}
       </div>
     {% endif %}
 
