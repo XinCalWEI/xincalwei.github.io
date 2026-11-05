@@ -1,5 +1,6 @@
 ---
 layout: post
+published: false # stub post; publish when written
 title: Geospatial Foundation Models
 date: 2025-10-15
 description: Exploring foundation models for geospatial applications

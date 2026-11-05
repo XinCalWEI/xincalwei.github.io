@@ -40,7 +40,6 @@ layout_width: wide
         <button class="blog-search__clear" type="button" aria-label="Clear search" hidden>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
         </button>
-        <kbd aria-hidden="true">/</kbd>
       </div>
 
       <div class="blog-select">
@@ -94,6 +93,7 @@ layout_width: wide
         {% endfor %}
       </div>
     </div>
+
   </section>
 
   <div class="blog-results">

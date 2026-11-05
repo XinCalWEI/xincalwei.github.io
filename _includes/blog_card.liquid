@@ -3,6 +3,8 @@
   Params: post, featured (lead story), latest, solo, tail, priority (eager image).
   Hooks read by assets/js/blog-filter.js: .blog-card, data-cats, data-tags,
   data-search, data-tail, and the --featured / --tail / --solo modifiers.
+  A post without a thumbnail renders as a text card (.blog-card--text): no
+  media block and no placeholder plate.
 {% endcomment %}
 {% assign blog_post = include.post %}
 {% assign primary_category = blog_post.categories | first %}
@@ -35,7 +37,7 @@
 {% capture card_search %}{{ blog_post.title }} {{ blog_post.description }} {{ blog_post.categories | join: ' ' }} {{ blog_post.tags | join: ' ' }} {{ blog_post.card_status }}{% endcapture %}
 
 <a
-  class="blog-card{% if include.featured %} blog-card--featured{% endif %}{% if include.solo %} blog-card--solo{% endif %}{% if include.tail %} blog-card--tail{% endif %}{% if blog_post.card_status %} blog-card--pending{% endif %}"
+  class="blog-card{% if include.featured %} blog-card--featured{% endif %}{% if include.solo %} blog-card--solo{% endif %}{% if include.tail %} blog-card--tail{% endif %}{% if blog_post.card_status %} blog-card--pending{% endif %}{% unless blog_post.thumbnail %} blog-card--text{% endunless %}"
   href="{{ card_href }}"
   data-cats="{{ card_categories | strip }}"
   data-tags="{{ card_tags | strip }}"
@@ -47,18 +49,15 @@
     target="_blank" rel="noopener noreferrer"
   {% endif %}
 >
-  <div class="blog-card__media{% if blog_post.thumbnail_fit == 'contain' %} blog-card__media--contain{% elsif blog_post.thumbnail_fit == 'wide' %} blog-card__media--wide{% endif %}{% if blog_post.thumbnail_position == 'top' %} blog-card__media--top{% endif %}">
-    {% if blog_post.thumbnail %}
+  {% if blog_post.thumbnail %}
+    <div class="blog-card__media{% if blog_post.thumbnail_fit == 'contain' %} blog-card__media--contain{% elsif blog_post.thumbnail_fit == 'wide' %} blog-card__media--wide{% endif %}{% if blog_post.thumbnail_position == 'top' %} blog-card__media--top{% endif %}">
       {% if include.featured or include.priority %}
         {% include figure.liquid loading="eager" fetchpriority="high" path=blog_post.thumbnail sizes="(min-width: 1120px) 600px, (min-width: 768px) 55vw, 100vw" width="1600" height="900" alt="" %}
       {% else %}
         {% include figure.liquid loading="lazy" path=blog_post.thumbnail sizes="(min-width: 1120px) 540px, (min-width: 768px) 48vw, 100vw" width="1600" height="900" alt="" %}
       {% endif %}
-    {% else %}
-      {% comment %} No image yet: a plate of the contour motif, not a fake illustration {% endcomment %}
-      <span class="blog-card__ph" aria-hidden="true"><span class="contour-field"></span></span>
-    {% endif %}
-  </div>
+    </div>
+  {% endif %}
 
   <div class="blog-card__body">
     <p class="blog-card__topline">
@@ -82,8 +81,12 @@
 
     <p class="blog-card__meta">
       <time datetime="{{ blog_post.date | date_to_xmlschema }}">{{ blog_post.date | date: '%-d %b %Y' }}</time>
-      {%- unless blog_post.card_status %}<span aria-hidden="true"> · </span>{{ read_time }} min read{% endunless -%}
-      {%- if is_external %}<span class="sr-only"> (opens in a new tab)</span>{% endif -%}
+      {%- unless blog_post.card_status -%}
+        <span aria-hidden="true"> · </span>{{ read_time }} min read
+      {%- endunless -%}
+      {%- if is_external -%}
+        <span class="sr-only"> (opens in a new tab)</span>
+      {%- endif -%}
     </p>
   </div>
 </a>

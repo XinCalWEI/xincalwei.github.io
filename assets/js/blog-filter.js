@@ -213,22 +213,13 @@
     });
   });
 
-  document.addEventListener("keydown", (event) => {
-    const target = event.target;
-    const isEditable = target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName));
-
-    if (event.key === "/" && !isEditable && !event.metaKey && !event.ctrlKey && !event.altKey) {
+  // Escape clears the query and keeps focus in the field. There is no global
+  // single-key shortcut (WCAG 2.1.4); site search already has Ctrl/Cmd+K.
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && state.q) {
       event.preventDefault();
-      searchInput.focus();
-    }
-
-    if (event.key === "Escape" && document.activeElement === searchInput) {
-      if (state.q) {
-        state.q = "";
-        render({ historyMode: "replace" });
-      } else {
-        searchInput.blur();
-      }
+      state.q = "";
+      render({ historyMode: "replace" });
     }
   });
 
