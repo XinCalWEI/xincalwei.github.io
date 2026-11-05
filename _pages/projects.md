@@ -78,8 +78,6 @@ thrusts:
           - text: Visit terramosaic.org
             url: https://www.terramosaic.org/
             external: true
-          - text: About the platform
-            url: /blog/2025/landslide-platform/
       - label: Convening · AGU Fall Meeting
         title: "Toward Reliable and Scalable Geohazard Intelligence: From Multiscale Sensing to Open Data Foundations"
         text: >-
@@ -89,8 +87,9 @@ thrusts:
         links:
           - text: AGU25 session recap
             url: /news/agu25_meeting/
-          - text: AGU26 call for abstracts
-            url: /blog/2026/agu26-nh052-call-for-abstracts/
+          - text: AGU26 session NH23F (primary convener)
+            url: https://agu.confex.com/agu/agu26/prelim.cgi/Session/282060
+            external: true
       - label: Community initiative · Schmidt Sciences
         title: SPARK Forum
         text: >-
@@ -143,7 +142,10 @@ thrusts:
             {%- elsif thrust.index == '' -%}
               {{ thrust_projects | size }} collaborative studies
             {%- else -%}
-              {{ thrust_projects | size }} project{% if thrust_projects.size != 1 %}s{% endif %}
+              {%- assign thrust_pending = thrust_projects | where_exp: 'p', 'p.status' -%}
+              {%- assign thrust_done = thrust_projects.size | minus: thrust_pending.size -%}
+              {{ thrust_done }} project{% if thrust_done != 1 %}s{% endif %}
+              {%- if thrust_pending.size > 0 %} · {{ thrust_pending.size }} in development{% endif -%}
             {%- endif -%}
           </span>
         </a>
@@ -153,7 +155,7 @@ thrusts:
 </nav>
 
 {%- for thrust in page.thrusts -%}
-  {%- assign thrust_projects = research_projects | where: 'thrust', thrust.id -%}
+{%- assign thrust_projects = research_projects | where: 'thrust', thrust.id -%}
   <section class="thrust thrust--{{ thrust.id }}{% if thrust.index == '' %} thrust--support{% endif %}" id="{{ thrust.id }}" aria-labelledby="{{ thrust.id }}-title">
     <header class="thrust__head">
       {%- if thrust.index != '' -%}
@@ -206,6 +208,7 @@ thrusts:
         </ul>
       </div>
     {%- endif -%}
+
   </section>
 {%- endfor -%}
 

@@ -18,7 +18,7 @@ schematic: genai-impacts
 
 <div class="prose" markdown="1">
 
-_A preliminary version of this work was selected for an oral presentation at **AGU Fall Meeting 2025 (AGU25)** and was featured as a **Highlighted Talk** ([link](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874))._
+_A preliminary version of this work was selected for an [oral presentation at **AGU Fall Meeting 2025 (AGU25)**](https://agu.confex.com/agu/agu25/meetingapp.cgi/Paper/1938874) and was featured as a **Highlighted Talk**._
 
 While landslides are pervasive across the U.S., their specific social, economic, and ecological impacts remain underappreciated due to their localized and episodic nature, co-occurrence with other hazards, and variability across broad regions. Efforts to systematically quantify landslide impacts have often been limited to localized case studies, carried out by numerous agencies with differing standards, and constrained to limited time frames due to labor-intensive data collection.
 

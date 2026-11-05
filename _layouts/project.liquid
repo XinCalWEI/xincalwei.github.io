@@ -11,7 +11,7 @@ layout: default
 {% endcomment %}
 {%- assign research_page = site.pages | where: 'permalink', '/projects/' | first -%}
 {%- assign research_url = '/projects/' | relative_url -%}
-{%- assign thrust = nil -%}
+{%- assign thrust = null -%}
 {%- if research_page and page.thrust -%}
   {%- assign thrust = research_page.thrusts | where: 'id', page.thrust | first -%}
 {%- endif -%}
@@ -21,8 +21,8 @@ layout: default
 {%- for p in sorted_projects -%}
   {%- unless p.status -%}{%- assign pager_projects = pager_projects | push: p -%}{%- endunless -%}
 {%- endfor -%}
-{%- assign prev_project = nil -%}
-{%- assign next_project = nil -%}
+{%- assign prev_project = null -%}
+{%- assign next_project = null -%}
 {%- for p in pager_projects -%}
   {%- if p.url == page.url -%}
     {%- assign prev_index = forloop.index0 | minus: 1 -%}
@@ -38,7 +38,9 @@ layout: default
       <a href="{{ research_url }}{% if thrust %}#{{ thrust.id }}{% endif %}">Research</a>
       {%- if thrust %}
         <span class="project-page__sep" aria-hidden="true">/</span>
-        {% if thrust.index != '' %}<span class="kicker__index">{{ thrust.index }}</span> {% endif -%}
+        {% if thrust.index != '' -%}
+          <span class="kicker__index">{{ thrust.index }}</span>
+        {% endif -%}
         <span>{{ thrust.title }}</span>
       {%- endif -%}
     </p>
@@ -47,7 +49,9 @@ layout: default
       <p class="post-description">{{ page.description }}</p>
     {% endif %}
     {% if page.status %}
-      <p class="project-page__status"><span class="tag tag--earth">{{ page.status }}</span></p>
+      <p class="project-page__status">
+        <span class="tag tag--earth">{{ page.status }}</span>
+      </p>
     {% endif %}
   </header>
 
@@ -58,7 +62,7 @@ layout: default
   {% if page.related_publications %}
     <h2>References</h2>
     <div class="publications">
-      {% bibliography --cited_in_order %}
+      {% bibliography --group_by none --cited_in_order %}
     </div>
     <script src="{{ '/assets/js/abstract-modal.js' | relative_url | bust_file_cache }}" defer></script>
   {% endif %}
