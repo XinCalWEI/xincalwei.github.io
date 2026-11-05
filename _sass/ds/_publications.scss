@@ -439,7 +439,7 @@ html[data-theme="dark"] .publications .bibtex .highlight .nc {
 .pub-summary {
   display: grid;
   gap: var(--space-4) var(--space-6);
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-5);
 }
 
 .pub-stats {
@@ -580,7 +580,7 @@ html:not(.js) .pub-tools {
   align-items: center;
   gap: var(--space-3) var(--space-5);
   max-width: none;
-  margin: 0 0 var(--space-7);
+  margin: 0 0 var(--space-6);
 }
 
 .pub-tools__search {
@@ -623,6 +623,12 @@ html:not(.js) .pub-tools {
   color: var(--xw-on-ink);
   background: var(--xw-ink);
   border-color: var(--xw-ink);
+}
+
+@media (pointer: coarse) {
+  .pub-chip {
+    min-height: 44px;
+  }
 }
 
 .pub-tools__status {

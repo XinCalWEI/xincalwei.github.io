@@ -124,6 +124,11 @@
   scroll-margin-top: calc(var(--nav-h) + 1rem);
 }
 
+/* the thrust index already separates the intro from the first thrust */
+.research-index + .thrust {
+  margin-top: var(--space-8);
+}
+
 .thrust__head {
   margin-bottom: var(--space-5);
 }
