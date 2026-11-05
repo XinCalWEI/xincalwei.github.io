@@ -39,6 +39,6 @@ nav_order: 3
 
   <p class="teach-also">
     Mentoring: <a href="{{ '/people/' | relative_url }}">undergraduate researchers I work with</a>.
-    Outreach: <a href="{{ '/outreach/' | relative_url }}">mentoring circles, K-12 hazard science and practitioner talks</a>.
+    Outreach: <a href="{{ '/outreach/' | relative_url }}">an undergraduate study group, K-12 hazard-science activities, and an invited practitioner seminar</a>.
   </p>
 </div>
