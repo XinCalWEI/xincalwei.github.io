@@ -865,6 +865,9 @@ body:has(.home) {
   margin-top: var(--section-gap);
   padding-block: clamp(3.5rem, 2.25rem + 4.5vw, 6.5rem);
   color: var(--xw-ink);
+  /* the same colour underneath: what contrast checkers and forced colours
+   * read (both ignore border images), painted on the same snapped box */
+  background-color: var(--home-band);
   border-image-source: linear-gradient(var(--home-band), var(--home-band));
   border-image-slice: 0 fill;
   border-image-outset: 0 100vmax;
