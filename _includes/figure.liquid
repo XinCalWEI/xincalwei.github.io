@@ -36,15 +36,17 @@
       {% if include.class %}
         class="{{ include.class }}"
       {% endif %}
-      {% if include.width %}
+      {% comment %}
+        width/height are only emitted when the caller passes real values (the
+        intrinsic pixel size, so the browser reserves the aspect ratio). Without
+        them the image fills its figure via CSS (ds/_base: figure picture > img).
+        "100%"/"auto" are not valid attribute values and are dropped.
+      {% endcomment %}
+      {% if include.width and include.width != '100%' and include.width != 'auto' %}
         width="{{ include.width }}"
-      {% else %}
-        width="100%"
       {% endif %}
-      {% if include.height %}
+      {% if include.height and include.height != 'auto' and include.height != '100%' %}
         height="{{ include.height }}"
-      {% else %}
-        height="auto"
       {% endif %}
       {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
         style="
@@ -62,9 +64,7 @@
           {% endif %}
         "
       {% endif %}
-      {% if include.alt %}
-        alt="{{ include.alt }}"
-      {% endif %}
+      alt="{{ include.alt | default: '' }}"
       {% if include.title %}
         title="{{ include.title }}"
       {% endif %}

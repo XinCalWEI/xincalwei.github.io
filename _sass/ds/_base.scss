@@ -110,6 +110,13 @@ img {
   height: auto;
 }
 
+/* figure.liquid images called without width/height fill their figure (the
+ * include used to write the invalid width="100%" attribute for this). Images
+ * with real intrinsic sizes keep them, capped by max-width above. */
+figure > picture > img:not([width]) {
+  width: 100%;
+}
+
 /* inline SVG icon set (_includes/icon.liquid) */
 .icon {
   display: inline-block;
