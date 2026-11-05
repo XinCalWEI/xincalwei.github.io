@@ -120,7 +120,7 @@
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
-              <button id="search-toggle" title="Search" onclick="openSearchModal()">
+              <button id="search-toggle" title="Search" aria-label="Search (ctrl k)" onclick="openSearchModal()">
                 {% comment %}
                   Tabler icons inlined as SVG (official 3.20.0 paths); the viewBox maps
                   the 24-unit grid onto the icon font's 1em glyph box. See .ti in _base.scss.
@@ -147,7 +147,7 @@
           {% if site.enable_darkmode %}
             <!-- Toogle theme mode -->
             <li class="toggle-container">
-              <button id="light-toggle" title="Change theme">
+              <button id="light-toggle" title="Change theme" aria-label="Change theme">
                 <i class="ti ti-sun-moon" id="light-toggle-system">
                   <svg
                     viewBox="-0.2424 -0.2424 24.2424 24.2424"

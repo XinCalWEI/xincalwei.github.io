@@ -1178,7 +1178,9 @@ html[data-theme="dark"] .about .cardlist {
 .about .slider {
   position: relative;
   display: flex;
-  justify-content: center;
+  /* flex-start, not center: a centred track overhangs both edges, so near the
+   * end of each -50% loop its right edge comes into view (a blank gap). */
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   padding: 10px 0;
@@ -1199,6 +1201,8 @@ html[data-theme="dark"] .about .cardlist {
 .about .slider__track {
   display: flex;
   gap: 56px;
+  /* trailing gap after the duplicate pass, so -50% is exactly one pass + gap */
+  padding-right: 56px;
   align-items: center;
   animation: aboutSlideLeft 45s linear infinite;
   /* the animated transform creates a stacking context on the track, so the
@@ -1276,6 +1280,7 @@ html[data-theme="dark"] .about .slider__track img {
 
 .about .slider__track--photos {
   gap: 18px;
+  padding-right: 18px;
   animation-duration: 80s;
   /* photos need no blend backdrop */
   background: transparent;

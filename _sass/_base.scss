@@ -406,6 +406,37 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Skip link (_layouts/default.liquid): visually hidden until focused.
+.skip-link:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1100;
+  padding: 0.5rem 1rem;
+  color: var(--global-theme-color);
+  background-color: var(--global-bg-color);
+  border: 2px solid var(--global-theme-color);
+  border-radius: 4px;
+}
+
+// Keyboard focus ring for the mobile menu button (keyboard focus only).
+.navbar-toggler:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
+}
+
 // Navbar icons: inline Tabler SVGs in place of the Tabler icon font. The viewBox
 // maps Tabler's 24-unit grid onto the font's 1em glyph box (ascent 0.9em,
 // descent 0.1em), so each icon sits where its glyph did. The 1/64px right
@@ -614,9 +645,21 @@ footer.sticky-bottom {
 }
 
 .post-title {
+  // long unbroken titles ("Publications/Presentations") wrap instead of
+  // overflowing narrow screens; no effect where the title fits
+  overflow-wrap: break-word;
+
   mjx-container[jax="CHTML"][display="true"] {
     display: unset;
   }
+}
+
+// Book reviews (_layouts/book-review.liquid): from 600px up the cover floats
+// right of the review; contain it so it cannot hang over the footer.
+.post article:has(> .mobile-break)::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .post-list {
