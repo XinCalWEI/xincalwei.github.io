@@ -5,6 +5,7 @@ title: Community Outreach
 nav_title: Outreach
 kicker: Service & outreach
 description: Community engagement and public science outreach activities.
+layout_width: wide
 nav: false # reached through the "More" menu and the footer
 nav_order: 5
 ---
@@ -24,7 +25,7 @@ The primary goal of the study group is to increase communication channels betwee
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/outreach/journey_through_cee.jpg" width="4032" height="3024" class="img-fluid rounded z-depth-1" alt="Group photo at a Journey Through CEE mentorship gathering" zoomable=true %}
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/journey_through_cee.jpg" width="4032" height="3024" sizes="(min-width: 800px) 736px, 95vw" class="img-fluid rounded z-depth-1" alt="Group photo at a Journey Through CEE mentorship gathering" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -47,11 +48,11 @@ The primary goal of the study group is to increase communication channels betwee
 
 <p class="story__meta">25 April 2025 · TPC River Highlands, Cromwell, Connecticut</p>
 
-Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
+Invited by the CT Valley Geo-Institute Committee, I delivered an invited talk, "Advancing Regional Landslide Risk Assessment with Integrated AI-Physics Solutions," at the 2025 Spring Geotechnical Seminar in Connecticut to over 100 geotechnical engineering professionals, helping raise industry exposure to emerging methods and tools from academia.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/spring_geotech_seminar_2025.jpeg" width="4032" height="3024" class="img-fluid rounded z-depth-1" alt="Certificate presentation at the 2025 Spring Geotechnical Seminar" zoomable=true %}
+        {% include figure.liquid loading="lazy" path="assets/img/spring_geotech_seminar_2025.jpeg" width="4032" height="3024" sizes="(min-width: 800px) 736px, 95vw" class="img-fluid rounded z-depth-1" alt="Certificate presentation at the 2025 Spring Geotechnical Seminar" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -73,34 +74,38 @@ I contributed to designing activities such as VR-based fire escape training and 
 
 <div class="row media-row mt-3">
     <div class="col-sm" style="--ar: 1.778">
-        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_1.jpg" width="1920" height="1080" class="img-fluid rounded z-depth-1" alt="Students watching a tabletop wave-dissipating seawall demonstration" zoomable=true %}
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_1.jpg" sizes="(min-width: 576px) 300px, 95vw" width="1920" height="1080" class="img-fluid rounded z-depth-1" alt="Students watching a tabletop wave-dissipating seawall demonstration" zoomable=true %}
     </div>
     <div class="col-sm" style="--ar: 1.333">
-        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_2.jpg" width="1440" height="1080" class="img-fluid rounded z-depth-1" alt="Outreach volunteers explaining coastal hazard demonstrations to students" zoomable=true %}
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_2.jpg" sizes="(min-width: 576px) 300px, 95vw" width="1440" height="1080" class="img-fluid rounded z-depth-1" alt="Outreach volunteers explaining coastal hazard demonstrations to students" zoomable=true %}
     </div>
     <div class="col-sm" style="--ar: 1.333">
-        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_3.jpg" width="3968" height="2976" class="img-fluid rounded z-depth-1" alt="Students taking part in a supervised VR fire escape activity" zoomable=true %}
+        {% include figure.liquid loading="lazy" path="assets/img/outreach/sjtu_outreach_3.jpg" sizes="(min-width: 576px) 300px, 95vw" width="3968" height="2976" class="img-fluid rounded z-depth-1" alt="Students taking part in a supervised VR fire escape activity" zoomable=true %}
     </div>
 </div>
 <div class="caption">
     Elementary school students engaging with VR fire escape training and wave-dissipating seawall demonstrations at the Urban Hazards and Risk Management event, Tongji University, 2019.
 </div>
 
+{% comment %} Video posters: the 800w WebP that jekyll-imagemagick generates (about 34 KB against 84 KB for the 1920px JPEG); the JPEG when WebP generation is off (local dev). {% endcomment %}
+{% assign video_poster_base = 'assets/img/outreach/sjtu_video_' %}
+{% if site.imagemagick.enabled %}{% assign video_poster_ext = '_poster-800.webp' %}{% else %}{% assign video_poster_ext = '_poster.jpg' %}{% endif %}
+
 <div class="row media-row mt-4">
     <div class="col-sm">
-        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_1_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 1" class="img-fluid rounded z-depth-1">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ video_poster_base | append: '1' | append: video_poster_ext | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 1" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_1.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="col-sm">
-        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_2_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 2" class="img-fluid rounded z-depth-1">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ video_poster_base | append: '2' | append: video_poster_ext | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 2" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_2.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     <div class="col-sm">
-        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ 'assets/img/outreach/sjtu_video_3_poster.jpg' | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 3" class="img-fluid rounded z-depth-1">
+        <video controls playsinline preload="none" width="1920" height="1080" poster="{{ video_poster_base | append: '3' | append: video_poster_ext | relative_url }}" aria-label="Urban Hazards and Risk Management outreach demonstration 3" class="img-fluid rounded z-depth-1">
             <source src="{{ 'assets/img/outreach/sjtu_video_3.mp4' | relative_url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>

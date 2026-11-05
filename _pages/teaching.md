@@ -4,6 +4,7 @@ permalink: /teaching/
 title: Teaching
 kicker: Teaching & mentoring
 description: I have served as a guest lecturer, teaching assistant, and faculty member for the following courses.
+layout_width: wide
 nav: true
 nav_order: 3
 ---

@@ -16,6 +16,8 @@ layout_width: wide
   {% if collection and collection.size > 0 %}
     {% assign section_order = 'Citations,Read,Recommended Textbooks' | split: ',' %}
     {% assign section_titles = 'Citations,Books I Love,Recommended Textbooks and Academic Monographs' | split: ',' %}
+    {% comment %} the first four covers on the page are in the first screen: load them eagerly {% endcomment %}
+    {% assign shelf_book_index = 0 %}
     <div class="tm-shelf">
       {% for section_index in (0..2) %}
         {% assign section_status = section_order[section_index] %}
@@ -25,11 +27,18 @@ layout_width: wide
           <section class="shelf" aria-labelledby="{{ section_status | slugify }}">
             <div class="shelf__head">
               <h2 class="shelf__title" id="{{ section_status | slugify }}">{{ section_title }}</h2>
-              <span class="shelf__count">{{ section_books.size }} book{% if section_books.size != 1 %}s{% endif %}</span>
+              <span class="shelf__count">
+                {{- section_books.size }} book{% if section_books.size != 1 %}s{% endif -%}
+              </span>
             </div>
             <ul class="shelf__grid">
               {% for item in section_books reversed %}
-                {% include books/shelf_item.liquid book=item %}
+                {% assign shelf_book_index = shelf_book_index | plus: 1 %}
+                {% if shelf_book_index <= 4 %}
+                  {% include books/shelf_item.liquid book=item eager=true %}
+                {% else %}
+                  {% include books/shelf_item.liquid book=item %}
+                {% endif %}
               {% endfor %}
             </ul>
           </section>

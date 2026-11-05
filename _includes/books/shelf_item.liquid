@@ -1,14 +1,37 @@
 {% comment %}
   One book on a shelf grid (Bookshelf page and book archives).
-  Params: book — a _books document.
+  Params: book — a _books document; eager — true for covers in the first
+  screen (default lazy).
   The cover is decorative (alt=""): the link text already names the book.
+  Local covers are served as the 480w WebP that jekyll-imagemagick generates
+  (the slot is about 140x208px), with the original JPEG as the fallback.
+  Spaces and commas in cover file names are percent-encoded for srcset.
 {% endcomment %}
 {% assign book = include.book %}
+{% if include.eager %}
+  {% assign cover_loading = 'eager' %}
+{% else %}
+  {% assign cover_loading = 'lazy' %}
+{% endif %}
 <li class="book">
   <a class="book__link" href="{{ book.url | relative_url }}">
     <span class="book__cover">
       {% if book.cover %}
-        <img src="{{ book.cover | relative_url }}" alt="" loading="lazy" decoding="async"{% if book.cover_width %} width="{{ book.cover_width }}" height="{{ book.cover_height }}"{% endif %}>
+        <picture>
+          {% if site.imagemagick.enabled %}
+            {% assign cover_base = book.cover | remove: '.jpg' | remove: '.jpeg' | remove: '.png' %}
+            <source type="image/webp" srcset="{{ cover_base | append: '-480.webp' | relative_url | replace: ' ', '%20' | replace: ',', '%2C' }}">
+          {% endif %}
+          <img
+            src="{{ book.cover | relative_url }}"
+            alt=""
+            loading="{{ cover_loading }}"
+            decoding="async"
+            {% if book.cover_width %}
+              width="{{ book.cover_width }}" height="{{ book.cover_height }}"
+            {% endif %}
+          >
+        </picture>
       {% elsif book.olid %}
         <img src="https://covers.openlibrary.org/b/olid/{{ book.olid }}-L.jpg?default=false" alt="" loading="lazy" decoding="async">
       {% elsif book.isbn %}

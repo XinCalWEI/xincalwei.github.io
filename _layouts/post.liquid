@@ -25,12 +25,14 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post post-article">
+<div class="post post-article{% if is_blog %} post-article--blog{% endif %}">
   <header class="post-header article-head">
     <p class="kicker">
       {% if is_news %}
         <a href="{{ '/news/' | relative_url }}">News</a>
-        {%- if page.category %}<span aria-hidden="true">·</span><span>{{ page.category }}</span>{% endif %}
+        {%- if page.category -%}
+          <span aria-hidden="true">·</span><span>{{ page.category }}</span>
+        {%- endif %}
       {% elsif is_blog %}
         <a href="{{ '/blog/' | relative_url }}">Blog</a>
         {%- for category in page.categories -%}
@@ -38,7 +40,8 @@ layout: default
           {%- for taxonomy_category in site.data.blog_taxonomy.categories -%}
             {%- if taxonomy_category.key == category %}{% assign category_label = taxonomy_category.label %}{% endif -%}
           {%- endfor -%}
-          <span aria-hidden="true">·</span><a href="{{ category | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}">{{ category_label }}</a>
+          <span aria-hidden="true">·</span
+          ><a href="{{ category | slugify | prepend: '/blog/category/' | append: '/' | relative_url }}">{{ category_label }}</a>
         {%- endfor -%}
       {% else %}
         {{ page.kicker | default: 'Article' }}
@@ -56,10 +59,19 @@ layout: default
     {% endif %}
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time>
-      {%- if page.last_updated %}<span aria-hidden="true"> · </span>Updated <time datetime="{{ page.last_updated | date_to_xmlschema }}">{{ page.last_updated | date: '%-d %B %Y' }}</time>{% endif -%}
-      {%- if is_blog %}<span aria-hidden="true"> · </span>{{ read_time }} min read{% endif -%}
-      {%- if page.author %}<span aria-hidden="true"> · </span>{{ page.author }}{% endif -%}
-      {%- if page.meta %}<span aria-hidden="true"> · </span>{{ page.meta }}{% endif -%}
+      {%- if page.last_updated -%}
+        <span aria-hidden="true"> · </span>Updated
+        <time datetime="{{ page.last_updated | date_to_xmlschema }}">{{ page.last_updated | date: '%-d %B %Y' }}</time>
+      {%- endif -%}
+      {%- if is_blog -%}
+        <span aria-hidden="true"> · </span>{{ read_time }} min read
+      {%- endif -%}
+      {%- if page.author -%}
+        <span aria-hidden="true"> · </span>{{ page.author -}}
+      {%- endif -%}
+      {%- if page.meta -%}
+        <span aria-hidden="true"> · </span>{{ page.meta -}}
+      {%- endif -%}
     </p>
     {% if is_blog %}
       <ul class="article-tags" aria-label="Archives">
@@ -68,7 +80,9 @@ layout: default
         </li>
         {% for tag in page.tags %}
           <li>
-            <a class="tag" href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}"><span class="sr-only">Tag: </span>{{ tag }}</a>
+            <a class="tag" href="{{ tag | slugify | prepend: '/blog/tag/' | append: '/' | relative_url }}"
+              ><span class="sr-only">Tag: </span>{{ tag -}}
+            </a>
           </li>
         {% endfor %}
       </ul>

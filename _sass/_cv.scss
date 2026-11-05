@@ -132,12 +132,13 @@
   border-bottom: 1px solid var(--xw-rule-strong);
 }
 
+/* the site's one section-heading size (--step-h2), as on News and Publications */
 .cv-doc .cv-section__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 1.25rem + 0.5vw, 1.65rem);
+  font-size: var(--step-h2);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.15;
   letter-spacing: var(--tracking-display);
   color: var(--xw-ink);
 }
@@ -475,6 +476,10 @@
   .cv-doc .cv-section__head {
     break-after: avoid;
     padding-bottom: 0.3rem;
+  }
+
+  .cv-doc .cv-section__title {
+    font-size: 1.5rem;
   }
 
   .cv-doc .cv-row {
