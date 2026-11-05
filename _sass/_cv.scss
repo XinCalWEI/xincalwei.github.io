@@ -196,12 +196,15 @@
   color: var(--xw-ink);
 }
 
-.cv-doc .cv-row__where,
-.cv-doc .cv-row__loc {
+.cv-doc .cv-row__where {
   margin: 0.15rem 0 0;
   font-size: 0.9375rem;
   line-height: 1.5;
   color: var(--xw-ink-2);
+}
+
+.cv-doc .cv-row__loc {
+  color: var(--xw-ink-3);
 }
 
 .cv-doc .cv-row__text {
@@ -249,9 +252,7 @@
   margin: 0.5rem 0 0;
 }
 
-.cv-doc .cv-row a:not([class]),
-.cv-doc .cv-card a:not([class]),
-.cv-doc .cv-contact a {
+.cv-doc a:not([class]) {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;

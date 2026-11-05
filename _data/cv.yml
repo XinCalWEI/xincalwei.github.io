@@ -23,6 +23,8 @@
       value: +1 (217) 560-4967
     - name: Address
       value: 3520 Green Court, Ann Arbor, MI 48105
+    - name: Website
+      value: <a href="https://xincalwei.github.io">xincalwei.github.io</a>
     - name: Languages
       value: Mandarin (Native speaker), English (Fluent), French (Basic proficiency)
 
@@ -40,26 +42,33 @@
   contents:
     - title: Eric and Wendy Schmidt AI in Science Postdoctoral Research Fellow
       institution: University of Michigan
+      location: Ann Arbor, MI, USA
       year: 2024 - present
       description:
         - "Science Mentors: Prof. Sabine Loos, Prof. F. Estéfan T. Garcia"
         - "AI Mentor: Prof. Elizabeth Bondi-Kelly"
+      linkitems:
+        - link: https://midas.umich.edu/directory/xin-wei/
+          linkname: MIDAS profile
 
 - title: Education
   type: time_table
   contents:
     - title: Visiting Ph.D. Student in Structural Engineering
       institution: University of Illinois Urbana-Champaign
+      location: Urbana-Champaign, IL, USA
       year: 2021 - 2024
       description:
         - Advisor Prof. Paolo Gardoni
     - title: Ph.D. in Geotechnical Engineering
       institution: Shanghai Jiao Tong University
+      location: Shanghai, China
       year: 2017 - 2024
       description:
         - Advisor Prof. Lulu Zhang
     - title: B.S. in Civil Engineering
       institution: Southwest Petroleum University
+      location: Chengdu, China
       year: 2013 - 2017
       description:
         - GPA ranking 1/186 (every semester)
@@ -96,7 +105,7 @@
   contents:
     - year: 2024
       items:
-        - CEE Community Engagement and Empowerment (CEE²) Fellow, University of Michigan
+        - <a href="https://cee.engin.umich.edu/2024/12/16/building-bridges-advancing-community-at-u-m-civil-environmental-engineering/">CEE Community Engagement and Empowerment (CEE²) Fellow</a>, University of Michigan
     - year: 2021
       items:
         - Huangjinzhi Civil Engineering Scholarship, Shanghai Jiao Tong University
@@ -132,10 +141,10 @@
   contents:
     - year: 2024 - present
       items:
-        - Early Career Member, Future of Machine Learning in Geotechnics Council
+        - Early Career Member, <a href="https://www.fomlig.com/">Future of Machine Learning in Geotechnics Council</a>
     - year: 2024 - present
       items:
-        - Member, American Geophysical Union (AGU)
+        - Member, <a href="https://www.agu.org/">American Geophysical Union (AGU)</a>
 
 - title: Teaching
   type: teaching
@@ -161,11 +170,26 @@
   contents:
     - name: Prof. Paolo Gardoni
       value: "Alfredo H. Ang Family Professor<br>Department of Civil and Environmental Engineering<br>University of Illinois at Urbana-Champaign<br>Phone: 217-333-5103<br>Email: gardoni@illinois.edu<br><i>Visiting Scholar Advisor</i>"
+      links:
+        - name: Faculty profile
+          link: "https://cee.illinois.edu/directory/profile/gardoni"
     - name: Prof. Lulu Zhang
       value: "Distinguished Professor<br>State Key Laboratory of Ocean Engineering<br>Department of Civil Engineering<br>Shanghai Jiao Tong University<br>Phone: 86-21-34204833<br>Email: lulu_zhang@sjtu.edu.cn<br><i>Ph.D. Advisor</i>"
+      links:
+        - name: Google Scholar profile
+          link: "https://scholar.google.com/citations?user=8q4_VTEAAAAJ&hl=en"
     - name: Prof. Sabine Loos
       value: "Department of Civil and Environmental Engineering<br>University of Michigan<br>Email: sloos@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"
+      links:
+        - name: Faculty profile
+          link: "https://cee.engin.umich.edu/people/loos-sabine/"
     - name: Prof. Elizabeth Bondi-Kelly
       value: "Department of Electrical Engineering and Computer Science<br>University of Michigan<br>Phone: 734-764-3381<br>Email: ecbk@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"
+      links:
+        - name: Faculty profile
+          link: "https://eecs.engin.umich.edu/people/bondi-kelly-elizabeth/"
     - name: Prof. F. Estéfan T. Garcia
       value: "Department of Civil and Environmental Engineering<br>University of Michigan<br>Phone: 734-764-0057<br>Email: fegarcia@umich.edu<br><i>Collaborating Mentor (Postdoctoral Research)</i>"
+      links:
+        - name: Faculty profile
+          link: "https://cee.engin.umich.edu/people/garcia-f-estefan-t/"
